@@ -1,8 +1,8 @@
-from inspect import _void
 import json
 import requests
 import pandas as pd
 import ast
+import os
 from unidecode import unidecode
 
 def getData() -> list:
@@ -62,17 +62,32 @@ def getDescriptions(descriptions_raw: str, labels_raw: str) -> list:
 def normalize(text: str) -> str:
     return unidecode(text).replace('\"', "'")
 
-def run() -> _void:
+def analyse_data(file_name):
 
-    raw_data = getData()
-    with open("raw_data.json", "w") as file:
-        file.write(json.dumps(raw_data, indent=2))
-        file.close()
+    df = pd.read_json(file_name)
 
-    processed_data = processData(raw_data)
-    with open("processed_data.json", "w") as file:
-        file.write(json.dumps(processed_data, indent=2))
-        file.close()
+    df['word_count'] = df['data'].apply(lambda x: len(x[0]['description'].split()))
+    print("\nMédia do número de palavras nas descrições:", round(df['word_count'].mean(), 1))
+
+    print("\nNúmero de entidades:", df.shape[0])
+
+def run():
+
+    file_name = "processed_data.json"
+
+    if not os.path.exists(file_name):
+       
+        raw_data = getData()
+        with open("raw_data.json", "w") as file:
+            file.write(json.dumps(raw_data, indent=2))
+            file.close()
+
+        processed_data = processData(raw_data)
+        with open(file_name, "w") as file:
+            file.write(json.dumps(processed_data, indent=2))
+            file.close()
+
+    analyse_data(file_name)
 
 if __name__ == "__main__":
     run()
