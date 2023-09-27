@@ -1,21 +1,20 @@
 import json
-from tokenize import Double
-import requests
 import pandas as pd
-import ast
-import os
+import numpy as np
 
 def writeToFile(filename: str, data: json):
     with open(filename, 'w') as file:
         file.write(json.dumps(data.to_dict(orient='records'), indent=2))
         file.close()
 
-def printStats(dataset_index: int, processed_data: json):
-    count = processed_data.groupby('name')['review_rate'].count()
-    count_df = count.reset_index()
-    count_df = count_df.rename(columns={'review_rate': 'qtd_reviews', 'name': 'hotel_name'})
+def printStats(dataset_index: int, processed_data: json, save: bool):
 
-    writeToFile(f'../data/stats/hotel_reviews_{dataset_index}.json', count_df)
+    if save:
+        count = processed_data.groupby('name')['review_rate'].count()
+        count_df = count.reset_index()
+        count_df = count_df.rename(columns={'review_rate': 'qtd_reviews', 'name': 'hotel_name'})
+        writeToFile(f'../data/stats/hotel_reviews_{dataset_index}.json', count_df)
+
     print("{} - {} reviews - {} unique hotels".format(dataset_index, len(processed_data), processed_data['name'].nunique()))
 
 def combine_reviews(row):
@@ -48,25 +47,34 @@ def getData(dataset_index: int, attributes: dict):
 
     # Save progress
     writeToFile(f'../data/processed/hotel_reviews_{dataset_index}.json', data_frame)
-    printStats(dataset_index, data_frame)
+    printStats(dataset_index, data_frame, False)
 
-def dealWithNullData(index, df):
-    df = df.replace(' Null', None)
-    # df = df.replace('Null', null)
-    df = df.dropna()
+def dealWithNullData(data_frame):
+    for column in data_frame.columns:
+        data_frame = data_frame[data_frame[column] != None]
+        data_frame = data_frame[data_frame[column].notna()]
+        data_frame = data_frame[data_frame[column] != "null"]
+        data_frame = data_frame[data_frame[column] != np.nan]
+    return data_frame
 
-    # TODO: index 4 - remove strings "No Negative" and "No positive"
-    return df
+def words(text: str):
+    return len(text.split(' '))
 
-def normalization(index):
+def normalization(index: int, n_words: int):
 
     file_path = f'../data/processed/hotel_reviews_{index}.json'
     data_frame = pd.read_json(file_path)
 
-    # Strings strip
-    data_frame = data_frame.map(lambda x: x.strip() if isinstance(x, str) else x)
+    # Remove empty and null entries
+    data_frame = dealWithNullData(data_frame)
 
-    # Rate normalization [0..5]
+    # Remove reviews with less than @words
+    data_frame = data_frame[data_frame['review_text'].apply(words) >= n_words]
+
+    # Strings strip
+    data_frame = data_frame.map(lambda column: column.strip() if isinstance(column, str) else column)
+
+    # Rate normalization [0.0 .. 5.0]
     if index in [2, 4]:
         data_frame['review_rate'] = round(data_frame['review_rate'] / 2, 1)
     data_frame['review_rate'] = data_frame['review_rate'].apply(float)
@@ -74,7 +82,9 @@ def normalization(index):
     # Date normalization
     # TODO
 
+    # Save progress
     writeToFile(file_path, data_frame)
+    printStats(index, data_frame, True)
 
 def run():
 
@@ -86,7 +96,10 @@ def run():
 
     # Normalization
     for i in range(1, 5):
-        normalization(i)
+        normalization(i, 100)
+
+    # Get samples & merge
+    # TODO
 
 if __name__ == "__main__":
     run()
