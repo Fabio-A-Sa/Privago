@@ -13,7 +13,7 @@ def writeToFile(filename: str, data: json):
 def printStats(dataset_index: int, processed_data: json):
     count = processed_data.groupby('name')['review_rate'].count()
     count_df = count.reset_index()
-    count_df = count_df.rename(columns={'reviews': 'qtd'})
+    count_df = count_df.rename(columns={'review_rate': 'qtd_reviews', 'name': 'hotel_name'})
 
     writeToFile(f'../data/stats/hotel_reviews_{dataset_index}.json', count_df)
     print("{} - {} reviews - {} unique hotels".format(dataset_index, len(processed_data), processed_data['name'].nunique()))
@@ -32,19 +32,21 @@ def getData(dataset_index: int, attributes: dict):
 
     data_frame = pd.read_csv(f'../data/raw/hotel_reviews_{dataset_index}.csv', encoding='latin1')
 
+    # Set location column
     if dataset_index == 3:
         data_frame['location'] = 'London'
 
+    # Drop unnecessary columns
     data_frame = data_frame[attributes.keys()].rename(columns=attributes)
 
+    # Combining positive and negative reviews
     if dataset_index == 4:
-
         for flavor in ["negative", "positive"]:
             data_frame[f'{flavor}_review'] = data_frame[f'{flavor}_review'].apply(lambda text: '' if text.lower() == f'no {flavor}' else text).str.strip()
-        
         data_frame['review_text'] = data_frame.apply(combine_reviews, axis=1)
         data_frame.drop(['positive_review', 'negative_review'], axis=1, inplace=True)
 
+    # Save progress
     writeToFile(f'../data/processed/hotel_reviews_{dataset_index}.json', data_frame)
     printStats(dataset_index, data_frame)
 
@@ -59,19 +61,20 @@ def dealWithNullData(index, df):
 def normalization(index):
 
     file_path = f'../data/processed/hotel_reviews_{index}.json'
-    df = pd.read_json(file_path)
+    data_frame = pd.read_json(file_path)
 
-    # Rate normalization
+    # Strings strip
+    data_frame = data_frame.map(lambda x: x.strip() if isinstance(x, str) else x)
+
+    # Rate normalization [0..5]
     if index in [2, 4]:
-        df['review_rate'] = round(df['review_rate'] / 2, 1)
-    df['review_rate'] = df['review_rate'].apply(float)
+        data_frame['review_rate'] = round(data_frame['review_rate'] / 2, 1)
+    data_frame['review_rate'] = data_frame['review_rate'].apply(float)
     
     # Date normalization
     # TODO
 
-    # Drop if words(review_text) < 100 ?
-
-    writeToFile(file_path, df)
+    writeToFile(file_path, data_frame)
 
 def run():
 
