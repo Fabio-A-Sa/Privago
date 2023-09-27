@@ -1,6 +1,8 @@
 import json
 import pandas as pd
 import numpy as np
+from datetime import datetime
+from unidecode import unidecode
 
 def writeToFile(filename: str, data: json):
     with open(filename, 'w') as file:
@@ -60,6 +62,30 @@ def dealWithNullData(data_frame):
 def words(text: str):
     return len(text.split(' '))
 
+def formatDate(data_frame: json, index: int):
+
+    # Format 2016-11-07T00:00:00.000Z
+    if index == 1: 
+        data_frame['review_date'] = pd.to_datetime(data_frame['review_date']).dt.strftime("%Y-%m")
+
+    # Format Jun-23
+    if index == 2: 
+        months = {
+            'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 
+            'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08', 
+            'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
+        }
+        data_frame['review_date'] = data_frame['review_date'].str.split('-').apply(lambda x: f"20{x[1]}-{months[x[0]]}")
+
+    # Format 04/30/2016
+    if index in [3, 4]:
+        data_frame['review_date'] = pd.to_datetime(data_frame['review_date'], format='%m/%d/%Y').dt.strftime("%Y-%m")
+
+    return data_frame
+
+def formatText(text: str):
+    return unidecode(text).replace('\n', '').replace('\"', "'")
+
 def normalization(index: int, n_words: int):
 
     file_path = f'../data/processed/hotel_reviews_{index}.json'
@@ -74,13 +100,16 @@ def normalization(index: int, n_words: int):
     # Strings strip
     data_frame = data_frame.map(lambda column: column.strip() if isinstance(column, str) else column)
 
+    # String format
+    data_frame = data_frame.map(lambda text: formatText(text) if isinstance(text, str) else text)
+
     # Rate normalization [0.0 .. 5.0]
     if index in [2, 4]:
         data_frame['review_rate'] = round(data_frame['review_rate'] / 2, 1)
     data_frame['review_rate'] = data_frame['review_rate'].apply(float)
     
     # Date normalization
-    # TODO
+    data_frame = formatDate(data_frame, index)
 
     # Save progress
     writeToFile(file_path, data_frame)
