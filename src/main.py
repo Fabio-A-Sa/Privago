@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from unidecode import unidecode
+import matplotlib.pyplot as plt
 
 def writeToFile(filename: str, data: json):
     with open(filename, 'w') as file:
@@ -57,16 +58,37 @@ def dealWithNullData(data_frame):
         data_frame = data_frame[data_frame[column].notna()]
         data_frame = data_frame[data_frame[column] != "null"]
         data_frame = data_frame[data_frame[column] != np.nan]
+        data_frame = data_frame[data_frame[column] != ""]
     return data_frame
 
-def words(text: str):
+def words_quantity(text: str):
     return len(text.split(' '))
+
+def words(data_frame: json, index: int):
+    data_frame['word_count'] = data_frame['review_text'].apply(lambda x: len(str(x).split()))
+    
+    # Step 4: Calculate the mean number of words
+    mean_word_count = data_frame['word_count'].mean()
+
+    # Step 5: Create a bar chart with a line representing the mean
+    plt.figure(figsize=(10, 6))
+    plt.bar(data_frame.index, data_frame['word_count'], label='Number of Words')
+    plt.axhline(mean_word_count, color='red', linestyle='dashed', label='Mean Word Count')
+    plt.text(0, mean_word_count, f'{mean_word_count:.2f}', color='red', va='center', ha='right')
+    plt.xlabel('Review Index')
+    plt.ylabel('Number of Words')
+    plt.title('Number of Words in Hotel Reviews')
+    # plt.ylim(0, 1000) # isto limita o y
+    plt.legend()
+    plt.savefig(f'../data/plots/word_count_{index}.png')
+
+    return
 
 def formatDate(data_frame: json, index: int):
 
     # Format 2016-11-07T00:00:00.000Z
     if index == 1: 
-        data_frame['review_date'] = pd.to_datetime(data_frame['review_date']).dt.strftime("%Y-%m")
+        data_frame['review_date'] = pd.to_datetime(data_frame['review_date'], format='mixed').dt.strftime("%Y-%m")
 
     # Format Jun-23
     if index == 2: 
@@ -86,16 +108,13 @@ def formatDate(data_frame: json, index: int):
 def formatText(text: str):
     return unidecode(text).replace('\n', '').replace('\"', "'")
 
-def normalization(index: int, n_words: int):
+def normalization(index: int):
 
     file_path = f'../data/processed/hotel_reviews_{index}.json'
     data_frame = pd.read_json(file_path)
 
     # Remove empty and null entries
     data_frame = dealWithNullData(data_frame)
-
-    # Remove reviews with less than @words
-    data_frame = data_frame[data_frame['review_text'].apply(words) >= n_words]
 
     # Strings strip
     data_frame = data_frame.map(lambda column: column.strip() if isinstance(column, str) else column)
@@ -111,24 +130,51 @@ def normalization(index: int, n_words: int):
     # Date normalization
     data_frame = formatDate(data_frame, index)
 
+    if index == 4:
+        words(data_frame, 4)
+
     # Save progress
     writeToFile(file_path, data_frame)
     printStats(index, data_frame, True)
 
+#def reviews_per_hotel(data_frame):
+    #reviews_count = data_frame['name'].value_counts()
+    #print(reviews_count)
+
+def merge(indexes):   
+    
+    all_data = []
+    for index in indexes:
+        with open(f'../data/processed/hotel_reviews_{index}.json', 'r') as file:
+            all_data.extend(json.load(file))
+            file.close()
+
+    writeToFile(f'../data/processed/hotel_reviews_all.json', pd.DataFrame(all_data))
+
+def statistic(data_frame):
+    average_ratings = data_frame.groupby('name')['review_rate'].mean().reset_index()
+    writeToFile('../data/stats/hotel_reviews_all.json', average_ratings)    
+
 def run():
 
     # Select important columns
-    getData(1, {'name': 'name', 'city': 'location', 'reviews.date': 'review_date', 'reviews.text': 'review_text', 'reviews.rating': 'review_rate',})
-    getData(2, {'Name': 'name', 'Area': 'location', 'Review_Date': 'review_date', 'Review_Text': 'review_text', 'Rating(Out of 10)': 'review_rate'})
-    getData(3, {'Property Name': 'name', 'location': 'location', 'Date Of Review': 'review_date', 'Review Text': 'review_text', 'Review Rating': 'review_rate'})
-    getData(4, {'Hotel_Name': 'name', 'Hotel_Address': 'location', 'Review_Date': 'review_date', 'Positive_Review': 'positive_review', 'Negative_Review': 'negative_review', 'Reviewer_Score': 'review_rate'})
+    # getData(1, {'name': 'name', 'city': 'location', 'reviews.date': 'review_date', 'reviews.text': 'review_text', 'reviews.rating': 'review_rate',})
+    # getData(2, {'Name': 'name', 'Area': 'location', 'Review_Date': 'review_date', 'Review_Text': 'review_text', 'Rating(Out of 10)': 'review_rate'})
+    # getData(3, {'Property Name': 'name', 'location': 'location', 'Date Of Review': 'review_date', 'Review Text': 'review_text', 'Review Rating': 'review_rate'})
+    # getData(4, {'Hotel_Name': 'name', 'Hotel_Address': 'location', 'Review_Date': 'review_date', 'Positive_Review': 'positive_review', 'Negative_Review': 'negative_review', 'Reviewer_Score': 'review_rate'})
 
     # Normalization
-    for i in range(1, 5):
-        normalization(i, 100)
+    # for i in range(1, 5):
+    #   normalization(i)
 
-    # Get samples & merge
-    # TODO
+    # Merge
+    # merge([x for x in range (1, 5)])
+
+    # Stats
+    data_frame = pd.read_json('../data/processed/hotel_reviews_all.json')
+    statistic(data_frame)
+
+    # words(data_frame, 5)
 
 if __name__ == "__main__":
     run()
