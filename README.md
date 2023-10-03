@@ -1,5 +1,9 @@
 # PRI Project
 
+## Data
+
+![UML](./docs/uml.png)
+
 ## Dependencies
 
 ```bash
