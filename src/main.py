@@ -130,8 +130,8 @@ def normalization(index: int):
     # Date normalization
     data_frame = formatDate(data_frame, index)
 
-    if index == 4:
-        words(data_frame, 4)
+    # Remove some reviews
+    data_frame = data_frame[data_frame['review_text'].apply(lambda x: 10 <= len(x.split()) <= 250)]
 
     # Save progress
     writeToFile(file_path, data_frame)
@@ -155,6 +155,26 @@ def statistic(data_frame):
     average_ratings = data_frame.groupby('name')['review_rate'].mean().reset_index()
     writeToFile('../data/stats/hotel_reviews_all.json', average_ratings)    
 
+def quartis(data_frame):
+
+    data_frame['num_words'] = data_frame['review_text'].apply(lambda x: len(str(x).split(' ')))
+    quartis = data_frame['num_words'].quantile([0.25, 0.5, 0.75])
+
+    plt.figure(figsize=(8, 6))
+    plt.boxplot(data_frame['num_words'], vert=False)
+    plt.title('Quartiles Analysis of Number of Words per Review')
+    plt.xlabel('Number of Words')
+    plt.yticks([])
+
+    quartis_labels = ['Q1', 'Q2 (Median)', 'Q3']
+    quartis_values = [int(quartis[0.25]), int(quartis[0.5]), int(quartis[0.75]), int(quartis[0.1]), int(quartis[0.9])]
+    
+    print(quartis['0.9'])
+
+    plt.xticks(quartis_values, quartis_labels)
+    plt.grid(axis='x', linestyle='--', alpha=0.6)
+    plt.show()
+
 def run():
 
     # Select important columns
@@ -172,7 +192,9 @@ def run():
 
     # Stats
     data_frame = pd.read_json('../data/processed/hotel_reviews_all.json')
-    statistic(data_frame)
+    # statistic(data_frame)
+    # words(data_frame)
+    quartis(data_frame)
 
     # words(data_frame, 5)
 
