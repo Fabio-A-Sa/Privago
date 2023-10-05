@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from utils import writeToFile
+from utils import writeToFile, REVIEWS_PATH
 
 def merge(indexes):   
     
@@ -10,7 +10,7 @@ def merge(indexes):
             all_data.extend(json.load(file))
             file.close()
 
-    writeToFile(f'../data/processed/hotel_reviews_all.json', pd.DataFrame(all_data))
+    writeToFile(REVIEWS_PATH, pd.DataFrame(all_data))
 
 if __name__ == '__main__':
     merge([x for x in range(1, 5)])
