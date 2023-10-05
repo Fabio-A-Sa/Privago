@@ -7,7 +7,7 @@ from utils import writeToFile, HOTELS_PATH, REVIEWS_PATH
 def hotels_average_rate():
 
     hotel_reviews = pd.read_json(REVIEWS_PATH)
-    grouped_reviews_rate = hotel_reviews.groupby('name')['review_rate'].mean().reset_index().round(2)
+    grouped_reviews_rate = hotel_reviews.groupby('name').agg({'review_rate': 'mean', 'location': 'first'}).reset_index().round(2)
     grouped_reviews_rate.rename(
         columns={'review_rate': 'average_rate'}, inplace=True
     )

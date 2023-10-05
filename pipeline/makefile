@@ -1,4 +1,4 @@
-all: clean requirements collect normalize merge process analyze
+all: clean requirements collect normalize merge sample analyze
 
 clean:
 	rm -rf ../data/processed
@@ -18,8 +18,8 @@ normalize:
 merge:
 	python3 data_merge.py
 
-process:
-	python3 data_process.py
+sample:
+	python3 data_sample.py
 
 analyze:
 	mkdir -p ../data/analysis

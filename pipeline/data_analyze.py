@@ -1,15 +1,12 @@
-import json
 import pandas as pd
-import numpy as np
-from unidecode import unidecode
-from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH
+from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH, HOTELS_PATH
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.tokenize import sent_tokenize, word_tokenize
 import nltk
 
 def word_segmentation():
-
+    
     nltk.download('punkt')
     nltk.download('stopwords')
 
@@ -48,6 +45,7 @@ def word_segmentation():
 
 def word_cloud():
 
+    word_segmentation()
     words = pd.read_json(WORDS_PATH)
 
     # Sort words frequency
@@ -71,6 +69,26 @@ def word_cloud():
     plt.tight_layout(pad = 0)
     fig.savefig(PLOTS_PATH + "wordcloud.png")
 
+def location_chart():
+
+    hotels = pd.read_json(HOTELS_PATH)
+    location_counts = hotels['location'].value_counts()
+
+    # 20 most common locations
+    top_20_locations = location_counts.head(20)
+    other_count = location_counts.iloc[20:].sum()
+    top_20_locations['Other'] = other_count
+
+    # Donuts chart
+    fig, ax = plt.subplots()
+    ax.pie(top_20_locations, labels=top_20_locations.index, autopct='%1.1f%%', startangle=90)
+    ax.axis('equal')
+    circle = plt.Circle((0, 0), 0.70, fc='white')
+    fig.gca().add_artist(circle)
+
+    # Save plot
+    fig.savefig(PLOTS_PATH + "locations.png")
+
 if __name__ == '__main__':
-    word_segmentation()
     word_cloud()
+    location_chart()
