@@ -21,29 +21,11 @@ Hotels, reviews, information, retrieval, dataset, data, preparation, analysis, p
 
 Este paper é desenvolvido no âmbito da unidade curricular Processamento e Recuperação de Informação (PRI) do first year of the Master in Informatics and Computing Engineering (MEIC) da Faculdade de Engenharia da Universidade do Porto (FEUP).
 
-A escolha do tema hotel reviews foi baseada em vários fatores. Por um lado, as reviews associadas a hotéis vêm geralmente acompanhadas de um rating numérico de range fixo, data de submissão e um texto de cariz pessoal e subjectivo. Estes atributos adicionam diversidade na estrutura dos dados manipulados e uma complexidade extra em pesquisas contextuais, tornando o search system mais próximo dos reais e mais relevante para o cumprimento dos objectivos da unidade curricular. Por outro lado, a indústria hoteleira, ainda que possui elementos comuns
+A escolha do tema hotel reviews foi baseada em vários fatores. Por um lado, as reviews associadas a hotéis vêm geralmente acompanhadas de um rating numérico de range fixo, data de submissão e um texto de cariz pessoal e subjectivo. Estes atributos adicionam diversidade na estrutura dos dados manipulados e uma complexidade extra em pesquisas contextuais, tornando o search system mais próximo dos reais e mais relevante para o cumprimento dos objectivos da unidade curricular. Por outro lado, a indústria hoteleira possui elementos comuns e independentes da região ou país, como por exemplo a disposição de pequeno almoço, airport proximation, pet friendly e staff behaviour. Esta uniformidade, mesmo considerando a conotação subjectiva dos textos em análise, faz com que os hotéis sejam comparáveis.
 
-numa perspectiva mais real, lidar com vários tipos de dados e. Por outro lado, a companhia hoteleira rege-se por elementos comuns, como a exist|encia de pequeno almoço, family friendly, airport proximation, pet friendly, staff compreensível, fazendo-os comparáveis sob vários critérios.
+O documento está organizado em X grandes secções que vão de encontro ao objectivo da Milestone 1. Numa fase inicial, em `Data Extraction and Enrichement` apresentam-se os datasources usados, há uma breve caracterização dos datasets e da qualidade dos mesmos. A seguinte secção, `Data Preparation`, detalha os critérios de seleção, processamento e storage das informações relevantes de hoteis e correspondentes reviews, seguindo uma pipeline bem definida e reproduzível. Em `Data Characterization` surge a avaliação e visualização dos dados já refinados através de vários critérios e relações, desde o Domain Conceptual Model a Word Cloud. Finalmente em `Possible search tasks` e `Conclusions and Future work` surge a interpretação global dos resultados, de modo a descobrir as necessidades de pesquisa adequadas à seguinte fase do projecto.
 
-A documentação está avaliada em dois grandes setores. A A e a B. Falar delas. No final, preparando para a próxima milestone.
-
-O tema de hotel reviews foi escolhido pois 
-
-- escolhemos hoteis porque é um tema do interesse geral na globalização
-- permite ter ao mesmo tempo elementos/atributos textuais e numéricos, para uma pesquisa e tratamento de dados mais completo e desafiador
-
-A choice was made to work with a dataset about a very well-
-known book community website, Goodreads.
-The motivation for choosing this dataset is the big appreciation
-for books and frequent use of the Goodreads website, causing the
-necessity of a better search system.
-This paper starts by describing the dataset used and what data
-preparation and enrichment was applied to it, followed by a data
-source and quality assessment. Adding to that, it also presents the
-data processing pipeline and the domain conceptual model, ending
-with the conclusions and future work.
-
-## 2 - Data extraction and enrichment
+## 2 - Data Extraction and Enrichment
 
 assess the authority of the data source and data quality;
 
@@ -62,13 +44,13 @@ location, n features, entradas, mbs,
 
 dizer que ficamos com as features comuns. dizer que no caso 4 os texts estão divididos. ficamos com os dois. futuramente vão ser juntados.
 
-# 3 - Data preparation
+# 3 - Data Preparation
 
 Apresentação da pipeline
 
 Dividir em vários subtópicos
 
-# 4 - Data characterization
+# 4 - Data Characterization
 
 # 4.1 - Data Domain Conceptual Models
 
