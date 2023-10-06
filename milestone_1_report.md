@@ -27,49 +27,60 @@ O documento está organizado em X grandes secções que vão de encontro ao obje
 
 ## 2 - Data Extraction and Enrichment
 
+Após uma intensa pesquisa por dados relevantes sob o ponto de vista da variedade e quantidade, quatro datasets de diferentes regiões foram descobertos no Kaggle [1]. A tabela 1 caracteriza os datasets de raíz.
+
+<TODO: table>
+- Index 1..4
+- Name [ref]
+- Number of features / columns
+- Number of reviews / lines
+- Size (MBs)
+
+Tabela 1: <TODO: label>
+
 assess the authority of the data source and data quality;
 
-The main dataset chosen contains the general information needed to
-describe a book, gathered from Goodreads website. It was retrieved
-from Goodreads 100k books, where the author retrieved the data
-by scraping Goodreads website.
 This dataset has both numerical data, such as the number of
 pages, publish data, and textual data, such as the book description,
 genres, etc
 
 para enriquecer, fomos buscar a outros lados, ainda dentro do kaggle.
 
-tabela com
-location, n features, entradas, mbs, 
-
 dizer que ficamos com as features comuns. dizer que no caso 4 os texts estão divididos. ficamos com os dois. futuramente vão ser juntados.
 
-# 3 - Data Preparation
+## 3 - Data Preparation
 
 Apresentação da pipeline
 
 Dividir em vários subtópicos
 
-# 4 - Data Characterization
+Adicionar figura da pipeline
 
-# 4.1 - Data Domain Conceptual Models
+## 4 - Data Characterization
 
-# 4.2 - Word Cloud
+brief explanation
 
-# 4.3 - Plot das locations
+### 4.1 - Data Domain Conceptual Model
+
+### 4.2 - Word Cloud
+
+### 4.3 - Plot das locations
 
 escolher os X mais frequentes e excluir os otros. fix no que está no github
 
-# 4.4 - Frequência de reviews por "ano" ou "mes"
+### 4.4 - Frequência de reviews por "ano" ou "mes"
 
-# 5 - Possible search tasks
+## 5 - Possible search tasks
 
-# 6 - Conclusions and Future work
+dizer que foi baseado na word cloud e nas coisas normais de um hotel. ver introdução.
 
-# References
+## 6 - Conclusions and Future work
 
-kaggle1
-kaggle2
-kaggle3
-kaggle4
-talvez as bibliotecas em requirements.txt
+## References
+
+- [1] - Kaggle + link
+- kaggle dataset 1 link
+- kaggle dataset 2 link
+- kaggle dataset 3 link
+- kaggle dataset 4 link
+- talvez as bibliotecas em requirements.txt, ver se nos 4 exemplos tem isso
