@@ -1,23 +1,23 @@
 # PRI Report Milestone 1 (Draft)
 
-# Title, perguntar ao Chat GPT para ver se encontra um bom
+### Title
 
-# Name, surname, location, email de cada um
+### Name, surname, location, email de cada um
 
-# Abstract
+## Abstract
 
 Num século onde o turismo cresce exponencialmente, a qualidade dos hotéis disponíveis e a opinião dos anteriores hóspedes podem tornar-se fulcrais na escolha de um destino de férias. Há, portanto, necessidade de um sistema que seja capaz de agrupar várias reviews espalhados pelo mundo, filtrar os dados relevantes e pesquisar os melhores hotéis segundo determinadas exigências. O presente paper visa documentar todos os processos da criação de um information system que atende a essa necessidade, desde a data preparation, enrichement, analysis até ao retrieval.
 
-# CSS Concepts
+#### CSS Concepts
 
-Information systems
-Information retrieval
+- Information systems
+- Information retrieval
 
-# Keywords
+#### Keywords
 
 Hotels, reviews, information, retrieval, dataset, data, preparation, analysis, processing, refinement
 
-# 1 - Introduction
+## 1 - Introduction
 
 Este paper é desenvolvido no âmbito da unidade curricular Processamento e Recuperação de Informação (PRI) do first year of the Master in Informatics and Computing Engineering (MEIC) da Faculdade de Engenharia da Universidade do Porto (FEUP).
 
@@ -43,7 +43,7 @@ source and quality assessment. Adding to that, it also presents the
 data processing pipeline and the domain conceptual model, ending
 with the conclusions and future work.
 
-# 2 - Data extraction and enrichment
+## 2 - Data extraction and enrichment
 
 assess the authority of the data source and data quality;
 
