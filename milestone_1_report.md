@@ -69,11 +69,12 @@ To gain insights into the textual content, we calculated the ``word count`` for 
 After completing the aforementioned steps, we proceeded to determine the minimum and maximum number of ``reviews per hotel`` that we aimed to retain. To accomplish this, we employed the same approach used for analyzing the number of words per review, utilizing the Pandas [ref] `.describe()` function. This statistical analysis provided crucial insights into the distribution of reviews across hotels.
 
 (antes deste passo é importante dizer do merge. só depois o reviews_per_hotel. porquê do merge antes deste passo? a ideia é que nenhum hotel sobressaia mais do que os outros apenas por ter muito mais. enviesava os resultados.)
-(depois do merge mas antes do reviews per hotel há o passo do cálculo dos average_rate. porquê que não podia ser feito só no fim? a eliminação de reviews pode mexer com esse valor e por isso average_rate não iria revelar o rating global mas sim o rating global de um subset de reviews escolhidos pelo número de words)
 
 We first addressed hotels with fewer reviews, removing those that fell below the established minimum threshold from our dataset. This step ensured that our dataset focused on hotels with a sufficient volume of reviews to provide meaningful insights.
 
 Next, we turned our attention to hotels with an excessive number of reviews. To manage this situation, we implemented a strategy that allowed us to select and retain reviews while preserving the proportion of reviews per rating category for each specific hotel. This approach ensured that we maintained a balanced between the 'mean_hotel_rate' and the rate of the selected reviews.
+
+(next: final dataset with normalized documents. justify document structure - avoiding redundancy...)
 
 Figure 1: Data preparation pipeline
 
