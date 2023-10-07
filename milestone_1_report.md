@@ -31,29 +31,39 @@ In `Data Characterization` we delve into the evaluation and visualization of the
 
 After conducting research for relevant data in terms of variety and quantity, four datasets from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
 
-<TODO: table>
-- Index 1..4
-- Name [ref]
-- Number of features / columns
-- Number of distinct hotels 
-- Number of reviews / lines
-- Size (MBs)
+Dataset | Features | Hotels | Reviews | Size (MBs)
+Datafiniti's Hotel Reviews | 26 | 1400 | 10000 | 124.45
+Hotel Review Insights | 7 | 570 | 7000 | 1.31
+London Hotel Reviews | 6 | 20 | 27329 | 22.85
+Europe Hotel Reviews | 17 | 1493 | 515000 | 238.15
 
-Table 1: <TODO: label>
+Table 1: Initial datasets characterization 
 
-O dataset Datafiniti's Hotel Reviews [2] é um sample retirado de Datafiniti's Business Database [3]. Hotel Review Insights [4] é um 
+O dataset Datafiniti's Hotel Reviews [2] foi retirado de Datafiniti's Business Database [3] através de sampling. Hotel Review Insights [4] é um compilado de algumas reviews de hotéis do mundo. London Hotel Reviews [5] é um sample retirado e parcialmente refinado de um dataset de DataStock [6]. Finalmente, Europe Hotel Reviews [7] resulta de web scrapping de reviews de hoteis espalhados pela Europa publicados em Booking [8].
 
 Todos os datasets têm "licença de utilização pública" (melhorar isto, procurar a definição correcta) e, segundo a plataforma Kaggle, um índice de usabilidade superior a 8.
 
-The datasets has both numerical data, such as rating, review date, and textual data, such a review text, hotel localisation and name. O último dataset contém um. As features comuns enunciadas foram extraídas neste passo e refinadas em Data Preparation.
+The datasets contém features comuns, numerical data, such as rating, review date, and textual data, such a review text, hotel localisation and name. O último dataset contém dois parâmetros adicionais, positive review and negative review. As features enunciadas foram extraídas neste passo e refinadas em Data Preparation.515k
 
 ## 3 - Data Preparation
 
-Apresentação da pipeline
+In this section, is presented the structured data preparation pipeline that was developed for the project. This pipeline encompasses various data cleaning and restructuring procedures aimed at achieving a clean, uniform, and ready-to-analyze dataset. The objective of this phase is to establish a solid foundation for meaningful analysis.
+
+The data preparation process commenced with dataset cleaning, primarily focusing on the removal of records containing empty or null values in any attribute. However, before proceeding further, a crucial task intervened in this phase. It involved establishing a standardized naming convention to address variations in hotel names, such as "45 Park Lane - Dorchester Collection" and "45 Park Lane Dorchester Collection". This step was necessary to facilitate the addition of the feature "mean_hotel_rate" to each hotel entity.
+
+Once the hotel name standardization was in place, we resumed the cleansing process by eliminating incomplete or uninformative data, including strings with uninformative text. This comprehensive approach ensured that the dataset was thoroughly cleansed, setting a solid foundation for subsequent processing and analysis.
+
+With the data cleaned, we turned our attention to attribute normalization. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as "positive_reviews" and "negative_reviews" into a unified "review_text" attribute for the 4th dataset as is demonstrated in the pipeline diagram. Additionally, date formats were normalized to ensure uniformity and suitability for analysis. Rating scales were also normalized to a common range and converted to floating-point values, facilitating comparative analysis.
+
+To gain insights into the textual content, we calculated the word count for each review across all datasets. This analysis was facilitated using the Pandas tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. It helped us identify and handle reviews with either very few words or an excessively high word count. With this step completed, we were finally able to merge all the datasets into a single, consolidated dataset, streamlining the remaining preparation tasks.
+
+Having completed the normalization phase, we proceeded to integrate the datasets. 
 
 Dividir em vários subtópicos
 
-Adicionar figura da pipeline
+
+
+Figure 1: Data preparation pipeline
 
 ## 4 - Data Characterization
 
@@ -80,7 +90,9 @@ dizer que foi baseado na word cloud e nas coisas normais de um hotel. ver introd
 - [1] - [Kaggle](https://www.kaggle.com)
 - [2] - [Datafiniti's Hotel Reviews](https://www.kaggle.com/datasets/datafiniti/hotel-reviews)
 - [3] - [Datafiniti's Business Database](https://www.datafiniti.co)
-- [4] - [](https://www.kaggle.com/datasets/juhibhojani/hotel-reviews)
-- [5] - []()
-- [6] - []()
+- [4] - [Hotel Review Insights](https://www.kaggle.com/datasets/juhibhojani/hotel-reviews)
+- [5] - [London Hotel Reviews](https://www.kaggle.com/datasets/PromptCloudHQ/reviews-of-londonbased-hotels)
+- [6] - [DataStock](https://datastock.shop)
+- [7] - [Europe Hotel Reviews](https://www.kaggle.com/datasets/jiashenliu/515k-hotel-reviews-data-in-europe)
+- [8] - [Booking](https://www.booking.com)
 - talvez as bibliotecas em requirements.txt, ver se nos 4 exemplos tem isso
