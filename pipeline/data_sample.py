@@ -50,36 +50,29 @@ def final_json():
     hotels = pd.read_json(HOTELS_PATH)
     reviews = pd.read_json(REVIEWS_PATH)
     
-    hotels_dict= {}
-
-    for index, hotel in hotels.iterrows():
-        hotel_name = hotel['name']
-        hotels_dict[hotel_name] = {
-            'name': hotel_name,
-            'location': hotel['location'],
-            'average_rate': hotel['average_rate'],
-            'reviews': []
-        }
-    
-    for index, review in reviews.iterrows():
-        hotel_name = review['name']
-        if hotel_name in hotels_dict:
-            hotels_dict[hotel_name]["reviews"].append({
-                'date': review['review_date'],
-                'rate': review['review_rate'],
-                'text': review['review_text'],
-            })
-    
-    hotel_info_list = []
-
+    hotels_info = []
     for index, review_per_hotel in reviews_per_hotel.iterrows():
         hotel_name = review_per_hotel['hotel']
-        if hotel_name in hotels_dict:
-            hotel_info_list.append(hotels_dict[hotel_name])
+        hotel_info = hotels[hotels['name'] == hotel_name].to_dict(orient='records')[0]
+        hotels_info.append({
+            'name': hotel_info['name'],
+            'location': hotel_info['location'],
+            'average_rate': hotel_info['average_rate'],
+            'reviews': []
+        })
 
-    writeToFile(FINAL_JSON_PATH, pd.DataFrame.from_dict(hotel_info_list))
+    for index, review in reviews.iterrows():
+        hotel_name = review['name']
+        for a in hotels_info:
+            if hotel_name == a['name']:
+                a['reviews'].append({
+                    'date': review['review_date'],
+                    'rate': review['review_rate'],
+                    'text': review['review_text'],
+                })
+
+    writeToFile(FINAL_JSON_PATH, pd.DataFrame.from_dict(hotels_info))
     
-
 if __name__ == '__main__':
     hotels_average_rate()
     limits = reviews_per_hotel()
