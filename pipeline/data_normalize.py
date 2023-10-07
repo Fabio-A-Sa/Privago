@@ -16,12 +16,16 @@ def combine_reviews(row):
         return ''
 
 def dealWithNullData(data_frame):
+    
     for column in data_frame.columns:
         data_frame = data_frame[data_frame[column] != None]
         data_frame = data_frame[data_frame[column].notna()]
         data_frame = data_frame[data_frame[column] != "null"]
         data_frame = data_frame[data_frame[column] != np.nan]
         data_frame = data_frame[data_frame[column] != ""]
+    
+    if "review_text" in data_frame.columns:
+        data_frame = data_frame[data_frame["review_text"] != " no comments available for this review"]
     return data_frame
 
 def formatDate(data_frame: json, index: int):
@@ -61,10 +65,10 @@ def limit_words_per_review(data_frame: json):
     
     data_frame['word_count'] = data_frame['review_text'].apply(lambda text: len(text.split()))
     description = data_frame['word_count'].describe()
-    inferior_limit = description.loc['25%']
-    superior_limit = description.loc['75%']
+    inferior_limit = description['25%']
+    superior_limit = description['75%']
     data_frame = data_frame[(data_frame['word_count'] >= inferior_limit) & (data_frame['word_count'] <= superior_limit)]
-    #data_frame = data_frame.drop(['word_count'])
+    data_frame = data_frame.drop(['word_count'], axis=1)
     return data_frame
 
 def normalize(index: int):
