@@ -80,17 +80,25 @@ Figure 1: Data preparation pipeline
 
 ## 4 - Data Characterization
 
-brief explanation
-
 ### 4.1 - Data Domain Conceptual Model
 
-### 4.2 - Word Cloud
+### 4.2 - Reviews Word Cloud
 
-### 4.3 - Plot das locations
+### 4.3 - Hotel location distribution
 
-escolher os X mais frequentes e excluir os otros. fix no que está no github
+escolher as 20 locations mais frequentes e excluir os outros. fix no que está no github. Se 20 for muito (o gráfico ficar muito partido), reduzir para 10.
 
-### 4.4 - Frequência de reviews por "ano" ou "mes"
+### 4.4 - Average rating distribution
+
+X = Ranges de 0 a 5, ints.
+Y = # de hoteis com esse average_rating
+verificar que tendencialmente os hotéis tem boas reviews && verificar que o pessoal é extremo (ou dá muito boa, ou dá muito má).
+
+### 4.5 - Number of reviews per date
+
+X = date
+Y = # reviews
+Uma boa forma de ver a flutuação do número de reviews pelas diversas partes do ano.
 
 ## 5 - Possible search tasks
 
