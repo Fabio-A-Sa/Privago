@@ -52,7 +52,7 @@ def final_json():
     
     hotels_dict= {}
 
-    for hotel in hotels:
+    for index, hotel in hotels.iterrows():
         hotel_name = hotel['name']
         hotels_dict[hotel_name] = {
             'name': hotel_name,
@@ -61,7 +61,7 @@ def final_json():
             'reviews': []
         }
     
-    for review in reviews:
+    for index, review in reviews.iterrows():
         hotel_name = review['name']
         if hotel_name in hotels_dict:
             hotels_dict[hotel_name]["reviews"].append({
@@ -72,7 +72,7 @@ def final_json():
     
     hotel_info_list = []
 
-    for review_per_hotel in reviews_per_hotel:
+    for index, review_per_hotel in reviews_per_hotel.iterrows():
         hotel_name = review_per_hotel['hotel']
         if hotel_name in hotels_dict:
             hotel_info_list.append(hotels_dict[hotel_name])
