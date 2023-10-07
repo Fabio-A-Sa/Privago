@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Num século onde o turismo cresce exponencialmente, a qualidade dos hotéis disponíveis e a opinião dos anteriores hóspedes podem tornar-se fulcrais na escolha de um destino de férias. Há, portanto, necessidade de um sistema que seja capaz de agrupar várias reviews espalhados pelo mundo, filtrar os dados relevantes e pesquisar os melhores hotéis segundo determinadas exigências. O presente paper visa documentar todos os processos da criação de um information system que atende a essa necessidade, desde a data preparation, enrichement, analysis até ao retrieval.
+The exponential growth of data on the internet necessitates effective mechanisms to harness and connect this vast information resource. Our project addresses this need by focusing on the hotel industry, where reviews play a crucial role in shaping consumer choices. In this document, we present a comprehensive overview of our project, "__" Through this document, we aim to provide a clear and well-documented account of our work in the context of creating a powerful search engine for hotels and their reviews. To achieve this, we collect data from various datasets, perform data cleaning and preparation, and conduct in-depth data analysis.
 
 #### CSS Concepts
 
@@ -15,38 +15,37 @@ Num século onde o turismo cresce exponencialmente, a qualidade dos hotéis disp
 
 #### Keywords
 
-Hotels, reviews, information, retrieval, dataset, data, preparation, analysis, processing, refinement
+Hotels, Reviews, Information, Dataset, Data Retrieval, Data Preparation, Data Analysis, Data Processing, Data Refinement, Pipeline, Domain Conceptual Model.
 
 ## 1 - Introduction
 
-Este paper é desenvolvido no âmbito da unidade curricular Processamento e Recuperação de Informação (PRI) do first year of the Master in Informatics and Computing Engineering (MEIC) da Faculdade de Engenharia da Universidade do Porto (FEUP).
+This paper is developed as part of the course "Information Processing and Retrieval" (PRI) within the first year of the Master's in Informatics and Computing Engineering (MEIC) at the Faculty of Engineering of the University of Porto (FEUP).
 
-A escolha do tema hotel reviews foi baseada em vários fatores. Por um lado, as reviews associadas a hotéis vêm geralmente acompanhadas de um rating numérico de range fixo, data de submissão e um texto de cariz pessoal e subjectivo. Estes atributos adicionam diversidade na estrutura dos dados manipulados e uma complexidade extra em pesquisas contextuais, tornando o search system mais próximo dos reais e mais relevante para o cumprimento dos objectivos da unidade curricular. Por outro lado, a indústria hoteleira possui elementos comuns e independentes da região ou país, como por exemplo a disposição de pequeno almoço, airport proximation, pet friendly e staff behaviour. Esta uniformidade, mesmo considerando a conotação subjectiva dos textos em análise, faz com que os hotéis sejam comparáveis.
+The choice of the hotel reviews theme is motivated by its significant relevance and the rich diversity of attributes it encompasses. Hotel reviews, as a research focus, hold substantial importance in the modern information landscape. They not only provide valuable insights into the hospitality industry but also serve as a prime example of data diversity, combining numerical ratings, submission dates, and personal, subjective narratives. This diversity introduces intricacies in data structuring and presents challenges in contextual search, making it an ideal choice for aligning the search system with real-world scenarios. Thus, this theme strongly resonates with the course objectives, emphasizing practical applicability and the development of robust information retrieval solutions.
 
-O documento está organizado em X grandes secções que vão de encontro ao objectivo da Milestone 1. Numa fase inicial, em `Data Extraction and Enrichement` apresentam-se os datasources usados, há uma breve caracterização dos datasets e da qualidade dos mesmos. A seguinte secção, `Data Preparation`, detalha os critérios de seleção, processamento e storage das informações relevantes de hoteis e correspondentes reviews, seguindo uma pipeline bem definida e reproduzível. Em `Data Characterization` surge a avaliação e visualização dos dados já refinados através de vários critérios e relações, desde o Domain Conceptual Model a Word Cloud. Finalmente em `Possible search tasks` e `Conclusions and Future work` surge a interpretação global dos resultados, de modo a descobrir as necessidades de pesquisa adequadas à seguinte fase do projecto.
+This document is structured into several major sections, each tailored to fulfill the objectives of Milestone 1. We commence with `Data Extraction and Enrichment`," where we introduce the data sources, briefly characterize the datasets, and assess data quality. Subsequently, `Data Preparation` outlines the selection criteria, processing methods, and data storage procedures for hotel-related information and associated reviews, following a clear and reproducible pipeline.
+
+In `Data Characterization` we delve into the evaluation and visualization of the refined data. This involves examining various criteria and relationships, from the Domain Conceptual Model to Word Clouds. Finally, `Possible Search Tasks` and `Conclusions and Future Work` provide an overarching interpretation of the results, guiding the identification of suitable research objectives for the project's next phase.
 
 ## 2 - Data Extraction and Enrichment
 
-Após uma intensa pesquisa por dados relevantes sob o ponto de vista da variedade e quantidade, quatro datasets de diferentes regiões foram descobertos no Kaggle [1]. A tabela 1 caracteriza os datasets de raíz.
+After conducting research for relevant data in terms of variety and quantity, four datasets from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
 
 <TODO: table>
 - Index 1..4
 - Name [ref]
 - Number of features / columns
+- Number of distinct hotels 
 - Number of reviews / lines
 - Size (MBs)
 
-Tabela 1: <TODO: label>
+Table 1: <TODO: label>
 
-assess the authority of the data source and data quality;
+O dataset Datafiniti's Hotel Reviews [2] é um sample retirado de Datafiniti's Business Database [3]. Hotel Review Insights [4] é um 
 
-This dataset has both numerical data, such as the number of
-pages, publish data, and textual data, such as the book description,
-genres, etc
+Todos os datasets têm "licença de utilização pública" (melhorar isto, procurar a definição correcta) e, segundo a plataforma Kaggle, um índice de usabilidade superior a 8.
 
-para enriquecer, fomos buscar a outros lados, ainda dentro do kaggle.
-
-dizer que ficamos com as features comuns. dizer que no caso 4 os texts estão divididos. ficamos com os dois. futuramente vão ser juntados.
+The datasets has both numerical data, such as rating, review date, and textual data, such a review text, hotel localisation and name. O último dataset contém um. As features comuns enunciadas foram extraídas neste passo e refinadas em Data Preparation.
 
 ## 3 - Data Preparation
 
@@ -78,9 +77,10 @@ dizer que foi baseado na word cloud e nas coisas normais de um hotel. ver introd
 
 ## References
 
-- [1] - Kaggle + link
-- kaggle dataset 1 link
-- kaggle dataset 2 link
-- kaggle dataset 3 link
-- kaggle dataset 4 link
+- [1] - [Kaggle](https://www.kaggle.com)
+- [2] - [Datafiniti's Hotel Reviews](https://www.kaggle.com/datasets/datafiniti/hotel-reviews)
+- [3] - [Datafiniti's Business Database](https://www.datafiniti.co)
+- [4] - [](https://www.kaggle.com/datasets/juhibhojani/hotel-reviews)
+- [5] - []()
+- [6] - []()
 - talvez as bibliotecas em requirements.txt, ver se nos 4 exemplos tem isso
