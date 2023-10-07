@@ -2,17 +2,21 @@
 
 ## Data
 
+### Relational Model
+
 ![UML](./docs/uml.png)
 
-## Dependencies
+### Worl Cloud
 
-```bash
-pip install -r requirements.txt
-```
+![WordCloud](./data/plot/wordcloud.png)
+
+### Location distributions
+
+![LocationDistributions](./data/plot/locations.png)
 
 ## Run 
 
 ```bash
-cd src/
-python main.py
+cd pipeline/
+make
 ```
