@@ -49,32 +49,23 @@ The datasets contém features comuns, numerical data, such as rating, review dat
 
 In this section, is presented the structured data preparation pipeline that was developed for the project. This pipeline encompasses various data cleaning and restructuring procedures aimed at achieving a clean, uniform, and ready-to-analyze dataset. The objective of this phase is to establish a solid foundation for meaningful analysis.
 
-The data preparation process commenced with ``dataset cleaning``, primarily focusing on the removal of records containing empty or null values in any attribute. However, before proceeding further, a crucial task intervened in this phase. It involved establishing a ``standardized naming`` convention to address variations in hotel names, such as "45 Park Lane - Dorchester Collection" and "45 Park Lane Dorchester Collection". This step was necessary to facilitate the addition of the feature "mean_hotel_rate" to each hotel entity.
+The data preparation process began with a comprehensive cleaning phase, where we focused on the removal of records containing ``empty or null values`` in any attribute. Simultaneously, we identified and eliminated incomplete or uninformative data, including strings with ``uninformative text``, such as "no comments available for this review.". This combined cleaning step ensured that the dataset was thoroughly cleansed.
 
-Once the hotel name standardization was in place, we resumed the cleansing process by eliminating incomplete or ``uninformative data``, including strings with uninformative text. This comprehensive approach ensured that the dataset was thoroughly cleansed, setting a solid foundation for subsequent processing and analysis. 
+With the data cleaned, we turned our attention to ``attribute normalization``. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as ``"positive_reviews"`` and ``"negative_reviews"`` into a unified "review_text" attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [ref]. Additionally, ``date formats`` were normalized to ensure uniformity and suitability for analysis. The date format was set as "month-year" due to the absence of day-specific review information in the second dataset. ``Rating scales`` were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
 
-(o parágrafo é demasiado genérico. que strings são influenciadas por este step? apenas a review_text, que é abordada só no terceiro parágrafo)
+In addiction, was established a ``standardized naming`` convention to address variations in ``hotel names``, such as "45 Park Lane - Dorchester Collection" and "45 Park Lane Dorchester Collection". This step was necessary to facilitate the addition of the feature "average_rate" to each hotel entity, referenced below. ``Location standardization`` involved reducing location names to their last two words, resulting in a format comprising capital and country names.
 
-With the data cleaned, we turned our attention to ``attribute normalization``. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as "positive_reviews" and "negative_reviews" into a unified "review_text" attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [ref]. Additionally, date formats were normalized to ensure uniformity and suitability for analysis. Rating scales were also normalized to a common range and converted to floating-point values, facilitating comparative analysis.
+To gain insights into the textual content, we calculated the ``word count`` for each review across all datasets. This analysis was facilitated using the Pandas [ref] tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. This process enabled us to identify and manage reviews with either an insufficient word count or an excessively high word count. We achieved this by removing reviews falling below the 25% threshold (first quartile) and those exceeding the 75% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [ref].
 
-(split data, first cleaning then normalization)
-(comprehensive normalization, comprehensive approach, comprehensive -> repetições)
-(date formats were normalized -> em que formato? os dias não foram considerados porque não são relevantes. essencialmente é a época que conta, não o dia específico)
-
-To gain insights into the textual content, we calculated the ``word count`` for each review across all datasets. This analysis was facilitated using the Pandas [ref] tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. It helped us identify and handle reviews with either very few words or an excessively high word count. With this step completed, we were finally able to merge all the datasets into a single, consolidated dataset, streamlining the remaining preparation tasks.
-
-(utilização de quartis. mas como? 25 até 75)
-(porque é que não fizemos os quartis com all.json? porque cada dataset tem a sua própria média. se fossem juntos teríamos muitos dados do 4, p.e, e poucos dos outros)
+At this state, we were finally able to merge all the datasets into a single, consolidated dataset, streamlining the remaining preparation tasks, beginning with the computation of the ``average rate`` for each unique hotel. This might be helpful for searching criterias for the futures milestones.
 
 After completing the aforementioned steps, we proceeded to determine the minimum and maximum number of ``reviews per hotel`` that we aimed to retain. To accomplish this, we employed the same approach used for analyzing the number of words per review, utilizing the Pandas [ref] `.describe()` function. This statistical analysis provided crucial insights into the distribution of reviews across hotels.
 
-(antes deste passo é importante dizer do merge. só depois o reviews_per_hotel. porquê do merge antes deste passo? a ideia é que nenhum hotel sobressaia mais do que os outros apenas por ter muito mais. enviesava os resultados.)
-
 We first addressed hotels with fewer reviews, removing those that fell below the established minimum threshold from our dataset. This step ensured that our dataset focused on hotels with a sufficient volume of reviews to provide meaningful insights.
 
-Next, we turned our attention to hotels with an excessive number of reviews. To manage this situation, we implemented a strategy that allowed us to select and retain reviews while preserving the proportion of reviews per rating category for each specific hotel. This approach ensured that we maintained a balanced between the 'mean_hotel_rate' and the rate of the selected reviews.
+Next, we turned our attention to hotels with an excessive number of reviews. To manage this situation, we implemented a strategy that allowed us to select and retain reviews while preserving the proportion of reviews per rating category for each specific hotel. This approach ensured that we maintained a balanced between the 'average_rate' and the rate of the selected reviews.
 
-(next: final dataset with normalized documents. justify document structure - avoiding redundancy...)
+The final step in the data preparation phase involved organizing the data into the ``desired JSON file format``, which was designed based on our UML diagram[ref] and with a focus on the primary objective of our search tool. This format consisted of a collection of JSON objects, each representing a "Hotel" entity. Within each "Hotel" object, we included not only its associated attributes but also the related reviews, presented as JSON objects themselves.
 
 Figure 1: Data preparation pipeline
 
@@ -93,12 +84,6 @@ escolher as 20 locations mais frequentes e excluir os outros. fix no que está n
 X = Ranges de 0 a 5, ints.
 Y = # de hoteis com esse average_rating
 verificar que tendencialmente os hotéis tem boas reviews && verificar que o pessoal é extremo (ou dá muito boa, ou dá muito má).
-
-### 4.5 - Number of reviews per date
-
-X = date
-Y = # reviews
-Uma boa forma de ver a flutuação do número de reviews pelas diversas partes do ano.
 
 ## 5 - Possible search tasks
 
