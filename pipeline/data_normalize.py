@@ -60,6 +60,17 @@ def formatName(data_frame: json):
     data_frame['name'] = data_frame['name'].apply(lambda name: name.title())
     return data_frame
 
+def formatLocation(data_frame: json, index: int):
+
+    if index == 1:
+        data_frame['location'] = data_frame['location'].apply(lambda location: location + ", USA")
+
+    elif index == 3:
+        data_frame['location'] = data_frame['location'].apply(lambda location: location + ", United Kingdom")
+    elif index == 4:
+        data_frame['location'] = data_frame['location'].str.split().str[-2:].str.join(' ')
+
+    return data_frame
 
 def limit_words_per_review(data_frame: json):
     
@@ -103,6 +114,8 @@ def normalize(index: int):
     data_frame = limit_words_per_review(data_frame)
 
     data_frame = formatName(data_frame)
+
+    data_frame = formatLocation(data_frame, index)
 
     # Save progress
     writeToFile(file_path, data_frame)
