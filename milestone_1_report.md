@@ -49,19 +49,21 @@ The datasets contém features comuns, numerical data, such as rating, review dat
 
 In this section, is presented the structured data preparation pipeline that was developed for the project. This pipeline encompasses various data cleaning and restructuring procedures aimed at achieving a clean, uniform, and ready-to-analyze dataset. The objective of this phase is to establish a solid foundation for meaningful analysis.
 
-The data preparation process commenced with dataset cleaning, primarily focusing on the removal of records containing empty or null values in any attribute. However, before proceeding further, a crucial task intervened in this phase. It involved establishing a standardized naming convention to address variations in hotel names, such as "45 Park Lane - Dorchester Collection" and "45 Park Lane Dorchester Collection". This step was necessary to facilitate the addition of the feature "mean_hotel_rate" to each hotel entity.
+The data preparation process commenced with ``dataset cleaning``, primarily focusing on the removal of records containing empty or null values in any attribute. However, before proceeding further, a crucial task intervened in this phase. It involved establishing a ``standardized naming`` convention to address variations in hotel names, such as "45 Park Lane - Dorchester Collection" and "45 Park Lane Dorchester Collection". This step was necessary to facilitate the addition of the feature "mean_hotel_rate" to each hotel entity.
 
-Once the hotel name standardization was in place, we resumed the cleansing process by eliminating incomplete or uninformative data, including strings with uninformative text. This comprehensive approach ensured that the dataset was thoroughly cleansed, setting a solid foundation for subsequent processing and analysis.
+Once the hotel name standardization was in place, we resumed the cleansing process by eliminating incomplete or ``uninformative data``, including strings with uninformative text. This comprehensive approach ensured that the dataset was thoroughly cleansed, setting a solid foundation for subsequent processing and analysis.
 
-With the data cleaned, we turned our attention to attribute normalization. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as "positive_reviews" and "negative_reviews" into a unified "review_text" attribute for the 4th dataset as is demonstrated in the pipeline diagram. Additionally, date formats were normalized to ensure uniformity and suitability for analysis. Rating scales were also normalized to a common range and converted to floating-point values, facilitating comparative analysis.
+With the data cleaned, we turned our attention to ``attribute normalization``. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as "positive_reviews" and "negative_reviews" into a unified "review_text" attribute for the 4th dataset as is demonstrated in the pipeline diagram. Additionally, date formats were normalized to ensure uniformity and suitability for analysis. Rating scales were also normalized to a common range and converted to floating-point values, facilitating comparative analysis.
 
-To gain insights into the textual content, we calculated the word count for each review across all datasets. This analysis was facilitated using the Pandas tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. It helped us identify and handle reviews with either very few words or an excessively high word count. With this step completed, we were finally able to merge all the datasets into a single, consolidated dataset, streamlining the remaining preparation tasks.
+(split data, first cleaning then normalization)
 
-Having completed the normalization phase, we proceeded to integrate the datasets. 
+To gain insights into the textual content, we calculated the ``word count`` for each review across all datasets. This analysis was facilitated using the Pandas tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. It helped us identify and handle reviews with either very few words or an excessively high word count. With this step completed, we were finally able to merge all the datasets into a single, consolidated dataset, streamlining the remaining preparation tasks.
 
-Dividir em vários subtópicos
+After completing the aforementioned steps, we proceeded to determine the minimum and maximum number of ``reviews per hotel`` that we aimed to retain. To accomplish this, we employed the same approach used for analyzing the number of words per review, utilizing the Pandas `.describe()` function. This statistical analysis provided crucial insights into the distribution of reviews across hotels.
 
+We first addressed hotels with fewer reviews, removing those that fell below the established minimum threshold from our dataset. This step ensured that our dataset focused on hotels with a sufficient volume of reviews to provide meaningful insights.
 
+Next, we turned our attention to hotels with an excessive number of reviews. To manage this situation, we implemented a strategy that allowed us to select and retain reviews while preserving the proportion of reviews per rating category for each specific hotel. This approach ensured that we maintained a balanced between the 'mean_hotel_rate' and the rate of the selected reviews.
 
 Figure 1: Data preparation pipeline
 
@@ -95,4 +97,5 @@ dizer que foi baseado na word cloud e nas coisas normais de um hotel. ver introd
 - [6] - [DataStock](https://datastock.shop)
 - [7] - [Europe Hotel Reviews](https://www.kaggle.com/datasets/jiashenliu/515k-hotel-reviews-data-in-europe)
 - [8] - [Booking](https://www.booking.com)
+
 - talvez as bibliotecas em requirements.txt, ver se nos 4 exemplos tem isso
