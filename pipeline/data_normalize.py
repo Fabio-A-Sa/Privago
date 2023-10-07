@@ -1,8 +1,9 @@
 import json
 import pandas as pd
 import numpy as np
+import re
 from unidecode import unidecode
-from utils import writeToFile
+from utils import writeToFile, REVIEWS_PATH
 
 def combine_reviews(row):
     if row['positive_review'] and row['negative_review']:
@@ -47,6 +48,25 @@ def formatDate(data_frame: json, index: int):
 def formatText(text: str):
     return unidecode(text).replace('\n', '').replace('\"', "'")
 
+def formatName(data_frame: json):
+
+    data_frame['name'] = data_frame['name'].apply(unidecode)
+    data_frame['name'] = data_frame['name'].apply(lambda name: re.sub(r'[^\w\s]', '', name))
+    data_frame['name'] = data_frame['name'].apply(lambda name: ' '.join(name.split()))
+    data_frame['name'] = data_frame['name'].apply(lambda name: name.title())
+    return data_frame
+
+
+def limit_words_per_review(data_frame: json):
+    
+    data_frame['word_count'] = data_frame['review_text'].apply(lambda text: len(text.split()))
+    description = data_frame['word_count'].describe()
+    inferior_limit = description.loc['25%']
+    superior_limit = description.loc['75%']
+    data_frame = data_frame[(data_frame['word_count'] >= inferior_limit) & (data_frame['word_count'] <= superior_limit)]
+    #data_frame = data_frame.drop(['word_count'])
+    return data_frame
+
 def normalize(index: int):
 
     file_path = f'../data/processed/hotel_reviews_{index}.json'
@@ -76,8 +96,14 @@ def normalize(index: int):
     # Date normalization
     data_frame = formatDate(data_frame, index)
 
+    data_frame = limit_words_per_review(data_frame)
+
+    data_frame = formatName(data_frame)
+
     # Save progress
     writeToFile(file_path, data_frame)
+
+
 
 if __name__ == "__main__":
     for i in range(1, 5):
