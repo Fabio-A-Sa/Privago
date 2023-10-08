@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 import re
 from unidecode import unidecode
-from utils import writeToFile, REVIEWS_PATH
+from utils import writeToFile
 
 def combine_reviews(row):
+
     if row['positive_review'] and row['negative_review']:
         return row['positive_review'] + '. ' + row['negative_review']
     elif row['positive_review']:
@@ -64,7 +65,6 @@ def formatLocation(data_frame: json, index: int):
 
     if index == 1:
         data_frame['location'] = data_frame['location'].apply(lambda location: location + ", USA")
-
     elif index == 3:
         data_frame['location'] = data_frame['location'].apply(lambda location: location + ", United Kingdom")
     elif index == 4:
@@ -100,27 +100,28 @@ def normalize(index: int):
     # Strings strip
     data_frame = data_frame.map(lambda column: column.strip() if isinstance(column, str) else column)
 
-    # String format
+    # String encoding and format
     data_frame = data_frame.map(lambda text: formatText(text) if isinstance(text, str) else text)
+
+    # Filter reviews based on the number of words
+    data_frame = limit_words_per_review(data_frame)
 
     # Rate normalization [0.0 .. 5.0]
     if index in [2, 4]:
         data_frame['review_rate'] = round(data_frame['review_rate'] / 2, 1)
     data_frame['review_rate'] = data_frame['review_rate'].apply(float)
-    
+
     # Date normalization
     data_frame = formatDate(data_frame, index)
 
-    data_frame = limit_words_per_review(data_frame)
-
+    # Hotel name normalization
     data_frame = formatName(data_frame)
 
+    # Hotel location normalization
     data_frame = formatLocation(data_frame, index)
 
     # Save progress
     writeToFile(file_path, data_frame)
-
-
 
 if __name__ == "__main__":
     for i in range(1, 5):

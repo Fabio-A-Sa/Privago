@@ -26,8 +26,6 @@ def tokenize_text(text : str) -> [str]:
         words = words + non_stop_words
     
     return words
-    
-
 
 def word_segmentation():
     nltk.download('punkt')

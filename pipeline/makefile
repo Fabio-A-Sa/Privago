@@ -25,3 +25,5 @@ analyze:
 	mkdir -p ../data/analysis
 	mkdir -p ../data/plots
 	python3 data_analyze.py
+	cp ../data/plots/wordcloud.png ../imgs/
+	cp ../data/plots/locations.png ../imgs/
