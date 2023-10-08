@@ -8,11 +8,15 @@
 
 ### Word Cloud
 
-![WordCloud](./imgs/wordcloud.png)
+![Reviews WordCloud](./imgs/reviews_wordcloud.png)
 
 ### Location distribution
 
-![LocationDistribution](./imgs/locations.png)
+![Locations Distribution](./imgs/locations_distribution.png)
+
+### Average review rating distribution
+
+![Average Review Rating Distribution](./imgs/reviews_distribution.png)
 
 ## Run 
 

@@ -1,11 +1,12 @@
+import json
 import pandas as pd
-from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH, HOTELS_PATH, HOTEL_WORDS_PER_REVIEW_PATH
+from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH, HOTELS_PATH, HOTEL_WORDS_PER_REVIEW_PATH, FINAL_JSON_PATH
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.tokenize import sent_tokenize, word_tokenize
 import nltk
 
-def tokenize_text(text : str) -> list:
+def tokenize_text(text : str) -> list[str]:
 
     words = [] 
     stop_words = nltk.corpus.stopwords.words('english')
@@ -73,29 +74,42 @@ def word_cloud():
     plt.imshow(wordcloud)
     plt.axis("off")
     plt.tight_layout(pad = 0)
-    fig.savefig(PLOTS_PATH + "wordcloud.png")
+    fig.savefig(PLOTS_PATH + "reviews_wordcloud.png")
 
-def location_chart():
+def location_distribution():
 
-    hotels = pd.read_json(HOTELS_PATH)
+    hotels = pd.read_json(FINAL_JSON_PATH)
     location_counts = hotels['location'].value_counts()
 
-    # 8 most common locations
-    top_8_locations = location_counts.head(8)
+    # 10 most common locations
+    top_10_locations = location_counts.head(10)
 
-    # Donuts chart
+    # Chart
     fig, ax = plt.subplots()
-    ax.pie(top_8_locations, labels=[''] * 8, autopct='%1.1f%%', startangle=90)
+    ax.pie(top_10_locations, labels=top_10_locations.index, autopct='%1.1f%%', startangle=90, labeldistance=1.2)
     ax.axis('equal')
-    circle = plt.Circle((0, 0), 0.70, fc='white')
-    fig.gca().add_artist(circle)
-
-    # Locations
-    legend_labels = top_8_locations.index
-    plt.legend(legend_labels, loc='center left', bbox_to_anchor=(1.0, 0.5))
+    ax.set_title('10 most common locations distribution', y=1.08)
 
     # Save progress
-    fig.savefig(PLOTS_PATH + "locations.png", bbox_inches='tight')
+    fig.savefig(PLOTS_PATH + "location_distribution.png", bbox_inches='tight')
+
+def rating_distribution():
+
+    # Collect hotels average rating
+    average_rates = []
+    with open(FINAL_JSON_PATH, 'r') as file:
+        average_rates = [hotel['average_rate'] for hotel in json.load(file)]
+        file.close()
+
+    # Histogram
+    data_frame = pd.DataFrame({'average_rate': average_rates})
+    plt.hist(data_frame['average_rate'], bins=range(6), edgecolor='k', alpha=0.7)
+    plt.xlabel('Hotel average rate')
+    plt.ylabel('Frequency')
+    plt.xticks(range(6))
+
+    # Save progress
+    plt.savefig(PLOTS_PATH + "rating_distributions.png")
 
 # TODO: Move this function. It is a subroutine of sample pipeline step.
 def hotel_words_per_review():
@@ -133,7 +147,7 @@ def hotel_words_per_review():
     writeToFile(HOTEL_WORDS_PER_REVIEW_PATH, pd.DataFrame.from_dict(hotels_words_per_review_dict))
 
 if __name__ == '__main__':
-    # word_cloud()
-    location_chart()
-
+    rating_distribution()
+    location_distribution()
+    word_cloud()
     # hotel_words_per_review() 
