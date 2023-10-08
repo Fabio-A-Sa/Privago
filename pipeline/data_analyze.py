@@ -75,11 +75,12 @@ def word_cloud():
     plt.axis("off")
     plt.tight_layout(pad = 0)
     fig.savefig(PLOTS_PATH + "reviews_wordcloud.png")
+    plt.close()
 
-def location_distribution():
+def location_distribution(data):
 
-    hotels = pd.read_json(FINAL_JSON_PATH)
-    location_counts = hotels['location'].value_counts()
+    data = pd.DataFrame(data)
+    location_counts = data['location'].value_counts()
 
     # 10 most common locations
     top_10_locations = location_counts.head(10)
@@ -93,13 +94,10 @@ def location_distribution():
     # Save progress
     fig.savefig(PLOTS_PATH + "location_distribution.png", bbox_inches='tight')
 
-def rating_distribution():
+def rating_distribution(data):
 
     # Collect hotels average rating
-    average_rates = []
-    with open(FINAL_JSON_PATH, 'r') as file:
-        average_rates = [hotel['average_rate'] for hotel in json.load(file)]
-        file.close()
+    average_rates = [hotel['average_rate'] for hotel in data]
 
     # Histogram
     data_frame = pd.DataFrame({'average_rate': average_rates})
@@ -110,6 +108,7 @@ def rating_distribution():
 
     # Save progress
     plt.savefig(PLOTS_PATH + "rating_distributions.png")
+    plt.close()
 
 def date_distribution_years(data):
 
@@ -126,6 +125,7 @@ def date_distribution_years(data):
     plt.title('Review date distribution')
     plt.xlim(2010, 2024)
     plt.savefig(PLOTS_PATH + "date_distributions.png")
+    plt.close()
 
 def date_distribution_months(data, selected_year: int):
 
@@ -143,6 +143,7 @@ def date_distribution_months(data, selected_year: int):
     plt.ylabel('Frequency')
     plt.title('Reviews distribution by month')
     plt.savefig(PLOTS_PATH + f"date_distributions_{selected_year}.png")
+    plt.close()
 
 # TODO: Move this function. It is a subroutine of sample pipeline step.
 def hotel_words_per_review():
@@ -182,15 +183,15 @@ def hotel_words_per_review():
 
 if __name__ == '__main__':
 
-    #rating_distribution()
-    #location_distribution()
     data = []
     with open(FINAL_JSON_PATH, 'r') as json_file:
         data = json.load(json_file)
         json_file.close()
 
-    date_distribution_months(data, 2016)
     date_distribution_years(data)
+    date_distribution_months(data, 2016)
+    rating_distribution(data)
+    location_distribution(data)
+    word_cloud()
 
-    #word_cloud()
     # hotel_words_per_review() 
