@@ -101,11 +101,11 @@ Another one of the foremost considerations in hotel selection is the quality of 
 
 ## 6 - Conclusions and Future work
 
-In concluding of this milestone, we're pleased to report that we've successfully completed all the planned tasks within the data preparation phase of our project. This achievement marks a significant milestone in our journey towards developing an effective hotel search engine, capable of providing travelers with valuable insights and assisting them in making informed decisions.
+In conclusion of this milestone, we're pleased to report that we've successfully completed all the planned tasks within the data preparation phase of our project. This achievement marks a significant milestone in our journey towards developing an effective hotel search engine, capable of providing travelers with valuable insights and assisting them in making informed decisions.
 
-One of the most challenging aspects of our work was devising effective strategies to address the issue of an excessive number of reviews. The sheer volume of feedback available posed a unique challenge, and we invested significant effort in determining the best approach to manage and utilize this wealth of information. Through careful analysis and innovative methods, we were able to strike a balance between data volume and relevance, ensuring that our dataset remained rich with insights while maintaining a manageable size.
+One of the most challenging aspects of our work was devising effective strategies to address the issue of an excessive number of reviews. We invested significant effort in determining the best approach to manage and utilize this wealth of information. Through careful analysis and innovative methods, we were able to strike a balance between data volume and relevance, ensuring that our dataset remained rich with insights while maintaining a manageable size.
 
-As we move forward, there are exciting opportunities for further enhancements and refinements in our project. 
+As we move forward, there are exciting opportunities for further enhancements and refinements in our project. With our cleansed and consolidated dataset in hand, the next phase of our project will involve the development of a robust hotel search engine. This engine will enable travelers to explore and filter accommodations based on their preferences, whether it's location, room quality, staff service, or other factors identified during our analysis.
 
 ## References
 
