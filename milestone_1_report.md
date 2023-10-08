@@ -87,9 +87,23 @@ verificar que tendencialmente os hotéis tem boas reviews && verificar que o pes
 
 ## 5 - Possible search tasks
 
-dizer que foi baseado na word cloud e nas coisas normais de um hotel. ver introdução.
+In our data analysis journey, we uncovered valuable insights through the use of a word cloud diagram. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
+
+``"Location"`` emerged as one of the top considerations in travelers' decision-making processes. Whether it's proximity to local attractions, accessibility to transportation hubs, or the overall neighborhood ambiance, the location of a hotel can greatly influence the overall travel experience. Queries like ``"best hotels in [City/Region/Country]"`` and "near the airport" can help travelers pinpoint accommodations that align with their preferred locations and provide convenient access to their destinations.
+
+For many travelers, a good breakfast is an integral part of their stay. The word ``"breakfast"`` featured prominently in our word cloud, suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like "Hotels with breakfast/good breakfast" can assist those who prioritize morning meals.
+
+The words "staff" and "service" were significant contributors. This emphasizes the critical role that hotel staff play in the overall guest experience. From warm welcomes at the reception desk to prompt and efficient room service, exceptional staff service can elevate a stay. Queries about ``"staff service"`` and ``"room service"`` quality could be instrumental in identifying hotels that excel in providing exceptional service to their guests.
+
+Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our word cloud, underscoring the importance of these aspects to travelers. Queries related to "room"/"bed" quality or "bathroom" sanitation can guide travelers to accommodations that prioritize comfort and cleanliness.
 
 ## 6 - Conclusions and Future work
+
+In concluding of this milestone, we're pleased to report that we've successfully completed all the planned tasks within the data preparation phase of our project. This achievement marks a significant milestone in our journey towards developing an effective hotel search engine, capable of providing travelers with valuable insights and assisting them in making informed decisions.
+
+One of the most challenging aspects of our work was devising effective strategies to address the issue of an excessive number of reviews. The sheer volume of feedback available posed a unique challenge, and we invested significant effort in determining the best approach to manage and utilize this wealth of information. Through careful analysis and innovative methods, we were able to strike a balance between data volume and relevance, ensuring that our dataset remained rich with insights while maintaining a manageable size.
+
+As we move forward, there are exciting opportunities for further enhancements and refinements in our project. 
 
 ## References
 
