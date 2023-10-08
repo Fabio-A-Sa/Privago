@@ -4,15 +4,15 @@
 
 ### Relational Model
 
-![UML](./docs/uml.png)
+![UML](./imgs/UML.png)
 
 ### Worl Cloud
 
-![WordCloud](./data/plot/wordcloud.png)
+![WordCloud](./imgs/wordcloud.png)
 
 ### Location distributions
 
-![LocationDistributions](./data/plot/locations.png)
+![LocationDistributions](./imgs/locations.png)
 
 ## Run 
 
