@@ -57,7 +57,7 @@ def formatText(text: str):
 def formatName(data_frame: json):
 
     data_frame['name'] = data_frame['name'].apply(unidecode)
-    data_frame['name'] = data_frame['name'].apply(lambda name: re.sub(r'[^\w\s]', '', name))
+    data_frame['name'] = data_frame['name'].apply(lambda name: re.sub(r'[^\w\s]', ' ', name))
     data_frame['name'] = data_frame['name'].apply(lambda name: ' '.join(name.split()))
     data_frame['name'] = data_frame['name'].apply(lambda name: name.title())
     return data_frame
