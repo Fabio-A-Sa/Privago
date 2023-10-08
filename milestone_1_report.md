@@ -39,11 +39,11 @@ Europe Hotel Reviews | 17 | 1493 | 515000 | 238.15 <br>
 
 Table 1: Initial datasets characterization
 
-O dataset Datafiniti's Hotel Reviews [2] foi retirado de Datafiniti's Business Database [3] através de sampling. Hotel Review Insights [4] é um compilado de hotéis do mundo através de web-scrapping de reviews presentes em Booking.com [8]. London Hotel Reviews [5] é um sample retirado e parcialmente refinado de um dataset de DataStock [6]. Finalmente, Europe Hotel Reviews [7] também resulta de web scrapping de reviews de hoteis espalhados pela Europa publicados em Booking.com [8].
+The Datafiniti's Hotel Reviews [2] dataset was taken from Datafiniti's Business Database [3] through sampling. Hotel Review Insights [4] is a compilation of hotels around the world through web-scraping of reviews found on Booking.com [8]. London Hotel Reviews [5] is a sample taken and partially refined from a DataStock dataset [6]. Finally, Europe Hotel Reviews [7] also results from web scrapping of hotel reviews across Europe published on Booking.com [8].
 
-Todos os datasets têm "licença de utilização pública" (melhorar isto, procurar a definição correcta) e, segundo a plataforma Kaggle, um índice de usabilidade superior a 8.
+All datasets have a public use license and, according to the Kaggle platform, a usability index greater than 8. This index is justified, given that the elimination of null, repeated or non-informative entries practically did not eliminate nothing.
 
-The datasets contém features comuns, numerical data, such as rating, review date, and textual data, such a review text, hotel location and name. O último dataset contém dois parâmetros adicionais, positive review and negative review. As features enunciadas foram extraídas neste passo e refinadas em Data Preparation.
+The datasets contain common features, numerical data, such as rating, review date, and textual data, such as review text, hotel location and name. The last dataset contains two additional parameters, positive review and negative review. The features stated were extracted in this step and refined in Data Preparation.
 
 ## 3 - Data Preparation
 
@@ -75,43 +75,42 @@ Figure 1: Data preparation pipeline
 
 Figure 2: Reviews Word Cloud
 
-A word cloud com base nos textos das reviews fundamenta as search tasks da próxima milestone assim como a contextual search a implementar. Tal como esperado, as palavras que mais se destacam são aquelas intrinsecamente relacionadas à hotelaria, como "staff", "room", "location", "breakfast" and "clean". Geramente as palavras em destaque tem um tom neutro, embora sejam detectáveis também várias com conotação bastante positiva, como "great", "lovely", "excelent", o que pode também ser comprovado pelo average rate [Figure 4] dado aos hoteis.
+The word cloud based on the texts of the reviews supports the search tasks of the next milestone as well as the contextual search to be implemented. As expected, the words that stand out the most are those intrinsically related to the hotel industry, such as "staff", "room", "location", "breakfast". Generally, the highlighted words have a neutral tone, although several with a very positive connotation are also detectable, such as "clean", "great", "lovely", "excellent", which can also be proven by the average rate [Figure 4] given to hotels.
 
 ### 4.2 - Hotel location distribution
 
 Figure 3: Hotel location distribution
 
-A Figura X evidencia a distribuição das 10 localizações de hotéis mais frequentes no sistema. Tal como era espectável, a capitais e grandes cidades dos principais países de turismo concentram a maior quantidade de hotéis.
+Figure 3 shows the distribution of the 10 most frequent hotel locations in the system. As expected, the capitals and large cities of the main tourism countries concentrate the largest number of hotels and their reviews.
 
 ### 4.3 - Average rating distribution
 
 Figure 4: Average rating distribution
 
-Tendencialmente os hotéis têm boas reviews. O resultado é fomentado pelas suas localizações, já que sua maioria são em cidades com grandes pontos turísticos e portanto com maior cadência de opiniões.
+Hotels tend to have very good reviews. The result is encouraged by their locations, as the majority are in cities with major tourist attractions and therefore with a greater cadence of reviews.
 
 ### 4.5 - Reviews per year
 
 Figure 5: Reviews distribution per year
 
-A partir da análise da figura acima conclui-se que o sistema contempla hotéis com reviews de 2010 até 2023. No entanto, a escolha dos datasets iniciais com informação relativa maioritariamente ao período 2015 e 2017 influenciou a representatividade dos mesmos.
+From the analysis of the figure above, it can be concluded that the system includes hotels with reviews from 2010 to 2023. However, the choice of initial datasets with information relating mainly to the period 2015 and 2017 influenced their representativeness.
 
-Vejamos, por exemplo, a distribuição de reviews por mês do ano de 2016:
+Let's look, for example, at the distribution of reviews by month in 2016:
 
 Figure 6: Month reviews distribution in year 2016
 
-De facto é dezembro em que a quantidade de reviews é superior, perdendo destaque após o início do ano novo. Este período corresponde à época onde normalmente as pessoas tiram férias e, portanto, escolhem para viajar.
-Este pattern repete-se para os demais anos em análise.
-x
+In fact, it is December when the number of reviews is higher, losing prominence after the start of the new year. This period corresponds to the time when people normally take vacations and therefore choose to travel.
+This pattern is repeated for the other years under analysis.
 
 ### 4.5 - Data Conceptual Model
 
-Após a fase Data preparation, os nossos documents contêm as seguintes relações:
+After the Data preparation phase, our documents contain the following relationships:
 
 Figure 7: Data Conceptual Model
 
-Um hotel é constituído pelos atributos name, location e average_rate. Note-se que average_rate é um atributo derivado que foi calculado no processo com base nas reviews selecionadas. Cada review tem o correspondente texto, rate e submission date.
+A hotel is made up of the attributes name, location and average_rate. Note that average_rate is a derived attribute that was calculated in the process based on the selected reviews. Each review has the corresponding text, rate and submission date.
 
-Location foi considerada uma classe também pois como será de esperar no cenário hoteleiro existem vários Hoteis por região principalmente nas grandes cidades, tal como evidenciado em Figure 3.
+Location was also considered a class because, as expected in the hotel scene, there are several hotels per region, mainly in large cities, as shown in Figure 3.
 
 ## 5 - Possible search tasks
 
