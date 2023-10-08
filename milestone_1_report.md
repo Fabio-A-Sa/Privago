@@ -71,21 +71,35 @@ Figure 1: Data preparation pipeline
 
 ## 4 - Data Characterization
 
-In order TODO
+### 4.1 - Reviews Word Cloud
 
-### 4.1 - Data Domain Conceptual Model
+Figure X: Reviews Word Cloud
 
-### 4.2 - Reviews Word Cloud
+A word cloud com base nos textos das reviews fundamenta as search tasks da próxima milestone assim como a contextual search a implementar. Tal como esperado, as palavras que mais se destacam são aquelas intrinsecamente relacionadas à hotelaria, como "staff", "room", "location", "breakfast" and "clean". Geramente as palavras em destaque tem um tom neutro, embora sejam detectáveis também várias com conotação bastante positiva, como "great", "lovely", "excelent", o que pode também ser comprovado pelo average rate [Figure X] dado aos hoteis.
 
-### 4.3 - Hotel location distribution
+### 4.2 - Hotel location distribution
 
-escolher as 20 locations mais frequentes e excluir os outros. fix no que está no github. Se 20 for muito (o gráfico ficar muito partido), reduzir para 10.
+Figure X: Hotel location distribution
 
-### 4.4 - Average rating distribution
+A Figura X evidencia a distribuição das 10 localizações de hotéis mais frequentes no sistema. Tal como era espectável, a capitais e grandes cidades dos principais países de turismo concentram a maior quantidade de hotéis.
 
-X = Ranges de 0 a 5, ints.
-Y = # de hoteis com esse average_rating
-verificar que tendencialmente os hotéis tem boas reviews && verificar que o pessoal é extremo (ou dá muito boa, ou dá muito má).
+### 4.3 - Average rating distribution
+
+Figure X: Average rating distribution
+
+Tendencialmente os hotéis têm boas reviews. O resultado é fomentado pelas suas localizações, já que sua maioria são em cidades com grandes pontos turísticos e portanto com maior cadência de opiniões.
+
+### 4.5 - TODO
+
+### 4.5 - Data Conceptual Model
+
+Após a fase Data preparation, os nossos documents contêm as seguintes relações:
+
+Figure X: Data Conceptual Model
+
+Um hotel é constituído pelos atributos name, location e average_rate. Note-se que average_rate é um atributo derivado que foi calculado no processo com base nas reviews selecionadas. Cada review tem o correspondente texto, rate e submission date.
+
+Location foi considerada uma classe também pois como será de esperar no cenário hoteleiro existem vários Hoteis por região principalmente nas grandes cidades, tal como evidenciado em Figure X.
 
 ## 5 - Possible search tasks
 
@@ -118,5 +132,3 @@ As we move forward, there are exciting opportunities for further enhancements an
 - [7] - [Europe Hotel Reviews](https://www.kaggle.com/datasets/jiashenliu/515k-hotel-reviews-data-in-europe)
 - [8] - [Booking](https://www.booking.com)
 - [9] - [Pandas](https://pandas.pydata.org)
-
-- talvez as bibliotecas em requirements.txt, ver se nos 4 exemplos tem isso
