@@ -1,7 +1,6 @@
 import json
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import math
 import random
 from unidecode import unidecode
@@ -57,7 +56,6 @@ def purge_reviews(max_reviews_number: int):
 
 
     for hotel_to_purge in hotels_to_purge:
-        # print('purging', hotel_to_purge)
         reviews_to_purge = reviews.loc[reviews["name"] == hotel_to_purge]
 
         review_rates = {}
@@ -66,18 +64,14 @@ def purge_reviews(max_reviews_number: int):
                 review_rates[ reviews_to_purge.loc[r, "review_rate"] ] = review_rates[ reviews_to_purge.loc[r, "review_rate"] ] + 1
             else:
                 review_rates[ reviews_to_purge.loc[r, "review_rate"] ] = 1
-
-        # plt.bar(review_rates.keys(), review_rates.values())
-        # plt.show()
+            
+        
+        # deciding how many reviews in each rate are going to be deleetd
 
         result = [math.floor((rev/len(reviews_to_purge)) * max_reviews_number) for rev in review_rates.values()]
         result_rest = [(rev/len(reviews_to_purge)) * max_reviews_number - math.floor((rev/len(reviews_to_purge)) * max_reviews_number) for rev in review_rates.values()]
-
-        # print([rev/len(reviews_to_purge) for rev in review_rates.values()], sum(review_rates.values()))
         
         idx_added = []
-
-
         for i in range(max_reviews_number - sum(result)):
             highest = -1
             for j in range(len(result)):
@@ -94,7 +88,7 @@ def purge_reviews(max_reviews_number: int):
         for idx in idx_added:
             result[idx] = result[idx] + 1
 
-
+        # deleting reviews
         new_review_rates = {}
 
         for i in range(len(review_rates.keys())):
@@ -111,9 +105,8 @@ def purge_reviews(max_reviews_number: int):
             # drop the choosen rows
             reviews = reviews.drop(index=idxs_to_purge)
         
-        # print("reviews len=", len(reviews.index.tolist()))
     
-    # writeToFile(REVIEWS_PATH, reviews)
+    writeToFile(REVIEWS_PATH, reviews)
 
 
 
