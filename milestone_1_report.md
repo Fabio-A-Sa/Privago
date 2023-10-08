@@ -1,8 +1,11 @@
 # Milestone 1 - Report
 
-### Title
+### Hotel Analisys from Traveler's Eye
 
-### Name, surname, location, email de cada um
+### André Ávila, Porto, up20__@up.pt
+### André Costa, Porto, up201905916@up.pt
+### Fábio Morais, Porto, up20__@up.pt
+### Fábio Sá, Porto, up20__@up.pt
 
 ## Abstract
 
@@ -55,7 +58,7 @@ With the data cleaned, attention was turned to ``attribute normalization``. Give
 
 In addiction, was established a ``standardized naming`` convention to address variations in ``hotel names``, such as from "45 Park Lane - Dorchester Collection" to "45 Park Lane Dorchester Collection". This step was necessary to facilitate the aggregation step and the addition of the feature "average_rate" to each hotel entity, referenced below. ``Location standardization`` involved reducing location names to their last two words, preserving only the capital and country names.
 
-To gain insights into the textual content, we calculated the temporary column `word count` for each review across all datasets. This analysis was facilitated using the Pandas [9] Python tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. This process enabled us to identify and manage reviews with either an insufficient word count or an excessively high word count. We achieved this by removing reviews falling below the 25% threshold (first quartile) and those exceeding the 75% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [Figure 8] [Figure 9].
+To gain insights into the textual content, was calculated the temporary column `word count` for each review across all datasets. This analysis was facilitated using the Pandas [9] Python tool, allowing the extraction of valuable information such as quartile ranges and the decision making of the review deletion phase. This process enabled the identification and management of reviews with either an insufficient word count or an excessively high word count. This was achieved by removing reviews falling below the 25% threshold (first quartile) and those exceeding the 75% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [Figure 8] [Figure 9].
 
 At this stage, all the datasets were successfully merged into a single, consolidated dataset, which streamlined the remaining preparation tasks. These tasks commenced with the computation of the temporary column ``"average_rate"`` for each unique hotel. This information may prove valuable for defining search criteria in future milestones.
 
@@ -63,7 +66,7 @@ After completing the aforementioned steps, the next phase involved determining t
 
 First, hotels with fewer reviews, falling below the established minimum threshold (first quartile), were addressed, and they were subsequently removed from the dataset. This step was crucial in ensuring that the dataset focused exclusively on hotels with a substantial volume of reviews, thus providing more meaningful insights.
 
-Subsequently, hotels with an excessive number of reviews were taken into account. To handle this situation, a strategy was implemented, allowing the selection and retention of reviews while preserving the proportion of reviews per rating category for each specific hotel, i.e., its global rate. This approach guaranteed a balance between the "average_rate" and the rate of the selected reviews.
+Subsequently, hotels with an excessive number of reviews were taken into account, due to the imbalance of the number of reviews per hotel and the excessive information that could be explained with just a sample. To handle this situation, a strategy was implemented, allowing the selection and retention of reviews while preserving the proportion of reviews per rating category for each specific hotel, i.e., its global rate. This approach guaranteed a balance between the "average_rate" and the rate of the selected reviews.
 
 The final step in the data preparation phase involved organizing the data into the ``desired JSON file format``, which was designed based on our UML diagram [Figure 4] and with a focus on the primary objective of the search tool. This format consisted of a collection of JSON objects, each representing a "Hotel" entity. Within each "Hotel" object, were included not only its associated attributes (name, location, average_rate) but also the related reviews, presented as JSON objects themselves. Each review has a corresponding text, rate and submission date.
 
@@ -116,11 +119,11 @@ Location was also considered a class because, as expected in the hotel scene, th
 
 In the course of the data analysis journey, were unveiled valuable insights through the use of a Word Cloud Diagram [Figure 2]. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
 
-``"Location"`` emerged as one of the top considerations in travelers' decision-making processes. Whether it's proximity to local attractions, accessibility to transportation hubs, or the overall neighborhood ambiance, the location of a hotel can greatly influence the overall travel experience. Queries like ``"best hotels in [City/Region/Country]"`` and ``"near the airport"`` can help travelers selecting accommodations that align with their preferred locations and provide convenient access to their destinations.
+``"Location"`` emerged as one of the top considerations in travelers' decision-making processes. Whether it's proximity to local attractions, accessibility to transportation hubs, or the overall neighborhood ambiance, the location of a hotel can greatly influence the overall travel experience. Queries like ``"best hotels in [City/Region/Country]"`` and ``"hotels near the airport"`` can help travelers selecting accommodations that align with their preferred locations and provide convenient access to their destinations.
 
-For many tourists, a good breakfast is an essential element of their stay. The word ``"breakfast"`` featured prominently in our Word Cloud [Figure 2], suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like "Hotels with breakfast/good breakfast" can assist those who prioritize morning meals.
+For many tourists, a good breakfast is an essential element of their stay. The word ``"breakfast"`` featured prominently in our Word Cloud [Figure 2], suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like ``"Hotels with breakfast/good breakfast"`` can assist those who prioritize morning meals.
 
-The words "staff" and "service" were significant contributors. This emphasizes the critical role that hotel staff play in the overall guest experience. From warm welcomes at the reception desk to prompt and efficient room service, exceptional staff service can elevate a stay. Queries about `"staff service"` and `"room service"` quality could be instrumental in identifying hotels that excel in providing exceptional service to their guests.
+The words "staff" and "service" were significant contributors. This emphasizes the critical role that hotel staff play in the overall guest experience. From warm welcomes at the reception desk to prompt and efficient room service, exceptional staff service can elevate a stay. Queries such as `"hotel with a helpful staff"` and `"affordable room service"` could be instrumental in identifying hotels that excel in providing exceptional service to their guests.
 
 Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our Word Cloud [Figure 2], underscoring the importance of these aspects to travelers. Queries related to "room"/"bed" quality or "bathroom" sanitation can guide travelers to accommodations that prioritize comfort and cleanliness.
 
@@ -128,9 +131,9 @@ Another one of the foremost considerations in hotel selection is the quality of 
 
 In conclusion of this milestone, all the planned tasks within the data preparation phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that will give tourists useful information and help them make informed choices.
 
-One of the most challenging aspects of the work involved developing effective strategies to address the issue of an excessive number of reviews. Substantial effort was invested in determining the best approach to manage and utilize this abundance of information. Through meticulous analysis and innovative methods, a balance was struck between data volume and relevance, ensuring that the dataset remained rich with insights while maintaining a manageable size.
+One of the most challenging aspects of the work was developing effective strategies to address the issue of an excessive number of reviews. Substantial effort was invested in determining the best approach to manage and utilize this abundance of information. Through meticulous analysis and innovative methods, a balance was struck between data volume and relevance, ensuring that the dataset remained rich with insights while maintaining a manageable size.
 
-As the project progresses, there are promising opportunities for further enhancements and refinements. With the cleansed and consolidated dataset now at hand, the next phase of the project will focus on the development of a robust hotel search engine. This engine will empower travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
+As the project progresses, there are always opportunities for further enhancements and refinements. With the cleansed and consolidated dataset, the next phase of the project will focus on the development of a robust hotel search engine. This engine will allow travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
 
 ## Annexes
 
