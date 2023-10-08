@@ -53,23 +53,25 @@ The data preparation process began with a comprehensive cleaning phase, where we
 
 With the data cleaned, we turned our attention to ``attribute normalization``. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as ``"positive_reviews"`` and ``"negative_reviews"`` into a unified ``"review_text"`` attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [Figure 1]. Additionally, ``date formats`` were normalized to ensure uniformity and suitability for analysis. The date format was set as "year-month" due to the absence of day-specific review information in the second dataset and its irrelevance to the research targets. In fact, people search for seasons of the year, months, and not for a specific day. ``Rating scales`` were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
 
-In addiction, was established a ``standardized naming`` convention to address variations in ``hotel names``, such as "45 Park Lane - Dorchester Collection" and "45 Park Lane Dorchester Collection". This step was necessary to facilitate the addition of the feature "average_rate" to each hotel entity, referenced below. ``Location standardization`` involved reducing location names to their last two words, resulting in a format comprising capital and country names.
+In addiction, was established a ``standardized naming`` convention to address variations in ``hotel names``, such as from "45 Park Lane - Dorchester Collection" to "45 Park Lane Dorchester Collection". This step was necessary to facilitate the aggregation and the addition of the feature "average_rate" to each hotel entity, referenced below. ``Location standardization`` involved reducing location names to their last two words, resulting in a format comprising capital and country names.
 
-To gain insights into the textual content, we calculated the ``word count`` for each review across all datasets. This analysis was facilitated using the Pandas [ref] tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. This process enabled us to identify and manage reviews with either an insufficient word count or an excessively high word count. We achieved this by removing reviews falling below the 25% threshold (first quartile) and those exceeding the 75% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [ref].
+To gain insights into the textual content, we calculated the temporary column ``word count`` for each review across all datasets. This analysis was facilitated using the Pandas [9] Python tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. This process enabled us to identify and manage reviews with either an insufficient word count or an excessively high word count. We achieved this by removing reviews falling below the 25% threshold (first quartile) and those exceeding the 75% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [Figure 2] [Figure 3].
 
 At this state, we were finally able to merge all the datasets into a single, consolidated dataset, streamlining the remaining preparation tasks, beginning with the computation of the ``average rate`` for each unique hotel. This might be helpful for searching criterias for the futures milestones.
 
-After completing the aforementioned steps, we proceeded to determine the minimum and maximum number of ``reviews per hotel`` that we aimed to retain. To accomplish this, we employed the same approach used for analyzing the number of words per review, utilizing the Pandas [ref] `.describe()` function. This statistical analysis provided crucial insights into the distribution of reviews across hotels.
+After completing the aforementioned steps, we proceeded to determine the minimum and maximum number of ``reviews per hotel`` that we aimed to retain. To accomplish this, we employed the same approach used for analyzing the number of words per review, utilizing the Pandas [9] `.describe()` function. This statistical analysis provided crucial insights into the distribution of reviews across hotels.
 
-We first addressed hotels with fewer reviews, removing those that fell below the established minimum threshold from our dataset. This step ensured that our dataset focused on hotels with a sufficient volume of reviews to provide meaningful insights.
+We first addressed hotels with fewer reviews, removing those that fell below the established minimum threshold (first quartile) from our dataset. This step ensured that our dataset focused on hotels with a sufficient volume of reviews to provide meaningful insights.
 
-Next, we turned our attention to hotels with an excessive number of reviews. To manage this situation, we implemented a strategy that allowed us to select and retain reviews while preserving the proportion of reviews per rating category for each specific hotel. This approach ensured that we maintained a balanced between the 'average_rate' and the rate of the selected reviews.
+Next, we turned our attention to hotels with an excessive number of reviews. To manage this situation, we implemented a strategy that allowed us to select and retain reviews while preserving the proportion of reviews per rating category for each specific hotel, that is, its global rate. This approach ensured that we maintained a balanced between the 'average_rate' and the rate of the selected reviews.
 
-The final step in the data preparation phase involved organizing the data into the ``desired JSON file format``, which was designed based on our UML diagram[ref] and with a focus on the primary objective of our search tool. This format consisted of a collection of JSON objects, each representing a "Hotel" entity. Within each "Hotel" object, we included not only its associated attributes but also the related reviews, presented as JSON objects themselves.
+The final step in the data preparation phase involved organizing the data into the ``desired JSON file format``, which was designed based on our UML diagram [Figure 4] and with a focus on the primary objective of our search tool. This format consisted of a collection of JSON objects, each representing a "Hotel" entity. Within each "Hotel" object, we included not only its associated attributes (name, location, average_rate) but also the related reviews, presented as JSON objects themselves. Each review has a corresponding text, rate and submission date.
 
 Figure 1: Data preparation pipeline
 
 ## 4 - Data Characterization
+
+In order TODO
 
 ### 4.1 - Data Domain Conceptual Model
 
@@ -101,5 +103,6 @@ dizer que foi baseado na word cloud e nas coisas normais de um hotel. ver introd
 - [6] - [DataStock](https://datastock.shop)
 - [7] - [Europe Hotel Reviews](https://www.kaggle.com/datasets/jiashenliu/515k-hotel-reviews-data-in-europe)
 - [8] - [Booking](https://www.booking.com)
+- [9] - [Pandas](https://pandas.pydata.org)
 
 - talvez as bibliotecas em requirements.txt, ver se nos 4 exemplos tem isso
