@@ -111,8 +111,42 @@ def rating_distribution():
     # Save progress
     plt.savefig(PLOTS_PATH + "rating_distributions.png")
 
+def date_distribution_years(data):
+
+    # Collect review dates
+    review_dates = []
+    for hotel in data:
+        for review in hotel['reviews']:
+            review_dates.append(int(review['date'].split('-')[0]))
+
+    # Create a histogram
+    plt.hist(review_dates, bins=range(2010, 2023), edgecolor='k')
+    plt.xlabel('Year')
+    plt.ylabel('Frequency')
+    plt.title('Review date distribution')
+    plt.xlim(2010, 2024)
+    plt.savefig(PLOTS_PATH + "date_distributions.png")
+
+def date_distribution_months(data, selected_year: int):
+
+    # Collect review months
+    review_dates = []
+    for hotel in data:
+        for review in hotel['reviews']:
+            [year, month] = review['date'].split('-')
+            if int(year) == selected_year:
+                review_dates.append(int(month))
+
+    # Create a histogram
+    plt.hist(review_dates, bins=range(1, 13, 1), edgecolor='k')
+    plt.xlabel(f'Months {selected_year}')
+    plt.ylabel('Frequency')
+    plt.title('Reviews distribution by month')
+    plt.savefig(PLOTS_PATH + f"date_distributions_{selected_year}.png")
+
 # TODO: Move this function. It is a subroutine of sample pipeline step.
 def hotel_words_per_review():
+
     hotel_reviews = pd.read_json(REVIEWS_PATH)
     hotels = pd.read_json(HOTELS_PATH)
 
@@ -147,7 +181,16 @@ def hotel_words_per_review():
     writeToFile(HOTEL_WORDS_PER_REVIEW_PATH, pd.DataFrame.from_dict(hotels_words_per_review_dict))
 
 if __name__ == '__main__':
-    rating_distribution()
-    location_distribution()
-    word_cloud()
+
+    #rating_distribution()
+    #location_distribution()
+    data = []
+    with open(FINAL_JSON_PATH, 'r') as json_file:
+        data = json.load(json_file)
+        json_file.close()
+
+    date_distribution_months(data, 2016)
+    date_distribution_years(data)
+
+    #word_cloud()
     # hotel_words_per_review() 
