@@ -1,11 +1,11 @@
 # Milestone 1 - Report
 
-### Hotel Analisys from Traveler's Eye
+### Todo
 
-### André Ávila, Porto, up20__@up.pt
+### André Ávila, Porto, up202006767@up.pt
 ### André Costa, Porto, up201905916@up.pt
-### Fábio Morais, Porto, up20__@up.pt
-### Fábio Sá, Porto, up20__@up.pt
+### Fábio Morais, Porto, up202008052@up.pt
+### Fábio Sá, Porto, up202007658@up.pt
 
 ## Abstract
 
@@ -24,9 +24,9 @@ Hotels, Reviews, Information, Dataset, Data Retrieval, Data Preparation, Data An
 
 This paper is developed as part of the course "Information Processing and Retrieval" (PRI) within the first year of the Master's in Informatics and Computing Engineering (MEIC) at the Faculty of Engineering of the University of Porto (FEUP).
 
-The choice of the hotel reviews theme is motivated by its significant relevance and the rich diversity of attributes it encompasses. Hotel reviews, as a research focus, hold substantial importance in the modern information landscape. They not only provide valuable insights into the hospitality industry but also serve as a prime example of data diversity, combining numerical ratings, submission dates, and personal, subjective narratives. This diversity introduces intricacies in data structuring and presents challenges in contextual search, making it an ideal choice for aligning the search system with real-world scenarios. Thus, this theme strongly resonates with the course objectives, emphasizing practical applicability and the development of robust information retrieval solutions.
+The choice of the hotel reviews theme is motivated by its significant relevance and the rich diversity of attributes it encompasses. Hotel reviews, as a research focus, hold substantial importance in the modern information landscape. They not only provide valuable insights into the hospitality industry but also serve as a prime example of data diversity, combining numerical ratings, submission dates, and personal, subjective narratives. This diversity introduces complications in data structuring and presents challenges in contextual search, making it a good choice for aligning the search system with real-world scenarios. Thus, this theme strongly resonates with the course objectives, emphasizing practical applicability and the development of robust information retrieval solutions.
 
-This document is structured into several major sections, each tailored to fulfill the objectives of Milestone 1. We commence with `Data Extraction and Enrichment`, where we introduce the data sources, briefly characterize the datasets, and assess data quality. Subsequently, `Data Preparation` outlines the selection criteria, processing methods, and data storage procedures for hotel-related information and associated reviews, following a clear and reproducible pipeline.
+This document is structured into several major sections, each tailored to fulfill the objectives of Milestone 1. It starts with `Data Extraction and Enrichment`, where It's introduced the data sources, briefly characterize the datasets, and assess data quality. Subsequently, `Data Preparation` outlines the selection criteria, processing methods, and data storage procedures for hotel-related information and associated reviews, following a clear and reproducible pipeline.
 
 In `Data Characterization` we delve into the evaluation and visualization of the refined data. This involves examining various criteria and relationships, from the Domain Conceptual Model to Word Clouds. Finally, `Possible Search Tasks` and `Conclusions and Future Work` provide an overarching interpretation of the results, guiding the identification of suitable research objectives for the project's next phase.
 
@@ -125,7 +125,7 @@ For many tourists, a good breakfast is an essential element of their stay. The w
 
 The words "staff" and "service" were significant contributors. This emphasizes the critical role that hotel staff play in the overall guest experience. From warm welcomes at the reception desk to prompt and efficient room service, exceptional staff service can elevate a stay. Queries such as `"hotel with a helpful staff"` and `"affordable room service"` could be instrumental in identifying hotels that excel in providing exceptional service to their guests.
 
-Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our Word Cloud [Figure 2], underscoring the importance of these aspects to travelers. Queries related to "room"/"bed" quality or "bathroom" sanitation can guide travelers to accommodations that prioritize comfort and cleanliness.
+Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our Word Cloud [Figure 2], underscoring the importance of these aspects to travelers. Queries related to "room with comforatble bed" or "room with clean bathroom" can guide travelers to accommodations that prioritize comfort and cleanliness.
 
 ## 6 - Conclusions and Future work
 
