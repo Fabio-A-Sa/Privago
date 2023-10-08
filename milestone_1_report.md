@@ -92,7 +92,7 @@ Figure 4: Average rating distribution
 
 Hotels tend to have very good reviews. The result is encouraged by their locations, as the majority are in cities with major tourist attractions and therefore with a greater cadence of reviews.
 
-### 4.5 - Reviews per year
+### 4.4 - Reviews per year
 
 Figure 5: Reviews distribution per year
 
