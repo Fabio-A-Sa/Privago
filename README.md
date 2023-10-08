@@ -2,17 +2,17 @@
 
 ## Data
 
-### Relational Model
+### Data Domain Model
 
 ![UML](./imgs/UML.png)
 
-### Worl Cloud
+### Word Cloud
 
 ![WordCloud](./imgs/wordcloud.png)
 
-### Location distributions
+### Location distribution
 
-![LocationDistributions](./imgs/locations.png)
+![LocationDistribution](./imgs/locations.png)
 
 ## Run 
 

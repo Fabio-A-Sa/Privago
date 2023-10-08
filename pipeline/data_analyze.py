@@ -5,12 +5,10 @@ import matplotlib.pyplot as plt
 from nltk.tokenize import sent_tokenize, word_tokenize
 import nltk
 
-
-def tokenize_text(text : str) -> [str]:
-    stop_words = nltk.corpus.stopwords.words('english')
+def tokenize_text(text : str) -> list:
 
     words = [] 
-
+    stop_words = nltk.corpus.stopwords.words('english')
     my_sentences = sent_tokenize(text, "english")
 
     for sentence in my_sentences:
@@ -22,12 +20,12 @@ def tokenize_text(text : str) -> [str]:
 
         # Filter stop words
         non_stop_words = [word for word in words_tokenized if word.lower() not in stop_words]
-
         words = words + non_stop_words
     
     return words
 
 def word_segmentation():
+
     nltk.download('punkt')
     nltk.download('stopwords')
 
@@ -82,22 +80,24 @@ def location_chart():
     hotels = pd.read_json(HOTELS_PATH)
     location_counts = hotels['location'].value_counts()
 
-    # 20 most common locations
-    top_20_locations = location_counts.head(20)
-    other_count = location_counts.iloc[20:].sum()
-    top_20_locations['Other'] = other_count
+    # 8 most common locations
+    top_8_locations = location_counts.head(8)
 
     # Donuts chart
     fig, ax = plt.subplots()
-    ax.pie(top_20_locations, labels=top_20_locations.index, autopct='%1.1f%%', startangle=90)
+    ax.pie(top_8_locations, labels=[''] * 8, autopct='%1.1f%%', startangle=90)
     ax.axis('equal')
     circle = plt.Circle((0, 0), 0.70, fc='white')
     fig.gca().add_artist(circle)
 
-    # Save plot
-    fig.savefig(PLOTS_PATH + "locations.png")
+    # Locations
+    legend_labels = top_8_locations.index
+    plt.legend(legend_labels, loc='center left', bbox_to_anchor=(1.0, 0.5))
 
+    # Save progress
+    fig.savefig(PLOTS_PATH + "locations.png", bbox_inches='tight')
 
+# TODO: Move this function. It is a subroutine of sample pipeline step.
 def hotel_words_per_review():
     hotel_reviews = pd.read_json(REVIEWS_PATH)
     hotels = pd.read_json(HOTELS_PATH)
@@ -132,9 +132,8 @@ def hotel_words_per_review():
 
     writeToFile(HOTEL_WORDS_PER_REVIEW_PATH, pd.DataFrame.from_dict(hotels_words_per_review_dict))
 
-
-
 if __name__ == '__main__':
-    word_cloud()
+    # word_cloud()
     location_chart()
-    hotel_words_per_review()
+
+    # hotel_words_per_review() 
