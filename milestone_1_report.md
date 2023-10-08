@@ -23,7 +23,7 @@ This paper is developed as part of the course "Information Processing and Retrie
 
 The choice of the hotel reviews theme is motivated by its significant relevance and the rich diversity of attributes it encompasses. Hotel reviews, as a research focus, hold substantial importance in the modern information landscape. They not only provide valuable insights into the hospitality industry but also serve as a prime example of data diversity, combining numerical ratings, submission dates, and personal, subjective narratives. This diversity introduces intricacies in data structuring and presents challenges in contextual search, making it an ideal choice for aligning the search system with real-world scenarios. Thus, this theme strongly resonates with the course objectives, emphasizing practical applicability and the development of robust information retrieval solutions.
 
-This document is structured into several major sections, each tailored to fulfill the objectives of Milestone 1. We commence with `Data Extraction and Enrichment`," where we introduce the data sources, briefly characterize the datasets, and assess data quality. Subsequently, `Data Preparation` outlines the selection criteria, processing methods, and data storage procedures for hotel-related information and associated reviews, following a clear and reproducible pipeline.
+This document is structured into several major sections, each tailored to fulfill the objectives of Milestone 1. We commence with `Data Extraction and Enrichment`, where we introduce the data sources, briefly characterize the datasets, and assess data quality. Subsequently, `Data Preparation` outlines the selection criteria, processing methods, and data storage procedures for hotel-related information and associated reviews, following a clear and reproducible pipeline.
 
 In `Data Characterization` we delve into the evaluation and visualization of the refined data. This involves examining various criteria and relationships, from the Domain Conceptual Model to Word Clouds. Finally, `Possible Search Tasks` and `Conclusions and Future Work` provide an overarching interpretation of the results, guiding the identification of suitable research objectives for the project's next phase.
 
@@ -31,27 +31,27 @@ In `Data Characterization` we delve into the evaluation and visualization of the
 
 After conducting research for relevant data in terms of variety and quantity, four datasets from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
 
-Dataset | Features | Hotels | Reviews | Size (MBs)
-Datafiniti's Hotel Reviews | 26 | 1400 | 10000 | 124.45
-Hotel Review Insights | 7 | 570 | 7000 | 1.31
-London Hotel Reviews | 6 | 20 | 27329 | 22.85
-Europe Hotel Reviews | 17 | 1493 | 515000 | 238.15
+Dataset | Features | Hotels | Reviews | Size (MBs) <br>
+Datafiniti's Hotel Reviews | 26 | 1400 | 10000 | 124.45  <br>
+Hotel Review Insights | 7 | 570 | 7000 | 1.31  <br>
+London Hotel Reviews | 6 | 20 | 27329 | 22.85  <br>
+Europe Hotel Reviews | 17 | 1493 | 515000 | 238.15  <br>
 
 Table 1: Initial datasets characterization 
 
-O dataset Datafiniti's Hotel Reviews [2] foi retirado de Datafiniti's Business Database [3] através de sampling. Hotel Review Insights [4] é um compilado de algumas reviews de hotéis do mundo através de web-scrapping de reviews presentes em Booking.com [8]. London Hotel Reviews [5] é um sample retirado e parcialmente refinado de um dataset de DataStock [6]. Finalmente, Europe Hotel Reviews [7] também resulta de web scrapping de reviews de hoteis espalhados pela Europa publicados em Booking.com [8].
+O dataset Datafiniti's Hotel Reviews [2] foi retirado de Datafiniti's Business Database [3] através de sampling. Hotel Review Insights [4] é um compilado de hotéis do mundo através de web-scrapping de reviews presentes em Booking.com [8]. London Hotel Reviews [5] é um sample retirado e parcialmente refinado de um dataset de DataStock [6]. Finalmente, Europe Hotel Reviews [7] também resulta de web scrapping de reviews de hoteis espalhados pela Europa publicados em Booking.com [8].
 
 Todos os datasets têm "licença de utilização pública" (melhorar isto, procurar a definição correcta) e, segundo a plataforma Kaggle, um índice de usabilidade superior a 8.
 
-The datasets contém features comuns, numerical data, such as rating, review date, and textual data, such a review text, hotel localisation and name. O último dataset contém dois parâmetros adicionais, positive review and negative review. As features enunciadas foram extraídas neste passo e refinadas em Data Preparation.
+The datasets contém features comuns, numerical data, such as rating, review date, and textual data, such a review text, hotel location and name. O último dataset contém dois parâmetros adicionais, positive review and negative review. As features enunciadas foram extraídas neste passo e refinadas em Data Preparation.
 
 ## 3 - Data Preparation
 
 In this section, is presented the structured data preparation pipeline that was developed for the project. This pipeline encompasses various data cleaning and restructuring procedures aimed at achieving a clean, uniform, and ready-to-analyze dataset. The objective of this phase is to establish a solid foundation for meaningful analysis.
 
-The data preparation process began with a comprehensive cleaning phase, where we focused on the removal of records containing ``empty or null values`` in any attribute. Simultaneously, we identified and eliminated incomplete or uninformative data, including strings with ``uninformative text``, such as "no comments available for this review.". This combined cleaning step ensured that the dataset was thoroughly cleansed.
+The data preparation process began with a comprehensive cleaning phase, where we focused on the removal of records containing ``empty or null values`` in any attribute. Simultaneously, we identified and eliminated incomplete or uninformative data, including strings with ``uninformative text``, such as "no comments available for this review.", using Python. This combined cleaning step ensured that the dataset was thoroughly cleansed.
 
-With the data cleaned, we turned our attention to ``attribute normalization``. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as ``"positive_reviews"`` and ``"negative_reviews"`` into a unified "review_text" attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [ref]. Additionally, ``date formats`` were normalized to ensure uniformity and suitability for analysis. The date format was set as "month-year" due to the absence of day-specific review information in the second dataset. ``Rating scales`` were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
+With the data cleaned, we turned our attention to ``attribute normalization``. Given the presence of diverse datasets with varying formats, we embarked on a comprehensive normalization process. This included standardizing attributes such as ``"positive_reviews"`` and ``"negative_reviews"`` into a unified ``"review_text"`` attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [Figure 1]. Additionally, ``date formats`` were normalized to ensure uniformity and suitability for analysis. The date format was set as "year-month" due to the absence of day-specific review information in the second dataset and its irrelevance to the research targets. In fact, people search for seasons of the year, months, and not for a specific day. ``Rating scales`` were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
 
 In addiction, was established a ``standardized naming`` convention to address variations in ``hotel names``, such as "45 Park Lane - Dorchester Collection" and "45 Park Lane Dorchester Collection". This step was necessary to facilitate the addition of the feature "average_rate" to each hotel entity, referenced below. ``Location standardization`` involved reducing location names to their last two words, resulting in a format comprising capital and country names.
 
