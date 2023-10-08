@@ -1,9 +1,5 @@
-import json
 import pandas as pd
-import numpy as np
-from unidecode import unidecode
 from utils import writeToFile, HOTELS_PATH, REVIEWS_PATH, HOTEL_REVIEWS_PATH, FINAL_JSON_PATH
-from data_analyze import tokenize_text
 
 def hotels_average_rate():
 
@@ -14,7 +10,6 @@ def hotels_average_rate():
     )
 
     writeToFile(HOTELS_PATH, grouped_reviews_rate)
-
 
 def reviews_per_hotel():
     hotel_reviews = pd.read_json(REVIEWS_PATH)
@@ -35,23 +30,26 @@ def reviews_per_hotel():
         "hotel": hotels_dict.keys(),
         "reviews": hotels_dict.values(),
     }
+
     description = pd.DataFrame.from_dict(reviews_per_hotel_dict)["reviews"].describe()
     writeToFile(HOTEL_REVIEWS_PATH, pd.DataFrame.from_dict(reviews_per_hotel_dict))
+
     return(description['25%'], description['75%'])
 
-
 def limit_hotel_reviews(inferior_limit: int, superior_limit: int):
+    # TODO
     hotel_reviews = pd.read_json(HOTEL_REVIEWS_PATH)
     hotel_reviews = hotel_reviews[(hotel_reviews['reviews'] >= inferior_limit)]
     writeToFile(HOTEL_REVIEWS_PATH, pd.DataFrame.from_dict(hotel_reviews))
 
 def final_json():
+
     reviews_per_hotel = pd.read_json(HOTEL_REVIEWS_PATH)
     hotels = pd.read_json(HOTELS_PATH)
     reviews = pd.read_json(REVIEWS_PATH)
     
     hotels_info = []
-    for index, review_per_hotel in reviews_per_hotel.iterrows():
+    for _, review_per_hotel in reviews_per_hotel.iterrows():
         hotel_name = review_per_hotel['hotel']
         hotel_info = hotels[hotels['name'] == hotel_name].to_dict(orient='records')[0]
         hotels_info.append({
@@ -61,7 +59,7 @@ def final_json():
             'reviews': []
         })
 
-    for index, review in reviews.iterrows():
+    for _, review in reviews.iterrows():
         hotel_name = review['name']
         for a in hotels_info:
             if hotel_name == a['name']:
