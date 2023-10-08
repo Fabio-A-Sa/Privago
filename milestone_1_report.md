@@ -89,7 +89,18 @@ Figure X: Average rating distribution
 
 Tendencialmente os hotéis têm boas reviews. O resultado é fomentado pelas suas localizações, já que sua maioria são em cidades com grandes pontos turísticos e portanto com maior cadência de opiniões.
 
-### 4.5 - TODO
+### 4.5 - Reviews per year
+
+Figure X: Reviews distribution per year
+
+A partir da análise da figura acima conclui-se que o sistema contempla hotéis com reviews de 2010 até 2023. No entanto, a escolha dos datasets iniciais com informação relativa maioritariamente ao período 2015 e 2017 influenciou a representatividade dos mesmos.
+
+Vejamos, por exemplo, a distribuição de reviews por mês do ano de 2016:
+
+Figure X: Month reviews distribution in year 2016
+
+De facto é dezembro em que a quantidade de reviews é superior, perdendo destaque após o início do ano novo. Este período corresponde à época onde normalmente as pessoas tiram férias e, portanto, escolhem para viajar.
+Este pattern repete-se para os demais anos em análise.
 
 ### 4.5 - Data Conceptual Model
 
