@@ -37,13 +37,12 @@ def reviews_per_hotel():
 
     description = pd.DataFrame.from_dict(reviews_per_hotel_dict)["reviews"].describe()
     writeToFile(HOTEL_REVIEWS_PATH, pd.DataFrame.from_dict(reviews_per_hotel_dict))
-
-    return(description['25%'], description['75%'])
+    return(int(description['25%']), int(description['75%']))
 
 def limit_hotel_reviews(inferior_limit: int, superior_limit: int):
-    # TODO
     hotel_reviews = pd.read_json(HOTEL_REVIEWS_PATH)
     hotel_reviews = hotel_reviews[(hotel_reviews['reviews'] >= inferior_limit)]
+    purge_reviews(superior_limit)
     writeToFile(HOTEL_REVIEWS_PATH, pd.DataFrame.from_dict(hotel_reviews))
 
 def final_json():
@@ -104,6 +103,7 @@ def purge_reviews(max_reviews_number: int):
         result_rest = [(rev/len(reviews_to_purge)) * max_reviews_number - math.floor((rev/len(reviews_to_purge)) * max_reviews_number) for rev in review_rates.values()]
         
         idx_added = []
+        
         for i in range(max_reviews_number - sum(result)):
             highest = -1
             for j in range(len(result)):
