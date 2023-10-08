@@ -114,9 +114,9 @@ Location was also considered a class because, as expected in the hotel scene, th
 
 ## 5 - Possible search tasks
 
-In our data analysis journey, we uncovered valuable insights through the use of a word cloud diagram. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
+In our data analysis journey, we uncovered valuable insights through the use of a word cloud diagram [Figure 2]. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
 
-`"Location"` emerged as one of the top considerations in travelers' decision-making processes. Whether it's proximity to local attractions, accessibility to transportation hubs, or the overall neighborhood ambiance, the location of a hotel can greatly influence the overall travel experience. Queries like `"best hotels in [City/Region/Country]"` and "near the airport" can help travelers pinpoint accommodations that align with their preferred locations and provide convenient access to their destinations.
+`"Location"` emerged as one of the top considerations in travelers' decision-making processes. Whether it's proximity to local attractions, accessibility to transportation hubs, or the overall neighborhood ambiance, the location of a hotel can greatly influence the overall travel experience. Queries like `"best hotels in [City/Region/Country]"` and "hotel near the airport" can help travelers pinpoint accommodations that align with their preferred locations and provide convenient access to their destinations.
 
 For many travelers, a good breakfast is an integral part of their stay. The word `"breakfast"` featured prominently in our word cloud, suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like "Hotels with breakfast/good breakfast" can assist those who prioritize morning meals.
 
