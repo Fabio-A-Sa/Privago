@@ -13,6 +13,7 @@ collect:
 	python3 data_collect.py
 
 normalize:
+	mkdir -p ../data/plots
 	python3 data_normalize.py
 
 merge:
@@ -23,6 +24,5 @@ sample:
 
 analyze:
 	mkdir -p ../data/analysis
-	mkdir -p ../data/plots
 	python3 data_analyze.py
 	cp ../data/plots/*.png ../imgs/

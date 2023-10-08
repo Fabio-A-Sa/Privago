@@ -77,6 +77,30 @@ def word_cloud():
     fig.savefig(PLOTS_PATH + "reviews_wordcloud.png")
     plt.close()
 
+def words_per_review(data_frame, index: int):
+
+    data_frame['word_count'] = data_frame['review_text'].apply(lambda x: len(str(x).split(' ')))
+    mean_word_count = data_frame['word_count'].mean()
+    limits = {
+        1: 800,
+        2: 150,
+        3: 1000,
+        4: 300
+    }
+
+    # Bar chart
+    plt.figure(figsize=(10, 6))
+    plt.bar(data_frame.index, data_frame['word_count'], label='Number of Words')
+    plt.axhline(mean_word_count, color='red', linestyle='dashed', label='Mean Word Count')
+    plt.text(0, mean_word_count, f'{mean_word_count:.2f}', color='red', va='center', ha='right')
+    plt.xlabel('Review Index')
+    plt.ylabel('Number of Words')
+    plt.title(f'Number of Words in Hotel Reviews {index}')
+    plt.ylim(0, limits[index])
+    plt.legend()
+    plt.savefig(PLOTS_PATH + f'word_count_{index}.png')
+    plt.close()
+
 def location_distribution(data):
 
     data = pd.DataFrame(data)
@@ -89,7 +113,7 @@ def location_distribution(data):
     fig, ax = plt.subplots()
     ax.pie(top_10_locations, labels=top_10_locations.index, autopct='%1.1f%%', startangle=90, labeldistance=1.2)
     ax.axis('equal')
-    ax.set_title('10 most common locations distribution', y=1.08)
+    ax.set_title('10 most common hotel locations', y=1.08)
 
     # Save progress
     fig.savefig(PLOTS_PATH + "location_distribution.png", bbox_inches='tight')
@@ -118,11 +142,11 @@ def date_distribution_years(data):
         for review in hotel['reviews']:
             review_dates.append(int(review['date'].split('-')[0]))
 
-    # Create a histogram
+    # Histogram
     plt.hist(review_dates, bins=range(2010, 2023), edgecolor='k')
     plt.xlabel('Year')
     plt.ylabel('Frequency')
-    plt.title('Review date distribution')
+    plt.title('Reviews distribution by year')
     plt.xlim(2010, 2024)
     plt.savefig(PLOTS_PATH + "date_distributions.png")
     plt.close()
@@ -137,7 +161,7 @@ def date_distribution_months(data, selected_year: int):
             if int(year) == selected_year:
                 review_dates.append(int(month))
 
-    # Create a histogram
+    # Histogram
     plt.hist(review_dates, bins=range(1, 13, 1), edgecolor='k')
     plt.xlabel(f'Months {selected_year}')
     plt.ylabel('Frequency')

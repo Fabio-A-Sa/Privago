@@ -4,6 +4,7 @@ import numpy as np
 import re
 from unidecode import unidecode
 from utils import writeToFile
+from data_analyze import words_per_review
 
 def combine_reviews(row):
 
@@ -102,6 +103,9 @@ def normalize(index: int):
 
     # String encoding and format
     data_frame = data_frame.map(lambda text: formatText(text) if isinstance(text, str) else text)
+
+    # Analyze average words per review before filtering
+    words_per_review(data_frame, index)
 
     # Filter reviews based on the number of words
     data_frame = limit_words_per_review(data_frame)
