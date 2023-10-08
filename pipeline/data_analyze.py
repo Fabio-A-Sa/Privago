@@ -169,42 +169,6 @@ def date_distribution_months(data, selected_year: int):
     plt.savefig(PLOTS_PATH + f"date_distributions_{selected_year}.png")
     plt.close()
 
-# TODO: Move this function. It is a subroutine of sample pipeline step.
-def hotel_words_per_review():
-
-    hotel_reviews = pd.read_json(REVIEWS_PATH)
-    hotels = pd.read_json(HOTELS_PATH)
-
-    hotels_dict = {}
-    for h in range(len(hotels)):
-        hotels_dict[ hotels.loc[h, "name"] ] = (0, 0) # (number_of_reviews, number_of_words)
-    
-    for r in range(len(hotel_reviews)):
-
-        if hotel_reviews.loc[r, "name"] not in hotels_dict.keys():
-            print(f'{hotel_reviews.loc[r, "name"]} not in the hotels list!') 
-            continue
-
-        hotels_dict[ hotel_reviews.loc[r, "name"] ] = (
-            hotels_dict[ hotel_reviews.loc[r, "name"] ][0] + 1,
-            hotels_dict[ hotel_reviews.loc[r, "name"] ][1] + len(tokenize_text(hotel_reviews.loc[r, "review_text"]))
-        )
-    
-    hotels_words_per_review = {}
-    
-    for key in hotels_dict.keys():
-        if hotels_dict[key] == 0:
-            print(f'{key} has no reviews!')
-            continue
-        hotels_words_per_review[key] = round(hotels_dict[key][1] / hotels_dict[key][0], 2)
-
-    hotels_words_per_review_dict = {
-        "hotel": hotels_words_per_review.keys(),
-        "words_per_review": hotels_words_per_review.values(),
-    }
-
-    writeToFile(HOTEL_WORDS_PER_REVIEW_PATH, pd.DataFrame.from_dict(hotels_words_per_review_dict))
-
 if __name__ == '__main__':
 
     data = []
@@ -217,5 +181,3 @@ if __name__ == '__main__':
     rating_distribution(data)
     location_distribution(data)
     word_cloud()
-
-    # hotel_words_per_review() 
