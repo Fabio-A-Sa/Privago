@@ -15,7 +15,7 @@ The internet's exponential growth demands appropriate systems for harnessing and
 
 #### Keywords
 
-Hotels, Reviews, Information, Dataset, Data Retrieval, Data Preparation, Data Analysis, Data Processing, Data Refinement, Pipeline, Domain Conceptual Model.
+Hotels, Reviews, Information, Dataset, Data Retrieval, Data Preparation, Data Analysis, Data Processing, Data Refinement, Pipeline, Data Domain Conceptual Model.
 
 ## 1 - Introduction
 
@@ -51,13 +51,13 @@ In this section, is presented the structured data preparation pipeline that was 
 
 The data preparation process began with a comprehensive cleaning phase, where the primarly focus was the removal of records containing ``empty or null values`` in any attribute. Simultaneously, was identified and eliminated incomplete or uninformative data, including strings with ``uninformative text``, such as "no comments available for this review.", using Python. This combined cleaning step ensured that the dataset was cleansed in detail for the normalization phase.
 
-With the data cleaned, attention was turned to ``attribute normalization``. Given the presence of diverse datasets with varying formats, comprehensive normalization process was needed. This included standardizing attributes such as ``"positive_reviews"`` and ``"negative_reviews"`` into a unified ``"review_text"`` attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [Figure 1]. Additionally, ``date formats`` were normalized to ensure uniformity and suitability for analysis. The date format was set as "year-month" due to the absence of day-specific review information in the second dataset and its irrelevance to the research targets. ``Rating scales`` were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
+With the data cleaned, attention was turned to ``attribute normalization``. Given the presence of diverse datasets with varying formats, comprehensive normalization process was needed. This included standardizing attributes such as ``"positive_reviews"`` and ``"negative_reviews"`` into a unified ``"review_text"`` attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [Figure 1]. Additionally, ``date formats`` were normalized to ensure uniformity and suitability for analysis. The date format was set as "year-month" due to the absence of day-specific review information in the second dataset and its irrelevance to the research targets. In fact, people search for seasons of the year, months, and not for a specific day. ``Rating scales`` were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
 
 In addiction, was established a ``standardized naming`` convention to address variations in ``hotel names``, such as from "45 Park Lane - Dorchester Collection" to "45 Park Lane Dorchester Collection". This step was necessary to facilitate the aggregation step and the addition of the feature "average_rate" to each hotel entity, referenced below. ``Location standardization`` involved reducing location names to their last two words, preserving only the capital and country names.
 
 To gain insights into the textual content, we calculated the temporary column `word count` for each review across all datasets. This analysis was facilitated using the Pandas [9] Python tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. This process enabled us to identify and manage reviews with either an insufficient word count or an excessively high word count. We achieved this by removing reviews falling below the 25% threshold (first quartile) and those exceeding the 75% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [Figure 2] [Figure 3].
 
-At this stage, all the datasets were successfully merged into a single, consolidated dataset, which streamlined the remaining preparation tasks. These tasks commenced with the computation of the ``"average_rate"`` for each unique hotel. This information may prove valuable for defining search criteria in future milestones.
+At this stage, all the datasets were successfully merged into a single, consolidated dataset, which streamlined the remaining preparation tasks. These tasks commenced with the computation of the temporary column ``"average_rate"`` for each unique hotel. This information may prove valuable for defining search criteria in future milestones.
 
 After completing the aforementioned steps, the next phase involved determining the minimum and maximum number of ``reviews per hotel`` to be retained. To accomplish this, the same approach used for analyzing the number of words per review was employed, utilizing the Pandas [9] .describe() function. This statistical analysis provided essential insights into the distribution of reviews across hotels.
 
@@ -114,15 +114,15 @@ Location was also considered a class because, as expected in the hotel scene, th
 
 ## 5 - Possible search tasks
 
-In the course of the data analysis journey, were unveiled valuable insights through the use of a word cloud diagram[ref]. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
+In the course of the data analysis journey, were unveiled valuable insights through the use of a Word Cloud Diagram [Figure 2]. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
 
 ``"Location"`` emerged as one of the top considerations in travelers' decision-making processes. Whether it's proximity to local attractions, accessibility to transportation hubs, or the overall neighborhood ambiance, the location of a hotel can greatly influence the overall travel experience. Queries like ``"best hotels in [City/Region/Country]"`` and ``"near the airport"`` can help travelers selecting accommodations that align with their preferred locations and provide convenient access to their destinations.
 
-For many tourists, a good breakfast is an essential element of their stay. The word ``"breakfast"`` featured prominently in our word cloud[ref], suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like "Hotels with breakfast/good breakfast" can assist those who prioritize morning meals.
+For many tourists, a good breakfast is an essential element of their stay. The word ``"breakfast"`` featured prominently in our Word Cloud [Figure 2], suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like "Hotels with breakfast/good breakfast" can assist those who prioritize morning meals.
 
 The words "staff" and "service" were significant contributors. This emphasizes the critical role that hotel staff play in the overall guest experience. From warm welcomes at the reception desk to prompt and efficient room service, exceptional staff service can elevate a stay. Queries about `"staff service"` and `"room service"` quality could be instrumental in identifying hotels that excel in providing exceptional service to their guests.
 
-Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our word cloud[ref], underscoring the importance of these aspects to travelers. Queries related to "room"/"bed" quality or "bathroom" sanitation can guide travelers to accommodations that prioritize comfort and cleanliness.
+Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our Word Cloud [Figure 2], underscoring the importance of these aspects to travelers. Queries related to "room"/"bed" quality or "bathroom" sanitation can guide travelers to accommodations that prioritize comfort and cleanliness.
 
 ## 6 - Conclusions and Future work
 
@@ -131,6 +131,11 @@ In conclusion of this milestone, all the planned tasks within the data preparati
 One of the most challenging aspects of the work involved developing effective strategies to address the issue of an excessive number of reviews. Substantial effort was invested in determining the best approach to manage and utilize this abundance of information. Through meticulous analysis and innovative methods, a balance was struck between data volume and relevance, ensuring that the dataset remained rich with insights while maintaining a manageable size.
 
 As the project progresses, there are promising opportunities for further enhancements and refinements. With the cleansed and consolidated dataset now at hand, the next phase of the project will focus on the development of a robust hotel search engine. This engine will empower travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
+
+## Annexes
+
+ - Figure 8 - Average words per review, Datafiniti's Hotel Reviews dataset
+ - Figure 9 - Average words per review, London Hotel Reviews dataset
 
 ## References
 
