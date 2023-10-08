@@ -45,7 +45,7 @@ def reviews_per_hotel():
     writeToFile(HOTEL_REVIEWS_PATH, pd.DataFrame.from_dict(reviews_per_hotel_dict))
 
 # eliminar reviews
-def purge_reviews(max_reviews_number: float):
+def purge_reviews(max_reviews_number: int):
     hotels_reviews = pd.read_json(HOTEL_REVIEWS_PATH)
     reviews = pd.read_json(REVIEWS_PATH)
 
@@ -57,6 +57,7 @@ def purge_reviews(max_reviews_number: float):
 
 
     for hotel_to_purge in hotels_to_purge:
+        # print('purging', hotel_to_purge)
         reviews_to_purge = reviews.loc[reviews["name"] == hotel_to_purge]
 
         review_rates = {}
@@ -69,11 +70,30 @@ def purge_reviews(max_reviews_number: float):
         # plt.bar(review_rates.keys(), review_rates.values())
         # plt.show()
 
-        result = [round((rev/len(reviews_to_purge)) * max_reviews_number) for rev in review_rates.values()]
-
-        # print(max_reviews_number, sum(result))
+        result = [math.floor((rev/len(reviews_to_purge)) * max_reviews_number) for rev in review_rates.values()]
+        result_rest = [(rev/len(reviews_to_purge)) * max_reviews_number - math.floor((rev/len(reviews_to_purge)) * max_reviews_number) for rev in review_rates.values()]
 
         # print([rev/len(reviews_to_purge) for rev in review_rates.values()], sum(review_rates.values()))
+        
+        idx_added = []
+
+
+        for i in range(max_reviews_number - sum(result)):
+            highest = -1
+            for j in range(len(result)):
+                if highest < 0:
+                    if j in idx_added:
+                        continue
+                    else:
+                        highest = j
+                if (result_rest[highest] < result_rest[j] and j not in idx_added):
+                    highest = j
+            
+            idx_added.append(highest)
+        
+        for idx in idx_added:
+            result[idx] = result[idx] + 1
+
 
         new_review_rates = {}
 
@@ -99,7 +119,7 @@ def purge_reviews(max_reviews_number: float):
 
 
 if __name__ == '__main__':
-    # hotels_average_rate()
-    # words_per_review()
-    # reviews_per_hotel()
-    purge_reviews(75.0)
+    hotels_average_rate()
+    words_per_review()
+    reviews_per_hotel()
+    purge_reviews(75)
