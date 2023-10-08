@@ -2,17 +2,29 @@
 
 ## Data
 
-### Relational Model
+### Data Domain Model
 
-![UML](./docs/uml.png)
+![UML](./imgs/UML.png)
 
-### Worl Cloud
+### Word Cloud
 
-![WordCloud](./data/plot/wordcloud.png)
+![Reviews WordCloud](./imgs/reviews_wordcloud.png)
 
-### Location distributions
+### Location distribution
 
-![LocationDistributions](./data/plot/locations.png)
+![Locations Distribution](./imgs/location_distribution.png)
+
+### Average review rating distribution
+
+![Average Review Rating Distribution](./imgs/rating_distributions.png)
+
+### Reviews distribution by year
+
+![Reviews distribution by year](./imgs/date_distributions.png)
+
+### Reviews distribution by month - year 2016
+
+![Reviews distribution by year](./imgs/date_distributions_2016.png)
 
 ## Run 
 
