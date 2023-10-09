@@ -74,6 +74,8 @@ Figure 1: Data preparation pipeline
 
 ## 4 - Data Characterization
 
+In this section there is a characterization of the documents that are produced by the pipeline. The graphs and tables were obtained using the Matplotlib [10], Numpy [11] and NLTK [12] libraries.
+
 ### 4.1 - Reviews Word Cloud
 
 Figure 2: Reviews Word Cloud
@@ -151,3 +153,6 @@ As the project progresses, there are always opportunities for further enhancemen
 - [7] - [Europe Hotel Reviews](https://www.kaggle.com/datasets/jiashenliu/515k-hotel-reviews-data-in-europe)
 - [8] - [Booking](https://www.booking.com)
 - [9] - [Pandas](https://pandas.pydata.org)
+- [10] - [Matplotlib](https://matplotlib.org)
+- [11] - [Numpy](https://numpy.org)
+- [12] - [NLTK](https://www.nltk.org)
