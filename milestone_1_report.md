@@ -32,7 +32,7 @@ In `Data Characterization` we delve into the evaluation and visualization of the
 
 ## 2 - Data Extraction and Enrichment
 
-After conducting research for relevant data in terms of variety and quantity, four datasets in JSON format from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
+After conducting research for relevant data in terms of variety and quantity, four datasets in CSV format from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
 
 Dataset | Features | Hotels | Reviews | Size (MBs) <br>
 Datafiniti's Hotel Reviews | 26 | 1400 | 10000 | 124.45 <br>
