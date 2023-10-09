@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH, HOTELS_PATH, HOTEL_WORDS_PER_REVIEW_PATH, FINAL_JSON_PATH
+from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH, FINAL_JSON_PATH, TOP_LOCATIONS_PATH
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.tokenize import sent_tokenize, word_tokenize
@@ -109,14 +109,7 @@ def location_distribution(data):
     # 10 most common locations
     top_10_locations = location_counts.head(10)
 
-    # Chart
-    fig, ax = plt.subplots()
-    ax.pie(top_10_locations, labels=top_10_locations.index, autopct='%1.1f%%', startangle=90, labeldistance=1.2)
-    ax.axis('equal')
-    ax.set_title('10 most common hotel locations', y=1.08)
-
-    # Save progress
-    fig.savefig(PLOTS_PATH + "location_distribution.png", bbox_inches='tight')
+    top_10_locations.to_csv(TOP_LOCATIONS_PATH)
 
 def rating_distribution(data):
 
