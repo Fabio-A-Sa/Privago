@@ -32,7 +32,7 @@ In `Data Characterization` we delve into the evaluation and visualization of the
 
 ## 2 - Data Extraction and Enrichment
 
-After conducting research for relevant data in terms of variety and quantity, four datasets from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
+After conducting research for relevant data in terms of variety and quantity, four datasets in JSON format from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
 
 Dataset | Features | Hotels | Reviews | Size (MBs) <br>
 Datafiniti's Hotel Reviews | 26 | 1400 | 10000 | 124.45 <br>
@@ -44,7 +44,7 @@ Table 1: Initial datasets characterization
 
 The Datafiniti's Hotel Reviews [2] dataset was taken from Datafiniti's Business Database [3] through sampling. Hotel Review Insights [4] is a compilation of hotels around the world through web-scraping of reviews found on Booking.com [8]. London Hotel Reviews [5] is a sample taken and partially refined from a DataStock dataset [6]. Finally, Europe Hotel Reviews [7] also results from web scrapping of hotel reviews across Europe published on Booking.com [8].
 
-All datasets have a public use license and, according to the Kaggle platform, a usability index greater than 8. This index is justified, given that the elimination of null, repeated or non-informative entries practically did not eliminate nothing.
+All datasets have a public use license and, according to the Kaggle platform, a usability index greater than 8. This index is justified, given that the elimination of null, repeated or non-informative entries kept the data pratically unchanged.
 
 The datasets contain common features, numerical data, such as rating, review date, and textual data, such as review text, hotel location and name. The last dataset contains two additional parameters, positive review and negative review. The features stated were extracted in this step and refined in Data Preparation.
 
