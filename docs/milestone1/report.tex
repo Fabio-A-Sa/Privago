@@ -61,14 +61,12 @@
 %% the commands and values with those provided to you when you
 %% complete the rights form.
 \setcopyright{acmcopyright}
-\copyrightyear{2018}
-\acmYear{2018}
-\acmDOI{XXXXXXX.XXXXXXX}
+\copyrightyear{2023}
+\acmYear{2023}
+\acmDOI{} %% isto
 
 %% These commands are for a PROCEEDINGS abstract or paper.
-\acmConference[Conference acronym 'XX]{Make sure to enter the correct
-  conference title from your rights confirmation emai}{June 03--05,
-  2018}{Woodstock, NY}
+\acmConference[G53]{PRI}{October 10--09, 2023}{Porto, Portugal}
 %
 %  Uncomment \acmBooktitle if th title of the proceedings is different
 %  from ``Proceedings of ...''!
@@ -118,7 +116,7 @@
 %%
 %% The "title" command has an optional parameter,
 %% allowing the author to define a "short title" to be used in page headers.
-\title{The Name of the Title is Hope}
+\title{Privago: Hotels Search System}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -200,9 +198,6 @@
   \label{fig:teaser}
 \end{teaserfigure}
 
-\received{20 February 2007}
-\received[revised]{12 March 2009}
-\received[accepted]{5 June 2009}
 
 %%
 %% This command processes the author and affiliation and title
@@ -276,6 +271,8 @@ The final step in the data preparation phase involved organizing the data into t
 \end{figure}
 
 \section{Data Characterization}
+
+In this section there is a characterization of the documents that are produced by the pipeline. The graphs and tables were obtained using the Matplotlib [10], Numpy [11] and NLTK [12] libraries.
 
 \subsection{Reviews Word Cloud}
 
@@ -377,6 +374,15 @@ As the project progresses, there are always opportunities for further enhancemen
 Figure 8 - Average words per review, Datafiniti's Hotel Reviews dataset
 Figure 9 - Average words per review, London Hotel Reviews dataset
 
+\usepackage{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+
+
+\newpage
+\nocite{*}
+\def\BibTex{BibTeX}
+\bibliographystyle{unsrt}
+\bibliography{sample-base}
 
 \end{document}
 \endinput
