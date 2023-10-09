@@ -66,7 +66,7 @@
 \acmDOI{} %% isto
 
 %% These commands are for a PROCEEDINGS abstract or paper.
-\acmConference[G53]{PRI}{October 10--09, 2023}{Porto, Portugal}
+\acmConference[G53]{PRI}{October-09, 2023}{Porto, Portugal}
 %
 %  Uncomment \acmBooktitle if th title of the proceedings is different
 %  from ``Proceedings of ...''!
@@ -191,10 +191,8 @@
 %% information and the body of the document, and typically spans the
 %% page.
 \begin{teaserfigure}
-  \includegraphics[width=\textwidth]{sampleteaser}
-  \caption{Seattle Mariners at Spring Training, 2010.}
-  \Description{Enjoying the baseball game from the third-base
-  seats. Ichiro Suzuki preparing to bat.}
+  \includegraphics[width=\textwidth]{imgs/teaser.jpg}
+  \caption{Hotel}
   \label{fig:teaser}
 \end{teaserfigure}
 
@@ -215,12 +213,12 @@ In \textbf{Data Characterization} we delve into the evaluation and visualization
 
 \section{Data Extraction and Enrichment}
 
-After conducting research for relevant data in terms of variety and quantity, four datasets from different regions were selected through the Kaggle platform [1]. Table 1 provides a characterization of the acquired datasets:
+After conducting research for relevant data in terms of variety and quantity, four datasets from different regions were selected through the Kaggle platform \cite{kaggle}. Table ~\ref{tab:initFreq} provides a characterization of the acquired datasets:
 
 \begin{table}[h]
 \small
 \caption{Initial datasets characterization}
-\label{tab:freq}
+\label{tab:initFreq}
 \begin{tabular}{lllll}
 \toprule
 Dataset & Features & Hotels & Reviews & Size(MBs)\\
@@ -234,7 +232,7 @@ Europe Hotel Reviews & 17 & 1493 & 515000 & 238.15 \\
 \end{table}
 
 
-The Datafiniti's Hotel Reviews [2] dataset was taken from Datafiniti's Business Database [3] through sampling. Hotel Review Insights [4] is a compilation of hotels around the world through web-scraping of reviews found on Booking.com [8]. London Hotel Reviews [5] is a sample taken and partially refined from a DataStock dataset [6]. Finally, Europe Hotel Reviews [7] also results from web scrapping of hotel reviews across Europe published on Booking.com [8].
+The Datafiniti's Hotel Reviews \cite{Datafiniti's_Hotel_Reviews} dataset was taken from Datafiniti's Business Database \cite{Datafiniti's_Business_Database} through sampling. Hotel Review Insights \cite{Hotel_Review_Insights} is a compilation of hotels around the world through web-scraping of reviews found on Booking.com \cite{Booking}. London Hotel Reviews \cite{London_Hotel_Reviews} is a sample taken and partially refined from a DataStock dataset \cite{DataStock}. Finally, Europe Hotel Reviews \cite{Europe_Hotel_Reviews} also results from web scrapping of hotel reviews across Europe published on Booking.com \cite{Booking}.
 
 All datasets have a public use license and, according to the Kaggle platform, a usability index greater than 8. This index is justified, given that the elimination of null, repeated or non-informative entries practically did not eliminate nothing.
 
@@ -247,85 +245,59 @@ In this section, is presented the structured data preparation pipeline that was 
 
 The data preparation process began with a comprehensive cleaning phase, where the primarly focus was the removal of records containing \textbf{empty or null values} in any attribute. Simultaneously, was identified and eliminated incomplete or uninformative data, including strings with \textbf{uninformative text}, such as "no comments available for this review.", using Python. This combined cleaning step ensured that the dataset was cleansed in detail for the normalization phase.
 
-With the data cleaned, attention was turned to \textbf{attribute normalization}. Given the presence of diverse datasets with varying formats, comprehensive normalization process was needed. This included standardizing attributes such as \textbf{"positive\_reviews"} and \textbf{"negative\_reviews"} into a unified \textbf{"review\_text"} attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [Figure 1]. Additionally, \textbf{date formats} were normalized to ensure uniformity and suitability for analysis. The date format was set as "year-month" due to the absence of day-specific review information in the second dataset and its irrelevance to the research targets. In fact, people search for seasons of the year, months, and not for a specific day. \textbf{Rate scales} were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
+With the data cleaned, attention was turned to \textbf{attribute normalization}. Given the presence of diverse datasets with varying formats, comprehensive normalization process was needed. This included standardizing attributes such as \textbf{"positive\_reviews"} and \textbf{"negative\_reviews"} into a unified \textbf{"review\_text"} attribute for the 4th dataset as is demonstrated in the Pipeline Diagram [Figure \ref{fig:pipeline}]. Additionally, \textbf{date formats} were normalized to ensure uniformity and suitability for analysis. The date format was set as "year-month" due to the absence of day-specific review information in the second dataset and its irrelevance to the research targets. In fact, people search for seasons of the year, months, and not for a specific day. \textbf{Rate scales} were also normalized to a common range and converted to floating-point values, facilitating comparative analysis ([0.0, 5.0]).
 
 In addiction, was established a \textbf{standardized naming} convention to address variations in \textbf{hotel names}, such as from \textit{"45 Park Lane - Dorchester Collection"} to \textit{"45 Park Lane Dorchester Collection"}. This step was necessary to facilitate the aggregation step and the addition of the feature "average\_rate" to each hotel entity, referenced below. \textbf{Location standardization} involved reducing location names to their last two words, preserving only the capital and country names.
 
-To gain insights into the textual content, we calculated the temporary column \textbf{word count} for each review across all datasets. This analysis was facilitated using the Pandas [9] Python tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. This process enabled us to identify and manage reviews with either an insufficient word count or an excessively high word count. We achieved this by removing reviews falling below the 25\% threshold (first quartile) and those exceeding the 75\% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [Figure 8] [Figure 9].
+To gain insights into the textual content, we calculated the temporary column \textbf{word count} for each review across all datasets. This analysis was facilitated using the Pandas \cite{Pandas} Python tool, allowing us to extract valuable information such as quartile ranges and make informed decisions during the review deletion phase. This process enabled us to identify and manage reviews with either an insufficient word count or an excessively high word count. We achieved this by removing reviews falling below the 25\% threshold (first quartile) and those exceeding the 75\% threshold (fourth quartile). This step was done separately for each dataset, due to the discrepation of each average word counting [Figure \ref{fig:reviewWords1}] [Figure \ref{fig:reviewWords3}].
 
 At this stage, all the datasets were successfully merged into a single, consolidated dataset, which streamlined the remaining preparation tasks. These tasks commenced with the computation of the temporary column \textbf{"average\_rate"} for each unique hotel. This information may prove valuable for defining search criteria in future milestones.
 
-After completing the aforementioned steps, the next phase involved determining the minimum and maximum number of \textbf{reviews per hotel} to be retained. To accomplish this, the same approach used for analyzing the number of words per review was employed, utilizing the Pandas [9] .describe() function. This statistical analysis provided essential insights into the distribution of reviews across hotels.
+After completing the aforementioned steps, the next phase involved determining the minimum and maximum number of \textbf{reviews per hotel} to be retained. To accomplish this, the same approach used for analyzing the number of words per review was employed, utilizing the Pandas \cite{Pandas} .describe() function. This statistical analysis provided essential insights into the distribution of reviews across hotels.
 
 First, hotels with fewer reviews, falling below the established minimum threshold (first quartile), were addressed, and they were subsequently removed from the dataset. This step was crucial in ensuring that the dataset focused exclusively on hotels with a substantial volume of reviews, thus providing more meaningful insights.
 
 Subsequently, hotels with an excessive number of reviews were taken into account. To handle this situation, a strategy was implemented, allowing the selection and retention of reviews while preserving the proportion of reviews per rate category for each specific hotel, i.e., its global rate. This approach guaranteed a balance between the "average\_rate" and the rate of the selected reviews.
 
-The final step in the data preparation phase involved organizing the data into the \textbf{desired JSON file format}, which was designed based on our UML diagram [Figure 4] and with a focus on the primary objective of the search tool. This format consisted of a collection of JSON objects, each representing a "Hotel" entity. Within each "Hotel" object, were included not only its associated attributes (name, location, average\_rate) but also the related reviews, presented as JSON objects themselves. Each review has a corresponding text, rate and submission date.
+The final step in the data preparation phase involved organizing the data into the \textbf{desired JSON file format}, which was designed based on our UML diagram [Figure \ref{fig:monthsDistribution}] and with a focus on the primary objective of the search tool. This format consisted of a collection of JSON objects, each representing a "Hotel" entity. Within each "Hotel" object, were included not only its associated attributes (name, location, average\_rate) but also the related reviews, presented as JSON objects themselves. Each review has a corresponding text, rate and submission date.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{imgs/pipeline.png}
   \caption{Data preparation pipeline}
   \Description{The figure shows a diagram that starts with the four data sources as csv files}
+  \label{fig:pipeline}
 \end{figure}
 
 \section{Data Characterization}
 
-In this section there is a characterization of the documents that are produced by the pipeline. The graphs and tables were obtained using the Matplotlib [10], Numpy [11] and NLTK [12] libraries.
+In this section there is a characterization of the documents that are produced by the pipeline. The graphs and tables were obtained using the Matplotlib \cite{Matplotlib}, Numpy \cite{Numpy} and NLTK \cite{NLTK} libraries.
 
 \subsection{Reviews Word Cloud}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{imgs/reviews_wordcloud.png}
   \caption{Reviews Word Cloud}
   \Description{TODO}
+  \label{fig:wordcloud}
 \end{figure}
 
-The word cloud based on the texts of the reviews supports the search tasks of the next milestone as well as the contextual search to be implemented. As expected, the words that stand out the most are those intrinsically related to the hotel industry, such as "staff", "room", "location", "breakfast". Generally, the highlighted words have a neutral tone, although several with a very positive connotation are also detectable, such as "clean", "great", "lovely", "excellent", which can also be proven by the average rate [Figure 4] given to hotels.
+The word cloud based on the texts of the reviews supports the search tasks of the next milestone as well as the contextual search to be implemented. As expected, the words that stand out the most are those intrinsically related to the hotel industry, such as "staff", "room", "location", "breakfast". Generally, the highlighted words have a neutral tone, although several with a very positive connotation are also detectable, such as "clean", "great", "lovely", "excellent", which can also be proven by the average rate [Figure \ref{fig:averageRateDistribution}] given to hotels.
 
 \subsection{Hotel location distribution}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{imgs/top_locations.png}
-  \caption{Hotel location distribution}
-  \Description{TODO}
-\end{figure}
-
-Figure 3 shows the distribution of the 10 most frequent hotel locations in the system. As expected, the capitals and large cities of the main tourism countries concentrate the largest number of hotels and their reviews.
+Figure \ref{fig:hotelLocationDistribution} shows the distribution of the 10 most frequent hotel locations in the system. As expected, the capitals and large cities of the main tourism countries concentrate the largest number of hotels and their reviews.
 
 \subsection{Average rate distribution}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{imgs/rating_distributions.png}
-  \caption{Average rate distribution}
-  \Description{TODO}
-\end{figure}
-
-Hotels tend to have very good reviews. The result is encouraged by their locations, as the majority are in cities with major tourist attractions and therefore with a greater cadence of reviews.
+As we can see in figure \ref{fig:averageRateDistribution} Hotels tend to have very good reviews. The result is encouraged by their locations, as the majority are in cities with major tourist attractions and therefore with a greater cadence of reviews.
 
 \subsection{Reviews per year}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{imgs/date_distributions.png}
-  \caption{Reviews distribution per year}
-  \Description{TODO}
-\end{figure}
+From the analysis of the figure \ref{fig:reviewsDistributionYear}, it can be concluded that the system includes hotels with reviews from 2010 to 2023. However, the choice of initial datasets with information relating mainly to the period 2015 and 2017 influenced their representativeness.
 
-From the analysis of the figure above, it can be concluded that the system includes hotels with reviews from 2010 to 2023. However, the choice of initial datasets with information relating mainly to the period 2015 and 2017 influenced their representativeness.
-
-Let's look, for example, at the distribution of reviews by month in 2016:
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{imgs/date_distributions_2016.png}
-  \caption{Month reviews distribution in year 2016}
-  \Description{The figure shows a bar chart, the bars represent the frequency (y axis) for every month (x axis of the year), its values range from around 3750 to 6000, the chart shows an increase in frequency in the first nine months (reaching the highest value of around 6000) with exception for the second month (which has the lowest value of the chart with 3750), then there is a decrease in frequency for the last four months with the odd numbered months having slightly higher values than their previous month. }
-\end{figure}
+Let's look, for example, at the distribution of reviews by month in 2016 in the figure \ref{fig:monthsDistribution}:
 
 In fact, it is December when the number of reviews is higher, losing prominence after the start of the new year. This period corresponds to the time when people normally take vacations and therefore choose to travel. This pattern is repeated for the other years under analysis.
 
@@ -333,29 +305,29 @@ In fact, it is December when the number of reviews is higher, losing prominence 
 
 After the Data preparation phase, our documents contain the following relationships:
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{imgs/UML.png}
   \caption{Data Conceptual Model}
   \Description{TODO}
+  \label{fig:uml}
 \end{figure}
 
 A hotel is made up of the attributes name, location and average\_rate. Note that average\_rate is a derived attribute that was calculated in the process based on the selected reviews. Each review has the corresponding text, rate and submission date.
 
-Location was also considered a class because, as expected in the hotel scene, there are several hotels per region, mainly in large cities, as shown in Figure 3.
+Location was also considered a class because, as expected in the hotel scene, there are several hotels per region, mainly in large cities, as shown in figure \ref{fig:hotelLocationDistribution}.
 
 \section{Possible search tasks}
 
-In the course of the data analysis journey, were unveiled valuable insights through the use of a Word Cloud Diagram [Figure 2]. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
+In the course of the data analysis journey, were unveiled valuable insights through the use of a Word Cloud Diagram [Figure \ref{fig:wordcloud}]. This visual representation highlighted the most frequently occurring words in hotel reviews, shedding light on what matters most to travelers. Among these words, some stood out as pivotal in understanding the key factors that influence hotel choice and guest satisfaction.
 
 \textbf{"Location"} emerged as one of the top considerations in travelers' decision-making processes. Whether it's proximity to local attractions, accessibility to transportation hubs, or the overall neighborhood ambiance, the location of a hotel can greatly influence the overall travel experience. Queries like \textbf{"best hotels in [City/Region/Country]"} and \textbf{"hotels near the airport"} can help travelers selecting accommodations that align with their preferred locations and provide convenient access to their destinations.
 
-For many tourists, a good breakfast is an essential element of their stay. The word \textbf{"breakfast"} featured prominently in our Word Cloud [Figure 2], suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like \textbf{"Hotels with breakfast/good breakfast"} can assist those who prioritize morning meals.
+For many tourists, a good breakfast is an essential element of their stay. The word \textbf{"breakfast"} featured prominently in our Word Cloud [Figure \ref{fig:wordcloud}], suggesting a keen interest in this aspect. Whether it's a hearty breakfast buffet or specialty morning treats, travelers seek accommodations that cater to their breakfast preferences. Queries like \textbf{"Hotels with breakfast/good breakfast"} can assist those who prioritize morning meals.
 
 The words "staff" and "service" were significant contributors. This emphasizes the critical role that hotel staff play in the overall guest experience. From warm welcomes at the reception desk to prompt and efficient room service, exceptional staff service can elevate a stay. Queries such as \textbf{"hotel with a helpful staff"} and \textbf{"affordable room service"} could be instrumental in identifying hotels that excel in providing exceptional service to their guests.
 
-Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our Word Cloud [Figure 2], underscoring the importance of these aspects to travelers. Queries related to "room"/"bed" quality or "bathroom" sanitation can guide travelers to accommodations that prioritize comfort and cleanliness.
-
+Another one of the foremost considerations in hotel selection is the quality of the room and its amenities. Words like "room," "bed," and "bathroom" featured prominently in our Word Cloud [Figure \ref{fig:wordcloud}], underscoring the importance of these aspects to travelers. Queries related to "room"/"bed" quality or "bathroom" sanitation can guide travelers to accommodations that prioritize comfort and cleanliness.
 
 \section{Conclusions and Future Work}
 
@@ -371,14 +343,56 @@ As the project progresses, there are always opportunities for further enhancemen
 
 \section{Annexes}
 
-Figure 8 - Average words per review, Datafiniti's Hotel Reviews dataset
-Figure 9 - Average words per review, London Hotel Reviews dataset
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/top_locations.png}
+  \caption{Hotel location distribution}
+  \Description{TODO}
+  \label{fig:hotelLocationDistribution}
+\end{figure}
 
-\usepackage{hyperref}
-\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/rating_distributions.png}
+  \caption{Average rate distribution}
+  \Description{TODO}
+  \label{fig:averageRateDistribution}
+\end{figure}
 
+%% Figure 7
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/date_distributions.png}
+  \caption{Reviews distribution per year}
+  \Description{TODO}
+  \label{fig:reviewsDistributionYear}
+\end{figure}
 
-\newpage
+%% Figure 8
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/date_distributions_2016.png}
+  \caption{Month reviews distribution in year 2016}
+  \Description{The figure shows a bar chart, the bars represent the frequency (y axis) for every month (x axis of the year), its values range from around 3750 to 6000, the chart shows an increase in frequency in the first nine months (reaching the highest value of around 6000) with exception for the second month (which has the lowest value of the chart with 3750), then there is a decrease in frequency for the last four months with the odd numbered months having slightly higher values than their previous month. }
+  \label{fig:monthsDistribution}
+\end{figure}
+
+%% Figure 9
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/word_count_1.png}
+  \caption{Average words per review in Datafiniti's Hotel Reviews dataset}
+  \label{fig:reviewWords1}
+\end{figure}
+
+%% Figure 10
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/word_count_3.png}
+  \caption{Average words per review in London Hotel Reviews dataset}
+  \label{fig:reviewWords3}
+\end{figure}
+
 \nocite{*}
 \def\BibTex{BibTeX}
 \bibliographystyle{unsrt}
