@@ -153,9 +153,8 @@ def date_distribution_months(data, selected_year: int):
             [year, month] = review['date'].split('-')
             if int(year) == selected_year:
                 review_dates.append(int(month))
-
     # Histogram
-    plt.hist(review_dates, bins=range(1, 13, 1), edgecolor='k')
+    plt.hist(review_dates, bins=range(1, 14, 1), edgecolor='k')
     plt.xlabel(f'Months {selected_year}')
     plt.ylabel('Frequency')
     plt.title('Reviews distribution by month')
