@@ -1,16 +1,15 @@
+import json
 import pandas as pd
-from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH, HOTELS_PATH, HOTEL_WORDS_PER_REVIEW_PATH
+from utils import writeToFile, REVIEWS_PATH, WORDS_PATH, PLOTS_PATH, FINAL_JSON_PATH, TOP_LOCATIONS_PATH
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.tokenize import sent_tokenize, word_tokenize
 import nltk
 
-
-def tokenize_text(text : str) -> [str]:
-    stop_words = nltk.corpus.stopwords.words('english')
+def tokenize_text(text : str) -> list[str]:
 
     words = [] 
-
+    stop_words = nltk.corpus.stopwords.words('english')
     my_sentences = sent_tokenize(text, "english")
 
     for sentence in my_sentences:
@@ -22,14 +21,12 @@ def tokenize_text(text : str) -> [str]:
 
         # Filter stop words
         non_stop_words = [word for word in words_tokenized if word.lower() not in stop_words]
-
         words = words + non_stop_words
     
     return words
-    
-
 
 def word_segmentation():
+
     nltk.download('punkt')
     nltk.download('stopwords')
 
@@ -77,66 +74,103 @@ def word_cloud():
     plt.imshow(wordcloud)
     plt.axis("off")
     plt.tight_layout(pad = 0)
-    fig.savefig(PLOTS_PATH + "wordcloud.png")
+    fig.savefig(PLOTS_PATH + "reviews_wordcloud.png")
+    plt.close()
 
-def location_chart():
+def words_per_review(data_frame, index: int):
 
-    hotels = pd.read_json(HOTELS_PATH)
-    location_counts = hotels['location'].value_counts()
-
-    # 20 most common locations
-    top_20_locations = location_counts.head(20)
-    other_count = location_counts.iloc[20:].sum()
-    top_20_locations['Other'] = other_count
-
-    # Donuts chart
-    fig, ax = plt.subplots()
-    ax.pie(top_20_locations, labels=top_20_locations.index, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')
-    circle = plt.Circle((0, 0), 0.70, fc='white')
-    fig.gca().add_artist(circle)
-
-    # Save plot
-    fig.savefig(PLOTS_PATH + "locations.png")
-
-
-def hotel_words_per_review():
-    hotel_reviews = pd.read_json(REVIEWS_PATH)
-    hotels = pd.read_json(HOTELS_PATH)
-
-    hotels_dict = {}
-    for h in range(len(hotels)):
-        hotels_dict[ hotels.loc[h, "name"] ] = (0, 0) # (number_of_reviews, number_of_words)
-    
-    for r in range(len(hotel_reviews)):
-
-        if hotel_reviews.loc[r, "name"] not in hotels_dict.keys():
-            print(f'{hotel_reviews.loc[r, "name"]} not in the hotels list!') 
-            continue
-
-        hotels_dict[ hotel_reviews.loc[r, "name"] ] = (
-            hotels_dict[ hotel_reviews.loc[r, "name"] ][0] + 1,
-            hotels_dict[ hotel_reviews.loc[r, "name"] ][1] + len(tokenize_text(hotel_reviews.loc[r, "review_text"]))
-        )
-    
-    hotels_words_per_review = {}
-    
-    for key in hotels_dict.keys():
-        if hotels_dict[key] == 0:
-            print(f'{key} has no reviews!')
-            continue
-        hotels_words_per_review[key] = round(hotels_dict[key][1] / hotels_dict[key][0], 2)
-
-    hotels_words_per_review_dict = {
-        "hotel": hotels_words_per_review.keys(),
-        "words_per_review": hotels_words_per_review.values(),
+    data_frame['word_count'] = data_frame['review_text'].apply(lambda x: len(str(x).split(' ')))
+    mean_word_count = data_frame['word_count'].mean()
+    limits = {
+        1: 800,
+        2: 150,
+        3: 1000,
+        4: 300
     }
 
-    writeToFile(HOTEL_WORDS_PER_REVIEW_PATH, pd.DataFrame.from_dict(hotels_words_per_review_dict))
+    # Bar chart
+    plt.figure(figsize=(10, 6))
+    plt.bar(data_frame.index, data_frame['word_count'], label='Number of Words')
+    plt.axhline(mean_word_count, color='red', linestyle='dashed', label='Mean Word Count')
+    plt.text(0, mean_word_count, f'{mean_word_count:.2f}', color='red', va='center', ha='right')
+    plt.xlabel('Review Index')
+    plt.ylabel('Number of Words')
+    plt.title(f'Number of Words in Hotel Reviews {index}')
+    plt.ylim(0, limits[index])
+    plt.legend()
+    plt.savefig(PLOTS_PATH + f'word_count_{index}.png')
+    plt.close()
 
+def location_distribution(data):
 
+    data = pd.DataFrame(data)
+    location_counts = data['location'].value_counts()
+
+    # 10 most common locations
+    top_10_locations = location_counts.head(10)
+
+    top_10_locations.to_csv(TOP_LOCATIONS_PATH)
+
+def rating_distribution(data):
+
+    # Collect hotels average rating
+    average_rates = [hotel['average_rate'] for hotel in data]
+
+    # Histogram
+    data_frame = pd.DataFrame({'average_rate': average_rates})
+    plt.hist(data_frame['average_rate'], bins=range(6), edgecolor='k', alpha=0.7)
+    plt.xlabel('Hotel average rate')
+    plt.ylabel('Frequency')
+    plt.xticks(range(6))
+
+    # Save progress
+    plt.savefig(PLOTS_PATH + "rating_distributions.png")
+    plt.close()
+
+def date_distribution_years(data):
+
+    # Collect review dates
+    review_dates = []
+    for hotel in data:
+        for review in hotel['reviews']:
+            review_dates.append(int(review['date'].split('-')[0]))
+
+    # Histogram
+    plt.hist(review_dates, bins=range(2010, 2023), edgecolor='k')
+    plt.xlabel('Year')
+    plt.ylabel('Frequency')
+    plt.title('Reviews distribution by year')
+    plt.xlim(2010, 2024)
+    plt.savefig(PLOTS_PATH + "date_distributions.png")
+    plt.close()
+
+def date_distribution_months(data, selected_year: int):
+
+    # Collect review months
+    review_dates = []
+    for hotel in data:
+        for review in hotel['reviews']:
+            [year, month] = review['date'].split('-')
+            if int(year) == selected_year:
+                review_dates.append(int(month))
+
+    # Histogram
+    plt.hist(review_dates, bins=range(1, 13, 1), edgecolor='k')
+    plt.xlabel(f'Months {selected_year}')
+    plt.ylabel('Frequency')
+    plt.title('Reviews distribution by month')
+    plt.savefig(PLOTS_PATH + f"date_distributions_{selected_year}.png")
+    plt.close()
 
 if __name__ == '__main__':
+
+    data = []
+    with open(FINAL_JSON_PATH, 'r') as json_file:
+        data = json.load(json_file)
+        json_file.close()
+
+    date_distribution_years(data)
+    date_distribution_months(data, 2016)
+    rating_distribution(data)
+    location_distribution(data)
     word_cloud()
-    location_chart()
-    hotel_words_per_review()
