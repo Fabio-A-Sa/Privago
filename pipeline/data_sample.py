@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 import math
 import random
+import matplotlib.pyplot as plt
 from unidecode import unidecode
-from utils import writeToFile, HOTELS_PATH, REVIEWS_PATH, HOTEL_REVIEWS_PATH, FINAL_JSON_PATH
+from utils import PLOTS_PATH, writeToFile, HOTELS_PATH, REVIEWS_PATH, HOTEL_REVIEWS_PATH, FINAL_JSON_PATH
 
 def hotels_average_rate():
 
@@ -39,10 +40,38 @@ def reviews_per_hotel():
     writeToFile(HOTEL_REVIEWS_PATH, pd.DataFrame.from_dict(reviews_per_hotel_dict))
     return(int(description['25%']), int(description['75%']))
 
+
+def draw_hotel_reviews_number(hotel_reviews : pd.DataFrame):
+    # Bar chart
+    plt.figure(figsize=(10, 6))
+    plt.bar(hotel_reviews.index, hotel_reviews['reviews'], label='Number of Reviews')
+    plt.xlabel('Hotel Index')
+    plt.ylabel('Number of Reviews')
+    plt.title(f'Number of Reviews per Hotel')
+    plt.ylim(0, 1500)
+    plt.legend()
+    plt.savefig(PLOTS_PATH + f'hotel_reviews_number.png')
+    plt.close()
+
 def limit_hotel_reviews(inferior_limit: int, superior_limit: int):
     hotel_reviews = pd.read_json(HOTEL_REVIEWS_PATH)
     hotel_reviews = hotel_reviews[(hotel_reviews['reviews'] >= inferior_limit)]
+
+    draw_hotel_reviews_number(hotel_reviews)
+
     purge_reviews(superior_limit)
+    
+    #update purged review numbers
+    reviews = pd.read_json(REVIEWS_PATH)
+
+    for index, hotel_reviews_obj in hotel_reviews.iterrows():
+
+        hotel_name = hotel_reviews_obj["hotel"]
+
+        reviews_number = len(reviews[(reviews["name"] == hotel_name)])
+
+        hotel_reviews.loc[index, "reviews"] = reviews_number
+
     writeToFile(HOTEL_REVIEWS_PATH, pd.DataFrame.from_dict(hotel_reviews))
 
 def final_json():
