@@ -213,7 +213,7 @@ In \textbf{Data Characterization} we delve into the evaluation and visualization
 
 \section{Data Extraction and Enrichment}
 
-After conducting research for relevant data in terms of variety and quantity, four datasets from different regions were selected through the Kaggle platform \cite{kaggle}. Table ~\ref{tab:initFreq} provides a characterization of the acquired datasets:
+After conducting research for relevant data in terms of variety and quantity, four datasets in CSV format from different regions were selected through the Kaggle \cite{kaggle} platform. Table ~\ref{tab:initFreq} provides a characterization of the acquired datasets:
 
 \begin{table}[h]
 \small
@@ -241,7 +241,7 @@ The datasets contain common features, numerical data, such as rate, review date,
 
 \section{Data Preparation}
 
-In this section, is presented the structured data preparation pipeline that was developed for the project. This pipeline embrace various data cleaning and restructuring procedures aimed at achieving a clean, uniform, and ready to analyze dataset. The goal of this stage is to build a strong basis for insightful analysis.
+In this section, is presented the structured data preparation pipeline [\ref{fig:pipeline}] that was developed for the project. This pipeline embrace various data cleaning and restructuring procedures aimed at achieving a clean, uniform, and ready to analyze dataset. The goal of this stage is to build a strong basis for insightful analysis.
 
 The data preparation process began with a comprehensive cleaning phase, where the primarly focus was the removal of records containing \textbf{empty or null values} in any attribute. Simultaneously, was identified and eliminated incomplete or uninformative data, including strings with \textbf{uninformative text}, such as "no comments available for this review.", using Python. This combined cleaning step ensured that the dataset was cleansed in detail for the normalization phase.
 
@@ -253,7 +253,7 @@ To gain insights into the textual content, we calculated the temporary column \t
 
 At this stage, all the datasets were successfully merged into a single, consolidated dataset, which streamlined the remaining preparation tasks. These tasks commenced with the computation of the temporary column \textbf{"average\_rate"} for each unique hotel. This information may prove valuable for defining search criteria in future milestones.
 
-After completing the aforementioned steps, the next phase involved determining the minimum and maximum number of \textbf{reviews per hotel} to be retained. To accomplish this, the same approach used for analyzing the number of words per review was employed, utilizing the Pandas \cite{Pandas} .describe() function. This statistical analysis provided essential insights into the distribution of reviews across hotels.
+After completing the aforementioned steps, the next phase involved determining the minimum and maximum number of \textbf{reviews per hotel} to be retained. To accomplish this, the same approach used for analyzing the number of words per review was employed, utilizing the Pandas \cite{Pandas} .describe() function. This statistical analysis provided essential insights into the distribution of reviews across hotels. This step was important due to the discrepation of the number of reviews per hotel [Figure \ref{fig:reviewsHotel}].
 
 First, hotels with fewer reviews, falling below the established minimum threshold (first quartile), were addressed, and they were subsequently removed from the dataset. This step was crucial in ensuring that the dataset focused exclusively on hotels with a substantial volume of reviews, thus providing more meaningful insights.
 
@@ -287,19 +287,19 @@ The word cloud based on the texts of the reviews supports the search tasks of th
 
 \subsection{Hotel location distribution}
 
-Figure \ref{fig:hotelLocationDistribution} shows the distribution of the 10 most frequent hotel locations in the system. As expected, the capitals and large cities of the main tourism countries concentrate the largest number of hotels and their reviews.
+Figure [\ref{fig:hotelLocationDistribution}] shows the distribution of the 10 most frequent hotel locations in the system. As expected, the capitals and large cities of the main tourism countries concentrate the largest number of hotels and their reviews.
 
 \subsection{Average rate distribution}
 
-As we can see in figure \ref{fig:averageRateDistribution} Hotels tend to have very good reviews. The result is encouraged by their locations, as the majority are in cities with major tourist attractions and therefore with a greater cadence of reviews.
+As we can see in figure [\ref{fig:averageRateDistribution}] Hotels tend to have very good reviews. The result is encouraged by their locations, as the majority are in cities with major tourist attractions and therefore with a greater cadence of reviews.
 
 \subsection{Reviews per year}
 
-From the analysis of the figure \ref{fig:reviewsDistributionYear}, it can be concluded that the system includes hotels with reviews from 2010 to 2023. However, the choice of initial datasets with information relating mainly to the period 2015 and 2017 influenced their representativeness.
+From the analysis of the figure [\ref{fig:reviewsDistributionYear}], it can be concluded that the system includes hotels with reviews from 2010 to 2023. However, the choice of initial datasets with information relating mainly to the period 2015 and 2017 influenced their representativeness.
 
-Let's look, for example, at the distribution of reviews by month in 2016 in the figure \ref{fig:monthsDistribution}:
+Let's look, for example, at the distribution of reviews by month in 2016 in the figure [\ref{fig:monthsDistribution}].
 
-In fact, it is December when the number of reviews is higher, losing prominence after the start of the new year. This period corresponds to the time when people normally take vacations and therefore choose to travel. This pattern is repeated for the other years under analysis.
+As we can see, it is July and August when the number of reviews is higher. This period corresponds to the Summer time when people normally take vacations and therefore choose to travel. This pattern is repeated for the other years under analysis.
 
 \subsection{Data Conceptual Model}
 
@@ -315,7 +315,7 @@ After the Data preparation phase, our documents contain the following relationsh
 
 A hotel is made up of the attributes name, location and average\_rate. Note that average\_rate is a derived attribute that was calculated in the process based on the selected reviews. Each review has the corresponding text, rate and submission date.
 
-Location was also considered a class because, as expected in the hotel scene, there are several hotels per region, mainly in large cities, as shown in figure \ref{fig:hotelLocationDistribution}.
+Location was also considered a class because, as expected in the hotel scene, there are several hotels per region, mainly in large cities, as shown in figure [\ref{fig:hotelLocationDistribution}].
 
 \section{Possible search tasks}
 
@@ -391,6 +391,14 @@ As the project progresses, there are always opportunities for further enhancemen
   \includegraphics[width=\linewidth]{imgs/word_count_3.png}
   \caption{Average words per review in London Hotel Reviews dataset}
   \label{fig:reviewWords3}
+\end{figure}
+
+%% Figure 11
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/hotel_reviews_number.png}
+  \caption{Number of Reviews per Hotel}
+  \label{fig:reviewsHotel}
 \end{figure}
 
 \nocite{*}
