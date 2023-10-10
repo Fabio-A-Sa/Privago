@@ -12,7 +12,7 @@
 
 ### Location distribution
 
-![Locations Distribution](./imgs/location_distribution.png)
+![Locations Distribution](./imgs/location_distribution_v2.png)
 
 ### Average review rating distribution
 
