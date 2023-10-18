@@ -24,10 +24,6 @@
         }
     ],
     "add-field": [
-        {
-            "name": "title",
-            "type": "courseTitle",
-            "indexed": true
-        }
+
     ]
 }
