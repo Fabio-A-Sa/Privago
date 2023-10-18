@@ -9,9 +9,5 @@
 
 ### Topics
 
-- TODO 
-- TODO 
-- TODO 
-- TODO 
-- TODO 
-
+- Explorar "hotéis com boa acessibilidade e transportes públicos próximos". Tratar como necessidade de informação e não tanto como queries. Reformular essa parte do relatório;
+- 
