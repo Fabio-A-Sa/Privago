@@ -25,4 +25,3 @@ sample:
 analyze:
 	mkdir -p ../data/analysis
 	python3 data_analyze.py
-	cp ../data/plots/*.png ../imgs/
