@@ -1,29 +1,15 @@
 {
 	"add-field-type": [
         {
-            "name":"courseTitle",
-            "class":"solr.TextField",
-            "indexAnalyzer":{
-                "tokenizer":{
-                    "class":"solr.StandardTokenizerFactory"
-                },
-                "filters":[
-                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
-                    {"class":"solr.LowerCaseFilterFactory"}
-                ]
-            },
-            "queryAnalyzer":{
-                "tokenizer":{
-                    "class":"solr.StandardTokenizerFactory"
-                },
-                "filters":[
-                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
-                    {"class":"solr.LowerCaseFilterFactory"}
-                ]
-            }
+            "name":"nameType",
+            "class":"solr.TextField"
         }
     ],
     "add-field": [
-
+        {
+            "name": "name",
+            "type": "nameType",
+            "indexed": true
+        }
     ]
 }
