@@ -12,3 +12,4 @@
 - Explorar "hotéis com boa acessibilidade e transportes públicos próximos". Tratar como necessidade de informação e não tanto como queries. Reformular essa parte do relatório;
 - correct the main problems reported in the evaluation;
 - use \parts (Latex) for each milestone;
+- 

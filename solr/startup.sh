@@ -11,7 +11,7 @@ cp ../data/processed/hotels_complete.json .
 # Creating "privago"
 # Creating a virtual folder "data"
 # Creating "hotels" core/collection
-docker run -p 8983:8983 --name privago -v .:/data -d solr:9.3 solr-precreate hotels
+docker run -p 8983:8983 --name privago -v "$(pwd)":/data -d solr:9.3 solr-precreate hotels
 sleep 3
 
 # Creating a schema based on "schema.json" file into "privago"
