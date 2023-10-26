@@ -1,15 +1,4 @@
 {
-	"add-field-type": [
-        {
-            "name":"nameType",
-            "class":"solr.TextField"
-        }
-    ],
-    "add-field": [
-        {
-            "name": "name",
-            "type": "nameType",
-            "indexed": true
-        }
-    ]
+	"add-field-type": [],
+    "add-field": []
 }
