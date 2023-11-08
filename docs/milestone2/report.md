@@ -10,50 +10,60 @@
 ## TODO
 
 - Explorar "hotéis com boa acessibilidade e transportes públicos próximos". Tratar como necessidade de informação e não tanto como queries. Reformular essa parte do relatório;
-- Corrigir os "problemas" do M1
+- Corrigir os "problemas" do M1;
 - use \parts (Latex) for each milestone;
-- Retirar a secção "Conclusions and Future work"
+- Retirar a secção "Conclusions and Future work";
+- Colocar as seguintes secções;
+
+## Information Retrieval
+
+Introdução a [Information Retrieval]. Justificar choose the information retrieval tool [Solr]. Falar sobre o Solr. Colocá-lo nas referências.
 
 ## Document Characterization
 
-- Caracterização do documento final. 
-- Analyze the documents and identify their indexable components.
-- Construção de uma tabela com todos os atributos.
+- Caracterização do documento final;
+- Analyze the documents and identify their indexable components;
+- Construção de uma tabela com todos os atributos;
 
 ## Indexing Process
 
-Justificar choose the information retrieval tool Solr. Falar sobre o Solr. Colocá-lo nas referências.
+Dizer que o Solr apresenta indexes. Referência.
+Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar.
 
-analyze the documents and identify their indexable components
-Construção de uma tabela com todos os atributos.
-
-### Indexes
-
-Selected indexes por atributo. Justificar.
-
-## Retrieval Process
-
-introdução
-
-### Queries
+## Retrieval Process and Setup
 
 use the selected tool to configure and execute the queries;
 
-### Retrieval Setup
-
 demonstrate the indexing and retrieval processes;
 implement and evaluate two distinct retrieval setups;
-manually evaluate the returned results;
-evaluate the results obtained for the defined information needs.
+
+o que não é schemaless vai ter pesos nos parâmetros. Justificar. Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Vai enviesar os resultados. 
 
 ## Evaluation
 
-- Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
+### Formas de avaliação usadas
 
-- Precision. Com os 20 primeiros.
+- Vamos usar P@20, Recall, AvP, MAP. Fazer RC Curves.
+- Manualmente, para avaliar os 2 setups criados;
+
+### Precondições
+
+- Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
+- Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o target. Prós e contras.
+
+### Resultados
+
+#### Q1
+
+#### Q2
+
+#### Q3
 
 - Recall. Por amostragem. Para cada query vai enviesar prós e contras. optar por um, justificando.
 - default, schema, pesos
+
+- manually evaluate the returned results;
+- evaluate the results obtained for the defined information needs.
 
 ## Conclusions and Future work
 
@@ -74,7 +84,8 @@ Todos os anteriores mais:
 
 Todos os anteriores mais:
 
+- [Information Retrieval](link)
 - [Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html), 18/10/2023
-- 
+- [Solr Indexes]()
 -
 -
