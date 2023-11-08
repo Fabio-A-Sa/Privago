@@ -32,12 +32,15 @@ Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justifica
 
 ## Retrieval Process and Setup
 
-use the selected tool to configure and execute the queries;
+É aqui que se fala da indexação das queries? Verificar.
 
-demonstrate the indexing and retrieval processes;
-implement and evaluate two distinct retrieval setups;
+Há um schemaless. Justificar que o Solr já faz isso por default quando não é apresentado nada.
 
-o que não é schemaless vai ter pesos nos parâmetros. Justificar. Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Vai enviesar os resultados. 
+O que não é schemaless vai ter pesos nos parâmetros. Indicar quais os pesos (tabela?) e justificar. Question: dão-se pesos a atributos não indexados?
+
+Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
+
+Justificar como vamos fazer as queries. Ver os parametros necessários no Solr.
 
 ## Evaluation
 
@@ -49,20 +52,27 @@ o que não é schemaless vai ter pesos nos parâmetros. Justificar. Justificar o
 ### Precondições
 
 - Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
-- Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o target. Prós e contras.
+- Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o limite anterior. Prós e contras.
 
 ### Resultados
 
+- TODO: que tabelas gerar? Se não couber tudo aqui vai para os anexos.
+
 #### Q1
+
+Necessidade de informação:
+Q:
 
 #### Q2
 
+Necessidade de informação:
+Q:
+
 #### Q3
 
-- Recall. Por amostragem. Para cada query vai enviesar prós e contras. optar por um, justificando.
-- default, schema, pesos
+Necessidade de informação:
+Q:
 
-- manually evaluate the returned results;
 - evaluate the results obtained for the defined information needs.
 
 ## Conclusions and Future work
