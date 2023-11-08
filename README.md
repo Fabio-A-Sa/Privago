@@ -9,7 +9,7 @@ cd ../solr/
 bash startup.sh
 ```
 
-And open `localhost:8983`.
+And open [`localhost:8983`](http://localhost:8983).
 
 ## Data
 

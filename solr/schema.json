@@ -1,7 +1,7 @@
 {
 	"add-field-type": [
         {
-            "name":"hotelName",
+            "name":"textType",
             "class":"solr.TextField",
             "indexAnalyzer":{
                 "tokenizer":{
@@ -22,12 +22,12 @@
                 ]
             }
         }
-    ],
-    "add-field": [
-        {
-            "name": "name",
-            "type": "hotelName",
-            "indexed": true
-        }
-    ]
+        ],
+        "add-field": [
+            { 
+                "name": "text", 
+                "type": "textType",
+                "indexed": true
+            }
+        ]
 }
