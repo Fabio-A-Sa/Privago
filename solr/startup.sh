@@ -19,7 +19,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary "@./schema.json" h
 sleep 1
 
 # Populate collection using mapped folder "data" and pipeline output
-docker exec -it privago bin/post -c hotels /data/hotels_complete.json
+docker exec -it privago bin/post -c hotels -format solr /data/hotels_complete.json
 sleep 1
 
 # Removing always pipeline output for github/commits reasons
