@@ -1,11 +1,4 @@
-all: clean requirements query evaluation
-
-clean:
-	for i in {1..4}; do \
-		for file_type in "schemaless" "boosted"; do \
-			rm "./q$$i/result-$${file_type}.json"; \
-		done; \
-	done
+all: requirements query evaluation
 
 requirements:
 	pip3 install -r requirements.txt
