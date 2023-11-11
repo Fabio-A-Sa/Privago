@@ -14,8 +14,12 @@ cp ../data/processed/hotels_complete.json .
 docker run -p 8983:8983 --name privago -v "$(pwd)":/data -d solr:9.3 solr-precreate hotels
 sleep 3
 
-# Creating a schema based on "schema.json" file into "privago"
-curl -X POST -H 'Content-type:application/json' --data-binary "@./schema.json" http://localhost:8983/solr/hotels/schema
+# cp synonyms_reviews.txt /var/solr/data/hotels/conf
+# curl -X PUT -H 'Content-type:text/plain' --data-binary "@./synonyms.txt" "http://localhost:8983/solr/hotels/files/synonyms.txt"
+# sleep 3
+
+# Creating a schema based on "schema-boosted.json" file into "privago"
+curl -X POST -H 'Content-type:application/json' --data-binary "@./schema-boosted.json" http://localhost:8983/solr/hotels/schema
 sleep 1
 
 # Populate collection using mapped folder "data" and pipeline output
