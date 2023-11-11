@@ -9,13 +9,9 @@
 
 ## TODO
 
-- Explorar "hotéis com boa acessibilidade e transportes públicos próximos". Tratar como necessidade de informação e não tanto como queries. Reformular essa parte do relatório; Identificar quatro (4) possíveis queries, para bater certo com o que vai ser explorado neste M2;
-- Corrigir os "problemas" apontados pelo professor do M1;
 - use \parts (Latex) for each milestone;
 - Retirar a secção "Conclusions and Future work";
 - Preparar os slides anteriores para a versão M2;
-
-- Colocar as seguintes secções:
 
 ## Information Retrieval
 
@@ -142,6 +138,16 @@ Global:
 
 ## Conclusions and Future work
 
+Tirar ideias do M1:
+
+In conclusion of this milestone, all the planned tasks within the data preparation phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that will give tourists useful information and help them make informed choices.
+
+One of the most challenging aspects of the work was developing effective strategies to address the issue of an excessive number of reviews. Substantial effort was invested in determining the best approach to manage and utilize this abundance of information. Through meticulous analysis and innovative methods, a balance was struck between data volume and relevance, ensuring that the dataset remained rich with insights while maintaining a manageable size.
+
+As the project progresses, there are always opportunities for further enhancements and refinements. With the cleansed and consolidated dataset, the next phase of the project will focus on the development of a robust hotel search engine. This engine will allow travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
+
+Notas:
+
 Concluir acerca da consistência global do search engine / system.
 Adaptar do M1 e explorar possibilidade do M2:
 - Melhorar o parâmetro X e Y, e justificação teórica
@@ -152,9 +158,9 @@ Adaptar do M1 e explorar possibilidade do M2:
 
 Todos os anteriores mais:
 
--
--
--
+- 
+- 
+- 
 
 ## References
 
@@ -164,4 +170,4 @@ Todos os anteriores mais:
 - [Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html), 18/10/2023
 - [Solr Indexes]()
 - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
--
+- 
