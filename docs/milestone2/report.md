@@ -10,10 +10,12 @@
 ## TODO
 
 - Explorar "hotéis com boa acessibilidade e transportes públicos próximos". Tratar como necessidade de informação e não tanto como queries. Reformular essa parte do relatório;
-- Corrigir os "problemas" do M1;
+- Corrigir os "problemas" apontados pelo professor do M1;
 - use \parts (Latex) for each milestone;
 - Retirar a secção "Conclusions and Future work";
-- Colocar as seguintes secções;
+- Preparar os slides anteriores para a versão M2;
+
+- Colocar as seguintes secções:
 
 ## Information Retrieval
 
@@ -23,7 +25,7 @@ Introdução a [Information Retrieval]. Justificar choose the information retrie
 
 - Caracterização do documento final;
 - Analyze the documents and identify their indexable components;
-- Construção de uma tabela com todos os atributos;
+- Construção de uma tabela com todos os atributos e se são indexáveis ou não;
 
 ## Indexing Process
 
@@ -81,6 +83,7 @@ Concluir acerca da consistência global do search engine / system.
 Adaptar do M1 e explorar possibilidade do M2:
 - Melhorar o parâmetro X e Y, e justificação teórica
 - work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering
+- sentimental and context analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
 
 ## Annexes
 
