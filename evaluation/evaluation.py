@@ -96,9 +96,29 @@ def evaluate(query: int, mode: str) -> None:
     }
 
     precision_recall(results, mode, query)
-    print_stats(stats)
-
     return stats
+
+def mean_average_precision(stats):
+
+    result = {"simple": 0, "boosted": 0}
+    count_simple = 0
+    count_boosted = 0
+    
+    for entry in stats:
+        mode = entry["mode"]
+        average_precision = entry["AvP"]
+        
+        if mode == "simple":
+            result["simple"] += average_precision
+            count_simple += 1
+        elif mode == "boosted":
+            result["boosted"] += average_precision
+            count_boosted += 1
+
+    result["simple"] /= count_simple if count_simple > 0 else 1
+    result["boosted"] /= count_boosted if count_boosted > 0 else 1
+    
+    return result
 
 if __name__ == "__main__":
 
@@ -108,4 +128,8 @@ if __name__ == "__main__":
             stat = evaluate(query, mode)
             stats.append(stat)
     
+    print("Stats per query and per mode")
     print(json.dumps(stats, indent=2))
+
+    print("Mean average precision per mode")
+    print(json.dumps(mean_average_precision(stats), indent=2))
