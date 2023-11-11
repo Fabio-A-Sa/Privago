@@ -1,5 +1,4 @@
 import json
-from numbers import Number
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,26 +24,28 @@ def recall_at_k(results: list, k: int) -> float:
 
 def precision_values(results: list) -> float:
     return [
-        precision_at_k(results, k) for k in range(1, len(results)+ 1)
+        precision_at_k(results, k) for k in range(1, len(results) + 1)
     ]
 
 def recall_values(results: list) -> float:
     return [
-        recall_at_k(results, k) for k in range(1, len(results)+ 1)
+        recall_at_k(results, k) for k in range(1, len(results) + 1)
     ]
 
-# MAP
-def mean_average_precision() -> float:
-    # interpretar a necessidade desta métrica no contexto global
-    pass
+# MAP - Mean Average Precision
+def mean_average_precision(stats) -> float:
+    values = []
+    for stat in stats:
+        values.append(stat['AvP'])
+    return sum(values) / len(stats)
 
-# P@K
+# P@K - Precision At K
 def precision_at_k(results: list, k: int = PRECISION_AT) -> float:
     return len([
         result for result in results[:k] if result == 1
     ]) / k
 
-# AvP
+# AvP - Average Precision
 def average_precision(results: list) -> float:
     precisions = precision_values(results)
     return round(sum(precisions) / len(results), 2)
@@ -53,7 +54,7 @@ def average_precision(results: list) -> float:
 def recall(results: list) -> float:
     return round(sum(recall_values(results)), 2)
 
-# P-R Curves
+# Precision-Recall Curves
 def precision_recall(results: list, mode: str, query: int) -> None:
 
     precision_results = precision_values(results)
@@ -70,21 +71,38 @@ def precision_recall(results: list, mode: str, query: int) -> None:
             else:
                 precision_recall_match[step] = precision_recall_match[recall_results[idx+1]]
 
-    disp = PrecisionRecallDisplay([precision_recall_match.get(r) for r in recall_results], recall_results)
+    disp = PrecisionRecallDisplay([
+        precision_recall_match.get(r) for r in recall_results
+    ], recall_results)
+
     disp.plot()
     plt.savefig(f'./q{query}/p-r-curve-{mode}.png')
+    plt.close()
+
+def print_stats(stats: dict) -> None:
+    for key, value in stats.items():
+        print(f"{key}: {value}")
 
 def evaluate(query: int, mode: str) -> None:
-    results = getResults(query, mode)
 
-    print(f"Mode: {mode}")
-    print(f"P@20: {precision_at_k(results)}")
-    print(f"AvP: {average_precision(results)}")
-    print(f"Recall: {recall(results)}")
+    results = getResults(query, mode)
+    stats = {
+        'query': f'q{query}',
+        'mode': mode,
+        'P@20': precision_at_k(results),
+        'AvP': average_precision(results),
+    }
+
     precision_recall(results, mode, query)
+    print_stats(stats)
+
+    return stats
 
 if __name__ == "__main__":
 
     for mode in ['schemaless', 'boosted']:
+        stats = []
         for query in range(1, 2): # ..5, only q1 for development/debug reasons
-            evaluate(query, mode)
+            stat = evaluate(query, mode)
+            stats.append(stat)
+        print(f'MAP: {mean_average_precision(stats)}\n')
