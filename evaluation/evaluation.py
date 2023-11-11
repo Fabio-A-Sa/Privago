@@ -1,4 +1,5 @@
 import json
+from numbers import Number
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,12 +17,6 @@ def getResults(query: int, mode: str) -> list:
     results = data.values()
     assert len(results) == LIMIT
     return list(results)
-
-# P@K
-def precision_at_k(results: list, k: int = PRECISION_AT) -> float:
-    return len([
-        result for result in results[:k] if result == 1
-    ]) / k
 
 def recall_at_k(results: list, k: int) -> float:
     return len([
@@ -43,6 +38,12 @@ def mean_average_precision() -> float:
     # interpretar a necessidade desta métrica no contexto global
     pass
 
+# P@K
+def precision_at_k(results: list, k: int = PRECISION_AT) -> float:
+    return len([
+        result for result in results[:k] if result == 1
+    ]) / k
+
 # AvP
 def average_precision(results: list) -> float:
     precisions = precision_values(results)
@@ -52,7 +53,8 @@ def average_precision(results: list) -> float:
 def recall(results: list) -> float:
     return round(sum(recall_values(results)), 2)
 
-def precision_recall(results: list) -> None:
+# P-R Curves
+def precision_recall(results: list, mode: str, query: int) -> None:
 
     precision_results = precision_values(results)
     recall_results = recall_values(results)
@@ -70,16 +72,16 @@ def precision_recall(results: list) -> None:
 
     disp = PrecisionRecallDisplay([precision_recall_match.get(r) for r in recall_results], recall_results)
     disp.plot()
-    plt.savefig('precision_recall.png')
+    plt.savefig(f'./q{query}/p-r-curve-{mode}.png')
 
 def evaluate(query: int, mode: str) -> None:
     results = getResults(query, mode)
+
     print(f"Mode: {mode}")
     print(f"P@20: {precision_at_k(results)}")
     print(f"AvP: {average_precision(results)}")
     print(f"Recall: {recall(results)}")
-
-    precision_recall(results)
+    precision_recall(results, mode, query)
 
 if __name__ == "__main__":
 
