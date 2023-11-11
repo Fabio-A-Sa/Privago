@@ -1,32 +1,71 @@
 {
 	"add-field-type": [
+        {
+            "name":"standard_text",
+            "class":"solr.TextField",
+            "indexAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"}
+                ]
+            },
+            "queryAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"}
+                ]
+            }
+        }
     ],
     "add-field": [
         {
             "name": "name",
-            "type": "string"
+            "type": "standard_text",
+            "indexed": true,
+            "stored": true
         },
         {
             "name": "location",
-            "type": "string"
-        },
-        {
-            "name": "date",
-            "type": "string",
-            "indexed": false
+            "type": "standard_text",
+            "indexed": true,
+            "stored": true
         },
         {
             "name": "average_rate",
-            "type": "pint"
+            "type": "pint",
+            "indexed": true,
+            "stored": true
+        },
+        {
+			"name": "reviews",
+			"type": "standard_text",
+			"indexed": true,
+			"stored": true,
+			"multiValued": true
+		},
+        {
+            "name": "date",
+            "type": "string",
+            "indexed": false,
+            "stored": true
         },
         {
             "name": "rate",
             "type": "pint",
-            "indexed": false
+            "indexed": false,
+            "stored": true
         },
         {
             "name": "text",
-            "type": "text_general"
+            "type": "standard_text",
+            "indexed": true,
+            "stored": true
         }
     ]
 }
