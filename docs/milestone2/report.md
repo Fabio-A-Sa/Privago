@@ -31,7 +31,7 @@ Nas secções seguintes...
 Dizer que o Solr apresenta indexes. Referência.
 Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar;
 o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional;
-o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos;
+o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos. como computamos os sinónimos? aquele código é de chatgpt? perguntar ao andré.
 
 ## 6.3 Retrieval Process and Setup
 
