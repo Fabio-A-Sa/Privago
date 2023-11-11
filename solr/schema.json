@@ -1,4 +1,62 @@
 {
-	"add-field-type": [],
-    "add-field": []
+	"add-field-type": [
+        {
+            "name":"text",
+            "class":"solr.TextField",
+            "indexAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {
+                        "class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true
+                    },
+                    {
+                        "class":"solr.LowerCaseFilterFactory"
+                    }
+                ]
+            },
+            "queryAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {
+                        "class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true
+                    },
+                    {
+                        "class":"solr.LowerCaseFilterFactory"
+                    }
+                ]
+            }
+        }
+    ],
+    "add-field": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "location",
+            "type": "string"
+        },
+        {
+            "name": "date",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "average_rate",
+            "type": "pint"
+        },
+        {
+            "name": "rate",
+            "type": "pint",
+            "indexed": false
+        },
+        {
+            "name": "text",
+            "type": "text"
+        }
+    ]
 }
