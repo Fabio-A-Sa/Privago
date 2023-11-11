@@ -1,0 +1,26 @@
+{
+    "q1": {
+        "q": "something useful",
+        "qf": "attribute^heigth",
+        "pf": "useful",
+        "ps": 10
+    },
+    "q2": {
+        "q": "something useful",
+        "qf": "attribute^heigth",
+        "pf": "useful",
+        "ps": 10
+    },
+    "q3": {
+        "q": "something useful",
+        "qf": "attribute^heigth",
+        "pf": "useful",
+        "ps": 10
+    },
+    "q4": {
+        "q": "something useful",
+        "qf": "attribute^heigth",
+        "pf": "useful",
+        "ps": 10
+    }
+}
