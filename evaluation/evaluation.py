@@ -12,17 +12,25 @@ def getResults(query: int, mode: str) -> list:
     assert len(results) == 60
     return list(results)
 
-def precision_at_k(results: list) -> float:
+# P@K
+def precision_at_k(results: list, k: int = PRECISION_AT) -> float:
     return len([
-        result for result in results[:PRECISION_AT] if result == 1
-    ]) / PRECISION_AT
+        result for result in results[:k] if result == 1
+    ]) / k
 
+# AvP
 def average_precision(results: list) -> float:
-    return 10
+    precisions = 0
+    for index in range(0, len(results)):
+        precisions += precision_at_k(results, index + 1)
+
+    return round(precisions / len(results), 2)
 
 def evaluate(query: int, mode: str) -> None:
     results = getResults(query, mode)
-    print(precision_at_k(results))
+    print(f"Mode: {mode}")
+    print(f"P@20: {precision_at_k(results)}")
+    print(f"AvP: {average_precision(results)}")
 
 if __name__ == "__main__":
 
