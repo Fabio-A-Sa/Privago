@@ -34,12 +34,28 @@ def recall_values(results: list) -> float:
         recall_at_k(results, k) for k in range(1, len(results) + 1)
     ]
 
-# MAP - Mean Average Precision
-def mean_average_precision(stats) -> float:
-    values = []
-    for stat in stats:
-        values.append(stat['AvP'])
-    return sum(values) / len(stats)
+# MAP
+def mean_average_precision(stats):
+
+    result = {"simple": 0, "boosted": 0}
+    count_simple = 0
+    count_boosted = 0
+    
+    for entry in stats:
+        mode = entry["mode"]
+        average_precision = entry["AvP"]
+        
+        if mode == "simple":
+            result["simple"] += average_precision
+            count_simple += 1
+        elif mode == "boosted":
+            result["boosted"] += average_precision
+            count_boosted += 1
+
+    result["simple"] /= count_simple if count_simple > 0 else 1
+    result["boosted"] /= count_boosted if count_boosted > 0 else 1
+    
+    return result
 
 # P@K - Precision At K
 def precision_at_k(results: list, k: int = PRECISION_AT) -> float:
@@ -97,28 +113,6 @@ def evaluate(query: int, mode: str) -> None:
 
     precision_recall(results, mode, query)
     return stats
-
-def mean_average_precision(stats):
-
-    result = {"simple": 0, "boosted": 0}
-    count_simple = 0
-    count_boosted = 0
-    
-    for entry in stats:
-        mode = entry["mode"]
-        average_precision = entry["AvP"]
-        
-        if mode == "simple":
-            result["simple"] += average_precision
-            count_simple += 1
-        elif mode == "boosted":
-            result["boosted"] += average_precision
-            count_boosted += 1
-
-    result["simple"] /= count_simple if count_simple > 0 else 1
-    result["boosted"] /= count_boosted if count_boosted > 0 else 1
-    
-    return result
 
 if __name__ == "__main__":
 
