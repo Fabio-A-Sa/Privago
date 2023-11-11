@@ -30,8 +30,9 @@ Introdução a [Information Retrieval]. Justificar choose the information retrie
 ## Indexing Process
 
 Dizer que o Solr apresenta indexes. Referência.
-Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar.
-o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional.
+Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar;
+o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional;
+o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos;
 
 ## Retrieval Process and Setup
 
