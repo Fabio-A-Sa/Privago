@@ -71,10 +71,20 @@ Dos meus apontamentos das aulas teóricas:
 
 No Solr vamos usar estes fields importantes:
 
+name^1 location^2 text^7 
+
 - `query` (q) - a query que queremos
 - `query field with optional boost` (qf) - para dar pesos a determinados fields na pesquisa;
+
+name^1 location^2 text^7 
+
 - `phrase boosted field` (pf) - podemos escolher termos da query mais relevantes;
+
+
+
 - `phrase boost slope` (ps) - definição do número máximo de tokens entre as palavras pesquisadas;
+
+
 
 Vamos também usar o eDisMax [R]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
 
