@@ -6,6 +6,8 @@ from sklearn.metrics import PrecisionRecallDisplay
 
 LIMIT = 60
 PRECISION_AT = 20
+QUERIES = 1
+MODES = ['simple', 'boosted']
 
 def getResults(query: int, mode: str) -> list:
     path = f"./q{query}/evaluation-{mode}.json"
@@ -100,9 +102,10 @@ def evaluate(query: int, mode: str) -> None:
 
 if __name__ == "__main__":
 
-    for mode in ['simple', 'boosted']:
-        stats = []
-        for query in range(1, 2): # ..5, only q1 for development/debug reasons
+    stats = []
+    for mode in MODES:
+        for query in range(1, QUERIES + 1):
             stat = evaluate(query, mode)
             stats.append(stat)
-        print(f'MAP: {mean_average_precision(stats)}\n')
+    
+    print(json.dumps(stats, indent=2))
