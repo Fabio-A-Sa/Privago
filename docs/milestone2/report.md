@@ -41,14 +41,21 @@ Há um schemaless. Justificar que o Solr já faz isso por default quando não é
 O que não é schemaless vai ter pesos nos parâmetros. Indicar quais os pesos (tabela?) e justificar. Question: dão-se pesos a atributos não indexados?
 
 Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
+No nosso caso temos poucos atributos e baseamo-nos nas reviews, logo o texto delas terá sempre maior peso do que qualquer outro atributod.
 
 Justificar como vamos fazer as queries. Ver os parametros necessários no Solr.
 
 ## Evaluation
 
+Introdução. Mudar o que está em baixo:
+Evaluation measures provide a way of quantifying retrieval effectiveness.
+Individual metrics are prone to bias and giving a tunnelled vision of the system.
+Therefore, it is important to always evalue over a set of distinct metrics.
+
 ### Formas de avaliação usadas
 
-- Vamos usar P@20, Recall, AvP, MAP. Fazer RC Curves.
+- Vamos usar P@20, Recall, AvP, MAP. Fazer RC Curves;
+- Precision & Recal ignoram o ranking em si;
 
 Dos meus apontamentos das aulas teóricas:
 
@@ -72,7 +79,7 @@ Vamos também usar o eDisMax [R]. Justificar que é porque permite queries mais 
 ### Precondições
 
 - Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
-- Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o limite anterior. Prós e contras.
+- Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o limite anterior. Prós e contras. Indicar que é inviável manualmente caracterizar mais de 2000 documentos por query e nem é esse o objectivo.
 
 ### Resultados
 
