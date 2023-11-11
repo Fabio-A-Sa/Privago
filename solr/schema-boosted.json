@@ -10,7 +10,7 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class":"solr.SynonymGraphFilterFactory", "synonyms":"synonyms_reviews.txt", "ignoreCase":"true", "expand":"false"},
+                    {"class":"solr.SynonymGraphFilterFactory", "synonyms":"synonyms.txt", "ignoreCase":"true", "expand":"false"},
                     {"class":"solr.EnglishMinimalStemFilterFactory"}
                 ]
             },
@@ -21,7 +21,7 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class":"solr.SynonymGraphFilterFactory", "synonyms":"synonyms_reviews.txt", "ignoreCase":"true", "expand":"false"},
+                    {"class":"solr.SynonymGraphFilterFactory", "synonyms":"synonyms.txt", "ignoreCase":"true", "expand":"false"},
                     {"class":"solr.EnglishMinimalStemFilterFactory"}
                 ]
             }
