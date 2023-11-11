@@ -3,24 +3,28 @@
         "q": "something useful",
         "qf": "attribute^heigth",
         "pf": "useful",
-        "ps": 10
+        "ps": 10,
+        "limit": 60
     },
     "q2": {
         "q": "something useful",
         "qf": "attribute^heigth",
         "pf": "useful",
-        "ps": 10
+        "ps": 10,
+        "limit": 60
     },
     "q3": {
         "q": "something useful",
         "qf": "attribute^heigth",
         "pf": "useful",
-        "ps": 10
+        "ps": 10,
+        "limit": 60
     },
     "q4": {
         "q": "something useful",
         "qf": "attribute^heigth",
         "pf": "useful",
-        "ps": 10
+        "ps": 10,
+        "limit": 60
     }
 }

@@ -1,8 +1,9 @@
 import json
+import subprocess
 import requests
 
+CONTAINER_NAME = 'privago'
 PARAMETERS = 'parameters.json'
-DOCUMENTS_LIMIT = 60
 
 def getParameters(query: int) -> json:
     with open(PARAMETERS, 'r') as file:
@@ -11,24 +12,22 @@ def getParameters(query: int) -> json:
 
     return data.get(f'q{query}', {})
 
-def query(query: int, type: str) -> None:
+def runContainer(mode: str) -> None:
+    script = f"../solr/startup_{mode}.sh"
+    subprocess.run(["bash", script])
+
+def stopContainer() -> None:
+    subprocess.run(["docker", "stop", "privago"])
+    subprocess.run(["docker", "rm", "privago"])
+
+def query(query: int, mode: str) -> None:
     path = f"./q{query}"
     print(getParameters(query))
 
 if __name__ == '__main__':
 
-    # Run Solr - Schemaless mode    
-
-
-    for index in range(1, 5):
-        query(index, 'schemaless')
-
-    # Stop Solr
-
-    # Run Solr - Boosted mode
-
-
-    for index in range(1, 5):
-        query(index, 'boosted')
-    
-    # Stop Solr
+    for mode in ['schemaless', 'boosted']:
+        runContainer(mode)
+        for index in range(1, 5):
+            query(index, mode)
+        stopContainer()
