@@ -1,15 +1,34 @@
 # PRI Project
 
-## Run 
+### Run pipeline
 
 ```bash
 cd pipeline/
 make
-cd ../solr/
-bash startup.sh
+```
+
+### Run solr
+
+```
+cd solr
+bash startup-boosted.sh
 ```
 
 And open [`localhost:8983`](http://localhost:8983).
+
+### Run queries
+
+```
+cd evaluation
+make query
+```
+
+### Run evaluation
+
+```
+cd evaluation
+make evaluation
+```
 
 ## Data
 
