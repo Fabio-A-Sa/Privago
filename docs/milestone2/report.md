@@ -49,6 +49,15 @@ Justificar como vamos fazer as queries. Ver os parametros necessários no Solr.
 ### Formas de avaliação usadas
 
 - Vamos usar P@20, Recall, AvP, MAP. Fazer RC Curves.
+
+Dos meus apontamentos das aulas teóricas:
+
+- `Precision`: Número de documentos relevantes retirados / Número total de documentos retirados;
+- `Recall`: Número de documentos relevantes retirados / Número de documentos relevantes do sistema;
+- `Precision Recall Curves`: Para cada subconjunto de documentos rankeados retornados, e para cada sequência de documentos nesse subconjunto, calcular valores de (recall, precision) para desenhar a curva.
+- `Precision at K (P@K)`: No caso da WEB, a maioria dos utilizadores não precisa de grande recall, ou seja, não interessa a percentagem de resultados relevantes dado todos os documentos importantes, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
+- `Mean Average Precision (MAP)`: É uma das mais comuns medidas usadas em IR. Trata-se da média de Average Precision dos vários conjuntos retornados, calculados para K documentos rankeados e úteis.
+
 - Manualmente, para avaliar os 2 setups criados;
 
 No Solr vamos usar estes fields importantes:
@@ -67,7 +76,7 @@ Vamos também usar o eDisMax [R]. Justificar que é porque permite queries mais 
 
 ### Resultados
 
-- TODO: que tabelas gerar? Se não couber tudo aqui vai para os anexos.
+- Se não couber tudo aqui vai para os anexos.
 
 #### Q1
 
