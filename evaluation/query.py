@@ -20,9 +20,18 @@ def stopContainer() -> None:
     subprocess.run(["docker", "stop", "privago"])
     subprocess.run(["docker", "rm", "privago"])
 
+def getRequest(parameters: json):
+    return "localhost:5000/solr/hotels/?q=something" # TODO
+
 def query(query: int, mode: str) -> None:
-    path = f"./q{query}"
-    print(getParameters(query))
+    path = f"./q{query}/result-{mode}.json"
+    parameters = getParameters(query)
+    request = getRequest(parameters)
+    result = requests.get(request)
+
+    with open(path, 'w') as file:
+        file.write(result)
+        file.close()
 
 if __name__ == '__main__':
 
