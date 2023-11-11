@@ -1,5 +1,5 @@
 {
-    "schemaless": {
+    "simple": {
         "q": "something useful",
         "qf": "attribute^heigth",
         "pf": "useful",

@@ -100,7 +100,7 @@ def evaluate(query: int, mode: str) -> None:
 
 if __name__ == "__main__":
 
-    for mode in ['schemaless', 'boosted']:
+    for mode in ['simple', 'boosted']:
         stats = []
         for query in range(1, 2): # ..5, only q1 for development/debug reasons
             stat = evaluate(query, mode)

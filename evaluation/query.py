@@ -19,7 +19,7 @@ def runContainer(mode: str) -> None:
     current_dir = os.getcwd()
     try:
         os.chdir("../solr")
-        subprocess.run(["bash", f"startup_{mode}.sh"])
+        subprocess.run(["bash", f"startup-{mode}.sh"])
     finally:
         os.chdir(current_dir)
 
@@ -48,7 +48,7 @@ def query(query: int, mode: str) -> None:
 
 if __name__ == '__main__':
 
-    for mode in ['schemaless', 'boosted']:
+    for mode in ['simple', 'boosted']:
         runContainer(mode)
         for index in range(1, 2): # ..5, only q1 for development/debug reasons
             query(index, mode)

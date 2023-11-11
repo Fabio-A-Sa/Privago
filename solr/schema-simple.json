@@ -1,0 +1,32 @@
+{
+	"add-field-type": [
+    ],
+    "add-field": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "location",
+            "type": "string"
+        },
+        {
+            "name": "date",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "average_rate",
+            "type": "pint"
+        },
+        {
+            "name": "rate",
+            "type": "pint",
+            "indexed": false
+        },
+        {
+            "name": "text",
+            "type": "text_general"
+        }
+    ]
+}
