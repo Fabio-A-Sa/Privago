@@ -2,8 +2,7 @@ import json
 import requests
 
 PARAMETERS = 'parameters.json'
-RESULT_SCHEMALESS = "result-schemaless.json"
-RESULT_BOOSTED = "result-boosted.json"
+DOCUMENTS_LIMIT = 60
 
 def getParameters(query: int) -> json:
     with open(PARAMETERS, 'r') as file:
@@ -12,10 +11,24 @@ def getParameters(query: int) -> json:
 
     return data.get(f'q{query}', {})
 
-def evaluation(query: int) -> None:
+def query(query: int, type: str) -> None:
     path = f"./q{query}"
     print(getParameters(query))
 
 if __name__ == '__main__':
-    for query in range(1, 5):
-        evaluation(query)
+
+    # Run Solr - Schemaless mode    
+
+
+    for index in range(1, 5):
+        query(index, 'schemaless')
+
+    # Stop Solr
+
+    # Run Solr - Boosted mode
+
+
+    for index in range(1, 5):
+        query(index, 'boosted')
+    
+    # Stop Solr
