@@ -1,0 +1,16 @@
+{
+    "schemaless": {
+        "q": "something useful",
+        "qf": "attribute^heigth",
+        "pf": "useful",
+        "ps": 10,
+        "limit": 60
+    },
+    "boosted": {
+        "q": "something useful",
+        "qf": "attribute^heigth",
+        "pf": "useful",
+        "ps": 10,
+        "limit": 60
+    }
+}

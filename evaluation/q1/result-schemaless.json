@@ -1,1 +1,1 @@
-{"responseHeader": {"status": 0, "QTime": 35, "params": {"q": "*:*", "defType": "edismax", "indent": "true", "fl": "*,[child]", "start": "0", "q.op": "OR", "rows": "60", "useParams": ""}}, "response": {"numFound": 0, "start": 0, "numFoundExact": true, "docs": []}}
+[]
