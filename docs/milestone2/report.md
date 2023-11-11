@@ -9,41 +9,44 @@
 
 ## TODO
 
+- Melhorar a secção "5. Possible Search Tasks" com aquilo que definirmos na avaliação dos sistemas;
 - use \parts (Latex) for each milestone;
-- Retirar a secção "Conclusions and Future work";
+- Retirar a secção "6. Conclusions and Future work";
 - Preparar os slides anteriores para a versão M2;
+- Colocar as próximas secções:
 
-## Information Retrieval
+## 6. Information Retrieval
 
 Introdução a [Information Retrieval]. Justificar choose the information retrieval tool [Solr]. Falar sobre o Solr. Colocá-lo nas referências.
+Nas secções seguintes...
 
-## Document Characterization
+## 6.1 Document Characterization
 
 - Caracterização do documento final;
 - Analyze the documents and identify their indexable components;
 - Construção de uma tabela com todos os atributos e se são indexáveis ou não. Tabela tem os headers attribute, context, index?;
 
-## Indexing Process
+## 6.2 Indexing Process
 
 Dizer que o Solr apresenta indexes. Referência.
 Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar;
 o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional;
 o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos;
 
-## Retrieval Process and Setup
+## 6.3 Retrieval Process and Setup
 
 É aqui que se fala da indexação das queries? Verificar.
 
 Há um schemaless. Justificar que o Solr já faz isso por default quando não é apresentado nada.
 
-O que não é schemaless vai ter pesos nos parâmetros. Indicar quais os pesos (tabela?) e justificar. Question: dão-se pesos a atributos não indexados?
+O que não é schemaless vai ter pesos nos parâmetros. Indicar quais os pesos (tabela?) e justificar. Question: dão-se pesos a atributos não indexados? Não.
 
 Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
 No nosso caso temos poucos atributos e baseamo-nos nas reviews, logo o texto delas terá sempre maior peso do que qualquer outro atributod.
 
 Justificar como vamos fazer as queries. Ver os parametros necessários no Solr.
 
-## Evaluation
+## 7. Evaluation
 
 Introdução. Mudar o que está em baixo:
 Evaluation measures provide a way of quantifying retrieval effectiveness.
@@ -136,7 +139,7 @@ Interpretações, justificações.
 Global:
 - evaluate the results obtained for the defined information needs.
 
-## Conclusions and Future work
+## 8. Conclusions and Future work
 
 Tirar ideias do M1:
 
