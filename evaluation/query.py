@@ -2,10 +2,13 @@ import json
 import subprocess
 import requests
 import os 
+import sys
 
 CONTAINER_NAME = 'privago'
 PARAMETERS = 'parameters.json'
 REQUEST_BASE = 'http://localhost:8983/solr/hotels/select?'
+QUERIES = 4
+MODES = ['simple', 'boosted']
 
 def getParameters(query: int, mode: str) -> json:
     path = f"./q{query}/{PARAMETERS}"
@@ -48,8 +51,20 @@ def query(query: int, mode: str) -> None:
 
 if __name__ == '__main__':
 
-    for mode in ['simple', 'boosted']:
-        runContainer(mode)
-        for index in range(1, 2): # ..5, only q1 for development/debug reasons
-            query(index, mode)
-        stopContainer()
+    if len(sys.argv) == 1:
+
+        for mode in MODES:
+            runContainer(mode)
+            for index in range(1, QUERIES + 1):
+                query(index, mode)
+            stopContainer()
+
+    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
+        
+        for mode in MODES:
+            runContainer(mode)
+            query(int(sys.argv[1]), mode)
+            stopContainer()
+
+    else:
+        print("Bad arguments. Usage: python3 query.py [N]")
