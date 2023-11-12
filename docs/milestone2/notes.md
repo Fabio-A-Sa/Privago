@@ -22,10 +22,10 @@ Ops: London AND London Eye
 
 Q2
 
-Query: Good breakfast or affordable room service
-Justificação: 
-Words: Good breakfast room service
-Ops: Good breakfast OR affordable room service
+Query: Good breakfast or affordable room service<br>
+Justificação: <br>
+Words: Good breakfast room service <br>
+Ops: Good breakfast OR affordable room service <br>
 
 Q3
 
@@ -36,7 +36,6 @@ Ops: good accessibility handicapped AND public transportation
 
 Q4
 
-Query: Vast vegetarian or vegan options in restaurant near the hotel around London
+Query: Vegetarian or vegan options in restaurant hotel around London
 Justification:
-Words: vegetarian vegan restaurant London
-Ops: (vegetarian OR vegan) AND restaurant London
+Words: Vegetarian vegan options restaurant hotel london
