@@ -125,10 +125,10 @@ In the upcoming subsections, diverse user scenarios are presented as queries, ac
 __Information Need:__
 __Relevance Judgement:__
 __Query:__
-- q: 
-- fq:
-- fl:
-- sort:
+- q: center london
+- fq: {!child of=\"*:* -_nest_path_:*\"}location:united kingdom
+- fl: *,[child]
+- sort: rate desc, score desc
 
 | **Rank**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
@@ -145,7 +145,7 @@ Result Analysis:
 __Information Need:__
 __Relevance Judgement:__
 __Query:__
-- q: (good breakfast) OR (great room service)
+- q: good breakfast OR great room service
 - fq: {!child of=\"\*:\* -_nest\_path\_:*\"}location:new delhi
 - fl: *,[child]
 - sort: score desc
@@ -186,7 +186,6 @@ __Information Need:__
 __Relevance Judgement:__
 __Query:__
 - q:
-- q.op:
 - fq:
 - fl:
 - sort:
