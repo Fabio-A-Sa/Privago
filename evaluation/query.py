@@ -3,6 +3,7 @@ import subprocess
 import requests
 import os 
 import sys
+import urllib.parse
 
 CONTAINER_NAME = 'privago'
 PARAMETERS = 'parameters.json'
@@ -33,10 +34,8 @@ def stopContainer() -> None:
     subprocess.run(["docker", "rm", CONTAINER_NAME])
 
 def getRequest(parameters: json) -> str:
-    print(parameters)
-
-    # Mock request
-    return REQUEST_BASE + "defType=edismax&fl=*%2C%5Bchild%5D&indent=true&q.op=OR&q=*%3A*&rows=60&start=0&useParams="
+    query_string = urllib.parse.urlencode(parameters, quote_via=urllib.parse.quote)
+    return REQUEST_BASE + query_string
 
 def query(query: int, mode: str) -> None:
     path = f"./q{query}/result-{mode}.json"
