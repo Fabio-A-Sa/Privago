@@ -23,10 +23,10 @@ Ops: London AND London Eye
 
 Q2
 
-Query: Good breakfast or affordable room service<br>
+Query: Hotels with good breakfast or great room service in new delhy<br>
 Justificação: <br>
-Words: Good breakfast room service <br>
-Ops: Good breakfast OR affordable room service <br>
+Words: good breakfast great room service <br>
+Ops: good breakfast OR great room service <br>
 
 Q3
 
