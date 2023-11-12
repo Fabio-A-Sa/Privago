@@ -9,7 +9,7 @@
 
 ## TODO
 
-- Melhorar a secção "Abastract", adicionar uma frase sobre M2.
+- Melhorar a secção "Abstract", adicionar uma frase sobre M2.
 - Melhorar a secção "1 - Introduction", porque ela só fala das partes do M1. Diminuir e incluir as partes de M2;
 - Melhorar a secção "5. Possible Search Tasks" com aquilo que definirmos na avaliação dos sistemas;
 - use \parts (Latex) for each milestone;
@@ -67,7 +67,28 @@ The same structure was used for the query analyzer. Thus, the indexing of the fi
 
 ## 6.3 Retrieval Process and Setup
 
-The approach implemented involves two schemas: schema_simple utilizes default field types for each field, while schema_boosted incorporates instantiated field types for enhanced search capabilities. For query parameters the simple schema uses the default defType, while the boosted schema employs defType=edismax with specific parameters for optimizing search engine results:
+The approach implemented involves two schemas: schema_simple utilizes default field types for each field, while schema_boosted incorporates instantiated field types for enhanced search capabilities. 
+
+For query parameters used by both schemas, the system incorporates the following:
+- __Query (``q``)__: Focuses on the most valuable words in the query.
+- __Query Operator (``q.op``)__: Utilizes OR | AND for query operations.
+- __Query Filter (``fq``)__: Defines a query that can be used to restrict the superset of documents.
+- __Filter List (``fl``)__: Limits the information included in a query response
+- __Sort Field (``sort``)__: Specifies the sorting value for the results.
+
+| **Parameter** | **value** |
+|--------------|--------------|
+| q | good breakfast |
+| q.op | OR |
+| fq | {!child of="\*:\* - _nest_path\_:*"} name:\* |
+| fl | *,[child] |
+| sort | score desc |
+
+[Table T2]: Query parameters
+
+The need of the fl and fq parameters results from the inclusion of nested documents. The final dataset consists hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
+
+For query parameters the simple schema uses the default defType, while the boosted schema employs defType=edismax with specific parameters for optimizing search engine results:
 
 - __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search
 - __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query
@@ -78,6 +99,8 @@ The approach implemented involves two schemas: schema_simple utilizes default fi
 | qf | text^7 name location^2 |
 | pf | text^10 |
 | ps | 3 |
+
+[Table T3]: defType edismax parameters
 
 Assigning diverse weights within the 'qf' parameter prioritizes the significance of the 'text' field, being our main field of search, followed by 'location' and 'name.' In the 'pf' parameter, exclusive attention is given to the 'text' field, serving as a dedicated phrase boost. This is complemented by the 'ps' parameter set to 3, a value determined through some analysis of the results of our queries.
 
@@ -94,6 +117,21 @@ The `Average Precision (AvP)` is important because precision is what defines use
 The `Precision-Recall Curves` are constructed for each query and each system based on the subset of ranked documents returned. Ideally, a system is considered more stable the smoother its formed curve, and its performance is deemed better with a higher Precision-Recall Area Under the Curve [X6]. This metric encapsulates the overall effectiveness of the system in balancing precision and recall across thresholds.
 
 The `Mean Average Precision (MAP)` is a common metric used in Information Retrieval and represents the average of Average Precision metric across various sets returned over the evaluation period. It helps determine if the system is consistent even when applied to different information needs.
+
+#### Important (retirar este tópico depois)
+
+Em cada Q deverá ter uma tabela com esta estrutura:
+
+QX | AvP | P@20
+Simple | v1 | v2
+Booster | v3 | v4
+
+Em cada Q deverá existir 2 gráficos PRCurves
+
+No final das 4 Qs deverá ter uma tabela com esta estrutura:
+
+Global | Simple | Booster
+MAP | v1 | v2
 
 ### Q1
 
@@ -162,33 +200,32 @@ Global:
 
 ## 8. Conclusions and Future work
 
-Tirar ideias do M1:
-
-In conclusion of this milestone, all the planned tasks within the data preparation phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that will give tourists useful information and help them make informed choices.
-
-One of the most challenging aspects of the work was developing effective strategies to address the issue of an excessive number of reviews. Substantial effort was invested in determining the best approach to manage and utilize this abundance of information. Through meticulous analysis and innovative methods, a balance was struck between data volume and relevance, ensuring that the dataset remained rich with insights while maintaining a manageable size.
-
-As the project progresses, there are always opportunities for further enhancements and refinements. With the cleansed and consolidated dataset, the next phase of the project will focus on the development of a robust hotel search engine. This engine will allow travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
-
-Notas:
-
 Concluir acerca da consistência global do search engine / system.
-Adaptar do M1 e explorar possibilidade do M2:
-- Melhorar o parâmetro X e Y, e justificação teórica
-- work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering
-- sentimental and context analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
-- parsing segundo stopwords das queries do utilizador;
 
 - __Stop Filter__, this filter discards, or stops analysis of, tokens that are on the given stop words list. A standard stop words list is included in the Solr conf directory, named stopwords.txt, which is appropriate for typical English language text.
     - We dont have stopwords.txt generated.
+
+---- merge
+
+In conclusion of this milestone, all the planned tasks within the data preparation phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that will give tourists useful information and help them make informed choices.
+
+One of the most challenging aspects of the work was developing effective strategies para lidar com nested documents e a sua indexação e retrieval. Solr não tem documentação suficiente....?
+
+Através da avaliação da search engine, verificamos que o sistema está estável e apto para lidar com diferentes necessidades de informação dentro do contexto exscolhido. As the project progresses, there are always opportunities for further enhancements and refinements. With the first prototype of hotel's information retrieval system e olhando para os resultados obtidos:
+- Usar Stop Words filter [X7] no boosted_text, 
+- sentimental and contextual analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
+- 
+
+Na fase seguinte também iremos work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering. This engine will allow travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
 
 ## References
 
 Todos os anteriores mais:
 
-- [X1] - [Information Retrieval](https://en.wikipedia.org/wiki/Information_retrieval), 2023/10/23
+- [X1] - [Information Retrieval](https://link.springer.com/book/10.1007/978-3-319-93935-3), 2023/10/23
 - [X2] - [Apache Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html), 2023/10/23
 - [X3] - [Solr Tokenizers](https://solr.apache.org/guide/solr/latest/indexing-guide/tokenizers.html), 2023/11/02
 - [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html), 2023/11/02
 - [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html), 2023/11/04
 - [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html), 2023/11/07
+- [X7] - [Solr Stop Filter](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html#managed-stop-filter)
