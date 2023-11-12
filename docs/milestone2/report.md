@@ -14,6 +14,7 @@
 - use \parts (Latex) for each milestone;
 - Retirar a secção "6. Conclusions and Future work";
 - Preparar os slides anteriores para a versão M2;
+- `text` field in booster schema;
 - Colocar as próximas secções:
 
 ## 6. Information Retrieval
@@ -34,15 +35,19 @@ Therefore, a hotel is a document consisting of a name, average rating, location,
 
 Indexing serves as a fundamental step in Information Retrieval, optimizing search efficiency by organizing the data. It involves creating a structured index that significantly enhances both search speed and scalability. Without proper indexing, search systems would face challenges, resulting in slower response times and increased computational overhead.
 
-In Solr, there are different ways to index the document fields. 
+In Solr, there are different types of indexing the document fields. No nosso caso, interessou indexar de uma forma mais complexa os textos do documento: nome do hotel, localização e texto das reviews associadas. Por isso, optámos por criar um tipo `text`, que comporta:
 
-Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois fields não foram indexados. 
+- `StandardTokenizerFactory` tokenizer, que faz split dos textos segundo pontuação e espaços;
+- `ASCIIFoldingFilterFactory` filter, que;
+- `` filter, que;
+- `` filter, que;
+- `` filter, que;
+
+Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois fields do documento não foram indexados. 
 
 Assim, o documento
 
 [Tabela T1]: Schema Field Types
-
-- Construção de uma tabela com todos os atributos e se são indexáveis ou não. Tabela tem os headers attribute, context, index?;
 
 Dizer que o Solr apresenta indexes. Referência.
 
