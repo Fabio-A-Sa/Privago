@@ -6,7 +6,7 @@
         "q.op":"OR",
         "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort":"score desc",
-        "rows":"60",
+        "rows":"20",
         "q":"text: vegetarian vegan options restaurant hotel london",
         "useParams":"",
         "_":"1699783418377"
@@ -20,7 +20,7 @@
         "q.op":"OR",
         "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort":"score desc",
-        "rows":"60",
+        "rows":"20",
         "bq":"text:vegetarian^5 text:vegan^5",
         "q":"text: vegetarian vegan options restaurant hotel london",
         "defType":"edismax",

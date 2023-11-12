@@ -100,7 +100,7 @@ def precision_recall(results: list, mode: str, query: int) -> None:
     plt.savefig(f'./q{query}/p-r-curve-{mode}.png')
     plt.close()
 
-def compute_rc(results: dict, query: int):
+def compute_rcs(results: dict, query: int):
     for k, v in results.items():
         precision_recall(v, k, query)
 
@@ -118,7 +118,6 @@ def evaluate(query: int, mode: str) -> None:
         'AvP': average_precision(results),
     }
 
-    # precision_recall(results, mode, query)
     return [stats, results]
 
 if __name__ == "__main__":
@@ -132,13 +131,13 @@ if __name__ == "__main__":
                 output = evaluate(query, mode)
                 stats.append(output[0])
                 results[mode] = output[1]
-            compute_rc(results, query)
+            compute_rcs(results, query)
 
         print("Stats per query and per mode")
-        print(json.dumps(output[0], indent=2))
+        print(json.dumps(stats, indent=2))
 
-        print("Mean average precision per mode")
-        print(json.dumps(mean_average_precision(output[0]), indent=2))
+        print("Mean average precision (MAP) per mode")
+        print(json.dumps(mean_average_precision(stats), indent=2))
 
     elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
 
@@ -148,10 +147,10 @@ if __name__ == "__main__":
             output = evaluate(int(sys.argv[1]), mode)
             stats.append(output[0])
             results[mode] = output[1]
-        compute_rc(results, int(sys.argv[1]))
+        compute_rcs(results, int(sys.argv[1]))
 
         print("Stats per query and per mode")
-        print(json.dumps(output[0], indent=2))
+        print(json.dumps(stats, indent=2))
 
     else:
         print("Bad arguments. Usage: python3 evaluation.py [N]")
