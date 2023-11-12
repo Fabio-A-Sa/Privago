@@ -32,10 +32,19 @@ Therefore, a hotel is a document consisting of a name, average rating, location,
 
 ## 6.2 Indexing Process
 
+Indexing serves as a fundamental step in Information Retrieval, optimizing search efficiency by organizing the data. It involves creating a structured index that significantly enhances both search speed and scalability. Without proper indexing, search systems would face challenges, resulting in slower response times and increased computational overhead.
+
+In Solr, there are different ways to index the document fields. 
+
+Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois fields não foram indexados. 
+
+Assim, o documento
+
+[Tabela T1]: Schema Field Types
+
 - Construção de uma tabela com todos os atributos e se são indexáveis ou não. Tabela tem os headers attribute, context, index?;
 
 Dizer que o Solr apresenta indexes. Referência.
-Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar;
 
 É aqui que se fala da indexação das queries
 
