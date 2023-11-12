@@ -15,7 +15,6 @@
 - use \parts (Latex) for each milestone;
 - Retirar a secção "6. Conclusions and Future work";
 - Preparar os slides anteriores para a versão M2;
-- `text` field in booster schema;
 - retirar referências a "we", "our", "us" que possam surgir;
 - Colocar as próximas secções:
 
@@ -41,17 +40,21 @@ In Solr, there are different types of indexing the document fields e queries ass
 
 Neste caso em concreto, interessou indexar essencialmente os fields textuais, já que são aqueles que mais dão contexto e informação à pesquisa. Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois últimos fields do documento não foram indexados. 
 
-Os fields textuais foram indexados através da instanciação de um novo tipo de dados. O novo tipo `text` comporta:
+Os fields textuais foram indexados através da instanciação de um novo tipo de dados. O novo tipo `boosted_text` comporta:
 
 - `StandardTokenizerFactory` tokenizer, faz split dos textos segundo pontuação e espaços;
 - `ASCIIFoldingFilterFactory` filter, lida com caracteres especiais e acentos, convetendo-os na sua forma equivalente em ASCII;
 - `LowerCaseFilterFactory` filter, converte todos os caracteres para a sua correspondente minúscula;
-- `SynonymGraphFilterFactory` filter, expande cada token para incluir variações de acordo com ;
-- `EnglishMinimalStemFilterFactory` filter, ;
+- `SynonymGraphFilterFactory` filter, expande cada token para incluir variações de acordo com os seus sinónimos;
+- `EnglishMinimalStemFilterFactory` filter, reduz cada token à sua forma radical, facilitando a busca por variações de determinados termos;
 
-Note-se que o `SynonymGraphFilterFactory` é muito necessário neste contexto. Dado
+Por default, a lingua inglesa foi usada tanto na atribuição de stems como de sinónimos, uma vez que os dados manipulados estão nessa língua.
+
+Note-se que o `SynonymGraphFilterFactory` é muito necessário neste contexto. Dado que a pesquisa é efetuada com base em reviews, e por si só são objectos subjectivos de linguagem natural e carregados de adjectivos, é importante não depender de termos específicos mas sim tentar match de sinónimos de termos.
 
 Foi usada a mesma estrutura para o query analyzer. Assim, a indexação do documento final pode ser caracterizada pelo seguinte schema:
+
+
 
 [Tabela T1]: Schema Field Types
 
@@ -59,9 +62,7 @@ Foi usada a mesma estrutura para o query analyzer. Assim, a indexação do docum
 
 Há um schema simples. há um boosted
 
-no boosted:
-o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional;
-o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos. como computamos os sinónimos? aquele código é de chatgpt? perguntar ao andré.
+o booster tem o schema complexo.
 
 O boosted vai ter pesos nos fields. Indicar quais os pesos (tabela?) e justificar. Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
 No nosso caso temos poucos atributos e baseamo-nos nas reviews, logo o texto delas terá sempre maior peso do que qualquer outro atributos.
