@@ -1,9 +1,9 @@
 {
     "simple": {
-        "q": "text:good breakfast OR great room service",
+        "q": "(good breakfast) OR (great room service)",
         "indent":"true",
         "q.op": "OR",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:new delhy",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:new delhi",
         "sort": "score desc",
         "start": 0,
         "rows": 20,
@@ -13,7 +13,7 @@
         "q": "text:good breakfast OR great room service",
         "indent":"true",
         "q.op": "OR",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:new delhy",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:new delhi",
         "sort": "score desc",
         "start": 0,
         "rows": 20,

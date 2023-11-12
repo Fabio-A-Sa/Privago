@@ -67,20 +67,20 @@ The same structure was used for the query analyzer. Thus, the indexing of the fi
 
 ## 6.3 Retrieval Process and Setup
 
-The approach implemented involves two schemas: schema_simple utilizes default field types for each field, while schema_boosted incorporates instantiated field types for enhanced search capabilities. 
+The approach implemented involves two schemas: a simple schema utilizes default field types for each field, while the more complex schema incorporates instantiated field types for enhanced search capabilities. 
 
-For query parameters used by both schemas, the system incorporates the following:
-- __Query (``q``)__: Focuses on the most valuable words in the query.
-- __Query Operator (``q.op``)__: Utilizes OR | AND for query operations.
-- __Query Filter (``fq``)__: Defines a query that can be used to restrict the superset of documents.
-- __Filter List (``fl``)__: Limits the information included in a query response
-- __Sort Field (``sort``)__: Specifies the sorting value for the results.
+For query parameters used by both schemas, the system consolidates the following:
+- __Query (``q``)__: Focuses on the most valuable words in the query.[ref]
+- __Query Operator (``q.op``)__: Utilizes OR | AND for query operations.[ref]
+- __Query Filter (``fq``)__: Defines a query that can be used to restrict the superset of documents.[ref]
+- __Filter List (``fl``)__: Limits the information included in a query response.[ref]
+- __Sort Field (``sort``)__: Specifies the sorting value for the results.[ref]
 
 | **Parameter** | **value** |
 |--------------|--------------|
-| q | good breakfast |
+| q | strong wifi |
 | q.op | OR |
-| fq | {!child of="\*:\* - _nest_path\_:*"} name:\* |
+| fq | {!child of="\*:\* - _nest_path\_:*"} location:New York |
 | fl | *,[child] |
 | sort | score desc |
 
@@ -88,11 +88,11 @@ For query parameters used by both schemas, the system incorporates the following
 
 The need of the fl and fq parameters results from the inclusion of nested documents. The final dataset consists hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
 
-For query parameters the simple schema uses the default defType, while the boosted schema employs defType=edismax with specific parameters for optimizing search engine results:
+For query parameters the simple schema uses the default type, while the boosted schema employs the type created by eDismax[ref] with specific parameters for optimizing search engine results:
 
-- __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search
-- __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query
-- __Phrase Boost Slope (``ps``)__: Defines the maximum number of tokens between searched words
+- __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search.[ref]
+- __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query.[ref]
+- __Phrase Boost Slope (``ps``)__: Defines the maximum number of tokens between searched words.[ref]
 
 | **Parameter** | **value** |
 |--------------|--------------|
@@ -102,7 +102,7 @@ For query parameters the simple schema uses the default defType, while the boost
 
 [Table T3]: defType edismax parameters
 
-Assigning diverse weights within the 'qf' parameter prioritizes the significance of the 'text' field, being our main field of search, followed by 'location' and 'name.' In the 'pf' parameter, exclusive attention is given to the 'text' field, serving as a dedicated phrase boost. This is complemented by the 'ps' parameter set to 3, a value determined through some analysis of the results of our queries.
+Assigning diverse weights within the 'qf' parameter prioritizes the significance of the 'text' field, being our main field of search, followed by 'location' and 'name.' In the 'pf' parameter, exclusive attention is given to the 'text' field, serving as a dedicated phrase boost. This is complemented by the 'ps' parameter set to 3, a good number of maximum tokens between the searched words.
 
 Being consistent with this boosted approach to every query has enhanced the system's query handling, leading to improvements in search results, as elaborated in the subsequent section.
 
@@ -117,6 +117,96 @@ The `Average Precision (AvP)` is important because precision is what defines use
 The `Precision-Recall Curves` are constructed for each query and each system based on the subset of ranked documents returned. Ideally, a system is considered more stable the smoother its formed curve, and its performance is deemed better with a higher Precision-Recall Area Under the Curve [X6]. This metric encapsulates the overall effectiveness of the system in balancing precision and recall across thresholds.
 
 The `Mean Average Precision (MAP)` is a common metric used in Information Retrieval and represents the average of Average Precision metric across various sets returned over the evaluation period. It helps determine if the system is consistent even when applied to different information needs.
+
+In the upcoming subsections, diverse user scenarios are presented as queries, accompanied by their respective results and statistics based on precision and recall metrics.
+
+### 7.1 Something
+
+__Information Need:__
+__Relevance Judgement:__
+__Query:__
+- q: 
+- fq:
+- fl:
+- sort:
+
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | x | y |
+| P@20     | x | y |
+
+[p-r-simple]()
+[p-r-bosted]()
+
+Result Analysis:
+
+### 7.2 Something
+
+__Information Need:__
+__Relevance Judgement:__
+__Query:__
+- q: (good breakfast) OR (great room service)
+- fq: {!child of=\"\*:\* -_nest\_path\_:*\"}location:new delhi
+- fl: *,[child]
+- sort: score desc
+
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | x | y |
+| P@20     | x | y |
+
+[p-r-simple]()
+[p-r-bosted]()
+
+Result Analysis:
+
+### 7.3 Something
+
+__Information Need:__
+__Relevance Judgement:__
+__Query:__
+- q:
+- fq:
+- fl:
+- sort:
+
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | x | y |
+| P@20     | x | y |
+
+[p-r-simple]()
+[p-r-bosted]()
+
+Result Analysis:
+
+### 7.4 Something
+
+__Information Need:__
+__Relevance Judgement:__
+__Query:__
+- q:
+- q.op:
+- fq:
+- fl:
+- sort:
+
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | x | y |
+| P@20     | x | y |
+
+[p-r-simple]()
+[p-r-bosted]()
+
+Result Analysis:
+
+Taking into account all the results from the multiple information
+needs across the different systems, its presented in the following table the MAP for both systems.
+
+| **Global**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| MAP         | x | y |
 
 #### Important (retirar este tópico depois)
 
@@ -159,7 +249,7 @@ Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
 
-Query: Hotels with good breakfast or great room service in new delhy<br>
+Query: Hotels with good breakfast or great room service in new delhi<br>
 
 Q3
 Justificação: <br>

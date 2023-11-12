@@ -1,6 +1,6 @@
 {
     "simple": {
-        "q": "text:center london",
+        "q": "center london",
         "indent":"true",
         "q.op": "OR",
         "fq": "{!child of=\"*:* -_nest_path_:*\"}location:united kingdom",
