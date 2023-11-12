@@ -1,16 +1,31 @@
 {
     "simple": {
-        "q": "something useful",
-        "qf": "attribute^heigth",
-        "pf": "useful",
-        "ps": 10,
-        "limit": 60
+        "indent":"true",
+        "fl":"*, [child]",
+        "start":"0",
+        "q.op":"OR",
+        "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
+        "sort":"score desc",
+        "rows":"20",
+        "q":"text: vegetarian vegan options restaurant hotel london",
+        "useParams":"",
+        "_":"1699783418377"
     },
     "boosted": {
-        "q": "something useful",
-        "qf": "attribute^heigth",
-        "pf": "useful",
-        "ps": 10,
-        "limit": 60
-    }
+        "qs":"0",
+        "ps":"0",
+        "indent":"true",
+        "fl":"*, [child]",
+        "start":"0",
+        "q.op":"OR",
+        "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
+        "sort":"score desc",
+        "rows":"20",
+        "bq":"text:vegetarian^5 text:vegan^5",
+        "q":"text: vegetarian vegan options restaurant hotel london",
+        "defType":"edismax",
+        "qf":"text^7 name^1 location^2",
+        "useParams":"",
+        "_":"1699783418377"
+      }
 }

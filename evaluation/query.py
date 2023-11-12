@@ -2,10 +2,14 @@ import json
 import subprocess
 import requests
 import os 
+import sys
+import urllib.parse
 
 CONTAINER_NAME = 'privago'
 PARAMETERS = 'parameters.json'
 REQUEST_BASE = 'http://localhost:8983/solr/hotels/select?'
+QUERIES = 4
+MODES = ['simple', 'boosted']
 
 def getParameters(query: int, mode: str) -> json:
     path = f"./q{query}/{PARAMETERS}"
@@ -30,10 +34,8 @@ def stopContainer() -> None:
     subprocess.run(["docker", "rm", CONTAINER_NAME])
 
 def getRequest(parameters: json) -> str:
-    print(parameters)
-
-    # Mock request
-    return REQUEST_BASE + "defType=edismax&fl=*%2C%5Bchild%5D&indent=true&q.op=OR&q=*%3A*&rows=60&start=0&useParams="
+    query_string = urllib.parse.urlencode(parameters, quote_via=urllib.parse.quote)
+    return REQUEST_BASE + query_string
 
 def query(query: int, mode: str) -> None:
     path = f"./q{query}/result-{mode}.json"
@@ -48,8 +50,20 @@ def query(query: int, mode: str) -> None:
 
 if __name__ == '__main__':
 
-    for mode in ['simple', 'boosted']:
-        runContainer(mode)
-        for index in range(1, 2): # ..5, only q1 for development/debug reasons
-            query(index, mode)
-        stopContainer()
+    if len(sys.argv) == 1:
+
+        for mode in MODES:
+            runContainer(mode)
+            for index in range(1, QUERIES + 1):
+                query(index, mode)
+            stopContainer()
+
+    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
+        
+        for mode in MODES:
+            runContainer(mode)
+            query(int(sys.argv[1]), mode)
+            stopContainer()
+
+    else:
+        print("Bad arguments. Usage: python3 query.py [N]")
