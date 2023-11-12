@@ -9,12 +9,14 @@
 
 ## TODO
 
+- Melhorar a secção "Abastract", adicionar uma frase sobre M2.
 - Melhorar a secção "1 - Introduction", porque ela só fala das partes do M1. Diminuir e incluir as partes de M2;
 - Melhorar a secção "5. Possible Search Tasks" com aquilo que definirmos na avaliação dos sistemas;
 - use \parts (Latex) for each milestone;
 - Retirar a secção "6. Conclusions and Future work";
 - Preparar os slides anteriores para a versão M2;
 - `text` field in booster schema;
+- retirar referências a "we", "our", "us" que possam surgir;
 - Colocar as próximas secções:
 
 ## 6. Information Retrieval
@@ -35,23 +37,21 @@ Therefore, a hotel is a document consisting of a name, average rating, location,
 
 Indexing serves as a fundamental step in Information Retrieval, optimizing search efficiency by organizing the data. It involves creating a structured index that significantly enhances both search speed and scalability. Without proper indexing, search systems would face challenges, resulting in slower response times and increased computational overhead.
 
-In Solr, there are different types of indexing the document fields, based on Tokenizers [X3] e . No nosso caso, interessou indexar essencialmente os fields textuais, já que são aqueles que mais dão contexto e informação à pesquisa. 
+In Solr, there are different types of indexing the document fields e queries associadas, baseado num Tokenizers [X3] e vários Filters [X4]. Enquanto os Tokenizers criam uma stream de tokens através da string original de acordo com uma regra pré-definida, os Filters transformam esses mesmos tokens de forma a ficarem consistentes para uma posterior pesquisa e match.
 
-Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois fields do documento não foram indexados. 
+Neste caso em concreto, interessou indexar essencialmente os fields textuais, já que são aqueles que mais dão contexto e informação à pesquisa. Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois últimos fields do documento não foram indexados. 
 
-de uma forma mais complexa os textos do documento: nome do hotel, localização e texto das reviews associadas. Por isso, optámos por criar um tipo `text`, que comporta:
+Os fields textuais foram indexados através da instanciação de um novo tipo de dados. O novo tipo `text` comporta:
 
-- `StandardTokenizerFactory` tokenizer, que faz split dos textos segundo pontuação e espaços;
-- `ASCIIFoldingFilterFactory` filter, que;
-- `` filter, que;
-- `` filter, que;
-- `` filter, que;
+- `StandardTokenizerFactory` tokenizer, faz split dos textos segundo pontuação e espaços;
+- `ASCIIFoldingFilterFactory` filter, lida com caracteres especiais e acentos, convetendo-os na sua forma equivalente em ASCII;
+- `LowerCaseFilterFactory` filter, converte todos os caracteres para a sua correspondente minúscula;
+- `SynonymGraphFilterFactory` filter, expande cada token para incluir variações de acordo com ;
+- `EnglishMinimalStemFilterFactory` filter, ;
 
-Também o query analyzer, onde fizemos o mesmo com os memsos produtoos
+Note-se que o `SynonymGraphFilterFactory` é muito necessário neste contexto. Dado
 
-Assim, o documento final coiso e tal, apotar a tabela seguinte e coiso
-
-
+Foi usada a mesma estrutura para o query analyzer. Assim, a indexação do documento final pode ser caracterizada pelo seguinte schema:
 
 [Tabela T1]: Schema Field Types
 
