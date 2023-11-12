@@ -67,33 +67,19 @@ The same structure was used for the query analyzer. Thus, the indexing of the fi
 
 ## 6.3 Retrieval Process and Setup
 
-Há um schema simples. há um boosted
+The approach implemented involves two schemas: schema_simple utilizes default field types for each field, while schema_boosted incorporates instantiated field types for enhanced search capabilities. For query parameters the simple schema uses the default defType, while the boosted schema employs defType=edismax with specific parameters for optimizing search engine results:
 
-o booster tem o schema complexo.
+- __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search
+- __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query
+- __Phrase Boost Slope (``ps``)__: Defines the maximum number of tokens between searched words
 
-O boosted vai ter pesos nos fields. Indicar quais os pesos (tabela?) e justificar. Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
-No nosso caso temos poucos atributos e baseamo-nos nas reviews, logo o texto delas terá sempre maior peso do que qualquer outro atributos.
+| **Parameter** | **value** |
+|--------------|--------------|
+| qf | text^7 name location^2 |
+| pf | text^10 |
+| ps | 3 |
 
-Justificar como vamos fazer as queries. Ver os parametros necessários no Solr. aplicar as mesmas cenas para ficar equivalentes.
-
-No Solr vamos usar estes fields importantes:
-
-name^1 location^2 text^7 -> tabela com estes pesos [Table 2]
-
-- `query` (q) - a query que queremos
-- `query field with optional boost` (qf) - para dar pesos a determinados fields na pesquisa;
-
-name^1 location^2 text^7 
-
-- `phrase boosted field` (pf) - podemos escolher termos da query mais relevantes;
-
-
-
-- `phrase boost slope` (ps) - definição do número máximo de tokens entre as palavras pesquisadas;
-
-- Manualmente, para avaliar os 2 setups criados;
-
-Vamos também usar o eDisMax [X5]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
+Assigning diverse weights within the 'qf' parameter prioritizes the significance of the 'text' field, followed by 'location' and 'name.' In the 'pf' parameter, exclusive attention is given to the 'text' field, serving as a dedicated phrase boost. This is complemented by the 'ps' parameter set to 3, a value determined through meticulous testing.
 
 ## 7. Evaluation
 
@@ -101,21 +87,15 @@ A avaliação é também uma das partes fundamentais da Information Retrieval e 
 
 Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, a habilidade do sistema em encontrar a informação certa, em vez da eficiência, a habilidade do sistema encontrar informação rapidamente. 
 
-Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorremos a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão indica a percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato é inviável, pelo que se usou uma aproximação manual com base na extração e amostra dos primeiras dezenas de documentos retornados.
+Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorremos a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão incide na percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato é inviável, pelo que se usou uma aproximação manual com base na extração e amostra dos primeiras dezenas de documentos retornados.
 
-A `Precision at K (P@K)` foi escolhida pois a precisão é o que define a satisfação dos utilizadores. De facto os utilizadores não requerem elevada recall, pois q percentagem de resultados relevantes dado todos os documentos importantes é, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
-
-- Precision & Recal ignoram o ranking em si;
-
-Dos meus apontamentos das aulas teóricas:
-
-- `Precision Recall Curves`: Para cada subconjunto de documentos rankeados retornados, e para cada sequência de documentos nesse subconjunto, calcular valores de (recall, precision) para desenhar a curva.
-- `Precision at K (P@K)`: No caso da WEB, a maioria dos utilizadores não precisa de grande recall, ou seja, não interessa a percentagem de resultados relevantes dado todos os documentos importantes, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
-- `Mean Average Precision (MAP)`: É uma das mais comuns medidas usadas em IR. Trata-se da média de Average Precision dos vários conjuntos retornados, calculados para K documentos rankeados e úteis.
-
-### Precondições
+A `Precision at K (P@K)` é importante porque a precisão é o que define a satisfação da maioria dos utilizadores. De facto os utilizadores não requerem elevada recall, já que a percentagem de resultados relevantes dado todos os documentos importantes é quase sempre desconhecida, ao contrário da relevância dos primeiros documentos retornados. Assim, a precisão toma uma importante função. Optou-se por por ser um valor equilibrado e que vai ao encontro com a utilização normal de uma search engine:
 
 - Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
+- Precision & Recal ignoram o ranking em si;
+
+- `Precision Recall Curves`: Para cada subconjunto de documentos rankeados retornados, e para cada sequência de documentos nesse subconjunto, calcular valores de (recall, precision) para desenhar a curva.
+- `Mean Average Precision (MAP)`: É uma das mais comuns medidas usadas em IR. Trata-se da média de Average Precision dos vários conjuntos retornados, calculados para K documentos rankeados e úteis.
 
 ### Q1
 
