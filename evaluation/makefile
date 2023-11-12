@@ -9,4 +9,4 @@ query:
 	python3 query.py
 
 evaluation:
-	python3 evaluation.py
+	python3 evaluation.py > stats.json
