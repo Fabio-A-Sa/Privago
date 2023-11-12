@@ -1,7 +1,7 @@
 {
 	"add-field-type": [
         {
-            "name":"standard_text",
+            "name":"boosted_text",
             "class":"solr.TextField",
             "indexAnalyzer":{
                 "tokenizer":{
@@ -30,13 +30,13 @@
     "add-field": [
         {
             "name": "name",
-            "type": "standard_text",
+            "type": "boosted_text",
             "indexed": true,
             "stored": true
         },
         {
             "name": "location",
-            "type": "standard_text",
+            "type": "boosted_text",
             "indexed": true,
             "stored": true
         },
@@ -48,7 +48,7 @@
         },
         {
 			"name": "reviews",
-			"type": "standard_text",
+			"type": "boosted_text",
 			"indexed": true,
 			"stored": true,
 			"multiValued": true
@@ -67,7 +67,7 @@
         },
         {
             "name": "text",
-            "type": "standard_text",
+            "type": "boosted_text",
             "indexed": true,
             "stored": true
         }
