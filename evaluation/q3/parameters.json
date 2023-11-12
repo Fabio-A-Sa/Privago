@@ -1,14 +1,15 @@
 {
     "simple": {
-        "q": "(text:good AND text:accessibility) OR (text:good AND text:handicapped) OR (text:good AND text:\"public transportation\")",
+        "q": "good location ((elevator) OR (accessibility))",
         "df": "text",
         "indent": "true",
         "fl": "*,[child]",
-        "q.op": "OR",
+        "q.op": "AND",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:(united kingdom)",
         "sort": "score desc",
         "rows": "20",
         "useParams": "",
-        "_": "1699804592668"
+        "_": "1699829430799"
     },
     "boosted": {
         "df": "text",
@@ -16,14 +17,13 @@
         "ps": "0",
         "indent": "true",
         "fl": "*,[child]",
-        "q.op": "OR",
+        "q.op": "AND",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:(united kingdom)",
         "sort": "score desc",
         "rows": "20",
-        "bq": "text:accessibility^2 text:handicapped^2 text:\"public transportation\"^2",
-        "q": "(text:good AND text:accessibility) OR (text:good AND text:handicapped) OR (text:good AND text:\"public transportation\")",
+        "q": "good location ((elevator) OR (accessibility))",
         "defType": "edismax",
-        "qf": "text",
         "useParams": "",
-        "_": "1699804725852"
+        "_": "1699829430799"
     }
 }
