@@ -1,16 +1,29 @@
 {
     "simple": {
-        "q": "something useful",
-        "qf": "attribute^heigth",
-        "pf": "useful",
-        "ps": 10,
-        "limit": 60
+        "q": "(text:good AND text:accessibility) OR (text:good AND text:handicapped) OR (text:good AND text:\"public transportation\")",
+        "df": "text",
+        "indent": "true",
+        "fl": "*,[child]",
+        "q.op": "OR",
+        "sort": "score desc",
+        "rows": "20",
+        "useParams": "",
+        "_": "1699804592668"
     },
     "boosted": {
-        "q": "something useful",
-        "qf": "attribute^heigth",
-        "pf": "useful",
-        "ps": 10,
-        "limit": 60
+        "df": "text",
+        "qs": "0",
+        "ps": "0",
+        "indent": "true",
+        "fl": "*,[child]",
+        "q.op": "OR",
+        "sort": "score desc",
+        "rows": "20",
+        "bq": "text:accessibility^2 text:handicapped^2 text:\"public transportation\"^2",
+        "q": "(text:good AND text:accessibility) OR (text:good AND text:handicapped) OR (text:good AND text:\"public transportation\")",
+        "defType": "edismax",
+        "qf": "text",
+        "useParams": "",
+        "_": "1699804725852"
     }
 }
