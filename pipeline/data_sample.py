@@ -6,6 +6,14 @@ import matplotlib.pyplot as plt
 from unidecode import unidecode
 from utils import PLOTS_PATH, writeToFile, HOTELS_PATH, REVIEWS_PATH, HOTEL_REVIEWS_PATH, FINAL_JSON_PATH
 
+
+def remove_duplicates():
+    hotel_reviews = pd.read_json(REVIEWS_PATH)
+    hotel_reviews.drop_duplicates(subset=['review_text'], inplace=True)
+    hotel_reviews.reset_index(drop=True, inplace=True)
+    writeToFile(REVIEWS_PATH, hotel_reviews)
+
+
 def hotels_average_rate():
 
     hotel_reviews = pd.read_json(REVIEWS_PATH)
@@ -173,6 +181,7 @@ def purge_reviews(max_reviews_number: int):
 
 
 if __name__ == '__main__':
+    remove_duplicates()
     hotels_average_rate()
     limits = reviews_per_hotel()
     limit_hotel_reviews(limits[0], limits[1])
