@@ -1,6 +1,5 @@
 data/
 __pycache__
-docs/presentation.pptx
 .DS_Store
 solr/synonyms_*
 solr/stopwords.txt
