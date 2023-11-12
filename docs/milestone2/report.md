@@ -20,15 +20,15 @@
 
 ## 6. Information Retrieval
 
-Information Retrieval [X1] is the process of finding and extracting relevant information from large collections of naturally unstructured data, such as texts. The search is based on documents, which are the result of restructuring the initial data, and the output is sorted by relevance, becoming the main challenge.
+Information Retrieval [X1] is the process of finding and extracting relevant information from large collections of naturally unstructured data, such as texts. This extraction is based on documents, which are the result of restructuring the initial data, and the output is sorted by relevance, becoming the main challenge.
 
-In this section, we will present the indexing and query methods used in information retrieval systems powered by previously constructed documents.
+In this section presents the indexing and query methods used in this information retrieval system powered by previously constructed documents.
 
 The implementation of the search system is based on Apache Solr [X2]. It is an open-source tool that offers various features relevant to the project's purpose, including distributed and fast indexing, scalability, and advanced search capabilities surpassing a full-text match.
 
 ## 6.1 Document Characterization
 
-The documents to be indexed and searched in the search system are those resulting from the processes of data extraction, enrichment, and aggregation in the pipeline. 
+The documents to be indexed and searched in the system are those resulting from the processes of data extraction, enrichment, and aggregation in the pipeline described above. 
 
 Therefore, a hotel is a document consisting of a name, average rating, location, and has a set of associated reviews. These reviews have their corresponding date, the assigned rating, and the user's comment about the hotel.
 
@@ -36,11 +36,11 @@ Therefore, a hotel is a document consisting of a name, average rating, location,
 
 Indexing serves as a fundamental step in Information Retrieval, optimizing search efficiency by organizing the data. It involves creating a structured index that significantly enhances both search speed and scalability. Without proper indexing, search systems would face challenges, resulting in slower response times and increased computational overhead.
 
-In Solr, various types of indexing exist for document fields and associated queries, based on a Tokenizer [X3] and several Filters [X4]. While Tokenizers create a token stream from the original string following a predefined rule, Filters transform these tokens for consistency in subsequent searches and matches.
+In Solr, various types of indexing exist for document fields and associated queries, based on a Tokenizer [X3] and Filters [X4]. While Tokenizers create a token stream from the original string following a predefined rule, Filters transform these tokens for consistency in subsequent searches and matches.
 
 In this specific case, the focus was primarily on indexing textual fields, as they provide the most context and information for searches. Conversely, given the project's context, it is not expected to search for specific dates or review ratings. Therefore, these latter two document fields were not indexed.
 
-Textual fields were indexed by instantiating a new data type. The new type `boosted_text` includes:
+Textual fields were indexed by instantiating a new data type. The `boosted_text` index analyzer includes:
 
 - `StandardTokenizerFactory` tokenizer: splits texts based on punctuation and spaces;
 - `ASCIIFoldingFilterFactory` filter: handles special characters and accents, converting them to their equivalent ASCII form;
@@ -50,7 +50,7 @@ Textual fields were indexed by instantiating a new data type. The new type `boos
 
 By default, the English language was used for both stem assignment and synonym generation, as the manipulated data is in this language.
 
-Note that the `SynonymGraphFilterFactory` is crucial in this context. Since the search is conducted based on reviews, which are inherently subjective, derived from natural language and rich in adjectives, it is important not to rely on specific terms but rather to match synonyms of terms.
+The `SynonymGraphFilterFactory` is crucial in this context. Since the search is conducted based on reviews, which are inherently subjective, derived from natural language and rich in adjectives, it is important not to rely on specific terms but rather to match synonyms of terms.
 
 The same structure was used for the query analyzer. Thus, the indexing of the final document can be characterized by the following schema:
 
@@ -186,7 +186,7 @@ Adaptar do M1 e explorar possibilidade do M2:
 - Melhorar o parâmetro X e Y, e justificação teórica
 - work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering
 - sentimental and context analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
-- parsing segundo stopwords das queries do utilizador
+- parsing segundo stopwords das queries do utilizador;
 
 ## Annexes
 
