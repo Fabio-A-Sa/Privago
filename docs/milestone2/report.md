@@ -35,7 +35,11 @@ Therefore, a hotel is a document consisting of a name, average rating, location,
 
 Indexing serves as a fundamental step in Information Retrieval, optimizing search efficiency by organizing the data. It involves creating a structured index that significantly enhances both search speed and scalability. Without proper indexing, search systems would face challenges, resulting in slower response times and increased computational overhead.
 
-In Solr, there are different types of indexing the document fields. No nosso caso, interessou indexar de uma forma mais complexa os textos do documento: nome do hotel, localização e texto das reviews associadas. Por isso, optámos por criar um tipo `text`, que comporta:
+In Solr, there are different types of indexing the document fields, based on Tokenizers [X3] e . No nosso caso, interessou indexar essencialmente os fields textuais, já que são aqueles que mais dão contexto e informação à pesquisa. 
+
+Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois fields do documento não foram indexados. 
+
+de uma forma mais complexa os textos do documento: nome do hotel, localização e texto das reviews associadas. Por isso, optámos por criar um tipo `text`, que comporta:
 
 - `StandardTokenizerFactory` tokenizer, que faz split dos textos segundo pontuação e espaços;
 - `ASCIIFoldingFilterFactory` filter, que;
@@ -43,15 +47,13 @@ In Solr, there are different types of indexing the document fields. No nosso cas
 - `` filter, que;
 - `` filter, que;
 
-Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois fields do documento não foram indexados. 
+Também o query analyzer, onde fizemos o mesmo com os memsos produtoos
 
-Assim, o documento
+Assim, o documento final coiso e tal, apotar a tabela seguinte e coiso
+
+
 
 [Tabela T1]: Schema Field Types
-
-Dizer que o Solr apresenta indexes. Referência.
-
-É aqui que se fala da indexação das queries
 
 ## 6.3 Retrieval Process and Setup
 
@@ -188,10 +190,12 @@ Todos os anteriores mais:
 
 ## References
 
-Todos os anteriores mais:
+Todos os anteriores mais (TODO: colocar data de acesso):
 
 - [X1] - [Information Retrieval](https://en.wikipedia.org/wiki/Information_retrieval)
 - [X2] - [Apache Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html)
-- [Solr Indexes]()
+- [X3] - [Solr Tokenizers](https://solr.apache.org/guide/solr/latest/indexing-guide/tokenizers.html)
+- [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html)
+
+
 - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
-- 
