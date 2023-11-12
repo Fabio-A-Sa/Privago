@@ -289,23 +289,16 @@ Global:
 
 ## 8. Conclusions and Future work
 
-Concluir acerca da consistência global do search engine / system.
+In conclusion of this milestone, all the planned tasks within the Information Retrieval phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that aids tourists in making informed choices.
 
-- __Stop Filter__, this filter discards, or stops analysis of, tokens that are on the given stop words list. A standard stop words list is included in the Solr conf directory, named stopwords.txt, which is appropriate for typical English language text.
-    - We dont have stopwords.txt generated.
+One of the most challenging aspects of the work involved developing effective strategies for dealing with nested documents, as well as their indexing and retrieval. Solr lacks documentation and concrete examples supporting the addressed document format.
 
----- merge
+Through the evaluation of the search engine, the system's stability and capability to handle different information needs within the chosen context have been verified. As the project progresses, opportunities for further enhancements and refinements emerge. Analyzing the results obtained from the first prototype of the hotel's information retrieval system:
 
-In conclusion of this milestone, all the planned tasks within the data preparation phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that will give tourists useful information and help them make informed choices.
+- The `Stop Words` [X7] filter can be applied to boosted_text to reduce sensitivity to common words;
+- `Sentimental and contextual analysis` is relevant, given that the main source of information for the system is reviews, which inherently carry subjective connotations;
 
-One of the most challenging aspects of the work was developing effective strategies para lidar com nested documents e a sua indexação e retrieval. Solr não tem documentação suficiente....?
-
-Através da avaliação da search engine, verificamos que o sistema está estável e apto para lidar com diferentes necessidades de informação dentro do contexto exscolhido. As the project progresses, there are always opportunities for further enhancements and refinements. With the first prototype of hotel's information retrieval system e olhando para os resultados obtidos:
-- Usar Stop Words filter [X7] no boosted_text, 
-- sentimental and contextual analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
-- 
-
-Na fase seguinte também iremos work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering. This engine will allow travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
+In the next phase, work will be done on user interfaces by developing a frontend for the search system, incorporating specific features like snippet generation and results clustering. This engine will enable travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
 
 ## References
 
@@ -317,4 +310,4 @@ Todos os anteriores mais:
 - [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html), 2023/11/02
 - [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html), 2023/11/04
 - [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html), 2023/11/07
-- [X7] - [Solr Stop Filter](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html#managed-stop-filter)
+- [X7] - [Solr Stop Filter](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html#managed-stop-filter), 2023/11/07
