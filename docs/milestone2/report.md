@@ -22,9 +22,9 @@
 
 Information Retrieval [X1] is the process of finding and extracting relevant information from large collections of naturally unstructured data, such as texts. This extraction is based on documents, which are the result of restructuring the initial data, and the output is sorted by relevance, becoming the main challenge.
 
-In this section presents the indexing and query methods used in this information retrieval system powered by previously constructed documents.
+This section presents the indexing and query methods used in this information retrieval system powered by previously constructed documents. 
 
-The implementation of the search system is based on Apache Solr [X2]. It is an open-source tool that offers various features relevant to the project's purpose, including distributed and fast indexing, scalability, and advanced search capabilities surpassing a full-text match.
+The implementation of the search system is based on Apache Solr [X2], an open-source tool that offers various features relevant to the project's purpose, including distributed and fast indexing, scalability, and advanced search capabilities surpassing a full-text match.
 
 ## 6.1 Document Characterization
 
@@ -79,7 +79,9 @@ The approach implemented involves two schemas: schema_simple utilizes default fi
 | pf | text^10 |
 | ps | 3 |
 
-Assigning diverse weights within the 'qf' parameter prioritizes the significance of the 'text' field, followed by 'location' and 'name.' In the 'pf' parameter, exclusive attention is given to the 'text' field, serving as a dedicated phrase boost. This is complemented by the 'ps' parameter set to 3, a value determined through meticulous testing.
+Assigning diverse weights within the 'qf' parameter prioritizes the significance of the 'text' field, being our main field of search, followed by 'location' and 'name.' In the 'pf' parameter, exclusive attention is given to the 'text' field, serving as a dedicated phrase boost. This is complemented by the 'ps' parameter set to 3, a value determined through some analysis of the results of our queries.
+
+Being consistent with this boosted approach to every query has enhanced the system's query handling, leading to improvements in search results, as elaborated in the subsequent section.
 
 ## 7. Evaluation
 
@@ -87,15 +89,15 @@ A avaliação é também uma das partes fundamentais da Information Retrieval e 
 
 Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, a habilidade do sistema em encontrar a informação certa, em vez da eficiência, a habilidade do sistema encontrar informação rapidamente. 
 
-Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorremos a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão incide na percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato é inviável, pelo que se usou uma aproximação manual com base na extração e amostra dos primeiras dezenas de documentos retornados.
+Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorreu-se a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Average Precision (AvP)`, `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão incide na percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato é inviável, pelo que se usou uma aproximação manual com base na extração e amostra dos primeiras dezenas de documentos retornados.
 
-A `Precision at K (P@K)` é importante porque a precisão é o que define a satisfação da maioria dos utilizadores. De facto os utilizadores não requerem elevada recall, já que a percentagem de resultados relevantes dado todos os documentos importantes é quase sempre desconhecida, ao contrário da relevância dos primeiros documentos retornados. Assim, a precisão toma uma importante função. Optou-se por por ser um valor equilibrado e que vai ao encontro com a utilização normal de uma search engine:
+A `Average Precision (AvP)`, 
 
-- Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
-- Precision & Recal ignoram o ranking em si;
+A `Precision at K (P@K)` é importante porque a precisão é o que define a satisfação da maioria dos utilizadores. De facto os utilizadores não requerem elevada recall, já que a percentagem de resultados relevantes dado todos os documentos importantes do sistema é quase sempre desconhecida, ao contrário da relevância dos primeiros documentos retornados. Assim, a precisão toma uma importante função e optou-se por avaliar nos primeiros 20 documentos retornados por query por ser um valor equilibrado e que vai ao encontro com a utilização normal de uma search engine.
 
-- `Precision Recall Curves`: Para cada subconjunto de documentos rankeados retornados, e para cada sequência de documentos nesse subconjunto, calcular valores de (recall, precision) para desenhar a curva.
-- `Mean Average Precision (MAP)`: É uma das mais comuns medidas usadas em IR. Trata-se da média de Average Precision dos vários conjuntos retornados, calculados para K documentos rankeados e úteis.
+As `Precision Recall Curves` são formada para cada query e para cada sistema, baseado no subconjunto de documentos rankeados retornados. Idealmente, um sistema é tanto mais estável quanto mais estável for a curva formada, e tem tanto melhor desempenho quanto a área inferior a essa mesma curva Precision-Recall Area Under the Curve [X6].
+
+A `Mean Average Precision (MAP)` é uma medida comum usada em Information Retrieval e trata-se da média de Average Precision dos vários conjuntos retornados ao longo das queries.
 
 ### Q1
 
@@ -193,3 +195,4 @@ Todos os anteriores mais (TODO: colocar data de acesso):
 - [X3] - [Solr Tokenizers](https://solr.apache.org/guide/solr/latest/indexing-guide/tokenizers.html)
 - [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html)
 - [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
+- [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html)
