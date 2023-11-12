@@ -127,6 +127,12 @@ Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
 
+Query: Best hotels near center of london
+Justificação: In this we intend to search for the hotels near the center of London with the best ratings. As our dataset doesnt have many entries with London location we set location to United Kingdom and search for the keywords center London in the review text. The results are sorted by descending rate.
+Words: London Center
+Location: United Kingdom
+Ops: London AND London Eye
+
 ### Q2
 
 Necessidade de informação:
@@ -136,6 +142,13 @@ Q:
 Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
+
+Query: Hotels with good breakfast or great room service in new delhy<br>
+
+Q3
+Justificação: <br>
+Words: good breakfast great room service <br>
+Ops: good breakfast OR great room service <br>
 
 ### Q3
 
@@ -147,6 +160,11 @@ Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
 
+Query: Good accessibility for handicapped people that are also well-served in public transportation options
+Justification:
+Words: good accessibility handicapped public transportation
+Ops: good accessibility handicapped AND public transportation
+
 ### Q4
 
 Necessidade de informação:
@@ -156,6 +174,10 @@ Q:
 Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
+
+Query: Vegetarian or vegan options in restaurant hotel around London
+Justification:
+Words: Vegetarian ORvegan options restaurant hotel london
 
 Global:
 - evaluate the results obtained for the defined information needs.
@@ -178,6 +200,9 @@ Adaptar do M1 e explorar possibilidade do M2:
 - work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering
 - sentimental and context analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
 - parsing segundo stopwords das queries do utilizador;
+
+- __Stop Filter__, this filter discards, or stops analysis of, tokens that are on the given stop words list. A standard stop words list is included in the Solr conf directory, named stopwords.txt, which is appropriate for typical English language text.
+    - We dont have stopwords.txt generated.
 
 ## References
 
