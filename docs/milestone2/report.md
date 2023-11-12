@@ -200,23 +200,16 @@ Global:
 
 ## 8. Conclusions and Future work
 
-Concluir acerca da consistência global do search engine / system.
+In conclusion of this milestone, all the planned tasks within the Information Retrieval phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that will help tourists make informed choices.
 
-- __Stop Filter__, this filter discards, or stops analysis of, tokens that are on the given stop words list. A standard stop words list is included in the Solr conf directory, named stopwords.txt, which is appropriate for typical English language text.
-    - We dont have stopwords.txt generated.
+One of the most challenging aspects of the work was developing effective strategies para lidar com nested documents, bem como a sua indexação e retrieval. Solr não tem documentação nem exemplos concretos que suportem o formato do documento que abordamos.
 
----- merge
+Através da avaliação da search engine verificamos que o sistema está estável e apto para lidar com diferentes necessidades de informação dentro do contexto escolhido. As the project progresses, there are always opportunities for further enhancements and refinements. With the first prototype of hotel's information retrieval system e olhando para os resultados obtidos:
 
-In conclusion of this milestone, all the planned tasks within the data preparation phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that will give tourists useful information and help them make informed choices.
+- Podemos usar `Stop Words` [X7] filter no boosted_text para que deixe de ser sensível a palavras comuns; 
+- `Sentimental and contextual analysis`, relevante já a fonte principal de informação do sistema são reviews e portanto com conotação subjectiva;
 
-One of the most challenging aspects of the work was developing effective strategies para lidar com nested documents e a sua indexação e retrieval. Solr não tem documentação suficiente....?
-
-Através da avaliação da search engine, verificamos que o sistema está estável e apto para lidar com diferentes necessidades de informação dentro do contexto exscolhido. As the project progresses, there are always opportunities for further enhancements and refinements. With the first prototype of hotel's information retrieval system e olhando para os resultados obtidos:
-- Usar Stop Words filter [X7] no boosted_text, 
-- sentimental and contextual analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
-- 
-
-Na fase seguinte também iremos work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering. This engine will allow travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
+Na fase seguinte também iremos work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation and results clustering. This engine will allow travelers to explore and filter accommodations according to their preferences, whether related to location, room quality, staff service, or other factors identified during the analysis phase.
 
 ## References
 
