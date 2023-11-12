@@ -15,8 +15,6 @@
 - use \parts (Latex) for each milestone;
 - Retirar a secção "6. Conclusions and Future work";
 - Preparar os slides anteriores para a versão M2;
-- retirar referências a "we", "our", "us" que possam surgir;
-- Colocar as próximas secções:
 
 ## 6. Information Retrieval
 
@@ -70,11 +68,12 @@ The same structure was used for the query analyzer. Thus, the indexing of the fi
 The approach implemented involves two schemas: a simple schema utilizes default field types for each field, while the more complex schema incorporates instantiated field types for enhanced search capabilities. 
 
 For query parameters used by both schemas, the system consolidates the following:
-- __Query (``q``)__: Focuses on the most valuable words in the query.[ref]
-- __Query Operator (``q.op``)__: Utilizes OR | AND for query operations.[ref]
-- __Query Filter (``fq``)__: Defines a query that can be used to restrict the superset of documents.[ref]
-- __Filter List (``fl``)__: Limits the information included in a query response.[ref]
-- __Sort Field (``sort``)__: Specifies the sorting value for the results.[ref]
+
+- __Query (``q``)__: Focuses on the most valuable words in the query;
+- __Query Operator (``q.op``)__: Utilizes OR | AND for query operations;
+- __Query Filter (``fq``)__: Defines a query that can be used to restrict the superset of documents;
+- __Filter List (``fl``)__: Limits the information included in a query response;
+- __Sort Field (``sort``)__: Specifies the sorting value for the results;
 
 | **Parameter** | **value** |
 |--------------|--------------|
@@ -86,23 +85,25 @@ For query parameters used by both schemas, the system consolidates the following
 
 [Table T2]: Query parameters
 
-The need of the fl and fq parameters results from the inclusion of nested documents. The final dataset consists hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
+The need of the fl and fq parameters results from the inclusion of nested documents [X8] [X9]. The final dataset consists hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
 
-For query parameters the simple schema uses the default type, while the boosted schema employs the type created by eDismax[ref] with specific parameters for optimizing search engine results:
+For query parameters the simple schema uses the default type, while the boosted schema employs the type created by eDismax [X5] with specific parameters for optimizing search engine results:
 
-- __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search.[ref]
-- __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query.[ref]
-- __Phrase Boost Slope (``ps``)__: Defines the maximum number of tokens between searched words.[ref]
+- __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search;
+- __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query;
+- __Phrase Boost Slope (``ps``)__: Defines the maximum number of tokens between searched words;
 
-| **Parameter** | **value** |
+| **Parameter** | **Value** |
 |--------------|--------------|
 | qf | text^7 name location^2 |
 | pf | text^10 |
 | ps | 3 |
 
-[Table T3]: defType edismax parameters
+[Table T3]: defType eDismax parameters
 
-Assigning diverse weights within the 'qf' parameter prioritizes the significance of the 'text' field, being our main field of search, followed by 'location' and 'name.' In the 'pf' parameter, exclusive attention is given to the 'text' field, serving as a dedicated phrase boost. This is complemented by the 'ps' parameter set to 3, a good number of maximum tokens between the searched words.
+Assigning diverse weights within the `qf` parameter prioritizes the significance of the `text` field, being the main field of search, followed by `location` and `name`. In the `pf` parameter, exclusive attention is given to the `text` field, serving as a dedicated phrase boost. This is complemented by the `ps` parameter set to 3, an average number of maximum tokens between the searched words.
+
+The eDismax parameter `bq` (boost query) was also explored in the approach but not included for system analysis. Since it relies on the characteristic tokens of each query, it was found that it would introduce bias to the results while configuring a system that wouldn't be general enough for all information needs.
 
 Being consistent with this boosted approach to every query has enhanced the system's query handling, leading to improvements in search results, as elaborated in the subsequent section.
 
@@ -120,12 +121,13 @@ The `Mean Average Precision (MAP)` is a common metric used in Information Retrie
 
 In the upcoming subsections, diverse user scenarios are presented as queries, accompanied by their respective results and statistics based on precision and recall metrics.
 
-### 7.1 Something
+### A. Something
 
 __Information Need:__
 __Relevance Judgement:__
 __Query:__
 - q: center london
+- q.op:
 - fq: {!child of=\"*:* -_nest_path_:*\"}location:united kingdom
 - fl: *,[child]
 - sort: rate desc, score desc
@@ -135,37 +137,42 @@ __Query:__
 | AvP         | x | y |
 | P@20     | x | y |
 
-[p-r-simple]()
-[p-r-bosted]()
+![Q1 Simple](../evaluation/q1/p-r-curve-simple.png)
+[Figure F1]: 
+
+![Q1 Boosted](../evaluation/q1/p-r-curve-boosted.png)
+[Figure F2]: 
 
 Result Analysis:
 
-### 7.2 Something
+### B. Something
 
-__Information Need:__
+__Information Need:__ Hotels with good breakfast or great room service in New Delhi.
 __Relevance Judgement:__
 __Query:__
 - q: good breakfast OR great room service
+- q.op:
 - fq: {!child of=\"\*:\* -_nest\_path\_:*\"}location:new delhi
 - fl: *,[child]
 - sort: score desc
 
 | **Rank**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
-| AvP         | x | y |
-| P@20     | x | y |
+| AvP         | 0.21 | 0.86 |
+| P@20     | 0.3 | 0.8 |
 
 [p-r-simple]()
 [p-r-bosted]()
 
 Result Analysis:
 
-### 7.3 Something
+### C. Something
 
-__Information Need:__
+__Information Need:__ Hotel in the United Kingdom with good location or good accessibility
 __Relevance Judgement:__
 __Query:__
-- q:
+- q: good AND location AND ((elevator) OR (accessibility))
+- q.op:
 - fq:
 - fl:
 - sort:
@@ -180,12 +187,13 @@ __Query:__
 
 Result Analysis:
 
-### 7.4 Something
+### D. Something
 
 __Information Need:__
 __Relevance Judgement:__
 __Query:__
 - q:
+- q.op:
 - fq:
 - fl:
 - sort:
@@ -206,21 +214,6 @@ needs across the different systems, its presented in the following table the MAP
 | **Global**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
 | MAP         | x | y |
-
-#### Important (retirar este tópico depois)
-
-Em cada Q deverá ter uma tabela com esta estrutura:
-
-QX | AvP | P@20
-Simple | v1 | v2
-Booster | v3 | v4
-
-Em cada Q deverá existir 2 gráficos PRCurves
-
-No final das 4 Qs deverá ter uma tabela com esta estrutura:
-
-Global | Simple | Booster
-MAP | v1 | v2
 
 ### Q1
 
@@ -295,7 +288,7 @@ One of the most challenging aspects of the work involved developing effective st
 
 Through the evaluation of the search engine, the system's stability and capability to handle different information needs within the chosen context have been verified. As the project progresses, opportunities for further enhancements and refinements emerge. Analyzing the results obtained from the first prototype of the hotel's information retrieval system:
 
-- The `Stop Words` [X7] filter can be applied to boosted_text to reduce sensitivity to common words;
+- The `Stop Words` [X7] filter can be applied to `boosted_text` to reduce sensitivity to common words;
 - `Sentimental and contextual analysis` is relevant, given that the main source of information for the system is reviews, which inherently carry subjective connotations;
 
 In the next phase, work will be done on user interfaces by developing a frontend for the search system, incorporating specific features like snippet generation and results clustering. This engine will enable travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
@@ -311,3 +304,5 @@ Todos os anteriores mais:
 - [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html), 2023/11/04
 - [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html), 2023/11/07
 - [X7] - [Solr Stop Filter](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html#managed-stop-filter), 2023/11/07
+- [X8] - [Indexing iNested Documents](https://solr.apache.org/guide/solr/latest/indexing-guide/indexing-nested-documents.html#schema-configuration), 2023/11/07
+- [X9] - [Queries in Nested Documents](https://solr.apache.org/guide/solr/latest/query-guide/searching-nested-documents.html), 2023/11/07

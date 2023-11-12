@@ -1,129 +1,21 @@
 [
   {
-    "date": "2017-06",
-    "rate": 5,
-    "text": [
-      "Close to the concert venue a nice park and shopping Center"
-    ],
-    "id": "b91a68f7-ddaa-4278-815f-79303cc63a41/reviews#48",
-    "_version_": 1782371929187942400
-  },
-  {
-    "date": "2015-11",
-    "rate": 5,
-    "text": [
-      "nice place and quite. slightly far away from center but quite"
-    ],
-    "id": "495dbb7b-c454-42d7-a57c-f577d8718c56/reviews#89",
-    "_version_": 1782371929201573888
-  },
-  {
-    "date": "2015-11",
-    "rate": 5,
-    "text": [
-      "new clean close to two tube stations close to very big shopping center westfield. the room is a little bit small no windows in the room it takes about 30 min to reach the center"
-    ],
-    "id": "b91a68f7-ddaa-4278-815f-79303cc63a41/reviews#40",
-    "_version_": 1782371929187942400
-  },
-  {
     "date": "2017-04",
     "rate": 5,
     "text": [
       "Hotel perfectly situated in the center of London cosy rooms very kind staff"
     ],
-    "id": "06b165b1-c805-4f26-bf5e-3a5e503696d4/reviews#50",
-    "_version_": 1782371928504270848
+    "id": "081e40cb-61bd-40dd-8c31-ab5aab5662dc/reviews#46",
+    "_version_": 1782400096936132608
   },
   {
-    "date": "2016-01",
+    "date": "2016-07",
     "rate": 5,
     "text": [
-      "This hotel is very closed to city center. the space is too small"
+      "Great hotel in High Street Kensington close to London City center Excellent facilities and rooms. Room above the entry was a bit noisy"
     ],
-    "id": "15de5dd8-c86f-4d76-9ac3-d347c9c20ffb/reviews#82",
-    "_version_": 1782371930568916992
-  },
-  {
-    "date": "2016-09",
-    "rate": 5,
-    "text": [
-      "Great value for money in the center of London. The room and fast WiFi"
-    ],
-    "id": "df25b6d4-5535-4a9e-b503-0a2b6ae69347/reviews#65",
-    "_version_": 1782371929164873728
-  },
-  {
-    "date": "2016-10",
-    "rate": 5,
-    "text": [
-      "Bed comfortable staff extra polite and helpful. Wish there had been a business center"
-    ],
-    "id": "730780f0-907b-456b-9680-ca7949f54ae2/reviews#59",
-    "_version_": 1782371929644072963
-  },
-  {
-    "date": "2017-03",
-    "rate": 5,
-    "text": [
-      "Amazing hotel brand new super comfortable in the city center Loved my stay there"
-    ],
-    "id": "e37e51e4-e61f-4d33-a3c4-eff9d8e8cb31/reviews#77",
-    "_version_": 1782371930405339136
-  },
-  {
-    "date": "2016-10",
-    "rate": 5,
-    "text": [
-      "City center and great location very good quality facilities great breakfast friendly professional staff Ten out of ten"
-    ],
-    "id": "6a8c1094-6579-4ef1-a8a8-15773704cda7/reviews#54",
-    "_version_": 1782371930464059392
-  },
-  {
-    "date": "2015-09",
-    "rate": 5,
-    "text": [
-      "Located in the center of city with walking distance to many attractions Clean room and great services. None"
-    ],
-    "id": "e161f094-4abd-4566-ada6-e9dc640daba1/reviews#93",
-    "_version_": 1782371930834206720
-  },
-  {
-    "date": "2017-01",
-    "rate": 5,
-    "text": [
-      "Pleasent clean hotel good location for tube Nice breakfast with lots of choice. Distance to the center of London"
-    ],
-    "id": "ba6c7e01-85f8-41ab-a6db-5edd58a0b502/reviews#50",
-    "_version_": 1782371930013171716
-  },
-  {
-    "date": "2017-03",
-    "rate": 5,
-    "text": [
-      "Excellent city center location great value for movie Lovely room. Not enough sockets for charges misplaced one probably under the table"
-    ],
-    "id": "d0caa284-c4b5-4144-a78a-4d4e38d1df0c/reviews#44",
-    "_version_": 1782371929431212032
-  },
-  {
-    "date": "2017-02",
-    "rate": 5,
-    "text": [
-      "Bed bath compliment minibar closeness to the center everything was superb. The reseptionist did not mention that the minibar is complimentary"
-    ],
-    "id": "6775e3bb-2ecd-4572-9cd2-d1b5f9f8331e/reviews#54",
-    "_version_": 1782371929871613952
-  },
-  {
-    "date": "2016-01",
-    "rate": 5,
-    "text": [
-      "Except the hotel facilities very close to bus station and Paddigton Station and of course close to London Center Oxford Str Hyde Park etc"
-    ],
-    "id": "f12bf1f7-621d-4d37-9755-8fadd3966e98/reviews#82",
-    "_version_": 1782371930307821568
+    "id": "278412b3-eacc-4579-ba02-da44650f5f6d/reviews#61",
+    "_version_": 1782400100109123584
   },
   {
     "date": "2016-04",
@@ -131,26 +23,8 @@
     "text": [
       "Fantastic hotel in a great location the area has lovely village feel in the center of London close to all te attractions bars and restaurants"
     ],
-    "id": "b97bc06d-848a-4a87-ab91-5fa7e867ed52/reviews#80",
-    "_version_": 1782371930824769536
-  },
-  {
-    "date": "2015-11",
-    "rate": 5,
-    "text": [
-      "We loved the location near the park near the underground and in the center great facilities beutiful rooms with high standart. It is an expensive hotel"
-    ],
-    "id": "d80d435c-9eb4-4d29-81cf-4c5eca8510d9/reviews#31",
-    "_version_": 1782371930659094528
-  },
-  {
-    "date": "2017-01",
-    "rate": 5,
-    "text": [
-      "Excellent views and extremely comfortable bed Good location 2 minutes away from trains and a shopping center at your doorstep. More choice on the cooked breakfast items"
-    ],
-    "id": "28ed0f96-9683-4827-9337-61c6689200d9/reviews#12",
-    "_version_": 1782371930630782980
+    "id": "848a1638-2a45-4b74-b10f-e228fc9364fa/reviews#80",
+    "_version_": 1782400103413186560
   },
   {
     "date": "2015-09",
@@ -158,25 +32,151 @@
     "text": [
       "Very good location right in the center of London you can do alot on foot from there Very good wifi connection very important these days Very friendly personnel and everything Clean"
     ],
-    "id": "8c56f892-93a7-423d-a9e5-b8a1176827f3/reviews#29",
-    "_version_": 1782371929278119938
+    "id": "bf014feb-c0a0-4660-9ab0-605ad461e121/reviews#28",
+    "_version_": 1782400098801549312
   },
   {
-    "date": "2017-06",
+    "date": "2017-04",
     "rate": 5,
     "text": [
-      "The decor and ambiance was really cool and felt like I was at the center of where everything was happening. Lobby lounges were a bit too loud to conduct business meetings"
+      "Staff and service outstanding Proximity to the center of London brilliant Quiet and very well appointed Will definitely make it our hotel of choice in the future. Nothing couldn t fault a thing"
     ],
-    "id": "ed7ca4eb-83dd-48c7-8f0b-ec301d3766bf/reviews#21",
-    "_version_": 1782371930752417792
+    "id": "bdf76430-597e-4757-82f5-74a029307cde/reviews#7",
+    "_version_": 1782400102867927040
   },
   {
-    "date": "2016-03",
+    "date": "2016-02",
     "rate": 5,
     "text": [
-      "Welcoming cookie was delicious Just two minutes away from the design center and the Imperial Wharf train st. Took the staff a long time to solve a problem after our check out"
+      "It is in the city center and in the heart of london Near the bus stations and the underground 15 mins walk to Knightsbridge and 30mins to Picaddily Near Bond station which is direct to Canary wharf"
     ],
-    "id": "8902ae0c-cc05-46a5-834a-7291fee621c8/reviews#23",
-    "_version_": 1782371929199476736
+    "id": "2a1990f5-166a-4666-bc57-74cdfc58e3f3/reviews#31",
+    "_version_": 1782400102958104576
+  },
+  {
+    "date": "2016-02",
+    "rate": 5,
+    "text": [
+      "Great hotel stopped here for the 2nd time and hosts upgraded our room to a suits type thank you Great location very clean and big rooms great deal for center of London Will definitely come back there Recommend to everyone"
+    ],
+    "id": "fd3096d1-cebf-43a8-bdbf-3c8fd31fc7f2/reviews#36",
+    "_version_": 1782400098412527616
+  },
+  {
+    "date": "2016-11",
+    "rate": 5,
+    "text": [
+      "the hotel staff were very attentive and friendly especially Kristina the waitress would definitely be going back with family next year was easy to get into the center of London and the hotel breakfast was the best i ever had. nothing"
+    ],
+    "id": "d57b32eb-4db6-4db5-b683-a7de62d455ab/reviews#17",
+    "_version_": 1782400100154212352
+  },
+  {
+    "date": "2012-04",
+    "rate": 5,
+    "text": [
+      "This is one of the finest hotels we have ever stayed in. The service staff was amazing, the rooms luxurious and the fitness center and spa were gorgeous. The location was also perfect for sightseeing: minutes from The London Eye, Trafalgar Square and Covent Garden. We made the mistake to try to stay in another hotel to experience a different area of London on the third leg of our itinerary (see my other review), we would have been 1000% happier here."
+    ],
+    "id": "e81563e3-6beb-4ac5-a961-dd81e6221de1/reviews#30",
+    "_version_": 1782400098462859264
+  },
+  {
+    "date": "2016-02",
+    "rate": 5,
+    "text": [
+      "Absolute IDEAL location in London, and though expensive, worth every penny if you want to splurge! Very attentive and professional staff without being stuffy, world class spa and fitness center, great food, and yes, the POOL really is one of the most beautiful I've ever had the pleasure to swim in. Do yourself a favor!"
+    ],
+    "id": "4b112900-4f3b-47cb-b70c-d07548d108cc/reviews#22",
+    "_version_": 1782400098088517632
+  },
+  {
+    "date": "2014-05",
+    "rate": 5,
+    "text": [
+      "Really beautiful hotel. Very nice room, very very comfortable bed :). I was surprised to find fruits and water in my room. :) Very good breakfast, nice staff, also good location. You are in the center of London. Just few steps from Marble Arch/ Oxford street, but still very quite place to stay. I could suggest this hotel for romantic weekend. :)"
+    ],
+    "id": "b576b99a-2a95-49c3-a3c0-d2cd965d70f8/reviews#13",
+    "_version_": 1782400101576081411
+  },
+  {
+    "date": "2014-01",
+    "rate": 5,
+    "text": [
+      "Retour d'un WE a Londres, avec une nuit passee au Bulgari | Hotel idealement situe, a proximite de le center de London. | En arrivant on voit cet hotel, immediatement on pense au bruit, et bien rassurez vous on n'entend rien du tout. | Le decor est tres, tres contemporain, mais franchement de tres bon gout, et sans fausse note. | Le personnel est tres attentif, agreable, aussi bien le concierge que le receptionniste, que les serveurs, meme l'agent de securite est souriant ! | Vous pouvez y aller les yeux fermes"
+    ],
+    "id": "4b112900-4f3b-47cb-b70c-d07548d108cc/reviews#28",
+    "_version_": 1782400098088517632
+  },
+  {
+    "date": "2016-05",
+    "rate": 5,
+    "text": [
+      "We booked a long weekend at this hotel through British Airways because it was quite close to Knightsbridge and the Royal Albert Hall. | The rooms was excellent although there were a couple of comfortable chairs that took up some of the free space which were not required. | Breakfast was excellent every day and we will keep it in mind the next time we go. | Excellent bus connections to Victoria, Leicester Square, Oxford Street and Baker street made the whole of the center of London easily accessible."
+    ],
+    "id": "783a8470-c3ac-4fc8-a7dd-9ce8e9c40090/reviews#80",
+    "_version_": 1782400103252754432
+  },
+  {
+    "date": "2018-07",
+    "rate": 5,
+    "text": [
+      "Already my second stay here within only a few months! one of the reasons I chose to come back to London to celebrate my sisters birthday here. Favorite hotel here with the most wonderful, kind staff. Very central with easy access everywhere! :) (the central line and waterloo line etc, leaves from almost right behind the hotel) close to many restaurants. Rooms are very quiet and have a calm nice vibe and are quite big considered it's quite in the center of London. Went there this time for my sisters birthday and we had an amazing time thanks to their lovely staff! Everything went so smoothly and got a nice upgrade and the most wonderful welcome. Even better than I had expected. | Everything is possible and the reception is there for you 24/7. Highly recommend. Thank you!"
+    ],
+    "id": "4ad2cb87-2be4-40ee-ba7e-99040526b83a/reviews#36",
+    "_version_": 1782400097087127552
+  },
+  {
+    "date": "2016-12",
+    "rate": 4,
+    "text": [
+      "Breakfast was nice. It is far from city center of London"
+    ],
+    "id": "abf650b0-9c70-47e4-8962-e3bca6f69854/reviews#35",
+    "_version_": 1782400098666283008
+  },
+  {
+    "date": "2016-11",
+    "rate": 4,
+    "text": [
+      "The service was amazing. It was farther from the center of London than I had anticipated"
+    ],
+    "id": "16eedcde-8570-4f01-8c42-d4b3c49eca19/reviews#29",
+    "_version_": 1782400101733367808
+  },
+  {
+    "date": "2015-09",
+    "rate": 4,
+    "text": [
+      "Super location and respectable sized rooms for London City center hotel Close to Underground and St Pancras train station"
+    ],
+    "id": "23ed45e2-02a0-4ef8-809f-4da2177232f6/reviews#88",
+    "_version_": 1782400100092346368
+  },
+  {
+    "date": "2016-09",
+    "rate": 4,
+    "text": [
+      "The room was lovely just a little small spaced However perfect for an overnight stay. The location is 30 minutes from the center of London"
+    ],
+    "id": "f6224e5d-b3b3-4143-957b-381e431b3ddb/reviews#67",
+    "_version_": 1782400100244389888
+  },
+  {
+    "date": "2017-02",
+    "rate": 4,
+    "text": [
+      "Nice location all center points in walking distance very nice room very good breakfast. A bit expensive for what you get but probably this is London"
+    ],
+    "id": "081e40cb-61bd-40dd-8c31-ab5aab5662dc/reviews#7",
+    "_version_": 1782400096936132608
+  },
+  {
+    "date": "2016-01",
+    "rate": 4,
+    "text": [
+      "The location is really good right next to the station And the center of London. The room is a bit small but it still really nice"
+    ],
+    "id": "365cf2b6-fbdb-42d4-9ee2-c4b6124fb152/reviews#73",
+    "_version_": 1782400099171696640
   }
 ]
