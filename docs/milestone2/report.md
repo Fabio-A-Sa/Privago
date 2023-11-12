@@ -85,19 +85,15 @@ Being consistent with this boosted approach to every query has enhanced the syst
 
 ## 7. Evaluation
 
-A avaliação é também uma das partes fundamentais da Information Retrieval e depende do target de coleção de documentos do tipo de informação necessária. É importante para entender os possíveis usos dos sistemas por parte dos utilizadores e definir novos designs e implementações com base no feedback recebido.
-
-Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, a habilidade do sistema em encontrar a informação certa, em vez da eficiência, a habilidade do sistema encontrar informação rapidamente. 
+A avaliação é também uma das partes fundamentais da Information Retrieval e depende do target de coleção de documentos do tipo de informação necessária. É importante para entender os possíveis usos dos sistemas por parte dos utilizadores e definir novos designs e implementações com base no feedback recebido. Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, a habilidade do sistema em encontrar a informação certa, em vez da eficiência, a habilidade do sistema encontrar informação rapidamente. 
 
 Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorreu-se a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Average Precision (AvP)`, `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão incide na percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato é inviável, pelo que se usou uma aproximação manual com base na extração e amostra dos primeiras dezenas de documentos retornados.
 
-A `Average Precision (AvP)`, 
+A `Average Precision (AvP)`, é importante porque a precisão é o que define a satisfação da maioria dos utilizadores. De facto os utilizadores não requerem elevada recall, já que a percentagem de resultados relevantes dado todos os documentos importantes do sistema é quase sempre desconhecida, ao contrário da relevância dos primeiros documentos retornados. Em `Precision at K (P@K)`optou-se por avaliar os primeiros 20 documentos retornados por query por ser um valor equilibrado e que vai ao encontro de uma utilização normal de uma search engine.
 
-A `Precision at K (P@K)` é importante porque a precisão é o que define a satisfação da maioria dos utilizadores. De facto os utilizadores não requerem elevada recall, já que a percentagem de resultados relevantes dado todos os documentos importantes do sistema é quase sempre desconhecida, ao contrário da relevância dos primeiros documentos retornados. Assim, a precisão toma uma importante função e optou-se por avaliar nos primeiros 20 documentos retornados por query por ser um valor equilibrado e que vai ao encontro com a utilização normal de uma search engine.
+As `Precision Recall Curves` são formada para cada query e para cada sistema, baseado no subconjunto de documentos rankeados retornados. Idealmente, um sistema é tanto mais estável quanto mais estável for a curva formada, e tem tanto melhor desempenho quanto a Precision-Recall Area Under the Curve [X6].
 
-As `Precision Recall Curves` são formada para cada query e para cada sistema, baseado no subconjunto de documentos rankeados retornados. Idealmente, um sistema é tanto mais estável quanto mais estável for a curva formada, e tem tanto melhor desempenho quanto a área inferior a essa mesma curva Precision-Recall Area Under the Curve [X6].
-
-A `Mean Average Precision (MAP)` é uma medida comum usada em Information Retrieval e trata-se da média de Average Precision dos vários conjuntos retornados ao longo das queries.
+A `Mean Average Precision (MAP)` é uma medida comum usada em Information Retrieval e trata-se da média de Average Precision dos vários conjuntos retornados ao longo do período de avaliação. Permite conhecer se o sistema é consistente mesmo quando aplicado a necessidades de informação distintas.
 
 ### Q1
 
@@ -188,11 +184,11 @@ Adaptar do M1 e explorar possibilidade do M2:
 
 ## References
 
-Todos os anteriores mais (TODO: colocar data de acesso):
+Todos os anteriores mais:
 
-- [X1] - [Information Retrieval](https://en.wikipedia.org/wiki/Information_retrieval)
-- [X2] - [Apache Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html)
-- [X3] - [Solr Tokenizers](https://solr.apache.org/guide/solr/latest/indexing-guide/tokenizers.html)
-- [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html)
-- [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
-- [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html)
+- [X1] - [Information Retrieval](https://en.wikipedia.org/wiki/Information_retrieval), 2023/10/23
+- [X2] - [Apache Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html), 2023/10/23
+- [X3] - [Solr Tokenizers](https://solr.apache.org/guide/solr/latest/indexing-guide/tokenizers.html), 2023/11/02
+- [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html), 2023/11/02
+- [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html), 2023/11/04
+- [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html), 2023/11/07
