@@ -1,24 +1,26 @@
 {
     "simple": {
-        "q": "text:good breakfast OR affordable room service",
+        "q": "text:good breakfast OR great room service",
         "indent":"true",
         "q.op": "OR",
         "fq": "{!child of=\"*:* -_nest_path_:*\"}location:new delhy",
         "sort": "score desc",
         "start": 0,
-        "rows": 60,
+        "rows": 20,
         "fl": "*,[child]"
     },
     "boosted": {
-        "q": "text:good breakfast OR affordable room service",
+        "q": "text:good breakfast OR great room service",
         "indent":"true",
         "q.op": "OR",
         "fq": "{!child of=\"*:* -_nest_path_:*\"}location:new delhy",
         "sort": "score desc",
         "start": 0,
-        "rows": 60,
+        "rows": 20,
         "fl": "*,[child]",
         "defType": "edismax",
-        "qf": "text^7 name location^2"  
+        "qf": "text^7 name location^2",
+        "pf": "text^10",
+        "ps": 3
     }
 }
