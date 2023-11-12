@@ -36,27 +36,34 @@ Therefore, a hotel is a document consisting of a name, average rating, location,
 
 Indexing serves as a fundamental step in Information Retrieval, optimizing search efficiency by organizing the data. It involves creating a structured index that significantly enhances both search speed and scalability. Without proper indexing, search systems would face challenges, resulting in slower response times and increased computational overhead.
 
-In Solr, there are different types of indexing the document fields e queries associadas, baseado num Tokenizers [X3] e vários Filters [X4]. Enquanto os Tokenizers criam uma stream de tokens através da string original de acordo com uma regra pré-definida, os Filters transformam esses mesmos tokens de forma a ficarem consistentes para uma posterior pesquisa e match.
+In Solr, various types of indexing exist for document fields and associated queries, based on a Tokenizer [X3] and several Filters [X4]. While Tokenizers create a token stream from the original string following a predefined rule, Filters transform these tokens for consistency in subsequent searches and matches.
 
-Neste caso em concreto, interessou indexar essencialmente os fields textuais, já que são aqueles que mais dão contexto e informação à pesquisa. Por outro lado, dado o contexto do projecto, não é expectável que se pesquise por datas específicas ou por ratings de reviews. Assim, esses dois últimos fields do documento não foram indexados. 
+In this specific case, the focus was primarily on indexing textual fields, as they provide the most context and information for searches. Conversely, given the project's context, it is not expected to search for specific dates or review ratings. Therefore, these latter two document fields were not indexed.
 
-Os fields textuais foram indexados através da instanciação de um novo tipo de dados. O novo tipo `boosted_text` comporta:
+Textual fields were indexed by instantiating a new data type. The new type `boosted_text` includes:
 
-- `StandardTokenizerFactory` tokenizer, faz split dos textos segundo pontuação e espaços;
-- `ASCIIFoldingFilterFactory` filter, lida com caracteres especiais e acentos, convetendo-os na sua forma equivalente em ASCII;
-- `LowerCaseFilterFactory` filter, converte todos os caracteres para a sua correspondente minúscula;
-- `SynonymGraphFilterFactory` filter, expande cada token para incluir variações de acordo com os seus sinónimos;
-- `EnglishMinimalStemFilterFactory` filter, reduz cada token à sua forma radical, facilitando a busca por variações de determinados termos;
+- `StandardTokenizerFactory` tokenizer: splits texts based on punctuation and spaces;
+- `ASCIIFoldingFilterFactory` filter: handles special characters and accents, converting them to their equivalent ASCII form;
+- `LowerCaseFilterFactory` filter, converts all characters to their lowercase counterparts;
+- `SynonymGraphFilterFactory` filter, expands each token to include variations based on its synonyms;
+- `EnglishMinimalStemFilterFactory` filter, reduces each token to its root form, facilitating the search for variations of specific terms;
 
-Por default, a lingua inglesa foi usada tanto na atribuição de stems como de sinónimos, uma vez que os dados manipulados estão nessa língua.
+By default, the English language was used for both stem assignment and synonym generation, as the manipulated data is in this language.
 
-Note-se que o `SynonymGraphFilterFactory` é muito necessário neste contexto. Dado que a pesquisa é efetuada com base em reviews, e por si só são objectos subjectivos de linguagem natural e carregados de adjectivos, é importante não depender de termos específicos mas sim tentar match de sinónimos de termos.
+Note that the `SynonymGraphFilterFactory` is crucial in this context. Since the search is conducted based on reviews, which are inherently subjective, derived from natural language and rich in adjectives, it is important not to rely on specific terms but rather to match synonyms of terms.
 
-Foi usada a mesma estrutura para o query analyzer. Assim, a indexação do documento final pode ser caracterizada pelo seguinte schema:
+The same structure was used for the query analyzer. Thus, the indexing of the final document can be characterized by the following schema:
 
+| **Field**    | **Type**     | **Indexed?** |
+|--------------|--------------|--------------|
+| name         | boosted_text | yes          |
+| location     | boosted_text | yes          |
+| average_rate | pint         | yes          |
+| date         | string       | no           |
+| rate         | pint         | no           |
+| text         | boosted_text | yes          |
 
-
-[Tabela T1]: Schema Field Types
+[Table T1]: Schema Field Types
 
 ## 6.3 Retrieval Process and Setup
 
