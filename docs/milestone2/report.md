@@ -101,19 +101,14 @@ A avaliação é também uma das partes fundamentais da Information Retrieval e 
 
 Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, a habilidade do sistema em encontrar a informação certa, em vez da eficiência, a habilidade do sistema encontrar informação rapidamente. 
 
-Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorremos a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão indica a percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato, pelo que se usou uma aproximação com base na extração e amostra dos primeiras dezenas de documentos.
+Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorremos a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão indica a percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato é inviável, pelo que se usou uma aproximação manual com base na extração e amostra dos primeiras dezenas de documentos retornados.
 
-- `Precision at K (P@K)`: Na maioria dos sistemas, os utilizadores não precisa de grande recall, ou seja, não interessa a percentagem de resultados relevantes dado todos os documentos importantes, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
+A `Precision at K (P@K)` foi escolhida pois a precisão é o que define a satisfação dos utilizadores. De facto os utilizadores não requerem elevada recall, pois q percentagem de resultados relevantes dado todos os documentos importantes é, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
 
-Indicar que é inviável manualmente caracterizar mais de 2000 documentos por query e nem é esse o objectivo.
-
-- Vamos usar P@20, Recall, AvP, MAP. Fazer RC Curves;
 - Precision & Recal ignoram o ranking em si;
 
 Dos meus apontamentos das aulas teóricas:
 
-- `Precision`: Número de documentos relevantes retirados / Número total de documentos retirados;
-- `Recall`: Número de documentos relevantes retirados / Número de documentos relevantes do sistema;
 - `Precision Recall Curves`: Para cada subconjunto de documentos rankeados retornados, e para cada sequência de documentos nesse subconjunto, calcular valores de (recall, precision) para desenhar a curva.
 - `Precision at K (P@K)`: No caso da WEB, a maioria dos utilizadores não precisa de grande recall, ou seja, não interessa a percentagem de resultados relevantes dado todos os documentos importantes, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
 - `Mean Average Precision (MAP)`: É uma das mais comuns medidas usadas em IR. Trata-se da média de Average Precision dos vários conjuntos retornados, calculados para K documentos rankeados e úteis.
