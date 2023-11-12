@@ -11,7 +11,7 @@ make
 
 ```
 cd solr
-bash startup-boosted.sh
+bash startup-(boosted|simple).sh
 ```
 
 And open [`localhost:8983`](http://localhost:8983).
@@ -20,14 +20,14 @@ And open [`localhost:8983`](http://localhost:8983).
 
 ```
 cd evaluation
-make query
+make query [N]
 ```
 
 ### Run evaluation
 
 ```
 cd evaluation
-make evaluation
+make evaluation [N]
 ```
 
 ## Data
