@@ -24,6 +24,8 @@ Ops: London AND London Eye
 Q2
 
 Query: Hotels with good breakfast or great room service in new delhy<br>
+
+Q3
 Justificação: <br>
 Words: good breakfast great room service <br>
 Ops: good breakfast OR great room service <br>

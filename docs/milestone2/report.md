@@ -48,7 +48,7 @@ Textual fields were indexed by instantiating a new data type. The `boosted_text`
 - `SynonymGraphFilterFactory` filter, expands each token to include variations based on its synonyms;
 - `EnglishMinimalStemFilterFactory` filter, reduces each token to its root form, facilitating the search for variations of specific terms;
 
-By default, the English language was used for both stem assignment and synonym generation, as the manipulated data is in this language.
+Fields with native values were defined using Solr's default types. The English language was chosen for both stem assignment and synonym generation, aligning with the language of the manipulated data.
 
 The `SynonymGraphFilterFactory` is crucial in this context. Since the search is conducted based on reviews, which are inherently subjective, derived from natural language and rich in adjectives, it is important not to rely on specific terms but rather to match synonyms of terms.
 
@@ -78,7 +78,7 @@ Justificar como vamos fazer as queries. Ver os parametros necessários no Solr. 
 
 No Solr vamos usar estes fields importantes:
 
-name^1 location^2 text^7 
+name^1 location^2 text^7 -> tabela com estes pesos
 
 - `query` (q) - a query que queremos
 - `query field with optional boost` (qf) - para dar pesos a determinados fields na pesquisa;
@@ -94,15 +94,20 @@ name^1 location^2 text^7
 - Manualmente, para avaliar os 2 setups criados;
 
 
-Vamos também usar o eDisMax [R]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
+Vamos também usar o eDisMax [X5]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
 
 
 ## 7. Evaluation
 
-Introdução. Mudar o que está em baixo:
+A avaliação é também uma das partes fundamentais da Information Retrieval e depende do target de coleção de documentos do tipo de informação necessária. É importante para entender os possíveis usos dos sistemas por parte dos utilizadores e definir novos designs e implementações com base no feedback recebido.
+
+Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, habilidade do sistema em encontrar a informação certa, em vez da eficiência, habilidade do sistema encontrar informação rapidamente. 
+
+Como individual metrics podem provocar um bias na avaliação dos sistemas, recorremos a um conjunto de métricas distintas:
+
+
+
 Evaluation measures provide a way of quantifying retrieval effectiveness.
-Individual metrics are prone to bias and giving a tunnelled vision of the system.
-Therefore, it is important to always evalue over a set of distinct metrics.
 
 ### Formas de avaliação usadas
 
@@ -122,11 +127,7 @@ Dos meus apontamentos das aulas teóricas:
 - Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
 - Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o limite anterior. Prós e contras. Indicar que é inviável manualmente caracterizar mais de 2000 documentos por query e nem é esse o objectivo.
 
-### Resultados
-
-- Se não couber tudo aqui vai para os anexos.
-
-#### Q1
+### Q1
 
 Necessidade de informação:
 Relevance Judgement:
@@ -136,7 +137,7 @@ Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
 
-#### Q2
+### Q2
 
 Necessidade de informação:
 Relevance Judgement:
@@ -146,7 +147,7 @@ Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
 
-#### Q3
+### Q3
 
 Necessidade de informação:
 Relevance Judgement:
@@ -156,7 +157,7 @@ Tabela com rank (AvP, P@20), e valores para cada System.
 Gráfico R-C para cada System.
 Interpretações, justificações.
 
-#### Q4
+### Q4
 
 Necessidade de informação:
 Relevance Judgement:
@@ -188,14 +189,6 @@ Adaptar do M1 e explorar possibilidade do M2:
 - sentimental and context analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
 - parsing segundo stopwords das queries do utilizador;
 
-## Annexes
-
-Todos os anteriores mais:
-
-- 
-- 
-- 
-
 ## References
 
 Todos os anteriores mais (TODO: colocar data de acesso):
@@ -204,6 +197,4 @@ Todos os anteriores mais (TODO: colocar data de acesso):
 - [X2] - [Apache Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html)
 - [X3] - [Solr Tokenizers](https://solr.apache.org/guide/solr/latest/indexing-guide/tokenizers.html)
 - [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html)
-
-
-- [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
+- [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
