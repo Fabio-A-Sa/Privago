@@ -1,0 +1,56 @@
+{
+  "Results per query and per mode": [
+    {
+      "query": "q1",
+      "mode": "simple",
+      "P@20": 0.25,
+      "AvP": 0.2
+    },
+    {
+      "query": "q1",
+      "mode": "boosted",
+      "P@20": 0.65,
+      "AvP": 0.6
+    },
+    {
+      "query": "q2",
+      "mode": "simple",
+      "P@20": 0.3,
+      "AvP": 0.21
+    },
+    {
+      "query": "q2",
+      "mode": "boosted",
+      "P@20": 0.8,
+      "AvP": 0.86
+    },
+    {
+      "query": "q3",
+      "mode": "simple",
+      "P@20": 0.5,
+      "AvP": 0.48
+    },
+    {
+      "query": "q3",
+      "mode": "boosted",
+      "P@20": 0.5,
+      "AvP": 0.48
+    },
+    {
+      "query": "q4",
+      "mode": "simple",
+      "P@20": 0.0,
+      "AvP": 0.0
+    },
+    {
+      "query": "q4",
+      "mode": "boosted",
+      "P@20": 0.4,
+      "AvP": 0.36
+    }
+  ],
+  "Global MAP": {
+    "simple": 0.2225,
+    "boosted": 0.575
+  }
+}
