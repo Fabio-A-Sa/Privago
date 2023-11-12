@@ -15,9 +15,10 @@
 
 Q1
 
-Query: Best hotels in London near London Eye
-Justificação:
-Words: London London Eye
+Query: Best hotels near center of london
+Justificação: In this we intend to search for the hotels near the center of London with the best ratings. As our dataset doesnt have many entries with London location we set location to United Kingdom and search for the keywords center London in the review text. The results are sorted by descending rate.
+Words: London Center
+Location: United Kingdom
 Ops: London AND London Eye
 
 Q2
