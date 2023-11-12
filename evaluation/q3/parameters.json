@@ -1,16 +1,29 @@
 {
     "simple": {
-        "q": "something useful",
-        "qf": "attribute^heigth",
-        "pf": "useful",
-        "ps": 10,
-        "limit": 60
+        "q": "good location ((elevator) OR (accessibility))",
+        "df": "text",
+        "indent": "true",
+        "fl": "*,[child]",
+        "q.op": "AND",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:(united kingdom)",
+        "sort": "score desc",
+        "rows": "20",
+        "useParams": "",
+        "_": "1699829430799"
     },
     "boosted": {
-        "q": "something useful",
-        "qf": "attribute^heigth",
-        "pf": "useful",
-        "ps": 10,
-        "limit": 60
+        "df": "text",
+        "qs": "0",
+        "ps": "0",
+        "indent": "true",
+        "fl": "*,[child]",
+        "q.op": "AND",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:(united kingdom)",
+        "sort": "score desc",
+        "rows": "20",
+        "q": "good location ((elevator) OR (accessibility))",
+        "defType": "edismax",
+        "useParams": "",
+        "_": "1699829430799"
     }
 }
