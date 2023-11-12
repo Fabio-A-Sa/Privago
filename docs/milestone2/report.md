@@ -78,7 +78,7 @@ Justificar como vamos fazer as queries. Ver os parametros necessários no Solr. 
 
 No Solr vamos usar estes fields importantes:
 
-name^1 location^2 text^7 -> tabela com estes pesos
+name^1 location^2 text^7 -> tabela com estes pesos [Table 2]
 
 - `query` (q) - a query que queremos
 - `query field with optional boost` (qf) - para dar pesos a determinados fields na pesquisa;
@@ -93,23 +93,19 @@ name^1 location^2 text^7
 
 - Manualmente, para avaliar os 2 setups criados;
 
-
 Vamos também usar o eDisMax [X5]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
-
 
 ## 7. Evaluation
 
 A avaliação é também uma das partes fundamentais da Information Retrieval e depende do target de coleção de documentos do tipo de informação necessária. É importante para entender os possíveis usos dos sistemas por parte dos utilizadores e definir novos designs e implementações com base no feedback recebido.
 
-Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, habilidade do sistema em encontrar a informação certa, em vez da eficiência, habilidade do sistema encontrar informação rapidamente. 
+Neste caso em concreto, a avaliação foi efetuada sob o ponto de vista da eficácia, a habilidade do sistema em encontrar a informação certa, em vez da eficiência, a habilidade do sistema encontrar informação rapidamente. 
 
-Como individual metrics podem provocar um bias na avaliação dos sistemas, recorremos a um conjunto de métricas distintas:
+Como individual e subjective metrics podem provocar um bias na avaliação dos dois sistemas anteriormente instanciados, recorremos a um conjunto de métricas distintas baseadas em `precision` and `recall`, como a `Precision at K (P@K)`, `Precision Recall curves` e `Mean Average Precision (MAP)`. Enquanto a precisão indica a percentagem do número de documentos realmente relevantes entre os extraídos, o recall faz essa comparação com base em todos os documentos relevantes dentro do sistema. Dado que neste caso existem mais de 2000 documentos únicos, o cálculo exato, pelo que se usou uma aproximação com base na extração e amostra dos primeiras dezenas de documentos.
 
+- `Precision at K (P@K)`: Na maioria dos sistemas, os utilizadores não precisa de grande recall, ou seja, não interessa a percentagem de resultados relevantes dado todos os documentos importantes, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
 
-
-Evaluation measures provide a way of quantifying retrieval effectiveness.
-
-### Formas de avaliação usadas
+Indicar que é inviável manualmente caracterizar mais de 2000 documentos por query e nem é esse o objectivo.
 
 - Vamos usar P@20, Recall, AvP, MAP. Fazer RC Curves;
 - Precision & Recal ignoram o ranking em si;
@@ -125,7 +121,6 @@ Dos meus apontamentos das aulas teóricas:
 ### Precondições
 
 - Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
-- Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o limite anterior. Prós e contras. Indicar que é inviável manualmente caracterizar mais de 2000 documentos por query e nem é esse o objectivo.
 
 ### Q1
 
