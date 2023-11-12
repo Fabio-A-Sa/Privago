@@ -30,21 +30,42 @@ Nas secções seguintes...
 
 Dizer que o Solr apresenta indexes. Referência.
 Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar;
-o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional;
-o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos. como computamos os sinónimos? aquele código é de chatgpt? perguntar ao andré.
+
+É aqui que se fala da indexação das queries
 
 ## 6.3 Retrieval Process and Setup
 
-É aqui que se fala da indexação das queries? Verificar.
+Há um schema simples. há um boosted
 
-Há um schemaless. Justificar que o Solr já faz isso por default quando não é apresentado nada.
+no boosted:
+o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional;
+o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos. como computamos os sinónimos? aquele código é de chatgpt? perguntar ao andré.
 
-O que não é schemaless vai ter pesos nos parâmetros. Indicar quais os pesos (tabela?) e justificar. Question: dão-se pesos a atributos não indexados? Não.
+O boosted vai ter pesos nos fields. Indicar quais os pesos (tabela?) e justificar. Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
+No nosso caso temos poucos atributos e baseamo-nos nas reviews, logo o texto delas terá sempre maior peso do que qualquer outro atributos.
 
-Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
-No nosso caso temos poucos atributos e baseamo-nos nas reviews, logo o texto delas terá sempre maior peso do que qualquer outro atributod.
+Justificar como vamos fazer as queries. Ver os parametros necessários no Solr. aplicar as mesmas cenas para ficar equivalentes.
 
-Justificar como vamos fazer as queries. Ver os parametros necessários no Solr.
+No Solr vamos usar estes fields importantes:
+
+name^1 location^2 text^7 
+
+- `query` (q) - a query que queremos
+- `query field with optional boost` (qf) - para dar pesos a determinados fields na pesquisa;
+
+name^1 location^2 text^7 
+
+- `phrase boosted field` (pf) - podemos escolher termos da query mais relevantes;
+
+
+
+- `phrase boost slope` (ps) - definição do número máximo de tokens entre as palavras pesquisadas;
+
+- Manualmente, para avaliar os 2 setups criados;
+
+
+Vamos também usar o eDisMax [R]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
+
 
 ## 7. Evaluation
 
@@ -65,27 +86,6 @@ Dos meus apontamentos das aulas teóricas:
 - `Precision Recall Curves`: Para cada subconjunto de documentos rankeados retornados, e para cada sequência de documentos nesse subconjunto, calcular valores de (recall, precision) para desenhar a curva.
 - `Precision at K (P@K)`: No caso da WEB, a maioria dos utilizadores não precisa de grande recall, ou seja, não interessa a percentagem de resultados relevantes dado todos os documentos importantes, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
 - `Mean Average Precision (MAP)`: É uma das mais comuns medidas usadas em IR. Trata-se da média de Average Precision dos vários conjuntos retornados, calculados para K documentos rankeados e úteis.
-
-- Manualmente, para avaliar os 2 setups criados;
-
-No Solr vamos usar estes fields importantes:
-
-name^1 location^2 text^7 
-
-- `query` (q) - a query que queremos
-- `query field with optional boost` (qf) - para dar pesos a determinados fields na pesquisa;
-
-name^1 location^2 text^7 
-
-- `phrase boosted field` (pf) - podemos escolher termos da query mais relevantes;
-
-
-
-- `phrase boost slope` (ps) - definição do número máximo de tokens entre as palavras pesquisadas;
-
-
-
-Vamos também usar o eDisMax [R]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
 
 ### Precondições
 
