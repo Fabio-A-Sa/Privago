@@ -3,10 +3,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
+import sys
 
 LIMIT = 60
 PRECISION_AT = 20
-QUERIES = 1
+QUERIES = 4
 MODES = ['simple', 'boosted']
 
 def getResults(query: int, mode: str) -> list:
@@ -116,14 +117,29 @@ def evaluate(query: int, mode: str) -> None:
 
 if __name__ == "__main__":
 
-    stats = []
-    for mode in MODES:
-        for query in range(1, QUERIES + 1):
-            stat = evaluate(query, mode)
-            stats.append(stat)
-    
-    print("Stats per query and per mode")
-    print(json.dumps(stats, indent=2))
+    if len(sys.argv) == 1:
 
-    print("Mean average precision per mode")
-    print(json.dumps(mean_average_precision(stats), indent=2))
+        stats = []
+        for mode in MODES:
+            for query in range(1, QUERIES + 1):
+                stat = evaluate(query, mode)
+                stats.append(stat)
+        
+        print("Stats per query and per mode")
+        print(json.dumps(stats, indent=2))
+
+        print("Mean average precision per mode")
+        print(json.dumps(mean_average_precision(stats), indent=2))
+
+    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
+
+        stats = []
+        for mode in MODES:
+            stat = evaluate(int(sys.argv[1]), mode)
+            stats.append(stat)
+
+        print("Stats per query and per mode")
+        print(json.dumps(stats, indent=2))
+
+    else:
+        print("Bad arguments. Usage: python3 evaluation.py [N]")
