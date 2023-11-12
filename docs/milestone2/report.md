@@ -9,6 +9,7 @@
 
 ## TODO
 
+- Melhorar a secção "1 - Introduction", porque ela só fala das partes do M1. Diminuir e incluir as partes de M2;
 - Melhorar a secção "5. Possible Search Tasks" com aquilo que definirmos na avaliação dos sistemas;
 - use \parts (Latex) for each milestone;
 - Retirar a secção "6. Conclusions and Future work";
@@ -17,16 +18,21 @@
 
 ## 6. Information Retrieval
 
-Introdução a [Information Retrieval]. Justificar choose the information retrieval tool [Solr]. Falar sobre o Solr. Colocá-lo nas referências.
-Nas secções seguintes...
+Information Retrieval [X1] is the process of finding and extracting relevant information from large collections of naturally unstructured data, such as texts. The search is based on documents, which are the result of restructuring the initial data, and the output is sorted by relevance, becoming the main challenge.
+
+In this section, we will present the indexing and query methods used in information retrieval systems powered by previously constructed documents.
+
+The implementation of the search system is based on Apache Solr [X2]. It is an open-source tool that offers various features relevant to the project's purpose, including distributed and fast indexing, scalability, and advanced search capabilities surpassing a full-text match.
 
 ## 6.1 Document Characterization
 
-- Caracterização do documento final;
-- Analyze the documents and identify their indexable components;
-- Construção de uma tabela com todos os atributos e se são indexáveis ou não. Tabela tem os headers attribute, context, index?;
+The documents to be indexed and searched in the search system are those resulting from the processes of data extraction, enrichment, and aggregation in the pipeline. 
+
+Therefore, a hotel is a document consisting of a name, average rating, location, and has a set of associated reviews. These reviews have their corresponding date, the assigned rating, and the user's comment about the hotel.
 
 ## 6.2 Indexing Process
+
+- Construção de uma tabela com todos os atributos e se são indexáveis ou não. Tabela tem os headers attribute, context, index?;
 
 Dizer que o Solr apresenta indexes. Referência.
 Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar;
@@ -156,6 +162,7 @@ Adaptar do M1 e explorar possibilidade do M2:
 - Melhorar o parâmetro X e Y, e justificação teórica
 - work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering
 - sentimental and context analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
+- parsing segundo stopwords das queries do utilizador
 
 ## Annexes
 
@@ -169,8 +176,8 @@ Todos os anteriores mais:
 
 Todos os anteriores mais:
 
-- [Information Retrieval](link)
-- [Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html), 18/10/2023
+- [X1] - [Information Retrieval](https://en.wikipedia.org/wiki/Information_retrieval)
+- [X2] - [Apache Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html)
 - [Solr Indexes]()
 - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
 - 
