@@ -1,31 +1,26 @@
 {
     "simple": {
+        "q":"text:good vegetarian options OR good vegan options",
         "indent":"true",
-        "fl":"*, [child]",
-        "start":"0",
         "q.op":"OR",
         "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort":"score desc",
+        "start":"0",
         "rows":"20",
-        "q":"text: vegetarian vegan options restaurant hotel london",
-        "useParams":"",
-        "_":"1699783418377"
+        "fl":"*, [child]"
     },
     "boosted": {
-        "qs":"0",
-        "ps":"0",
+        "q":"text:good vegetarian options OR good vegan options",
         "indent":"true",
-        "fl":"*, [child]",
-        "start":"0",
         "q.op":"OR",
         "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort":"score desc",
+        "start":"0",
         "rows":"20",
-        "bq":"text:vegetarian^5 text:vegan^5",
-        "q":"text: vegetarian vegan options restaurant hotel london",
+        "fl":"*, [child]",
         "defType":"edismax",
-        "qf":"text^7 name^1 location^2",
-        "useParams":"",
-        "_":"1699783418377"
+        "qf":"text^7 name location^2",
+        "pf": "text^10",
+        "ps": 3
       }
 }
