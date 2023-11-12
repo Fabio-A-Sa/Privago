@@ -20,14 +20,14 @@ And open [`localhost:8983`](http://localhost:8983).
 
 ```
 cd evaluation
-make query [N]
+make query | python3 query.py <N>
 ```
 
 ### Run evaluation
 
 ```
 cd evaluation
-make evaluation [N]
+make evaluation | python3 evaluation.py <N>
 ```
 
 ## Data
