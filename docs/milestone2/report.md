@@ -77,8 +77,8 @@ For query parameters used by both schemas, the system consolidates the following
 
 | **Parameter** | **value** |
 |--------------|--------------|
-| q | strong wifi |
-| q.op | OR |
+| q | (strong wifi) |
+| q.op | AND |
 | fq | {!child of="\*:\* - _nest_path\_:*"} location:"New York" |
 | fl | *,[child] |
 | sort | score desc |
