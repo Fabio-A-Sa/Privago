@@ -5,25 +5,23 @@
         "indent": "true",
         "fl": "*,[child]",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:(united kingdom)",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
         "sort": "score desc",
         "rows": "20",
-        "useParams": "",
-        "_": "1699829430799"
+        "useParams": ""
     },
     "boosted": {
-        "df": "text",
-        "qs": "0",
-        "ps": "0",
-        "indent": "true",
-        "fl": "*,[child]",
-        "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:(united kingdom)",
-        "sort": "score desc",
-        "rows": "20",
         "q": "good location ((elevator) OR (accessibility))",
+        "indent": "true",
+        "q.op": "AND",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
+        "sort": "score desc",
+        "start": "0",
+        "rows": "20",
+        "fl": "*,[child]",
         "defType": "edismax",
-        "useParams": "",
-        "_": "1699829430799"
+        "qf":"text^7 name location^2",
+        "pf": "text^10",
+        "ps": "3"
     }
 }

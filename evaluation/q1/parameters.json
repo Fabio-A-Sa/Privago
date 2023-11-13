@@ -1,19 +1,20 @@
 {
     "simple": {
-        "q": "text:center london",
+        "q": "(center london)",
         "indent":"true",
-        "q.op": "OR",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:united kingdom",
+        "q.op": "AND",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
         "sort": "rate desc, score desc",
         "start": 0,
         "rows": 20,
-        "fl": "*,[child]"
+        "fl": "*,[child]",
+        "df": "text"
     },
     "boosted": {
-        "q": "text:center london",
+        "q": "(center london)",
         "indent":"true",
-        "q.op": "OR",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:united kingdom",
+        "q.op": "AND",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
         "sort": "rate desc, score desc",
         "start": 0,
         "rows": 20,

@@ -1,18 +1,19 @@
 {
     "simple": {
-        "q":"text:good vegetarian options OR good vegan options",
+        "q":"(good vegetarian) OR (good vegan)",
         "indent":"true",
-        "q.op":"OR",
+        "q.op":"AND",
         "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort":"score desc",
         "start":"0",
         "rows":"20",
-        "fl":"*, [child]"
+        "fl":"*, [child]",
+        "df": "text"
     },
     "boosted": {
-        "q":"text:good vegetarian options OR good vegan options",
+        "q":"(good vegetarian) OR (good vegan)",
         "indent":"true",
-        "q.op":"OR",
+        "q.op":"AND",
         "fq":"{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort":"score desc",
         "start":"0",

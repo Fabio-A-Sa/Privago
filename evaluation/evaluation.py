@@ -114,7 +114,7 @@ def evaluate(query: int, mode: str) -> None:
     stats = {
         'query': f'q{query}',
         'mode': mode,
-        'P@20': precision_at_k(results),
+        f'P@{PRECISION_AT}': precision_at_k(results),
         'AvP': average_precision(results),
     }
 
@@ -133,11 +133,12 @@ if __name__ == "__main__":
                 results[mode] = output[1]
             compute_rcs(results, query)
 
-        print("Stats per query and per mode")
-        print(json.dumps(stats, indent=2))
-
-        print("Mean average precision (MAP) per mode")
-        print(json.dumps(mean_average_precision(stats), indent=2))
+        output = {
+            'Results per query and per mode': stats,
+            'Global MAP': mean_average_precision(stats),
+        }
+        
+        print(json.dumps(output, indent=2))
 
     elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
 

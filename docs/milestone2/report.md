@@ -9,159 +9,255 @@
 
 ## TODO
 
-- Explorar "hotéis com boa acessibilidade e transportes públicos próximos". Tratar como necessidade de informação e não tanto como queries. Reformular essa parte do relatório; Identificar quatro (4) possíveis queries, para bater certo com o que vai ser explorado neste M2;
-- Corrigir os "problemas" apontados pelo professor do M1;
+- Melhorar a secção "Abstract", adicionar uma frase sobre M2.
+- Melhorar a secção "1 - Introduction", porque ela só fala das partes do M1. Diminuir e incluir as partes de M2;
+- Melhorar a secção "5. Possible Search Tasks" com aquilo que definirmos na avaliação dos sistemas;
 - use \parts (Latex) for each milestone;
-- Retirar a secção "Conclusions and Future work";
+- Retirar a secção "6. Conclusions and Future work";
 - Preparar os slides anteriores para a versão M2;
 
-- Colocar as seguintes secções:
+## 6. Information Retrieval
 
-## Information Retrieval
+Information Retrieval [X1] is the process of finding and extracting relevant information from large collections of naturally unstructured data, such as texts. This extraction is based on documents, which are the result of restructuring the initial data, and the output is sorted by relevance, becoming the main challenge.
 
-Introdução a [Information Retrieval]. Justificar choose the information retrieval tool [Solr]. Falar sobre o Solr. Colocá-lo nas referências.
+This section presents the indexing and query methods used in this information retrieval system powered by previously constructed documents. 
 
-## Document Characterization
+The implementation of the search system is based on Apache Solr [X2], an open-source tool that offers various features relevant to the project's purpose, including distributed and fast indexing, scalability, and advanced search capabilities surpassing a full-text match.
 
-- Caracterização do documento final;
-- Analyze the documents and identify their indexable components;
-- Construção de uma tabela com todos os atributos e se são indexáveis ou não. Tabela tem os headers attribute, context, index?;
+## 6.1 Document Characterization
 
-## Indexing Process
+The documents to be indexed and searched in the system are those resulting from the processes of data extraction, enrichment, and aggregation in the pipeline described above. 
 
-Dizer que o Solr apresenta indexes. Referência.
-Selected [indexes do Solr] por atributo apresentado na tabela de cima. Justificar;
-o porquê de não usarmos a parte das línguas -> 99% é ingles, não vale o custo computacional;
-o porquê de usarmos sinónimos -> reviews subjectivas, carregadas de adjectivos;
+Therefore, a hotel is a document consisting of a name, average rating, location, and has a set of associated reviews. These reviews have their corresponding date, the assigned rating, and the user's comment about the hotel.
 
-## Retrieval Process and Setup
+## 6.2 Indexing Process
 
-É aqui que se fala da indexação das queries? Verificar.
+Indexing serves as a fundamental step in Information Retrieval, optimizing search efficiency by organizing the data. It involves creating a structured index that significantly enhances both search speed and scalability. Without proper indexing, search systems would face challenges, resulting in slower response times and increased computational overhead.
 
-Há um schemaless. Justificar que o Solr já faz isso por default quando não é apresentado nada.
+In Solr, various types of indexing exist for document fields and associated queries, based on a Tokenizer [X3] and Filters [X4]. While Tokenizers create a token stream from the original string following a predefined rule, Filters transform these tokens for consistency in subsequent searches and matches.
 
-O que não é schemaless vai ter pesos nos parâmetros. Indicar quais os pesos (tabela?) e justificar. Question: dão-se pesos a atributos não indexados?
+In this specific case, the focus was primarily on indexing textual fields, as they provide the most context and information for searches. Conversely, given the project's context, it is not expected to search for specific dates or review ratings. Therefore, these latter two document fields were not indexed.
 
-Justificar o porquê de não usarmos pesos diferentes de atributos para diferentes queries. Prós e contras. Fazer com pesos diferentes para as queries vai enviesar os resultados (em geral ficam melhores), mas não é realista. Todas as queries com o mesmo peso pode interferir no resultado esperado nas queries que precisem muito mais de determinados atributos do que outros. 
-No nosso caso temos poucos atributos e baseamo-nos nas reviews, logo o texto delas terá sempre maior peso do que qualquer outro atributod.
+Textual fields were indexed by instantiating a new data type. The `boosted_text` index analyzer includes:
 
-Justificar como vamos fazer as queries. Ver os parametros necessários no Solr.
+- `StandardTokenizerFactory` tokenizer: splits texts based on punctuation and spaces;
+- `ASCIIFoldingFilterFactory` filter: handles special characters and accents, converting them to their equivalent ASCII form;
+- `LowerCaseFilterFactory` filter, converts all characters to their lowercase counterparts;
+- `SynonymGraphFilterFactory` filter, expands each token to include variations based on its synonyms;
+- `EnglishMinimalStemFilterFactory` filter, reduces each token to its root form, facilitating the search for variations of specific terms;
 
-## Evaluation
+Fields with native values were defined using Solr's default types. The English language was chosen for both stem assignment and synonym generation, aligning with the language of the manipulated data.
 
-Introdução. Mudar o que está em baixo:
-Evaluation measures provide a way of quantifying retrieval effectiveness.
-Individual metrics are prone to bias and giving a tunnelled vision of the system.
-Therefore, it is important to always evalue over a set of distinct metrics.
+The `SynonymGraphFilterFactory` is crucial in this context. Since the search is conducted based on reviews, which are inherently subjective, derived from natural language and rich in adjectives, it is important not to rely on specific terms but rather to match synonyms of terms.
 
-### Formas de avaliação usadas
+The same structure was used for the query analyzer. Thus, the indexing of the final document can be characterized by the following schema:
 
-- Vamos usar P@20, Recall, AvP, MAP. Fazer RC Curves;
-- Precision & Recal ignoram o ranking em si;
+| **Field**    | **Type**     | **Indexed?** |
+|--------------|--------------|--------------|
+| name         | boosted_text | yes          |
+| location     | boosted_text | yes          |
+| average_rate | pint         | yes          |
+| date         | string       | no           |
+| rate         | pint         | no           |
+| text         | boosted_text | yes          |
 
-Dos meus apontamentos das aulas teóricas:
+[Table T1]: Schema Field Types
 
-- `Precision`: Número de documentos relevantes retirados / Número total de documentos retirados;
-- `Recall`: Número de documentos relevantes retirados / Número de documentos relevantes do sistema;
-- `Precision Recall Curves`: Para cada subconjunto de documentos rankeados retornados, e para cada sequência de documentos nesse subconjunto, calcular valores de (recall, precision) para desenhar a curva.
-- `Precision at K (P@K)`: No caso da WEB, a maioria dos utilizadores não precisa de grande recall, ou seja, não interessa a percentagem de resultados relevantes dado todos os documentos importantes, mas sim a quantidade de documentos relevantes naquele conjunto retornado. Assim, a precisão toma uma importante função e é necessário escolher a quantidade K adequada para que a precisão seja máxima.
-- `Mean Average Precision (MAP)`: É uma das mais comuns medidas usadas em IR. Trata-se da média de Average Precision dos vários conjuntos retornados, calculados para K documentos rankeados e úteis.
+## 6.3 Retrieval Process and Setup
 
-- Manualmente, para avaliar os 2 setups criados;
+The approach implemented involves two schemas: a simple schema utilizes default field types for each field, while the more complex schema incorporates instantiated field types for enhanced search capabilities. 
 
-No Solr vamos usar estes fields importantes:
+For query parameters used by both schemas, the system consolidates the following:
 
-name^1 location^2 text^7 
+- __Query (``q``)__: Focuses on the most valuable words in the query;
+- __Query Operator (``q.op``)__: Utilizes OR | AND for query operations;
+- __Query Filter (``fq``)__: Defines a query that can be used to restrict the superset of documents;
+- __Filter List (``fl``)__: Limits the information included in a query response;
+- __Sort Field (``sort``)__: Specifies the sorting value for the results;
 
-- `query` (q) - a query que queremos
-- `query field with optional boost` (qf) - para dar pesos a determinados fields na pesquisa;
+| **Parameter** | **value** |
+|--------------|--------------|
+| q | strong wifi |
+| q.op | OR |
+| fq | {!child of="\*:\* - _nest_path\_:*"} location:New York |
+| fl | *,[child] |
+| sort | score desc |
 
-name^1 location^2 text^7 
+[Table T2]: Query parameters
 
-- `phrase boosted field` (pf) - podemos escolher termos da query mais relevantes;
+The need of the fl and fq parameters results from the inclusion of nested documents [X8] [X9]. The final dataset consists of hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
 
+For query parameters the simple schema uses the default type, while the boosted schema employs the type created by eDismax [X5] with specific parameters for optimizing search engine results:
 
+- __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search;
+- __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query;
+- __Phrase Boost Slope (``ps``)__: Defines the maximum number of tokens between searched words;
 
-- `phrase boost slope` (ps) - definição do número máximo de tokens entre as palavras pesquisadas;
+| **Parameter** | **Value** |
+|--------------|--------------|
+| qf | text^7 name location^2 |
+| pf | text^10 |
+| ps | 3 |
 
+[Table T3]: defType eDismax parameters
 
+Assigning diverse weights within the `qf` parameter prioritizes the significance of the `text` field, being the main field of search, followed by `location` and `name`. In the `pf` parameter, exclusive attention is given to the `text` field, serving as a dedicated phrase boost. This is complemented by the `ps` parameter set to 3, an average number of maximum tokens between the searched words.
 
-Vamos também usar o eDisMax [R]. Justificar que é porque permite queries mais complexas, com base em operações AND OR... e justificar com mais coisas. Ver referência.
+The eDismax parameter `bq` (boost query) was also explored in the approach but not included for system analysis. Since it relies on the characteristic tokens of each query, it was found that it would introduce bias to the results while configuring a system that wouldn't be general enough for all information needs.
 
-### Precondições
+Being consistent with this boosted approach to every query has enhanced the system's query handling, leading to improvements in search results, as elaborated in the subsequent section.
 
-- Fixar ranking baseado nos primeiros 20. Justificar que num search engine normal, Google, só os primeiros importam.
-- Fixar a amostragem/universo para o Recall. Tem de ser superior em pelo menos 3 vezes o limite anterior. Prós e contras. Indicar que é inviável manualmente caracterizar mais de 2000 documentos por query e nem é esse o objectivo.
+## 7. Evaluation
 
-### Resultados
+Evaluation is also a fundamental aspect of Information Retrieval, contingent on the target document collection and the type of information required. Understanding potential user scenarios is crucial for defining new designs and implementations based on received feedback. In this specific case, the evaluation was conducted from the perspective of effectiveness — the system's ability to find the right information — rather than efficiency, which pertains to the system's speed in retrieving information.
 
-- Se não couber tudo aqui vai para os anexos.
+The use of individual and subjective metrics can introduce bias in evaluating the two previously instantiated systems. To address this, a set of distinct metrics based on `precision` and `recall`, such as `Average Precision (AvP)`, `Precision at K (P@K)`, `Precision-Recall curves`, and `Mean Average Precision (MAP)`, were employed. Precision focuses on the percentage of the number of truly relevant documents among those extracted, while recall makes this comparison based on all relevant documents within the system. Since there are more than 2000 unique documents in this case, precise calculation is impractical, leading to a manual approximation based on extracting and sampling the first twenty returned documents.
 
-#### Q1
+The `Average Precision (AvP)` is important because precision is what defines user satisfaction for the majority of users. In fact, users often do not require high recall since the percentage of relevant results given all important documents in the system is almost always unknown, unlike the relevance of the first returned documents. In `Precision at K (P@K)`, the choice was to evaluate the first twenty documents returned per query as it represents a balanced value aligning with typical usage patterns of a search engine.
 
-Necessidade de informação:
-Relevance Judgement:
-Q:
+The `Precision-Recall Curves` are constructed for each query and each system based on the subset of ranked documents returned. Ideally, a system is considered more stable the smoother its formed curve, and its performance is deemed better with a higher Precision-Recall Area Under the Curve [X6]. This metric encapsulates the overall effectiveness of the system in balancing precision and recall across thresholds.
 
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
+The `Mean Average Precision (MAP)` is a common metric used in Information Retrieval and represents the average of Average Precision metric across various sets returned over the evaluation period. It helps determine if the system is consistent even when applied to different information needs.
 
-#### Q2
+In the upcoming topics, diverse user scenarios are presented as queries, accompanied by their respective results and statistics based on precision and recall metrics.
 
-Necessidade de informação:
-Relevance Judgement:
-Q:
+### A. Something
 
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
+__Information Need:__ The best hotels near center of London
+__Relevance Judgement:__  In this task, the objective is to find hotels near the center of London with the highest ratings. Given the limited entries explicitly labeled as being in London, the location is set to the United Kingdom. The search is conducted using keywords like 'center London' within the review text, and the results are sorted in descending order based on their rating.
+__Query:__
+- q: (center london)
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:*\"}location:\"united kingdom\"
+- fl: *,[child]
+- sort: rate desc, score desc
 
-#### Q3
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | 0.82 | 0.9 |
+| P@20     | 0.6 | 0.9 |
 
-Necessidade de informação:
-Relevance Judgement:
-Q:
+[Table T4]: Q1 information need results
 
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
+![Q1 Simple](../../evaluation/q1/p-r-curve-simple.png)
+[Figure F1]: Q1 Precision-recall curve using simple system
 
-#### Q4
+![Q1 Boosted](../../evaluation/q1/p-r-curve-boosted.png)
+[Figure F2]: Q1 Precision-recall curve using boosted system
 
-Necessidade de informação:
-Relevance Judgement:
-Q:
+__Result Analysis:__ Both systems did well, althought there is a notable increased precision on the boosted system, demonstrated in the table [cite][Table T4]. The utilization of eDismax, in this query, proved to be important for the results since the 2 words "center london", when putted together, are very correlated with each other.
 
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
+### B. Breakfast or Room Service
 
-Global:
-- evaluate the results obtained for the defined information needs.
+__Information Need:__ Hotels with good breakfast or good room service in New Delhi.
+__Relevance Judgement:__ In this information need its intended to search for hotels with a good breakfast or a good room service in New Delhi. Therefore, the words "good breakfast" or "good room service" should appear in the same query/text of review and the location should be a filter query of the parents documents.
+__Query:__
+- q: (good breakfast) OR (good room service)
+- q.op: AND
+- fq: {!child of=\"\*:\* -_nest\_path\_:*\"}location:"new delhi"
+- fl: *,[child]
+- sort: score desc
 
-## Conclusions and Future work
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | 0.76 | 0.87 |
+| P@20     | 0.8 | 0.8 |
 
-Concluir acerca da consistência global do search engine / system.
-Adaptar do M1 e explorar possibilidade do M2:
-- Melhorar o parâmetro X e Y, e justificação teórica
-- work on user interfaces by developing a frontend for the search system, including specific features such as snippet generation, results clustering
-- sentimental and context analysis, muito importante já que a nossa fonte de informação principal são reviews, logo são subjectivas;
+[Table T5]: Q2 information need results
 
-## Annexes
+![Q2 Simple](../../evaluation/q2/p-r-curve-simple.png)
+[Figure F3]: Q2 Precision-recall curve using simple system
 
-Todos os anteriores mais:
+![Q2 Boosted](../../evaluation/q2/p-r-curve-boosted.png)
+[Figure F4]: Q2 Precision-recall curve using boosted system
 
--
--
--
+__Result Analysis:__ The two systems have similar average precision, as it can be seen in table [cite][Table T5]. Since it is a very simple query, it is expected for good results from both systems and it is normal for the improved one to fail in some sentences since it's using the 'ps' parameter (which is equal for every query) that allows for tokens between searched words. This would be resolved with contextual analysis refered in the "Future Work"[cite] section. 
+
+### C. Something
+
+__Information Need:__ Hotel in the United Kingdom with good location and either elevator or good accessibility
+__Relevance Judgement:__ With this query we intended to gather the hotels situated in the United Kingdom which have a good location with either an elevator or good acessibility, a query for someone with reduced mobility that wants to visit the United Kingdom.
+__Query:__
+- q: good location ((elevator) OR (accessibility))
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:*\"}location:\"united kingdom\""
+- fl: *,[child]
+- sort: score desc
+
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | 0.58 | 0.47 |
+| P@20     | 0.5 | 0.65 |
+
+[Table T6]: Q3 information need results
+
+![Q3 Simple](../../evaluation/q3/p-r-curve-simple.png)
+[Figure F5]: Q3 Precision-recall curve using simple system
+
+![Q3 Boosted](../../evaluation/q3/p-r-curve-boosted.png)
+[Figure F6]: Q3 Precision-recall curve using boosted system
+
+Result Analysis: The systems differ in average performace, with the simple one overall performing better, as shown by the figure [cite][TABLE T6]. The reason for the complex system to score lower in the AvP (average performace) parameter but higher in the P@20 (precision) parameter however, is due to the system not taking the context into consideration, therefore, in a query that specifies the need for an elevator, the system gathers reviews that mention the absence of one. 
+
+### D. Something
+
+__Information Need:__ Hotels with good vegetarian/vegan options
+__Relevance Judgement:__ 
+__Query:__
+- q: (good vegetarian) OR (good vegan)
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:\*\"}location:*
+- fl: *,[child]
+- sort: score desc
+
+| **Rank**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| AvP         | 0.5 | 0.55 |
+| P@20     | 0.35 | 0.5 |
+
+[Table T7]: Q4 information need results
+
+![Q4 Simple](../../evaluation/q4/p-r-curve-simple.png)
+[Figure F7]: Q4 Precision-recall curve using simple system
+
+![Q4 Boosted](../../evaluation/q4/p-r-curve-boosted.png)
+[Figure F8]: Q4 Precision-recall curve using boosted system
+
+Result Analysis:
+
+Taking into account all the results from the multiple information needs across queries, its presented in the following table the Mean Average Precision for both systems:
+
+| **Global**    | **Syst. Simple**     | **Syst. Complex** |
+|--------------|--------------|--------------|
+| MAP | 0.665 | 0.6975 |
+
+[Table T8]: Overall systems evaluation
+
+Therefore, it is concluded that the system exhibits satisfactory performance, and, in general as anticipated, the more complex system is capable of yielding better results than the simple one.
+
+## 8. Conclusions and Future work
+
+In conclusion of this milestone, all the planned tasks within the Information Retrieval phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that aids tourists in making informed choices.
+
+One of the most challenging aspects of the work involved developing effective strategies for dealing with nested documents, as well as their indexing and retrieval. Solr lacks documentation and concrete examples supporting the addressed document format.
+
+Through the evaluation of the search engine, the system's stability and capability to handle different information needs within the chosen context have been verified. As the project progresses, opportunities for further enhancements and refinements emerge. Analyzing the results obtained from the first prototype of the hotel's information retrieval system:
+
+- The `Stop Words` [X7] filter can be applied to `boosted_text` to reduce sensitivity to common words;
+- `Sentimental and contextual analysis` is relevant, given that the main source of information for the system is reviews, which inherently carry subjective connotations;
+
+In the next phase, work will be done on user interfaces by developing a frontend for the search system, incorporating specific features like snippet generation and results clustering. This engine will enable travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
 
 ## References
 
 Todos os anteriores mais:
 
-- [Information Retrieval](link)
-- [Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html), 18/10/2023
-- [Solr Indexes]()
-- [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html)
--
+- [X1] - [Information Retrieval](https://link.springer.com/book/10.1007/978-3-319-93935-3), 2023/10/23
+- [X2] - [Apache Solr](https://solr.apache.org/guide/6_6/introduction-to-solr-indexing.html), 2023/10/23
+- [X3] - [Solr Tokenizers](https://solr.apache.org/guide/solr/latest/indexing-guide/tokenizers.html), 2023/11/02
+- [X4] - [Sorl Filters](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html), 2023/11/02
+- [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html), 2023/11/04
+- [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html), 2023/11/07
+- [X7] - [Solr Stop Filter](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html#managed-stop-filter), 2023/11/07
+- [X8] - [Indexing Nested Documents](https://solr.apache.org/guide/solr/latest/indexing-guide/indexing-nested-documents.html#schema-configuration), 2023/11/11
+- [X9] - [Queries in Nested Documents](https://solr.apache.org/guide/solr/latest/query-guide/searching-nested-documents.html), 2023/11/11
