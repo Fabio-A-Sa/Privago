@@ -52,7 +52,7 @@ The `SynonymGraphFilterFactory` is crucial in this context. Since the search is 
 
 The same structure was used for the query analyzer. Thus, the indexing of the final document can be characterized by the following schema:
 
-| **Field**    | **Type**     | **Indexed?** |
+| **Field**    | **Type**     | **Indexed** |
 |--------------|--------------|--------------|
 | name         | boosted_text | yes          |
 | location     | boosted_text | yes          |
@@ -79,7 +79,7 @@ For query parameters used by both schemas, the system consolidates the following
 |--------------|--------------|
 | q | strong wifi |
 | q.op | OR |
-| fq | {!child of="\*:\* - _nest_path\_:*"} location:New York |
+| fq | {!child of="\*:\* - _nest_path\_:*"} location:"New York" |
 | fl | *,[child] |
 | sort | score desc |
 
@@ -87,7 +87,7 @@ For query parameters used by both schemas, the system consolidates the following
 
 The need of the fl and fq parameters results from the inclusion of nested documents [X8] [X9]. The final dataset consists of hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
 
-For query parameters the simple schema uses the default type, while the boosted schema employs the type created by eDismax [X5] with specific parameters for optimizing search engine results:
+Additional query criteria the simple schema uses the default type, while the boosted schema employs the type created by eDismax [X5] with specific parameters for optimizing search engine results:
 
 - __Query Field with Optional Boost (``qf``)__: This assigns weights to specific fields in the search;
 - __Phrase-Boosted Field (``pf``)__: Focuses on selecting more relevant terms from the query;
@@ -145,7 +145,7 @@ __Query:__
 ![Q1 Boosted](../../evaluation/q1/p-r-curve-boosted.png)
 [Figure F2]: Q1 Precision-recall curve using boosted system
 
-__Result Analysis:__ Both systems did well, althought there is a notable increased precision on the boosted system, demonstrated in the table [cite][Table T4]. The utilization of eDismax, in this query, proved to be important for the results since the 2 words "center london", when putted together, are very correlated with each other.
+__Result Analysis:__ Both systems did well, although there is a notable increased precision on the boosted system, demonstrated in the table [cite][Table T4]. The utilization of eDismax, in this query, proved to be important for the results since the 2 words "center london", when putted together, are very correlated with each other.
 
 ### B. Breakfast or Room Service
 
