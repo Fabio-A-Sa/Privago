@@ -85,7 +85,7 @@ For query parameters used by both schemas, the system consolidates the following
 
 [Table T2]: Query parameters
 
-The need of the fl and fq parameters results from the inclusion of nested documents [X8] [X9]. The final dataset consists hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
+The need of the fl and fq parameters results from the inclusion of nested documents [X8] [X9]. The final dataset consists of hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
 
 For query parameters the simple schema uses the default type, while the boosted schema employs the type created by eDismax [X5] with specific parameters for optimizing search engine results:
 
@@ -119,166 +119,121 @@ The `Precision-Recall Curves` are constructed for each query and each system bas
 
 The `Mean Average Precision (MAP)` is a common metric used in Information Retrieval and represents the average of Average Precision metric across various sets returned over the evaluation period. It helps determine if the system is consistent even when applied to different information needs.
 
-In the upcoming subsections, diverse user scenarios are presented as queries, accompanied by their respective results and statistics based on precision and recall metrics.
+In the upcoming topics, diverse user scenarios are presented as queries, accompanied by their respective results and statistics based on precision and recall metrics.
 
 ### A. Something
 
-__Information Need:__
-__Relevance Judgement:__
+__Information Need:__ The best hotels near center of London
+__Relevance Judgement:__  In this task, the objective is to find hotels near the center of London with the highest ratings. Given the limited entries explicitly labeled as being in London, the location is set to the United Kingdom. The search is conducted using keywords like 'center London' within the review text, and the results are sorted in descending order based on their rating.
 __Query:__
-- q: center london
-- q.op:
-- fq: {!child of=\"*:* -_nest_path_:*\"}location:united kingdom
+- q: (center london)
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:*\"}location:\"united kingdom\"
 - fl: *,[child]
 - sort: rate desc, score desc
 
 | **Rank**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
-| AvP         | x | y |
-| P@20     | x | y |
+| AvP         | 0.82 | 0.9 |
+| P@20     | 0.6 | 0.9 |
 
-![Q1 Simple](../evaluation/q1/p-r-curve-simple.png)
-[Figure F1]: 
+[Table T4]: Q1 information need results
 
-![Q1 Boosted](../evaluation/q1/p-r-curve-boosted.png)
-[Figure F2]: 
+![Q1 Simple](../../evaluation/q1/p-r-curve-simple.png)
+[Figure F1]: Q1 Precision-recall curve using simple system
 
-Result Analysis:
+![Q1 Boosted](../../evaluation/q1/p-r-curve-boosted.png)
+[Figure F2]: Q1 Precision-recall curve using boosted system
 
-### B. Something
+__Result Analysis:__ Both systems did well, althought there is a notable increased precision on the boosted system, demonstrated in the table [cite][Table T4]. The utilization of eDismax, in this query, proved to be important for the results since the 2 words "center london", when putted together, are very correlated with each other.
 
-__Information Need:__ Hotels with good breakfast or great room service in New Delhi.
-__Relevance Judgement:__
+### B. Breakfast or Room Service
+
+__Information Need:__ Hotels with good breakfast or good room service in New Delhi.
+__Relevance Judgement:__ In this information need its intended to search for hotels with a good breakfast or a good room service in New Delhi. Therefore, the words "good breakfast" or "good room service" should appear in the same query/text of review and the location should be a filter query of the parents documents.
 __Query:__
-- q: good breakfast OR great room service
-- q.op:
-- fq: {!child of=\"\*:\* -_nest\_path\_:*\"}location:new delhi
+- q: (good breakfast) OR (good room service)
+- q.op: AND
+- fq: {!child of=\"\*:\* -_nest\_path\_:*\"}location:"new delhi"
 - fl: *,[child]
 - sort: score desc
 
 | **Rank**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
-| AvP         | 0.21 | 0.86 |
-| P@20     | 0.3 | 0.8 |
+| AvP         | 0.76 | 0.87 |
+| P@20     | 0.8 | 0.8 |
 
-[p-r-simple]()
-[p-r-bosted]()
+[Table T5]: Q2 information need results
 
-Result Analysis:
+![Q2 Simple](../../evaluation/q2/p-r-curve-simple.png)
+[Figure F3]: Q2 Precision-recall curve using simple system
+
+![Q2 Boosted](../../evaluation/q2/p-r-curve-boosted.png)
+[Figure F4]: Q2 Precision-recall curve using boosted system
+
+__Result Analysis:__ The two systems have similar average precision, as it can be seen in table [cite][Table T5]. Since it is a very simple query, it is expected for good results from both systems and it is normal for the improved one to fail in some sentences since it's using the 'ps' parameter (which is equal for every query) that allows for tokens between searched words. This would be resolved with contextual analysis refered in the "Future Work"[cite] section. 
 
 ### C. Something
 
-__Information Need:__ Hotel in the United Kingdom with good location or good accessibility
-__Relevance Judgement:__
+__Information Need:__ Hotel in the United Kingdom with good location and either elevator or good accessibility
+__Relevance Judgement:__ With this query we intended to gather the hotels situated in the United Kingdom which have a good location with either an elevator or good acessibility, a query for someone with reduced mobility that wants to visit the United Kingdom.
 __Query:__
-- q: good AND location AND ((elevator) OR (accessibility))
-- q.op:
-- fq:
-- fl:
-- sort:
+- q: good location ((elevator) OR (accessibility))
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:*\"}location:\"united kingdom\""
+- fl: *,[child]
+- sort: score desc
 
 | **Rank**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
-| AvP         | x | y |
-| P@20     | x | y |
+| AvP         | 0.58 | 0.47 |
+| P@20     | 0.5 | 0.65 |
 
-[p-r-simple]()
-[p-r-bosted]()
+[Table T6]: Q3 information need results
 
-Result Analysis:
+![Q3 Simple](../../evaluation/q3/p-r-curve-simple.png)
+[Figure F5]: Q3 Precision-recall curve using simple system
+
+![Q3 Boosted](../../evaluation/q3/p-r-curve-boosted.png)
+[Figure F6]: Q3 Precision-recall curve using boosted system
+
+Result Analysis: The systems differ in average performace, with the simple one overall performing better, as shown by the figure [cite][TABLE T6]. The reason for the complex system to score lower in the AvP (average performace) parameter but higher in the P@20 (precision) parameter however, is due to the system not taking the context into consideration, therefore, in a query that specifies the need for an elevator, the system gathers reviews that mention the absence of one. 
 
 ### D. Something
 
-__Information Need:__
-__Relevance Judgement:__
+__Information Need:__ Hotels with good vegetarian/vegan options
+__Relevance Judgement:__ 
 __Query:__
-- q:
-- q.op:
-- fq:
-- fl:
-- sort:
+- q: (good vegetarian) OR (good vegan)
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:\*\"}location:*
+- fl: *,[child]
+- sort: score desc
 
 | **Rank**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
-| AvP         | x | y |
-| P@20     | x | y |
+| AvP         | 0.5 | 0.55 |
+| P@20     | 0.35 | 0.5 |
 
-[p-r-simple]()
-[p-r-bosted]()
+[Table T7]: Q4 information need results
+
+![Q4 Simple](../../evaluation/q4/p-r-curve-simple.png)
+[Figure F7]: Q4 Precision-recall curve using simple system
+
+![Q4 Boosted](../../evaluation/q4/p-r-curve-boosted.png)
+[Figure F8]: Q4 Precision-recall curve using boosted system
 
 Result Analysis:
 
-Taking into account all the results from the multiple information
-needs across the different systems, its presented in the following table the MAP for both systems.
+Taking into account all the results from the multiple information needs across queries, its presented in the following table the Mean Average Precision for both systems:
 
 | **Global**    | **Syst. Simple**     | **Syst. Complex** |
 |--------------|--------------|--------------|
-| MAP         | x | y |
+| MAP | 0.665 | 0.6975 |
 
-### Q1
+[Table T8]: Overall systems evaluation
 
-Necessidade de informação:
-Relevance Judgement:
-Q:
-
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
-
-Query: Best hotels near center of london
-Justificação: In this we intend to search for the hotels near the center of London with the best ratings. As our dataset doesnt have many entries with London location we set location to United Kingdom and search for the keywords center London in the review text. The results are sorted by descending rate.
-Words: London Center
-Location: United Kingdom
-Ops: London AND London Eye
-
-### Q2
-
-Necessidade de informação:
-Relevance Judgement:
-Q:
-
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
-
-Query: Hotels with good breakfast or great room service in new delhi<br>
-
-Q3
-Justificação: <br>
-Words: good breakfast great room service <br>
-Ops: good breakfast OR great room service <br>
-
-### Q3
-
-Necessidade de informação:
-Relevance Judgement:
-Q:
-
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
-
-Query: Good accessibility for handicapped people that are also well-served in public transportation options
-Justification:
-Words: good accessibility handicapped public transportation
-Ops: good accessibility handicapped AND public transportation
-
-### Q4
-
-Necessidade de informação:
-Relevance Judgement:
-Q:
-
-Tabela com rank (AvP, P@20), e valores para cada System.
-Gráfico R-C para cada System.
-Interpretações, justificações.
-
-Query: Vegetarian or vegan options in restaurant hotel around London
-Justification:
-Words: Vegetarian ORvegan options restaurant hotel london
-
-Global:
-- evaluate the results obtained for the defined information needs.
+Therefore, it is concluded that the system exhibits satisfactory performance, and, in general as anticipated, the more complex system is capable of yielding better results than the simple one.
 
 ## 8. Conclusions and Future work
 
@@ -304,5 +259,5 @@ Todos os anteriores mais:
 - [X5] - [eDismax](https://solr.apache.org/guide/7_7/the-extended-dismax-query-parser.html), 2023/11/04
 - [X6] - [Precision-Recall Area Under the Curve](https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html), 2023/11/07
 - [X7] - [Solr Stop Filter](https://solr.apache.org/guide/solr/latest/indexing-guide/filters.html#managed-stop-filter), 2023/11/07
-- [X8] - [Indexing iNested Documents](https://solr.apache.org/guide/solr/latest/indexing-guide/indexing-nested-documents.html#schema-configuration), 2023/11/07
-- [X9] - [Queries in Nested Documents](https://solr.apache.org/guide/solr/latest/query-guide/searching-nested-documents.html), 2023/11/07
+- [X8] - [Indexing Nested Documents](https://solr.apache.org/guide/solr/latest/indexing-guide/indexing-nested-documents.html#schema-configuration), 2023/11/11
+- [X9] - [Queries in Nested Documents](https://solr.apache.org/guide/solr/latest/query-guide/searching-nested-documents.html), 2023/11/11

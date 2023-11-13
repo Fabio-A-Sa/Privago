@@ -368,7 +368,7 @@ text & boosted\_text & yes \\
 
 \subsection{Retrieval Process and Setup}
 
-The approach implemented involves two schemas: schema\_simple utilizes default field types for each field, while schema\_boosted incorporates instantiated field types for enhanced search capabilities. 
+The approach implemented involves two schemas: a simple schema utilizes default field types for each field, while the more complex schema incorporates instantiated field types for enhanced search capabilities. 
 
 For query parameters used by both schemas, the system incorporates the following:
 \begin{itemize}
@@ -395,9 +395,9 @@ sort & score desc \\
 \end{tabular}
 \end{table}
 
-The need of the fl and fq parameters results from the inclusion of nested documents. The final dataset consists hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
+The need of the fl and fq parameters results from the inclusion of nested documents \cite{Indexing_Nested} \cite{Queries_Nested} . The final dataset consists of hotels, each containing a list of reviews. Recognizing the relevance of both hotels and reviews as distinct documents, a distinct approach to the search process was necessary. The combined use of fl and fq proved to be efficient in this step.
 
-For query parameters the simple schema uses the default defType, while the boosted schema employs defType=\textbf{edismax} with specific parameters for optimizing search engine results:
+For query parameters the simple schema uses the default type, while the boosted schema employs the type created by eDismax \cite{eDismax} with specific parameters for optimizing search engine results:
 
 \begin{itemize}
     \item \textbf{Query Field with Optional Boost (\texttt{qf})}: This assigns weights to specific fields in the search.
@@ -530,4 +530,3 @@ As the project progresses, there are always opportunities for further enhancemen
 \endinput
 %%
 %% End of file `sample-sigconf.tex'.
-o

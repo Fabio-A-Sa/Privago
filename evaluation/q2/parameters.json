@@ -1,6 +1,6 @@
 {
     "simple": {
-        "q": "(good breakfast) OR (great room service)",
+        "q": "(good breakfast) OR (good room service)",
         "indent":"true",
         "q.op": "AND",
         "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"new delhi\"",
@@ -11,7 +11,7 @@
         "df": "text"
     },
     "boosted": {
-        "q": "(good breakfast) OR (great room service)",
+        "q": "(good breakfast) OR (good room service)",
         "indent":"true",
         "q.op": "AND",
         "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"new delhi\"",
