@@ -124,7 +124,7 @@ In the upcoming topics, diverse user scenarios are presented as queries, accompa
 ### A. Something
 
 __Information Need:__ The best hotels near center of London
-__Relevance Judgement:__  In this task, the objective is to find hotels near the center of London with the highest ratings. Given the limited entries explicitly labeled as being in London, the location is set to the United Kingdom. The search is conducted using keywords like 'center London' within the review text, and the results are sorted in descending order based on their rating.
+__Relevance Judgement:__  In this task, the objective is to find hotels near the center of London with the highest ratings. The search is conducted using keywords like 'center London' within the review text, United Kingdom as location and the results are sorted in descending order based on their rating.
 __Query:__
 - q: (center london)
 - q.op: AND
@@ -176,7 +176,7 @@ __Result Analysis:__ The two systems have similar average precision, as it can b
 ### C. Something
 
 __Information Need:__ Hotel in the United Kingdom with good location and either elevator or good accessibility
-__Relevance Judgement:__ With this query we intended to gather the hotels situated in the United Kingdom which have a good location with either an elevator or good acessibility, a query for someone with reduced mobility that wants to visit the United Kingdom.
+__Relevance Judgement:__ With this query it is intended to gather the hotels situated in the United Kingdom which have a good location with either an elevator or good acessibility, a query for someone with reduced mobility that wants to visit the United Kingdom.
 __Query:__
 - q: good location ((elevator) OR (accessibility))
 - q.op: AND
@@ -202,7 +202,7 @@ Result Analysis: The systems differ in average performace, with the simple one o
 ### D. Something
 
 __Information Need:__ Hotels with good vegetarian/vegan options
-__Relevance Judgement:__ 
+__Relevance Judgement:__ In this task, the objective is to find hotels with good vegetarian or vegan options. So, the words "good vegetarian" or "good vegan" should appear in the review's text. The location isn't specified.
 __Query:__
 - q: (good vegetarian) OR (good vegan)
 - q.op: AND
@@ -217,13 +217,15 @@ __Query:__
 
 [Table T7]: Q4 information need results
 
+
 ![Q4 Simple](../../evaluation/q4/p-r-curve-simple.png)
 [Figure F7]: Q4 Precision-recall curve using simple system
 
 ![Q4 Boosted](../../evaluation/q4/p-r-curve-boosted.png)
 [Figure F8]: Q4 Precision-recall curve using boosted system
 
-Result Analysis:
+Result Analysis: Both systems exhibit similar average precision values, which fall below the anticipated values for a simple query. This can be attributed to the same issue discussed in Q2 [cite][Q2]. In fact, certain review texts were expressed in a negational form or contained nouns such as "lack," thereby altering the entire meaning of the sentence.
+
 
 Taking into account all the results from the multiple information needs across queries, its presented in the following table the Mean Average Precision for both systems:
 
