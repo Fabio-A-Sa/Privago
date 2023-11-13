@@ -56,9 +56,9 @@ The same structure was used for the query analyzer. Thus, the indexing of the fi
 |--------------|--------------|--------------|
 | name         | boosted_text | yes          |
 | location     | boosted_text | yes          |
-| average_rate | pint         | yes          |
+| average_rate | pdoubles         | yes          |
 | date         | string       | no           |
-| rate         | pint         | no           |
+| rate         | pdoubles         | no           |
 | text         | boosted_text | yes          |
 
 [Table T1]: Schema Field Types

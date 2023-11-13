@@ -42,7 +42,7 @@
         },
         {
             "name": "average_rate",
-            "type": "pint",
+            "type": "pdoubles",
             "indexed": true,
             "stored": true
         },
@@ -61,7 +61,7 @@
         },
         {
             "name": "rate",
-            "type": "pint",
+            "type": "pdoubles",
             "indexed": false,
             "stored": true
         },
