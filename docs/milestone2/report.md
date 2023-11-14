@@ -7,15 +7,6 @@
 #### Fábio Morais, Porto, up202008052@up.pt
 #### Fábio Sá, Porto, up202007658@up.pt
 
-## TODO
-
-- Melhorar a secção "Abstract", adicionar uma frase sobre M2.
-- Melhorar a secção "1 - Introduction", porque ela só fala das partes do M1. Diminuir e incluir as partes de M2;
-- Melhorar a secção "5. Possible Search Tasks" com aquilo que definirmos na avaliação dos sistemas;
-- use \parts (Latex) for each milestone;
-- Retirar a secção "6. Conclusions and Future work";
-- Preparar os slides anteriores para a versão M2;
-
 ## 6. Information Retrieval
 
 Information Retrieval [X1] is the process of finding and extracting relevant information from large collections of naturally unstructured data, such as texts. This extraction is based on documents, which are the result of restructuring the initial data, and the output is sorted by relevance, becoming the main challenge.
