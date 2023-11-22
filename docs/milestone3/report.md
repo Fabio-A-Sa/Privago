@@ -9,6 +9,8 @@
 
 ## TODO
 
-- 
+- Milestone 2 feedback
+- Colocar em anexos uma tabela com Q,I,Hotel,Bool para o professor conseguir investigar a veracidade da relevância de cada query;
+- Tratar do possível bug (?) das RP Curves;
 
 ## 
