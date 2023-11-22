@@ -17,8 +17,11 @@ sleep 10
 docker cp synonyms_reviews.txt privago:/var/solr/data/hotels/conf
 sleep 3
 
+docker cp stopwords.txt privago:/var/solr/data/hotels/conf
+sleep 3
+
 # Creating a schema based on "schema-boosted.json" file into "privago"
-curl -X POST -H 'Content-type:application/json' --data-binary "@./schema-boosted.json" http://localhost:8983/solr/hotels/schema
+curl -X POST -H 'Content-type:application/json' --data-binary "@./schema-improved.json" http://localhost:8983/solr/hotels/schema
 sleep 1
 
 # Populate collection using mapped folder "data" and pipeline output

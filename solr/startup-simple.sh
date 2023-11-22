@@ -24,5 +24,3 @@ sleep 1
 
 # Removing always pipeline output for github/commits reasons
 rm hotels_complete.json
-
-# Query: qt=/select & q=name:* & fl=*,[child] & indent on
