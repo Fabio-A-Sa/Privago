@@ -6,7 +6,7 @@ import sys
 
 LIMIT = 20
 PRECISION_AT = 20
-QUERIES = 4
+QUERIES = 8
 
 MODES = {
     'm2': ['simple', 'boosted'],
@@ -45,25 +45,21 @@ def recall_values(results: list) -> float:
     ]
 
 # MAP
-def mean_average_precision(stats):
+def mean_average_precision(stats, modes):
 
-    result = {"simple": 0, "boosted": 0}
-    count_simple = 0
-    count_boosted = 0
+    result = {mode: 0 for mode in modes}
+    count = {mode: 0 for mode in modes}
     
     for entry in stats:
         mode = entry["mode"]
         average_precision = entry["AvP"]
         
-        if mode == "simple":
-            result["simple"] += average_precision
-            count_simple += 1
-        elif mode == "boosted":
-            result["boosted"] += average_precision
-            count_boosted += 1
+        if mode in modes:
+            result[mode] += average_precision
+            count[mode] += 1
 
-    result["simple"] /= count_simple if count_simple > 0 else 1
-    result["boosted"] /= count_boosted if count_boosted > 0 else 1
+    for mode in modes:
+        result[mode] /= count[mode] if count[mode] > 0 else 1
     
     return result
 
@@ -131,13 +127,15 @@ def evaluate(query: int, mode: str) -> None:
 
 if __name__ == "__main__":
 
-    # Milestone 2 - Global Evaluation
-    if len(sys.argv) == 2 and sys.argv[1].lower() == 'm2':
+    # Milestones Global Evaluation
+    if len(sys.argv) == 2 and sys.argv[1].lower() in ['m2', 'm3']:
 
         stats = []
         results = {}
-        for query in range(1, 5):
-            for mode in MODES['m2']:
+        milestone = sys.argv[1].lower()
+        [min, max] = [1, 4] if milestone == 'm2' else [5, 8]
+        for query in range(min, max + 1):
+            for mode in MODES[milestone]:
                 output = evaluate(query, mode)
                 stats.append(output[0])
                 results[mode] = output[1]
@@ -145,26 +143,7 @@ if __name__ == "__main__":
 
         output = {
             'Results per query and per mode': stats,
-            'Global MAP': mean_average_precision(stats),
-        }
-        
-        print(json.dumps(output, indent=2))
-
-    # Milestone 3 - Global Evaluation
-    elif len(sys.argv) == 2 and sys.argv[1].lower() == 'm3':
-
-        stats = []
-        results = {}
-        for query in range(5, 9):
-            for mode in MODES['m3']:
-                output = evaluate(query, mode)
-                stats.append(output[0])
-                results[mode] = output[1]
-            compute_rcs(results, query)
-
-        output = {
-            'Results per query and per mode': stats,
-            'Global MAP': mean_average_precision(stats),
+            'Global MAP': mean_average_precision(stats, MODES[milestone]),
         }
         
         print(json.dumps(output, indent=2))
@@ -197,6 +176,7 @@ if __name__ == "__main__":
         print("Stats per query and per mode")
         print(json.dumps(stats, indent=2))
 
+    # Error
     else:
         print("Bad arguments. Usage:")
         print("   python3 evaluation.py M<2,3>          - for global milestone evaluation")
