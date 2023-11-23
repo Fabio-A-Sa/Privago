@@ -27,12 +27,18 @@ def recall_at_k(results: list, k: int) -> float:
 
 def precision_values(results: list) -> float:
     return [
-        precision_at_k(results, k) for k in range(1, len(results) + 1)
+        len([
+            doc for doc in results[:idx] if doc == 1
+        ]) / idx 
+        for idx, _ in enumerate(results, start=1)
     ]
 
 def recall_values(results: list) -> float:
     return [
-        recall_at_k(results, k) for k in range(1, len(results) + 1)
+        len([
+            doc for doc in results[:idx] if doc == 1
+        ]) / sum(results)
+        for idx, _ in enumerate(results, start=1)
     ]
 
 # MAP
@@ -91,7 +97,7 @@ def precision_recall(results: list, mode: str, query: int) -> None:
                 precision_recall_match[step] = precision_recall_match[recall_results[idx+1]]
 
     precision_results_k = [precision_recall_match.get(r) for r in recall_results]
-    disp = PrecisionRecallDisplay(precision_results_k, recall_results)
+    disp = PrecisionRecallDisplay(precision=precision_results_k, recall=recall_results)
 
     disp.plot()
     plt.xlim([0, 1.1])
