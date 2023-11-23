@@ -7,7 +7,11 @@ import sys
 LIMIT = 20
 PRECISION_AT = 20
 QUERIES = 4
-MODES = ['simple', 'boosted']
+
+MODES = {
+    'm2': ['simple', 'boosted'],
+    'm3': ['boosted', 'stopwords', 'semantic', 'final']
+}
 
 def getResults(query: int, mode: str) -> list:
     path = f"./q{query}/evaluation-{mode}.json"
@@ -127,12 +131,13 @@ def evaluate(query: int, mode: str) -> None:
 
 if __name__ == "__main__":
 
-    if len(sys.argv) == 1:
+    # Milestone 2 - Global Evaluation
+    if len(sys.argv) == 2 and sys.argv[1].lower() == 'm2':
 
         stats = []
         results = {}
-        for query in range(1, QUERIES + 1):
-            for mode in MODES:
+        for query in range(1, 5):
+            for mode in MODES['m2']:
                 output = evaluate(query, mode)
                 stats.append(output[0])
                 results[mode] = output[1]
@@ -145,11 +150,45 @@ if __name__ == "__main__":
         
         print(json.dumps(output, indent=2))
 
-    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
+    # Milestone 3 - Global Evaluation
+    elif len(sys.argv) == 2 and sys.argv[1].lower() == 'm3':
 
         stats = []
         results = {}
-        for mode in MODES:
+        for query in range(5, 9):
+            for mode in MODES['m3']:
+                output = evaluate(query, mode)
+                stats.append(output[0])
+                results[mode] = output[1]
+            compute_rcs(results, query)
+
+        output = {
+            'Results per query and per mode': stats,
+            'Global MAP': mean_average_precision(stats),
+        }
+        
+        print(json.dumps(output, indent=2))
+
+    # Milestone 2 - Single Evaluation (1, 2, 3, 4)
+    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= 4:
+
+        stats = []
+        results = {}
+        for mode in MODES['m2']:
+            output = evaluate(int(sys.argv[1]), mode)
+            stats.append(output[0])
+            results[mode] = output[1]
+        compute_rcs(results, int(sys.argv[1]))
+
+        print("Stats per query and per mode")
+        print(json.dumps(stats, indent=2))
+
+    # Milestone 3 - Single Evaluation (5, 6, 7, 8)
+    elif len(sys.argv) == 2 and 5 <= int(sys.argv[1]) <= 8:
+
+        stats = []
+        results = {}
+        for mode in MODES['m3']:
             output = evaluate(int(sys.argv[1]), mode)
             stats.append(output[0])
             results[mode] = output[1]
@@ -159,4 +198,7 @@ if __name__ == "__main__":
         print(json.dumps(stats, indent=2))
 
     else:
-        print("Bad arguments. Usage: python3 evaluation.py [N]")
+        print("Bad arguments. Usage:")
+        print("   python3 evaluation.py M<2,3>          - for global milestone evaluation")
+        print("   python3 evaluation.py <1, 2, 3, 4>    - for individual evaluation of milestone 2 queries")
+        print("   python3 evaluation.py <5, 6, 7, 8>    - for individual evaluation of milestone 3 queries")

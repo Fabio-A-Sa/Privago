@@ -1,182 +1,222 @@
 [
   {
-    "date": "2017-05",
-    "rate": 4,
-    "text": [
-      "accessibility both sides of the river with plenty of attractions within a good location. only one pillow which was too big would have preferred two smaller ones to enable adjustment"
+    "date": "2015-11",
+    "rate": [
+      4.2
     ],
-    "id": "a16fc5ff-c7e2-4a42-94a6-dfcb1bda3358/reviews#7",
-    "_version_": 1782401589508571136
+    "text": [
+      "location accessibility service good bed toilet. breakfast time frame on sunday"
+    ],
+    "id": "c67234bb-5eb6-4764-af16-937326fa4f0b/reviews#90",
+    "_version_": 1783398027357061120
+  },
+  {
+    "date": "2016-05",
+    "rate": [
+      2.7
+    ],
+    "text": [
+      "Good location Good breakfast. Bathroom was way too small Very small elevator"
+    ],
+    "id": "dbd44df6-b57d-4b5a-a44c-61c23e2e4b11/reviews#66",
+    "_version_": 1783398027141054464
   },
   {
     "date": "2015-10",
-    "rate": 4,
+    "rate": [
+      4.6
+    ],
     "text": [
       "Clean good size rooms and bathroom Staff friendly and helpful Good location. Accessibility of hotel on busy road Difficult to reach to find out where to park then to park across the road and then haul bags to reception to check in"
     ],
-    "id": "6ec1b8e4-0bb8-4655-8006-8f6ad344cbcd/reviews#33",
-    "_version_": 1782401594735722496
+    "id": "90d224aa-fcb2-4d10-91a2-7d14b42c8e21/reviews#31",
+    "_version_": 1783398027788025856
+  },
+  {
+    "date": "2016-01",
+    "rate": [
+      4.6
+    ],
+    "text": [
+      "Good location nice breakfast very very clean. no elevator need to climb with luggage"
+    ],
+    "id": "114ece82-22f3-422e-9fb2-126154cbdee6/reviews#83",
+    "_version_": 1783398026938679297
   },
   {
     "date": "2017-06",
-    "rate": 3,
+    "rate": [
+      3.8
+    ],
     "text": [
       "Very good breakfast Great location. As in most London locations small rooms and small elevator"
     ],
-    "id": "d927047d-6868-4a15-a1e7-fad0a857b706/reviews#39",
-    "_version_": 1782401588942340096
+    "id": "dc5acba4-d68e-47f2-a3ee-996b4110227d/reviews#44",
+    "_version_": 1783398026369302528
   },
   {
     "date": "2015-10",
-    "rate": 3,
+    "rate": [
+      3.8
+    ],
     "text": [
       "Good location near underground station There is kitchen in a room. there is no elevator"
     ],
-    "id": "5b1ab422-78c1-44d5-a4e6-5fcba493746e/reviews#89",
-    "_version_": 1782401594853163008
-  },
-  {
-    "date": "2017-07",
-    "rate": 4,
-    "text": [
-      "Fantastic location in terms of accessibility to St Pancras station Within walking distance 15 minutes of UCL Great sized room contained 2 single beds and a double Microwave fridge iron ironing board hairdryer all provided Good selection of continental breakfast choices. Nothing"
-    ],
-    "id": "c1b43263-b192-4f55-bcb8-b28ff5cb7c1e/reviews#3",
-    "_version_": 1782401589535834114
-  },
-  {
-    "date": "2015-11",
-    "rate": 4,
-    "text": [
-      "Very good location close to Paddington station A lot of good restaurants near by for breakfast in the morning. The elevator was not working"
-    ],
-    "id": "9cd74132-a3c9-4f9b-89bc-119658bebc37/reviews#91",
-    "_version_": 1782401593142935552
-  },
-  {
-    "date": "2015-08",
-    "rate": 4,
-    "text": [
-      "Friendly staff and good location. Only one elevator so some time you have to wait to get to your room"
-    ],
-    "id": "06037d51-0463-439f-b6a0-c261bf1b1884/reviews#96",
-    "_version_": 1782401589788540928
-  },
-  {
-    "date": "2015-10",
-    "rate": 4,
-    "text": [
-      "Excellent attitude of the team especially Shaune ready to address any request and providing solutions good breakfast good location good room Hotel is being upgraded. Some rooms are small elevator is small"
-    ],
-    "id": "04ac917b-a6cc-4449-8dd1-89db890b6eed/reviews#48",
-    "_version_": 1782401589554708480
-  },
-  {
-    "date": "2017-05",
-    "rate": 3,
-    "text": [
-      "Very good and quiet location. Room located next to the service elevator shaft Disturbing and noisy Hotel pretty worn out and requires immediate investment"
-    ],
-    "id": "c88e3c57-68fd-4b20-a8e4-11a1d976dfe7/reviews#3",
-    "_version_": 1782401592868208640
-  },
-  {
-    "date": "2017-03",
-    "rate": 4,
-    "text": [
-      "The rooms were well equipped and clean Very good location Staff were good. The elevator system was cumbersome two elevators and having to hold the button The rooms were small"
-    ],
-    "id": "d18decb9-3543-4498-b665-a0201a3f6d9b/reviews#7",
-    "_version_": 1782401589130035200
-  },
-  {
-    "date": "2015-10",
-    "rate": 2,
-    "text": [
-      "Close to underground Good location. There would be more room in a London telephone box No elevator from ground floor Noise can be an issue"
-    ],
-    "id": "c0530904-2a7f-46ba-8101-c6a08c579a5c/reviews#97",
-    "_version_": 1782401593937756160
-  },
-  {
-    "date": "2017-06",
-    "rate": 2,
-    "text": [
-      "Good location close to the Underground station next to a very lively street. The rooms are very small and so is the tiny elevator Not a very good quality price ratio"
-    ],
-    "id": "97e13269-1913-423a-acb3-7196b8648ee2/reviews#7",
-    "_version_": 1782401589141569536
-  },
-  {
-    "date": "2016-09",
-    "rate": 3,
-    "text": [
-      "Good location for getting around Most of the staff was helpful Good breakfast Very clean. Top floor is awful Beds are old and the street side is noisy even late at night No elevator"
-    ],
-    "id": "1f7afe72-a46f-42d3-ab59-90c33038a13f/reviews#4",
-    "_version_": 1782401594085605376
+    "id": "99273afc-13b2-40f7-9721-c2f70c79ff7d/reviews#89",
+    "_version_": 1783398027847794688
   },
   {
     "date": "2016-10",
-    "rate": 4,
-    "text": [
-      "Good buffet breakfast Quiet location near British Museum Air conditioner works well on cold days Business room has a large desk and bright lights. Only one elevator near front desk"
+    "rate": [
+      4.0
     ],
-    "id": "a77e0724-0294-4264-9151-ca9205c217f8/reviews#14",
-    "_version_": 1782401593630523392
+    "text": [
+      "Good breakfast lovely rooms and great location right around the corner from north ealing station. No elevator"
+    ],
+    "id": "03a1de40-ec2d-4b58-8e99-8e5f6f6fc45d/reviews#61",
+    "_version_": 1783398026900930560
   },
   {
-    "date": "2017-02",
-    "rate": 4,
-    "text": [
-      "good location nice staff nice ground floor common area with meeting rooms. I was expecting a breakfast at a 4 for 259 pounds per night 4 floors hotel but no elevator"
+    "date": "2015-09",
+    "rate": [
+      2.7
     ],
-    "id": "bfb5f09e-2a48-44bf-bc2f-757f33a1d9c2/reviews#8",
-    "_version_": 1782401594639253504
+    "text": [
+      "location is very good The bar is excellent. Very noisy room next to elevator Constant noise all night"
+    ],
+    "id": "b0835927-49f8-4201-9c71-2fce0133cdf4/reviews#92",
+    "_version_": 1783398027863523328
   },
   {
-    "date": "2017-07",
-    "rate": 3,
-    "text": [
-      "The location is very good and there are plenty of great restos and pubs around. The elevator is broken and the room is soooo hot as the aircon is not getting cold"
+    "date": "2017-04",
+    "rate": [
+      4.6
     ],
-    "id": "7e68a7e2-fcd1-4157-945d-6864d17ac0fa/reviews#1",
-    "_version_": 1782401594695876608
-  },
-  {
-    "date": "2015-11",
-    "rate": 4,
     "text": [
-      "Good location very clean nicely decorated friendly staff good continental breakfast included. One elevator out of order so long waiting at times bed was way too soft wasn t able to regulate room temperature so it was very warm at times"
+      "Good location Friendly and helpful staff Spacious room Nice and free coffee at lobby Good kitchenette in the room Has a perfectly working elevator"
     ],
-    "id": "3e872ac9-9ef6-4985-a8ee-b3e0fbf9a1ae/reviews#31",
-    "_version_": 1782401589174075392
-  },
-  {
-    "date": "2017-01",
-    "rate": 4,
-    "text": [
-      "I like the way that the reception treated as was perfect and the hotel location it s very good. The elevator Left so bad and annoying The toilet door wasn t good you have to hold it while u using it"
-    ],
-    "id": "fa9bcbe0-303b-4e71-b8e3-9f7c6deeb69b/reviews#4",
-    "_version_": 1782401592861917184
+    "id": "4a7cc899-1c0d-4c9c-a2f7-d1be9317d120/reviews#7",
+    "_version_": 1783398027598233600
   },
   {
     "date": "2015-08",
-    "rate": 3,
-    "text": [
-      "Good location nice setting beds were very comfortable nice bathroom and very good coffee at breakfast. Only found one elevator so slow getting up and down no coffee service in rooms only tea and front desk staff was not the friendliest"
+    "rate": [
+      4.2
     ],
-    "id": "9cd74132-a3c9-4f9b-89bc-119658bebc37/reviews#26",
-    "_version_": 1782401593142935552
+    "text": [
+      "Friendly staff and good location. Only one elevator so some time you have to wait to get to your room"
+    ],
+    "id": "c5b8736e-fa88-4db5-970a-601637ba89ac/reviews#96",
+    "_version_": 1783398026592649216
+  },
+  {
+    "date": "2017-05",
+    "rate": [
+      3.6
+    ],
+    "text": [
+      "Very good and quiet location. Room located next to the service elevator shaft Disturbing and noisy Hotel pretty worn out and requires immediate investment"
+    ],
+    "id": "98ecdff7-ed30-4185-98de-3781bd217013/reviews#3",
+    "_version_": 1783398027258494976
+  },
+  {
+    "date": "2017-03",
+    "rate": [
+      4.2
+    ],
+    "text": [
+      "The rooms were well equipped and clean Very good location Staff were good. The elevator system was cumbersome two elevators and having to hold the button The rooms were small"
+    ],
+    "id": "0cbece67-85f7-4eb4-82d3-8e5e08f5712c/reviews#7",
+    "_version_": 1783398026426974209
+  },
+  {
+    "date": "2016-01",
+    "rate": [
+      4.6
+    ],
+    "text": [
+      "Great location Very good value for money Clean and comfertable rooms Very good breakfast. Extremly Slow elevator There is only one shared by guests and staff Very narrow corridors between rooms"
+    ],
+    "id": "faf9c613-cc96-4c20-ab33-79ec6f7085a2/reviews#27",
+    "_version_": 1783398027401101312
+  },
+  {
+    "date": "2016-09",
+    "rate": [
+      4.0
+    ],
+    "text": [
+      "Classy staff Good buffet both breakfast and dinner. Elevator small old and slow Rooms very small Location excellent for Buckingham Palace but at least five blocks from tube"
+    ],
+    "id": "06386deb-9f45-490f-86c0-73707b6280b1/reviews#9",
+    "_version_": 1783398027482890240
+  },
+  {
+    "date": "2016-09",
+    "rate": [
+      3.2
+    ],
+    "text": [
+      "Good location for getting around Most of the staff was helpful Good breakfast Very clean. Top floor is awful Beds are old and the street side is noisy even late at night No elevator"
+    ],
+    "id": "cdb11ebd-ce6c-4698-92cf-5a7a347a8832/reviews#4",
+    "_version_": 1783398027539513344
+  },
+  {
+    "date": "2017-02",
+    "rate": [
+      4.6
+    ],
+    "text": [
+      "Friendly staff excellebt location and good infrastucture. To some rooms there is no direct elevator so you have to go over stairs which is not so pleasant with lugagge"
+    ],
+    "id": "c5b8736e-fa88-4db5-970a-601637ba89ac/reviews#7",
+    "_version_": 1783398026592649216
+  },
+  {
+    "date": "2017-02",
+    "rate": [
+      4.2
+    ],
+    "text": [
+      "good location nice staff nice ground floor common area with meeting rooms. I was expecting a breakfast at a 4 for 259 pounds per night 4 floors hotel but no elevator"
+    ],
+    "id": "74d53c6d-8f7a-4949-ae74-fae035020f90/reviews#9",
+    "_version_": 1783398027748179968
+  },
+  {
+    "date": "2017-07",
+    "rate": [
+      3.4
+    ],
+    "text": [
+      "The location is very good and there are plenty of great restos and pubs around. The elevator is broken and the room is soooo hot as the aircon is not getting cold"
+    ],
+    "id": "3bb0f278-aaf8-4905-91f5-821405d72464/reviews#1",
+    "_version_": 1783398027766005761
   },
   {
     "date": "2015-10",
-    "rate": 4,
+    "rate": [
+      4.6
+    ],
     "text": [
       "A great location good layout of the room. No elevator This was not a problem as my luggage was light but with a heavy suitcase or for older people this could be a problem"
     ],
-    "id": "b3786bfb-1755-46cb-8502-985af7905e86/reviews#36",
-    "_version_": 1782401593961873408
+    "id": "bb8238ea-e31b-4a47-8de7-66d5572b157f/reviews#37",
+    "_version_": 1783398027507007488
+  },
+  {
+    "date": "2016-09",
+    "rate": [
+      4.6
+    ],
+    "text": [
+      "Location was very good Staff extremely friendly and helpful Plenty of sights transportation and restaurants within walking distance Great breakfast. Room was a lil cramped and the elevator claustrophobic but really couldn t complain much"
+    ],
+    "id": "5e1e82f7-cda4-44c5-b529-12a1d110af5a/reviews#16",
+    "_version_": 1783398026844307456
   }
 ]
