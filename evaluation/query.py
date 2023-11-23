@@ -62,6 +62,7 @@ def query(query: int, mode: str) -> None:
 
 if __name__ == '__main__':
 
+    # Run all queries (1, 2, 3, 4, 5, 6, 7, 8)
     if len(sys.argv) == 1:
 
         for mode in CONFIG:
@@ -71,6 +72,17 @@ if __name__ == '__main__':
                 query(index, mode)
             stopContainer()
 
+    # Run all M2 or M3 queries (1, 2, 3, 4) or (5, 6, 7, 8)
+    elif len(sys.argv) == 2 and sys.argv[1].lower() in ['m2', 'm3']:
+        
+        for mode in MODES[sys.argv[1].lower()]:
+            runContainer(mode)
+            [min, max] = CONFIG[mode]
+            for index in range(min, max + 1):
+                query(index, mode)
+            stopContainer()
+
+    # Run a single query
     elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
         
         modes = MODES['m2'] if int(sys.argv[1]) < 5 else MODES['m3']
@@ -79,7 +91,9 @@ if __name__ == '__main__':
             query(int(sys.argv[1]), mode)
             stopContainer()
 
+    # Error
     else:
         print("Bad arguments. Usage:")
-        print("    python3 query.py [N]   - to run a single query")
-        print("    python3 query.py       - to run all queries (1, 2, 3, 4, 5, 6, 7, 8)")
+        print("    python3 query.py [N]      - to run a single query")
+        print("    python3 query.py M<2,3>   - to run all milestone queries")
+        print("    python3 query.py          - to run all queries (1, 2, 3, 4, 5, 6, 7, 8)")

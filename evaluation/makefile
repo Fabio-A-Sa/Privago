@@ -6,7 +6,7 @@ requirements:
 query:	
 	python3 ../solr/synonyms.py
 	python3 ../solr/stopwords.py
-	python3 query.py
+	python3 query.py m3
 
 evaluation:
-	python3 evaluation.py > stats.json
+	python3 evaluation.py m3 > stats.json
