@@ -148,26 +148,13 @@ if __name__ == "__main__":
         
         print(json.dumps(output, indent=2))
 
-    # Milestone 2 - Single Evaluation (1, 2, 3, 4)
-    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= 4:
+    # Run a single evaluation
+    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= 8:
 
         stats = []
         results = {}
-        for mode in MODES['m2']:
-            output = evaluate(int(sys.argv[1]), mode)
-            stats.append(output[0])
-            results[mode] = output[1]
-        compute_rcs(results, int(sys.argv[1]))
-
-        print("Stats per query and per mode")
-        print(json.dumps(stats, indent=2))
-
-    # Milestone 3 - Single Evaluation (5, 6, 7, 8)
-    elif len(sys.argv) == 2 and 5 <= int(sys.argv[1]) <= 8:
-
-        stats = []
-        results = {}
-        for mode in MODES['m3']:
+        modes = MODES['m2'] if int(sys.argv[1]) < 5 else MODES['m3']
+        for mode in modes:
             output = evaluate(int(sys.argv[1]), mode)
             stats.append(output[0])
             results[mode] = output[1]
