@@ -1,5 +1,4 @@
 import json
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
@@ -7,8 +6,12 @@ import sys
 
 LIMIT = 20
 PRECISION_AT = 20
-QUERIES = 4
-MODES = ['simple', 'boosted']
+QUERIES = 8
+
+MODES = {
+    'm2': ['simple', 'boosted'],
+    'm3': ['boosted', 'stopwords', 'semantic', 'final']
+}
 
 def getResults(query: int, mode: str) -> list:
     path = f"./q{query}/evaluation-{mode}.json"
@@ -27,34 +30,36 @@ def recall_at_k(results: list, k: int) -> float:
 
 def precision_values(results: list) -> float:
     return [
-        precision_at_k(results, k) for k in range(1, len(results) + 1)
+        len([
+            doc for doc in results[:idx] if doc == 1
+        ]) / idx 
+        for idx, _ in enumerate(results, start=1)
     ]
 
 def recall_values(results: list) -> float:
     return [
-        recall_at_k(results, k) for k in range(1, len(results) + 1)
+        len([
+            doc for doc in results[:idx] if doc == 1
+        ]) / sum(results)
+        for idx, _ in enumerate(results, start=1)
     ]
 
 # MAP
-def mean_average_precision(stats):
+def mean_average_precision(stats, modes):
 
-    result = {"simple": 0, "boosted": 0}
-    count_simple = 0
-    count_boosted = 0
+    result = {mode: 0 for mode in modes}
+    count = {mode: 0 for mode in modes}
     
     for entry in stats:
         mode = entry["mode"]
         average_precision = entry["AvP"]
         
-        if mode == "simple":
-            result["simple"] += average_precision
-            count_simple += 1
-        elif mode == "boosted":
-            result["boosted"] += average_precision
-            count_boosted += 1
+        if mode in modes:
+            result[mode] += average_precision
+            count[mode] += 1
 
-    result["simple"] /= count_simple if count_simple > 0 else 1
-    result["boosted"] /= count_boosted if count_boosted > 0 else 1
+    for mode in modes:
+        result[mode] /= count[mode] if count[mode] > 0 else 1
     
     return result
 
@@ -91,7 +96,7 @@ def precision_recall(results: list, mode: str, query: int) -> None:
                 precision_recall_match[step] = precision_recall_match[recall_results[idx+1]]
 
     precision_results_k = [precision_recall_match.get(r) for r in recall_results]
-    disp = PrecisionRecallDisplay(precision_results_k, recall_results)
+    disp = PrecisionRecallDisplay(precision=precision_results_k, recall=recall_results)
 
     disp.plot()
     plt.xlim([0, 1.1])
@@ -122,12 +127,15 @@ def evaluate(query: int, mode: str) -> None:
 
 if __name__ == "__main__":
 
-    if len(sys.argv) == 1:
+    # Milestones Global Evaluation
+    if len(sys.argv) == 2 and sys.argv[1].lower() in ['m2', 'm3']:
 
         stats = []
         results = {}
-        for query in range(1, QUERIES + 1):
-            for mode in MODES:
+        milestone = sys.argv[1].lower()
+        [min, max] = [1, 4] if milestone == 'm2' else [5, 8]
+        for query in range(min, max + 1):
+            for mode in MODES[milestone]:
                 output = evaluate(query, mode)
                 stats.append(output[0])
                 results[mode] = output[1]
@@ -135,16 +143,18 @@ if __name__ == "__main__":
 
         output = {
             'Results per query and per mode': stats,
-            'Global MAP': mean_average_precision(stats),
+            'Global MAP': mean_average_precision(stats, MODES[milestone]),
         }
         
         print(json.dumps(output, indent=2))
 
-    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
+    # Run a single evaluation
+    elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= 8:
 
         stats = []
         results = {}
-        for mode in MODES:
+        modes = MODES['m2'] if int(sys.argv[1]) < 5 else MODES['m3']
+        for mode in modes:
             output = evaluate(int(sys.argv[1]), mode)
             stats.append(output[0])
             results[mode] = output[1]
@@ -153,5 +163,9 @@ if __name__ == "__main__":
         print("Stats per query and per mode")
         print(json.dumps(stats, indent=2))
 
+    # Error
     else:
-        print("Bad arguments. Usage: python3 evaluation.py [N]")
+        print("Bad arguments. Usage:")
+        print("   python3 evaluation.py M<2,3>       - for global milestone evaluation")
+        print("   python3 evaluation.py <1,2,3,4>    - for individual evaluation of milestone 2 queries")
+        print("   python3 evaluation.py <5,6,7,8>    - for individual evaluation of milestone 3 queries")

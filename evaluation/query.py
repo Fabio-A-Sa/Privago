@@ -8,8 +8,20 @@ import urllib.parse
 CONTAINER_NAME = 'privago'
 PARAMETERS = 'parameters.json'
 REQUEST_BASE = 'http://localhost:8983/solr/hotels/select?'
-QUERIES = 4
-MODES = ['simple', 'boosted']
+QUERIES = 8
+
+MODES = {
+    'm2': ['simple', 'boosted'],
+    'm3': ['boosted', 'stopwords', 'semantic', 'final']
+}
+
+CONFIG = {
+    'simple': [1, 4],
+    'boosted': [1, 8],
+    'stopwords': [5, 8],
+    'semantic': [5, 8],
+    'final': [5, 8]
+}
 
 def getParameters(query: int, mode: str) -> json:
     path = f"./q{query}/{PARAMETERS}"
@@ -50,20 +62,28 @@ def query(query: int, mode: str) -> None:
 
 if __name__ == '__main__':
 
-    if len(sys.argv) == 1:
-
-        for mode in MODES:
+    # Run all M2 or M3 queries (1, 2, 3, 4) or (5, 6, 7, 8)
+    if len(sys.argv) == 2 and sys.argv[1].lower() in ['m2', 'm3']:
+        
+        for mode in MODES[sys.argv[1].lower()]:
             runContainer(mode)
-            for index in range(1, QUERIES + 1):
+            [min, max] = CONFIG[mode]
+            for index in range(min, max + 1):
                 query(index, mode)
             stopContainer()
 
+    # Run a single query
     elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
         
-        for mode in MODES:
+        modes = MODES['m2'] if int(sys.argv[1]) < 5 else MODES['m3']
+        for mode in modes:
             runContainer(mode)
             query(int(sys.argv[1]), mode)
             stopContainer()
 
+    # Error
     else:
-        print("Bad arguments. Usage: python3 query.py [N]")
+        print("Bad arguments. Usage:")
+        print("    python3 query.py M<2,3>         - to run all queries")
+        print("    python3 query.py <1,2,3,4>      - to run an individual milestone 2 query")
+        print("    python3 query.py <5,6,7,8>      - to run an individual milestone 3 query")

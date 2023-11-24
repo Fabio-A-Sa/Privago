@@ -1,182 +1,222 @@
 [
   {
-    "date": "2015-10",
-    "rate": 5,
-    "text": [
-      "vegetarian vegan food view from the balcony and talking to the chef Good access for wheelchairs"
-    ],
-    "id": "5fde78c3-2a53-47f3-8b3c-5a37221f7d1d/reviews#88",
-    "_version_": 1782401589357576192
-  },
-  {
-    "date": "2017-02",
-    "rate": 5,
-    "text": [
-      "The staff were particularly good and a pleasure to deal with Also the breakfast was particularly good too good vegetarian and vegan options which are always essential but done with flair and not just an afterthought Top marks all round"
-    ],
-    "id": "048bb3ee-8e65-441c-9174-3646f62434b2/reviews#5",
-    "_version_": 1782401594582630400
-  },
-  {
     "date": "2016-01",
-    "rate": 5,
+    "rate": [
+      5.0
+    ],
     "text": [
       "Everything about it. The menu didn t have a good vegetarian vegan option which made it hard for me to have proper meals although the chef did go out of his way to make me something"
     ],
-    "id": "f749fe87-113a-4311-822a-f84ae8a8e50a/reviews#25",
-    "_version_": 1782401591016423424
-  },
-  {
-    "date": "2015-12",
-    "rate": 5,
-    "text": [
-      "Excellent value for money. English Breakfast could have better vegetarian option like good quality Vegetarian sausages"
-    ],
-    "id": "06031534-092b-4540-be1c-1e945fef1c88/reviews#77",
-    "_version_": 1782401594091896832
+    "id": "c9546960-a262-4c92-a8b9-66e92402309e/reviews#24",
+    "_version_": 1783398982452510720
   },
   {
     "date": "2023-08",
-    "rate": 4,
+    "rate": [
+      4.0
+    ],
     "text": [
       "Good location for our purposes and a good variety of vegetarian dishes for breakfast ."
     ],
-    "id": "6f0735d2-a19f-489b-b654-6aedffa74675/reviews#4",
-    "_version_": 1782401592251645952
+    "id": "7921ea8d-a7f0-4313-a3c5-aab731a23263/reviews#4",
+    "_version_": 1783398982717800451
   },
   {
     "date": "2016-04",
-    "rate": 4,
+    "rate": [
+      4.6
+    ],
     "text": [
       "Room was clean Complimentary drinks was a good treat each day. Breakfast could have more vegetarian options Also restaurant menu could have more children s options and vegetarian choices"
     ],
-    "id": "d323a406-e653-414d-be96-a772036f6fcf/reviews#16",
-    "_version_": 1782401591606771712
+    "id": "7e716097-10ab-47d7-8a90-6cfcfba99e12/reviews#16",
+    "_version_": 1783398982561562627
   },
   {
     "date": "2016-09",
-    "rate": 4,
+    "rate": [
+      4.6
+    ],
     "text": [
       "Breakfast was good Staff are very friendly Location is fantastic. Not many vegetarian options for food"
     ],
-    "id": "7cf9597e-c65f-4c8f-aec1-3e638897b757/reviews#67",
-    "_version_": 1782401589567291392
-  },
-  {
-    "date": "2016-05",
-    "rate": 5,
-    "text": [
-      "Very friendly reception staff Breakfast had a good selection being a vegetarian this isnt always the case"
-    ],
-    "id": "439cb5cc-cdd7-4b4c-a6fe-588979cbbd7b/reviews#61",
-    "_version_": 1782401594799685632
+    "id": "d3f51949-1b30-4bf4-aa6f-2af9e63ef666/reviews#68",
+    "_version_": 1783398982050906113
   },
   {
     "date": "2015-11",
-    "rate": 4,
+    "rate": [
+      4.2
+    ],
     "text": [
       "The rooms were good the bathroom was lovely it was peaceful and spacious. No vegan options for food no lock on bathroom doors"
     ],
-    "id": "6d5ff412-c1ce-4024-b513-b0eef66a465b/reviews#90",
-    "_version_": 1782401589679489024
+    "id": "b4392f6c-1105-4fb2-8aba-1cbc702b3852/reviews#90",
+    "_version_": 1783398982085509120
   },
   {
     "date": "2017-04",
-    "rate": 5,
+    "rate": [
+      5.0
+    ],
     "text": [
       "Comfy bed very good service a lot of breakfast options including gluten free and vegetarian Nice and helpful staff"
     ],
-    "id": "2031f856-619e-40ba-a39b-78b0190631b9/reviews#32",
-    "_version_": 1782401589528494080
+    "id": "47912d28-0239-4fa1-96b3-5d6df0a643bd/reviews#32",
+    "_version_": 1783398982040420352
   },
   {
     "date": "2017-05",
-    "rate": 5,
+    "rate": [
+      5.0
+    ],
     "text": [
       "Great comfortable rooms Excellent Service Lounge service is good Had nice time. Vegetarian options are limited request you to add more options"
     ],
-    "id": "923246ec-28b3-4e50-a69b-3af4ebdeec8d/reviews#44",
-    "_version_": 1782401592222285824
+    "id": "b8a6321d-dff7-4e16-ad44-31bdd6e90b3b/reviews#43",
+    "_version_": 1783398982707314689
   },
   {
     "date": "2016-09",
-    "rate": 4,
+    "rate": [
+      4.2
+    ],
     "text": [
       "The buffet breakfast was quite good and access to public transport was most convenient. More vegetarian options on the menu would be nice"
     ],
-    "id": "eab0945b-a737-498c-89a3-3f230a420882/reviews#61",
-    "_version_": 1782401593080020992
-  },
-  {
-    "date": "2015-11",
-    "rate": 3,
-    "text": [
-      "Clean friendly hotel with nice view. Vegetarian option missing from breakfast menu Access by car via blackwall tunnel not good Suggest train access for the future"
-    ],
-    "id": "925a1513-c16f-4ff5-a691-f2f9732f970a/reviews#38",
-    "_version_": 1782401589682634752
-  },
-  {
-    "date": "2017-04",
-    "rate": 4,
-    "text": [
-      "very convenient location from train station Good Vegetarian including Indian cuisine options within walking distance. Wifi was not working at night Resolved by morning Thin walls"
-    ],
-    "id": "2334f11d-a938-4891-a364-e4775a0401cd/reviews#5",
-    "_version_": 1782401590483746816
+    "id": "ef495af8-6e97-47da-bd95-1b95cce7b0f8/reviews#56",
+    "_version_": 1783398982881378305
   },
   {
     "date": "2017-03",
-    "rate": 4,
-    "text": [
-      "Great location good breakfast although they can include more vegetarian options clean room friendly staff. slow wi fi the room was a little bit small and dark"
+    "rate": [
+      4.2
     ],
-    "id": "b67eddd5-b369-40d1-85b8-3a4fc07701b9/reviews#8",
-    "_version_": 1782401588683341824
-  },
-  {
-    "date": "2017-06",
-    "rate": 4,
     "text": [
-      "The hotel is in a very good location for the area were we wanted good choice of pubs and restaurants nearby. Breakfast for a vegetarian was not value for the money charged"
+      "Friendly staff good vibe Spacious rooms The location is great right next to a metro station. Breakfast choices very poor for a vegetarian"
     ],
-    "id": "2111f592-0db2-47c9-97ab-8686a8cce306/reviews#17",
-    "_version_": 1782401593483722752
-  },
-  {
-    "date": "2015-12",
-    "rate": 3,
-    "text": [
-      "Good location friendly staff. Not much options in breakfast for vegetarian hot water was not available in the room one day out of the two I stayed there"
-    ],
-    "id": "4519baed-89bd-42cc-b02d-0ba5be182208/reviews#36",
-    "_version_": 1782401594198851584
-  },
-  {
-    "date": "2016-07",
-    "rate": 4,
-    "text": [
-      "Great location ideal for Hyde park concerts Lovely room Good car park would recommend to anyone wanting to go to London. Although breakfast was nice it would be nice to have some vegetarian options"
-    ],
-    "id": "19c10288-b060-4237-a892-34c61e6eee06/reviews#21",
-    "_version_": 1782401594790248448
+    "id": "62faf214-a706-46a5-8490-528c4e4a19c2/reviews#51",
+    "_version_": 1783398983206436865
   },
   {
     "date": "2017-01",
-    "rate": 3,
+    "rate": [
+      4.4
+    ],
+    "text": [
+      "Good variety of vegetarian items on the bar menu Spacious bedrooms Rooms were quiet thanks to triple glazing. Would have liked a swimming pool"
+    ],
+    "id": "0570dcbc-be33-46ee-aa4d-8dcdd06d64af/reviews#66",
+    "_version_": 1783398982435733504
+  },
+  {
+    "date": "2016-06",
+    "rate": [
+      4.6
+    ],
+    "text": [
+      "Very friendly well located and good vegetarian options for breakfast Spacious rooms and very clean well kept and furnished. Wifi should be complimentary across"
+    ],
+    "id": "940f7399-eb9c-4ba2-94a1-2f81185236ff/reviews#26",
+    "_version_": 1783398982446219264
+  },
+  {
+    "date": "2016-08",
+    "rate": [
+      3.6
+    ],
+    "text": [
+      "The location and helpfulness of the staff was great. There was no vegan choices for breakfast and we felt that that was a waste of money Other than that all good"
+    ],
+    "id": "c0eb2427-3c66-404a-bd31-2e33750d82f3/reviews#12",
+    "_version_": 1783398983087947776
+  },
+  {
+    "date": "2016-11",
+    "rate": [
+      5.0
+    ],
+    "text": [
+      "Very good hotel at a very reasonable price I have absolutely nothing bad to say about this hotel Very friendly and helpful staff wonderful sauna and fitness area great location delicious breakfast relatively good selection of vegan options for breakfast"
+    ],
+    "id": "7141ab04-26d5-4e72-bbe0-91301e58b8e7/reviews#14",
+    "_version_": 1783398983158202368
+  },
+  {
+    "date": "2016-09",
+    "rate": [
+      3.4
+    ],
+    "text": [
+      "Good breakfast though no vegetarian hot preparations Fruits were freshly cut and nice Restaurant staff not much aware about food ingredients or may be it was language problem"
+    ],
+    "id": "1a2126f9-866b-4e5e-b45e-3adf82412440/reviews#24",
+    "_version_": 1783398982687391747
+  },
+  {
+    "date": "2016-07",
+    "rate": [
+      5.0
+    ],
+    "text": [
+      "Very good location in the centre of Barcelona with easy access to all areas friendly and very helpful staff comfortable bed and pillows and good facilities. Could have had more vegetarian options and China cups in the bedroom"
+    ],
+    "id": "fee72770-b4eb-4ff3-9126-334617f489b0/reviews#13",
+    "_version_": 1783398981533958144
+  },
+  {
+    "date": "2017-01",
+    "rate": [
+      3.6
+    ],
     "text": [
       "Good location not far from Wimbledon centre funny organic Vegan cafe. Old building oddly shaped rooms barely usable shower my room was on the top floor under an angled roof the only way to use the shower was to squat in the tub"
     ],
-    "id": "d9aefe6a-08c5-4fd8-a15d-a5c5f9ee60db/reviews#4",
-    "_version_": 1782401594435829760
+    "id": "5957d696-3806-4a76-9687-8674cd757be4/reviews#5",
+    "_version_": 1783398983148765186
+  },
+  {
+    "date": "2015-10",
+    "rate": [
+      4.2
+    ],
+    "text": [
+      "Free parking and flexible staff who are helpful. Food can be better with some vegetarian choices Smelly dirty carpets in the lobby sorry not on Good walking distance to tube but may be good4health"
+    ],
+    "id": "2c87be2f-f5a4-4946-a993-4ef68c9f7071/reviews#29",
+    "_version_": 1783398981866356737
+  },
+  {
+    "date": "2016-07",
+    "rate": [
+      4.0
+    ],
+    "text": [
+      "Great location ideal for Hyde park concerts Lovely room Good car park would recommend to anyone wanting to go to London. Although breakfast was nice it would be nice to have some vegetarian options"
+    ],
+    "id": "2ffed52a-556d-421a-a151-7772c8e43d4b/reviews#22",
+    "_version_": 1783398983230554112
   },
   {
     "date": "2017-08",
-    "rate": 5,
+    "rate": [
+      5.0
+    ],
     "text": [
       "staff frendly very clean and comfortable good value for money. the breakfast not a lot of choice im a vegetarian lots of sausages bacon and cold meats although this suited the rest of my party"
     ],
-    "id": "c1ff5065-6e53-45b3-bff8-aa312f443b4d/reviews#1",
-    "_version_": 1782401591859478528
+    "id": "48bde9fb-daf7-45f2-89d3-85496cdf2f72/reviews#1",
+    "_version_": 1783398982613991425
+  },
+  {
+    "date": "2015-10",
+    "rate": [
+      2.7
+    ],
+    "text": [
+      "The location Shower is good. Rooms are small The corridors are so dark and tight The Resturant food only vegetarian stuff The widows are not perfectly seald as u can hear some car noise from out side"
+    ],
+    "id": "202b7eb2-5410-4a49-8a63-31528cd74b2d/reviews#24",
+    "_version_": 1783398982739820545
   }
 ]
