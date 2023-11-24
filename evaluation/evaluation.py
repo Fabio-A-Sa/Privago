@@ -179,6 +179,6 @@ if __name__ == "__main__":
     # Error
     else:
         print("Bad arguments. Usage:")
-        print("   python3 evaluation.py M<2,3>          - for global milestone evaluation")
-        print("   python3 evaluation.py <1, 2, 3, 4>    - for individual evaluation of milestone 2 queries")
-        print("   python3 evaluation.py <5, 6, 7, 8>    - for individual evaluation of milestone 3 queries")
+        print("   python3 evaluation.py M<2,3>       - for global milestone evaluation")
+        print("   python3 evaluation.py <1,2,3,4>    - for individual evaluation of milestone 2 queries")
+        print("   python3 evaluation.py <5,6,7,8>    - for individual evaluation of milestone 3 queries")

@@ -1,4 +1,4 @@
-# PRI Project
+# Privago - PRI Project
 
 ### Run pipeline
 
@@ -7,27 +7,31 @@ cd pipeline/
 make
 ```
 
-### Run solr
+### Run Solr
 
-```
+```bash
 cd solr
-bash startup-(boosted|simple).sh
+bash startup-final.sh
 ```
 
 And open [`localhost:8983`](http://localhost:8983).
 
 ### Run queries
 
-```
+```bash
 cd evaluation
-make query || python3 query.py <N>
+python3 query.py M<2,3>             # to run all queries
+python3 query.py <1,2,3,4>          # to run an individual milestone 2 query
+python3 query.py <5,6,7,8>          # to run an individual milestone 3 query
 ```
 
 ### Run evaluation
 
-```
+```bash
 cd evaluation
-make evaluation || python3 evaluation.py <N>
+python3 evaluation.py M<2,3>        # for global milestone evaluation
+python3 evaluation.py <1,2,3,4>     # for individual evaluation of milestone 2 queries
+python3 evaluation.py <5,6,7,8>     # for individual evaluation of milestone 3 queries
 ```
 
 ## Data
