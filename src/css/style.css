@@ -1,0 +1,46 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Mínimo de 100% da altura da viewport */
+  }
+  
+  header, footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+  }
+  
+  section {
+    flex: 1; /* Ocupa o restante do espaço disponível */
+    padding: 20px;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #results {
+    margin-top: 20px;
+  }
+  
+  footer {
+    flex-shrink: 0; /* Evita que o footer seja reduzido para caber no conteúdo */
+    padding: 0.5em; /* Reduz o padding do footer */
+  }
+  

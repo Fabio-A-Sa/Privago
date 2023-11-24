@@ -1,6 +1,5 @@
 {
     "endpoint" : "http://localhost:8983/solr/hotels/select?",
-    "port" : "5000",
     "commonParameters" : {
         "indent" : "true",
         "q.op" : "AND",
