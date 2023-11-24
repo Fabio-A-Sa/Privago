@@ -1,5 +1,14 @@
 # Privago - PRI Project
 
+### Run Web Interface
+
+```bash
+cd src/
+make
+```
+
+And open [`localhost:3000`](http://localhost:3000).
+
 ### Run pipeline
 
 ```bash
