@@ -1,15 +1,16 @@
+// imports
 const express = require('express');
 const path = require('path');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
 
+// paths
 const cssPath = path.join(__dirname, 'css');
 const jsPath = path.join(__dirname, 'js');
 const htmlPath = path.join(__dirname, 'html');
-const port = process.argv[2] || 3000;
-const html = fs.readFileSync(path.join(htmlPath, 'index.html'), 'utf8');
 
+// constants
 const CONFIG = {
     "endpoint" : "http://localhost:8983/solr/hotels/select?",
     "parameters" : {
@@ -27,8 +28,10 @@ const CONFIG = {
     }
 }
 
-app.use(cors());
+const port = process.argv[2] || 3000;
+const html = fs.readFileSync(path.join(htmlPath, 'index.html'), 'utf8');
 
+app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -36,34 +39,44 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
-
 app.use('/css', express.static(cssPath, { 'extensions': ['css'] }));
 app.use('/js', express.static(jsPath, { 'extensions': ['js'] }));
 app.use(express.static(htmlPath));
 
-async function getAPIResults(input) {
-    const url = `${CONFIG.endpoint}q=${input}&${new URLSearchParams(CONFIG.parameters)}`;
-    const response = await fetch(url);
+async function getReviews(input) {
+    const request = `${CONFIG.endpoint}q=${input}&${new URLSearchParams(CONFIG.parameters)}`;
+    const response = await fetch(request);
     if (!response.ok) {
-        throw new Error(`Erro na solicitação: ${response.status}`);
+        throw new Error(`Error: ${response.status}`);
     }
     return await response.json();
 }
 
-function createArticles(results) {
+async function getHotelName(id) {
+    const request = `${CONFIG.endpoint}q=id:${id}`;
+    const response = await fetch(request);
+    if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+    }
+    return (await response.json()).response.docs[0].name;
+}
 
+async function createArticles(results) {
     const docs = results.response.docs;
-
-    const articlesHTML = docs.map(doc => {
+    const articlesHTML = await Promise.all(docs.map(async doc => {
+        const hotelId = doc.id.split('/')[0]
+        const hotelName = await getHotelName(hotelId);
         return `
             <article>
                 <h3>${doc.date}</h3>
+                <p>${doc.rate}</p>
                 <p>${doc.text}</p>
+                <p>In <a href="/hotel?id=${hotelId}">${hotelName}</a></p>
             </article>
         `;
-    });
+    }));
 
-    return docs.length != 0 ? articlesHTML.join('') : null;
+    return docs.length !== 0 ? articlesHTML.join('') : null;
 }
 
 function getUpdatedHTML(articles, input) {
@@ -78,12 +91,17 @@ app.get('/', (req, res) => {
 
 app.get('/search', async (req, res) => {
     const input = req.query.input;
-    console.log("input é")
-    console.log(input)
-    const results = await getAPIResults(input);
-    const articles = createArticles(results);
+    const results = await getReviews(input);
+    const articles = await createArticles(results);
     const updatedHTML = getUpdatedHTML(articles, input);
     res.send(updatedHTML);
+});
+
+app.get('/hotel', async (req, res) => {
+    const input = req.query.id;
+    console.log("input de hotel")
+    console.log(input)
+    res.send(html);
 });
 
 app.listen(port, () => {
