@@ -8,6 +8,8 @@ body {
   min-height: 100vh;
 }
 
+/* Header section */
+
 header {
   background-color: #333;
   color: white;
@@ -29,6 +31,8 @@ section {
   align-items: center;
 }
 
+/* Search section */
+
 .search {
   margin-bottom: 20px;
   display: flex;
@@ -48,6 +52,8 @@ button {
   border: none;
   cursor: pointer;
 }
+
+/* Reviews section */
 
 .reviews {
   display: flex;
@@ -89,6 +95,8 @@ button {
 h2 {
   margin: 0.5em 4em;
 }
+
+/* Hotels section */
 
 .hotels {
   display: grid;
@@ -150,6 +158,8 @@ h2 {
 .hotelInfo a:hover {
   text-decoration: underline;
 }
+
+/* Footer section */
 
 footer {
   position: fixed;

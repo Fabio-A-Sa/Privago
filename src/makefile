@@ -11,4 +11,4 @@ solr:
 	cd ../src
 
 web:
-	node privago.js 6000
+	node privago.js 3000

@@ -4,7 +4,6 @@ const path = require('path');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
-const { response } = require('express');
 
 // paths
 const cssPath = path.join(__dirname, 'css');
@@ -49,6 +48,7 @@ app.use('/css', express.static(cssPath, { 'extensions': ['css'] }));
 app.use('/js', express.static(jsPath, { 'extensions': ['js'] }));
 app.use(express.static(htmlPath));
 
+// Fetch the response of a request
 async function getResponse(request) {
     const response = await fetch(request);
     if (!response.ok) {
@@ -57,26 +57,31 @@ async function getResponse(request) {
     return await response.json();
 }
 
+// Fetch reviews based on search input
 async function getReviews(searchInput) {
     const request = `${CONFIG.endpoint}q=${searchInput}&${new URLSearchParams(CONFIG.parameters)}`;
     return await getResponse(request);
 }
 
+// Fetch hotels with a specified limit
 async function getHotels(limit) {
     const request = `${CONFIG.endpoint}q=name:n&rows=${limit}&sort=average_rate%20desc`;
     return (await getResponse(request)).response.docs;
 }
 
+// Fetch hotel information based on ID
 async function getHotelInfo(hotelId) {
     const request = `${CONFIG.endpoint}q=id:${hotelId}&rows=${CONFIG.parameters.rows}`;
     return (await getResponse(request)).response.docs[0]
 }
 
+// Fetch reviews of a hotel based on ID
 async function getHotelReviews(hotelId) {
     const request = `${CONFIG.endpoint}q=id:${hotelId}/*&rows=1000`;
     return await getResponse(request)
 }
 
+// Create HTML for reviews
 async function createReviewsHTML(results, isSearchPage) {
     const docs = results.response.docs;
     const articlesHTML = await Promise.all(docs.map(async doc => {
@@ -98,6 +103,7 @@ async function createReviewsHTML(results, isSearchPage) {
     return docs.length !== 0 ? articlesHTML.join('') : null;
 }
 
+// Create HTML for a single hotel
 function createHotelHTML(hotel, hotelPage) {
     return `
         <article class="${hotelPage ? '' : 'hotel'}">
@@ -107,6 +113,7 @@ function createHotelHTML(hotel, hotelPage) {
     `
 }
 
+// Create HTML for multiple hotels
 function createHotelsHTML(hotels) {
     let hotelsHTML = '';
     hotels.forEach(hotel => {
@@ -115,6 +122,7 @@ function createHotelsHTML(hotels) {
     return hotelsHTML;
 }
 
+// Update the search page with results and search input
 function getUpdatedSearchPage(reviews, input) {
     let updatedHTML = searchPage;
     if (input) updatedHTML = updatedHTML.replace(/id="searchInput"/g, `id="searchInput" value="${input}"`)
@@ -122,6 +130,7 @@ function getUpdatedSearchPage(reviews, input) {
     return updatedHTML;
 }
 
+// Update the hotel page with hotel information and reviews
 function getUpdatedHotelPage(hotel, reviews) {
     let updatedHTML = hotelPage;
     if (hotel) updatedHTML = updatedHTML.replace('<p>No hotel found</p>', createHotelHTML(hotel, true));
