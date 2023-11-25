@@ -56,27 +56,28 @@ async function getReviews(searchInput) {
     return await getResponse(request);
 }
 
-async function getHotelName(hotelId) {
-    const request = `${CONFIG.endpoint}q=id:${hotelId}`;
-    return (await getResponse(request)).response.docs[0].name;
+async function getHotelInfo(hotelId) {
+    const request = `${CONFIG.endpoint}q=id:${hotelId}&rows=${CONFIG.parameters.rows}`;
+    return (await getResponse(request)).response.docs[0]
 }
 
 async function getHotelReviews(hotelId) {
-    const request = `${CONFIG.endpoint}q=id:${hotelId}/*`;
+    const request = `${CONFIG.endpoint}q=id:${hotelId}/*&rows=1000`;
     return await getResponse(request)
 }
 
+// TODO: create articles based on hotels page or search page
 async function createArticles(results) {
     const docs = results.response.docs;
     const articlesHTML = await Promise.all(docs.map(async doc => {
         const hotelId = doc.id.split('/')[0]
-        const hotelName = await getHotelName(hotelId);
+        const hotel = await getHotelInfo(hotelId);
         return `
             <article>
                 <h3>${doc.date}</h3>
                 <p>${doc.rate}</p>
                 <p>${doc.text}</p>
-                <p>In <a href="/hotel?id=${hotelId}">${hotelName}</a></p>
+                <p>Regarding <a href="/hotel?id=${hotelId}">${hotel.name}</a> with ${hotel.average_rate} stars in ${hotel.location}</p>
             </article>
         `;
     }));
