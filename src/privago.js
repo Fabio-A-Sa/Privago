@@ -43,8 +43,7 @@ app.use('/css', express.static(cssPath, { 'extensions': ['css'] }));
 app.use('/js', express.static(jsPath, { 'extensions': ['js'] }));
 app.use(express.static(htmlPath));
 
-async function getReviews(input) {
-    const request = `${CONFIG.endpoint}q=${input}&${new URLSearchParams(CONFIG.parameters)}`;
+async function getResponse(request) {
     const response = await fetch(request);
     if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
@@ -52,13 +51,19 @@ async function getReviews(input) {
     return await response.json();
 }
 
-async function getHotelName(id) {
-    const request = `${CONFIG.endpoint}q=id:${id}`;
-    const response = await fetch(request);
-    if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-    }
-    return (await response.json()).response.docs[0].name;
+async function getReviews(searchInput) {
+    const request = `${CONFIG.endpoint}q=${searchInput}&${new URLSearchParams(CONFIG.parameters)}`;
+    return await getResponse(request);
+}
+
+async function getHotelName(hotelId) {
+    const request = `${CONFIG.endpoint}q=id:${hotelId}`;
+    return (await getResponse(request)).response.docs[0].name;
+}
+
+async function getHotelReviews(hotelId) {
+    const request = `${CONFIG.endpoint}q=id:${hotelId}/*`;
+    return await getResponse(request)
 }
 
 async function createArticles(results) {
@@ -98,10 +103,11 @@ app.get('/search', async (req, res) => {
 });
 
 app.get('/hotel', async (req, res) => {
-    const input = req.query.id;
-    console.log("input de hotel")
-    console.log(input)
-    res.send(html);
+    const id = req.query.id;
+    const results = await getHotelReviews(id);
+    const articles = await createArticles(results);
+    const updatedHTML = getUpdatedHTML(articles, 'nothing for now');
+    res.send(updatedHTML);
 });
 
 app.listen(port, () => {
