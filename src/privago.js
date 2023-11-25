@@ -8,6 +8,7 @@ const cssPath = path.join(__dirname, 'css');
 const jsPath = path.join(__dirname, 'js');
 const htmlPath = path.join(__dirname, 'html');
 const port = process.argv[2] || 3000;
+const html = fs.readFileSync(path.join(htmlPath, 'index.html'), 'utf8');
 
 const CONFIG = {
     "endpoint" : "http://localhost:8983/solr/hotels/select?",
@@ -41,34 +42,16 @@ app.use('/js', express.static(jsPath, { 'extensions': ['js'] }));
 app.use(express.static(htmlPath));
 
 async function getAPIResults(input) {
-    // Construir a URL com base no CONFIG
     const url = `${CONFIG.endpoint}q=${input}&${new URLSearchParams(CONFIG.parameters)}`;
-    console.log(url)
-    try {
-        // Fazer a solicitação HTTP usando fetch
-        const response = await fetch(url);
-
-        // Verificar se a solicitação foi bem-sucedida (código 200)
-        if (!response.ok) {
-            throw new Error(`Erro na solicitação: ${response.status}`);
-        }
-
-        // Converter a resposta para JSON e retornar
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error("Erro na solicitação:", error);
-        throw error;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Erro na solicitação: ${response.status}`);
     }
-}
-
-async function getResults(input) {
-    const results = await getAPIResults(input);
-    // HTML
-    return results;
+    return await response.json();
 }
 
 function createArticles(results) {
+
     const docs = results.response.docs;
 
     const articlesHTML = docs.map(doc => {
@@ -80,31 +63,28 @@ function createArticles(results) {
         `;
     });
 
-    return articlesHTML.join('');
+    return docs.length != 0 ? articlesHTML.join('') : null;
+}
+
+function getUpdatedHTML(articles, input) {
+    const updatedHTML = html.replace(/id="searchInput"/g, `id="searchInput" value="${input}"`)
+    return articles ? updatedHTML.replace('<p>No results found</p>', articles)
+                    : updatedHTML
 }
 
 app.get('/', (req, res) => {
-    const html = fs.readFileSync(path.join(htmlPath, 'index.html'), 'utf8');
     res.send(html);
 });
 
 app.get('/search', async (req, res) => {
     const input = req.query.input;
-    const results = await getResults(input);
+    console.log("input é")
+    console.log(input)
+    const results = await getAPIResults(input);
     const articles = createArticles(results);
-    
-    // Enviar HTML completo com a seção preenchida
-    const updatedHTML = getUpdatedHTML(articles);
+    const updatedHTML = getUpdatedHTML(articles, input);
     res.send(updatedHTML);
 });
-
-function getUpdatedHTML(articles) {
-    let html = fs.readFileSync(path.join(htmlPath, 'index.html'), 'utf8');
-    if (articles) {
-        html = html.replace('<p>No results found</p>', articles);
-    }
-    return html;
-}
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
