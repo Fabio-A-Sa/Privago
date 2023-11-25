@@ -84,13 +84,13 @@ async function createReviewsHTML(results, isSearchPage) {
         const hotelId = doc.id.split('/')[0]
         const hotel = await getHotelInfo(hotelId);
         const hotelInfoHTML = isSearchPage 
-                                ? `<h5>Regarding <a href="/hotel?id=${hotelId}">${hotel.name}</a> with ${hotel.average_rate} stars in ${hotel.location}</h5>` 
+                                ? `<h3><a href="/hotel?id=${hotelId}">${hotel.name}</a> with ${hotel.average_rate} stars in ${hotel.location}</h3>` 
                                 : '' ;
         return `
             <article class="review">
-                <h3>In ${doc.date}, given rate: ${doc.rate} stars</h3>
-                <h4>${doc.text}</h4>
                 ${hotelInfoHTML}
+                <h4>"${doc.text}"</h4>
+                <h5>${doc.date}. Rate: ${doc.rate} stars</h5>
             </article>
         `;
     }));
@@ -101,10 +101,10 @@ async function createReviewsHTML(results, isSearchPage) {
 function createHotelHTML(hotel) {
     return `
         <article class="hotel">
-            <h3>${hotel.name}, with ${hotel.average_rate} stars</h3>
-            <h4>In ${hotel.location}</h4>
+            <h3><a href="/hotel?id=${hotel.id}">${hotel.name}</a></h3>
+            <h4>${hotel.average_rate} stars, in ${hotel.location}</h4>
         </article>
-        `
+    `
 }
 
 function createHotelsHTML(hotels) {
@@ -132,8 +132,6 @@ function getUpdatedHotelPage(hotel, reviews) {
 // home page
 app.get('/', async (req, res) => {
     const hotels = await getHotels(20);
-    console.log("something")
-    console.log(hotels);
     const html = hotels ? homePage.replace('<p>No hotels found</p>', createHotelsHTML(hotels))
                         : homePage
     res.send(html);

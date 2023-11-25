@@ -15,6 +15,12 @@ header {
   padding: 1em;
 }
 
+h1 a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 section {
   flex: 1;
   padding: 20px;
@@ -23,7 +29,7 @@ section {
   align-items: center;
 }
 
-.searchBar {
+.search {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -43,25 +49,83 @@ button {
   cursor: pointer;
 }
 
-.searchResults {
-  margin-top: 20px;
-  list-style: none;
-  padding: 0;
+.reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px; 
+  margin: 0 auto;
   overflow-y: auto;
 }
 
-.searchResult {
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  padding: 15px;
+.review {
   background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  max-width: 80%;
+  min-width: 80%;
+}
+
+.review h3 {
+  color: #333;
+  font-size: 1em;
+  margin-bottom: 8px;
+}
+
+.review h4 {
+  color: #555;
+  font-size: 0.9em;
+  margin-bottom: 8px;
+}
+
+.review h5 {
+  color: #777;
+  font-size: 0.8em;
+}
+
+.hotels {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.hotel {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+}
+
+.hotel h3 {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.hotel h4 {
+  color: #555;
+  font-size: 1em;
+  margin-bottom: 8px;
+}
+
+.hotel a {
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 0.9em;
 }
 
 footer {
-  margin-top: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 1em;
+  padding: 0.5em;
 }
