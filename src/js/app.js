@@ -37,7 +37,6 @@ async function getAPIResults(input) {
     }
 }
 
-
 async function getResults(input) {
     const results = await getAPIResults(input);
     // HTML
@@ -47,4 +46,9 @@ async function getResults(input) {
 async function search() {
     const input = document.getElementById('searchInput').value;
     document.querySelector('.searchResults').innerHTML = await getResults(input);
+}
+
+async function search() {
+    const input = document.querySelector('#searchInput').value;
+    window.location.href = `/search?input=${input}`;
 }

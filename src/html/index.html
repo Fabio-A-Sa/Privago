@@ -12,14 +12,12 @@
   </header>
 
   <section class="searchBar">
-    <form id="searchForm" action="/search" method="GET">
-      <input type="text" name="searchInput" placeholder="Search...">
-      <button type="submit" id="searchButton">Search</button>
-    </form>
+    <input type="text" name="searchInput" id="searchInput" placeholder="Search...">
+    <button type="submit" onclick="search()">Search</button>
   </section>
 
   <section class="searchResults">
-    <!-- Os resultados da pesquisa aparecerão aqui após a recarga da página -->
+    <p>No results found</p>
   </section>
 
   <footer>
