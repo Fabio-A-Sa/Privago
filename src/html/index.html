@@ -11,10 +11,15 @@
     <h1>Privago</h1>
   </header>
 
-  <section>
-    <input type="text" id="searchInput" placeholder="Search...">
-    <button onclick="search()">Search</button>
-    <div id="results"></div>
+  <section class="searchBar">
+    <form id="searchForm" action="/search" method="GET">
+      <input type="text" name="searchInput" placeholder="Search...">
+      <button type="submit" id="searchButton">Search</button>
+    </form>
+  </section>
+
+  <section class="searchResults">
+    <!-- Os resultados da pesquisa aparecerão aqui após a recarga da página -->
   </section>
 
   <footer>
