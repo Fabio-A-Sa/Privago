@@ -1,6 +1,6 @@
 {
     "endpoint" : "http://localhost:8983/solr/hotels/select?",
-    "commonParameters" : {
+    "parameters" : {
         "indent" : "true",
         "q.op" : "AND",
         "fq" : "{!child of=\"*:* -_nest_path_:*\"}location:*",
