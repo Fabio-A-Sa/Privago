@@ -63,7 +63,7 @@ async function getReviews(searchInput) {
 }
 
 async function getHotels(limit) {
-    const request = `${CONFIG.endpoint}q=name:n&rows=${limit}`;
+    const request = `${CONFIG.endpoint}q=name:n&rows=${limit}&sort=average_rate%20desc`;
     return (await getResponse(request)).response.docs;
 }
 
@@ -98,9 +98,9 @@ async function createReviewsHTML(results, isSearchPage) {
     return docs.length !== 0 ? articlesHTML.join('') : null;
 }
 
-function createHotelHTML(hotel) {
+function createHotelHTML(hotel, hotelPage) {
     return `
-        <article class="hotel">
+        <article class="${hotelPage ? '' : 'hotel'}">
             <h3><a href="/hotel?id=${hotel.id}">${hotel.name}</a></h3>
             <h4>${hotel.average_rate} stars, in ${hotel.location}</h4>
         </article>
@@ -110,7 +110,7 @@ function createHotelHTML(hotel) {
 function createHotelsHTML(hotels) {
     let hotelsHTML = '';
     hotels.forEach(hotel => {
-        hotelsHTML += createHotelHTML(hotel);
+        hotelsHTML += createHotelHTML(hotel, false);
     });
     return hotelsHTML;
 }
@@ -124,7 +124,7 @@ function getUpdatedSearchPage(reviews, input) {
 
 function getUpdatedHotelPage(hotel, reviews) {
     let updatedHTML = hotelPage;
-    if (hotel) updatedHTML = updatedHTML.replace('<p>No hotel found</p>', createHotelHTML(hotel));
+    if (hotel) updatedHTML = updatedHTML.replace('<p>No hotel found</p>', createHotelHTML(hotel, true));
     if (reviews) updatedHTML = updatedHTML.replace('<p>No reviews found</p>', reviews);
     return updatedHTML;
 }   
