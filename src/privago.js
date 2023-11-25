@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
+const { response } = require('express');
 
 // paths
 const cssPath = path.join(__dirname, 'css');
@@ -11,6 +12,7 @@ const jsPath = path.join(__dirname, 'js');
 const htmlPath = path.join(__dirname, 'html');
 
 // constants
+const PORT = process.argv[2] || 3000;
 const CONFIG = {
     "endpoint" : "http://localhost:8983/solr/hotels/select?",
     "parameters" : {
@@ -28,9 +30,13 @@ const CONFIG = {
     }
 }
 
-const port = process.argv[2] || 3000;
-const html = fs.readFileSync(path.join(htmlPath, 'index.html'), 'utf8');
+// pages
+const baseStructure = fs.readFileSync(path.join(htmlPath, 'base.html'), 'utf8');
+const homePage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'home.html'), 'utf8'))
+const searchPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'search.html'), 'utf8'))
+const hotelPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'hotel.html'), 'utf8'))
 
+// dependencies
 app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -56,6 +62,11 @@ async function getReviews(searchInput) {
     return await getResponse(request);
 }
 
+async function getHotels(limit) {
+    const request = `${CONFIG.endpoint}q=name:n&rows=${limit}`;
+    return (await getResponse(request)).response.docs;
+}
+
 async function getHotelInfo(hotelId) {
     const request = `${CONFIG.endpoint}q=id:${hotelId}&rows=${CONFIG.parameters.rows}`;
     return (await getResponse(request)).response.docs[0]
@@ -66,18 +77,20 @@ async function getHotelReviews(hotelId) {
     return await getResponse(request)
 }
 
-// TODO: create articles based on hotels page or search page
-async function createArticles(results) {
+async function createReviewsHTML(results, isSearchPage) {
     const docs = results.response.docs;
     const articlesHTML = await Promise.all(docs.map(async doc => {
+
         const hotelId = doc.id.split('/')[0]
         const hotel = await getHotelInfo(hotelId);
+        const hotelInfoHTML = isSearchPage 
+                                ? `<h5>Regarding <a href="/hotel?id=${hotelId}">${hotel.name}</a> with ${hotel.average_rate} stars in ${hotel.location}</h5>` 
+                                : '' ;
         return `
-            <article>
-                <h3>${doc.date}</h3>
-                <p>${doc.rate}</p>
-                <p>${doc.text}</p>
-                <p>Regarding <a href="/hotel?id=${hotelId}">${hotel.name}</a> with ${hotel.average_rate} stars in ${hotel.location}</p>
+            <article class="review">
+                <h3>In ${doc.date}, given rate: ${doc.rate} stars</h3>
+                <h4>${doc.text}</h4>
+                ${hotelInfoHTML}
             </article>
         `;
     }));
@@ -85,32 +98,67 @@ async function createArticles(results) {
     return docs.length !== 0 ? articlesHTML.join('') : null;
 }
 
-function getUpdatedHTML(articles, input) {
-    const updatedHTML = html.replace(/id="searchInput"/g, `id="searchInput" value="${input}"`)
-    return articles ? updatedHTML.replace('<p>No results found</p>', articles)
-                    : updatedHTML
+function createHotelHTML(hotel) {
+    return `
+        <article class="hotel">
+            <h3>${hotel.name}, with ${hotel.average_rate} stars</h3>
+            <h4>In ${hotel.location}</h4>
+        </article>
+        `
 }
 
-app.get('/', (req, res) => {
+function createHotelsHTML(hotels) {
+    let hotelsHTML = '';
+    hotels.forEach(hotel => {
+        hotelsHTML += createHotelHTML(hotel);
+    });
+    return hotelsHTML;
+}
+
+function getUpdatedSearchPage(reviews, input) {
+    let updatedHTML = searchPage;
+    if (input) updatedHTML = updatedHTML.replace(/id="searchInput"/g, `id="searchInput" value="${input}"`)
+    if (reviews) updatedHTML = updatedHTML.replace('<p>No results found</p>', reviews)
+    return updatedHTML;
+}
+
+function getUpdatedHotelPage(hotel, reviews) {
+    let updatedHTML = hotelPage;
+    if (hotel) updatedHTML = updatedHTML.replace('<p>No hotel found</p>', createHotelHTML(hotel));
+    if (reviews) updatedHTML = updatedHTML.replace('<p>No reviews found</p>', reviews);
+    return updatedHTML;
+}   
+
+// home page
+app.get('/', async (req, res) => {
+    const hotels = await getHotels(20);
+    console.log("something")
+    console.log(hotels);
+    const html = hotels ? homePage.replace('<p>No hotels found</p>', createHotelsHTML(hotels))
+                        : homePage
     res.send(html);
 });
 
+// search page
 app.get('/search', async (req, res) => {
-    const input = req.query.input;
-    const results = await getReviews(input);
-    const articles = await createArticles(results);
-    const updatedHTML = getUpdatedHTML(articles, input);
+    const input = req?.query?.input;
+    const reviews = await getReviews(input);
+    const reviewsHTML = await createReviewsHTML(reviews, true);
+    const updatedHTML = getUpdatedSearchPage(reviewsHTML, input);
     res.send(updatedHTML);
 });
 
+// hotel page
 app.get('/hotel', async (req, res) => {
-    const id = req.query.id;
+    const id = req?.query?.id;
     const results = await getHotelReviews(id);
-    const articles = await createArticles(results);
-    const updatedHTML = getUpdatedHTML(articles, 'nothing for now');
+    const hotel = await getHotelInfo(id);
+    const reviewsHTML = await createReviewsHTML(results, false);
+    const updatedHTML = getUpdatedHotelPage(hotel, reviewsHTML);
     res.send(updatedHTML);
 });
 
-app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+// create server
+app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`);
 });
