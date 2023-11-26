@@ -65,7 +65,7 @@ async function getReviews(searchInput) {
 
 // Fetch hotels with a specified limit
 async function getHotels(limit) {
-    const request = `${CONFIG.endpoint}q=name:n&rows=${limit}&sort=average_rate%20desc`;
+    const request = `${CONFIG.endpoint}q=name:*&rows=${limit}&sort=average_rate%20desc`;
     return (await getResponse(request)).response.docs;
 }
 
