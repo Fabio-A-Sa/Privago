@@ -3,3 +3,5 @@ __pycache__
 .DS_Store
 solr/synonyms_*
 solr/stopwords.txt
+node_modules
+package-lock.json
