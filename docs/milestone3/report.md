@@ -9,7 +9,7 @@
 
 ## TODO
 
-- Colocar em anexos uma tabela com Q,I,Hotel,Bool para o professor conseguir investigar a veracidade da relevância de cada query feita neste M3;
+- Colocar em anexos uma tabela com Q,I,Hotel,Bool para o professor conseguir investigar a veracidade da relevância de cada query feita neste M3. Dúvida: colocar a query dá, os resultados nem por isso: é muito texto. só o nome do hotel não quer dizer muito mas colocar o comentário todo é impossível às vezes (na maioria delas);
 - Melhorar o report anterior segundo a Milestone 2 feedback;
 - Eliminar a secção 8 e colocar as seguintes:
 
@@ -23,6 +23,7 @@ Introdução. Falar que os sinónimos e tokens simples da etapa anterior não re
 
 ### B. 
 
+- Não tenho bem a certeza do nome a dar a isto :(
 - `Sentimental and contextual analysis` is relevant, given that the main source of information for the system is reviews, which inherently carry subjective connotations;
 
 ### C. Learning To Rank
@@ -31,11 +32,13 @@ Pensar neste improvement.
 
 ### D. More Like This
 
-Pensar neste improvement.
+Pensar neste improvement. Será que faz sentido para o nosso caso?
 
 ## 9. User Interface
 
 Introdução. Motivo, não só pelo Solr ser horrível. Talvez imagens só nos anexos.
+
+Ver exatamente as features que queremos para a web interface. definir ordenações, limites de busca na API...
 
 ## 10. Conclusions and Future Work
 
