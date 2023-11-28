@@ -9,36 +9,39 @@
 
 ## TODO
 
-- Colocar em anexos uma tabela com Q,I,Hotel,Bool para o professor conseguir investigar a veracidade da relevância de cada query feita neste M3. Dúvida: colocar a query dá, os resultados nem por isso: é muito texto. só o nome do hotel não quer dizer muito mas colocar o comentário todo é impossível às vezes (na maioria delas);
-- Melhorar o report anterior segundo a Milestone 2 feedback;
+> Colocar em anexo os resultados de cada query para servir de apoio à avaliação. O que colocar? Query, index, relevant/n-relevant, o nome do hotel, a review? <br>
+
+- Melhorar o report anterior de acordo com o feedback da Milestone 2;
+- Atualizar o Abstract agora com informação de objectivos e resultados da Milestone 3;
 - Eliminar a secção 8 e colocar as seguintes:
 
 ## 8. Information Retrieval Improvements
 
-Introdução. Falar que os sinónimos e tokens simples da etapa anterior não resolvem alguns problemas.
+> A avaliação desta parte será individual, ou seja, avaliação a cada improvement. Na Milestone 2 tínhamos 4 queries, nesta fase podemos colocar só 2 queries? O espaço é limitado. <br>
 
-### A. Stop Words
+> Avaliação por cada tópico, A, B, C ou avaliação no final? (separada claro) <br>
 
-- The `Stop Words` [X7] filter can be applied to `boosted_text` to reduce sensitivity to common words;
+### A. Stop Words    
 
-### B. 
+Stop Words, para que o search system faça skip de palavras comuns tanto em queries como em results.
 
-- Não tenho bem a certeza do nome a dar a isto :(
-- `Sentimental and contextual analysis` is relevant, given that the main source of information for the system is reviews, which inherently carry subjective connotations;
+### B. Contextual Analysis
 
-### C. Learning To Rank
+> Para isto existe o Apache OpenNPL e o Tutorial do Sérgio <br>
 
-Pensar neste improvement.
+Given that the main source of information for the system is reviews, which inherently carry subjective connotations.
 
-### D. More Like This
+### C. More Like This
 
-Pensar neste improvement. Será que faz sentido para o nosso caso?
+A partir de um document (review, hotel), encontrar outro semelhante.
+
+> O professor considera estes pontos suficientes, dado que já tínhamos alguns improvements bons na Milestone 2?
 
 ## 9. User Interface
 
-Introdução. Motivo, não só pelo Solr ser horrível. Talvez imagens só nos anexos.
+> Como avaliar? Meter uma pessoa a fazer queries em solr e depois na web app? Contar cliques, fazer formulário, tempo, a pessoa dizer se os resultados são relevantes ou não.
 
-Ver exatamente as features que queremos para a web interface. definir ordenações, limites de busca na API...
+Ver exatamente as features que queremos para a web interface. definir ordenações, limites de busca na API, entre outros. Implementar paginação de results, para uma melhor performance.
 
 ## 10. Conclusions and Future Work
 
@@ -57,6 +60,6 @@ In the next phase, work will be done on user interfaces by developing a frontend
 
 ## References
 
-Todos os anteriores mais:
+Todas as anteriores mais:
 
 - 
