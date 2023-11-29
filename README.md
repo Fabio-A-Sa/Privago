@@ -43,7 +43,7 @@ python3 evaluation.py <1,2,3,4>     # for individual evaluation of milestone 2 q
 python3 evaluation.py <5,6,7,8>     # for individual evaluation of milestone 3 queries
 ```
 
-## Data
+## Manipulated Data
 
 ### Data Domain Model
 
