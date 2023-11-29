@@ -10,6 +10,7 @@
 ## TODO
 
 > Colocar em anexo os resultados de cada query para servir de apoio à avaliação. O que colocar? Query, index, relevant/n-relevant, o nome do hotel, a review? <br>
+> Colocar um ficheiro no código com isso? <br>
 
 - Melhorar o report anterior de acordo com o feedback da Milestone 2;
 - Atualizar o Abstract agora com informação de objectivos e resultados da Milestone 3;
@@ -17,7 +18,7 @@
 
 ## 8. Information Retrieval Improvements
 
-> A avaliação desta parte será individual, ou seja, avaliação a cada improvement. Na Milestone 2 tínhamos 4 queries, nesta fase podemos colocar só 2 queries? O espaço é limitado. <br>
+> A avaliação desta parte será individual, ou seja, avaliação a cada improvement. Na Milestone 2 tínhamos 4 queries, nesta fase podemos colocar só 3 queries? O espaço é limitado. <br>
 
 > Avaliação por cada tópico, A, B, C ou avaliação no final? (separada claro) <br>
 
@@ -27,21 +28,46 @@ Stop Words, para que o search system faça skip de palavras comuns tanto em quer
 
 ### B. Contextual Analysis
 
-> Para isto existe o Apache OpenNPL e o Tutorial do Sérgio <br>
+> Para isto existe o Apache OpenNLP e o Tutorial do Sérgio <br>
 
 Given that the main source of information for the system is reviews, which inherently carry subjective connotations.
 
 ### C. More Like This
 
 A partir de um document (review, hotel), encontrar outro semelhante.
-
-> O professor considera estes pontos suficientes, dado que já tínhamos alguns improvements bons na Milestone 2?
+Avaliar a qualidade do sistema a encontrar resultados semelhantes.
+Talvez avaliar em python o result principal e os X primeiros. Ver uma biblioteca que faça isso
+Depois disto usar.
 
 ## 9. User Interface
 
-> Como avaliar? Meter uma pessoa a fazer queries em solr e depois na web app? Contar cliques, fazer formulário, tempo, a pessoa dizer se os resultados são relevantes ou não.
+> Como avaliar? Meter uma pessoa a fazer queries em solr e depois na web app? Contar cliques, fazer formulário, tempo, a pessoa dizer se os resultados são relevantes ou não. Valor de referência, estudos.
 
 Ver exatamente as features que queremos para a web interface. definir ordenações, limites de busca na API, entre outros. Implementar paginação de results, para uma melhor performance.
+
+- Filtros (a meter tanto na home como na search):
+    - location (drop down)
+    - rating (1+, 2+, 3+, +4, 5) -> bolinhas do ávila
+    - average_rating (1+, 2+, 3+, +4, 5) -> bolinhas do ávila
+
+Homepage:
+    - rating average descendente
+    - limit = 20 hotels melhores
+
+Search page:
+    - paginação (até 10 * 10)
+    - limite de results = 10 por página
+    - 1,2..limit (=10 na maioria dos casos)
+
+Hotels page:
+    - paginação (até 10 * 10)
+    - limite de results = 10 por página
+    - Igual à search page
+
+More like this page:
+    - Botão em todas reviews na search page (não tem na home, nem na hotels, nem nesta)
+    - a mesma cena que a query normal, só que coisa
+    - a avaliação com python (?)
 
 ## 10. Conclusions and Future Work
 

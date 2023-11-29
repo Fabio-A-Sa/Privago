@@ -60,7 +60,9 @@ async function getResponse(request) {
 // Fetch reviews based on search input
 async function getReviews(searchInput) {
     const request = `${CONFIG.endpoint}q=${searchInput}&${new URLSearchParams(CONFIG.parameters)}`;
-    return await getResponse(request);
+    const output =  await getResponse(request);
+    console.log(output);
+    return output;
 }
 
 // Fetch hotels with a specified limit
