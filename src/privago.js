@@ -62,14 +62,27 @@ async function getResponse(request) {
 }
 
 // Fetch reviews based on search input
-async function getReviews(searchInput, location) {
-    console.log(location);
-    const queryLocation = `{!child of=\"*:* -_nest_path_:*\"}location:` + (
-        location ? location.split(' ')[0] : '*'
+async function getReviews(params) {
+
+    // Filter: Location
+    const queryLocation = `&fq={!child of=\"*:* -_nest_path_:*\"}location:` + (
+        params.location ? params.location.split(' ')[0] : '*'
     )
-    console.log(queryLocation)
-    const request = `${CONFIG.endpoint}q=${searchInput}&${new URLSearchParams(CONFIG.parameters)}&fq=${queryLocation}`;
-    return await getResponse(request);
+
+    // Filter: Common parameters
+    const request = `${CONFIG.endpoint}q=${params.input}&${new URLSearchParams(CONFIG.parameters)}${queryLocation}`;
+    let reviews = (await getResponse(request)).response.docs;
+
+    // Filter: review rate
+    if (params.rrmin && params.rrmax && (params.rrmin <= params.rrmax)) {
+        reviews = reviews.filter((review) => review.rate <= params.rrmax && review.rate >= params.rrmin)
+    }
+
+    // Filter: hotel average rate
+    // TODO
+    
+    console.log(reviews);
+    return reviews;
 }
 
 // Fetch hotels with a specified limit
@@ -123,8 +136,7 @@ function transformText(text, query) {
 }
 
 // Create HTML for reviews
-async function createReviewsHTML(results, isSearchPage, query = null) {
-    const docs = results.response.docs;
+async function createReviewsHTML(docs, isSearchPage, query = null) {
     const articlesHTML = await Promise.all(docs.map(async doc => {
 
         const hotelId = doc.id.split('/')[0]
@@ -210,7 +222,14 @@ app.get('/', async (req, res) => {
 app.get('/search', async (req, res) => {
     const input = req?.query?.input;
     const location = req?.query?.location;
-    const reviews = await getReviews(input, location);
+    const reviews = await getReviews({
+        input: input,
+        location: location,
+        rrmin: req?.query?.rrmin,
+        rrmax: req?.query?.rrmax,
+        hrmin: req?.query?.hrmin,
+        hrmax: req?.query?.hrmax,
+    });
     const reviewsHTML = await createReviewsHTML(reviews, true, input);
     const updatedHTML = getUpdatedSearchPage(reviewsHTML, input, location);
     res.send(updatedHTML);
