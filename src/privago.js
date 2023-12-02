@@ -31,10 +31,14 @@ const CONFIG = {
 let LOCATIONS;
 
 // pages
-const baseStructure = fs.readFileSync(path.join(htmlPath, 'base.html'), 'utf8');
-const homePage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'home.html'), 'utf8'))
-const searchPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'search.html'), 'utf8'))
-const hotelPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'hotel.html'), 'utf8'))
+const baseStructure = fs.readFileSync(path.join(htmlPath, 'base-page.html'), 'utf8');
+const homePage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'home-page.html'), 'utf8')).replace(
+    '<locations></locations>', selectLocations(),
+);
+const searchPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'search-page.html'), 'utf8')).replace(
+    '<locations></locations>', selectLocations(),
+);
+const hotelPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'hotel-page.html'), 'utf8'))
 
 // dependencies
 app.use(cors());
@@ -113,7 +117,6 @@ function transformText(text, query) {
             text_tokens[i] = `<b>${text_tokens[i]}</b>`;
         }
     }
-
     return text_tokens.join(' ');
 }
 
@@ -139,6 +142,16 @@ async function createReviewsHTML(results, isSearchPage, query = null) {
     }));
 
     return docs.length !== 0 ? articlesHTML.join('') : null;
+}
+
+// Create HTML for selecting hotels location
+function selectLocations() {
+    getLocations();
+    let htmlString = '<select name="location" id="location"><option value="any" selected>Any</option>';
+    LOCATIONS.forEach(location => {
+        htmlString += `<option value="${location}">${location}</option>`;
+    });
+    return htmlString + '</select>';
 }
 
 // Create HTML for a single hotel
@@ -206,5 +219,4 @@ app.get('/hotel', async (req, res) => {
 // create server
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
-    getLocations();
 });
