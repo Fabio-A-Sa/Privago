@@ -12,6 +12,8 @@ const htmlPath = path.join(__dirname, 'html');
 
 // constants
 let LOCATIONS;
+const HOTELS_LIMIT = 20;
+const REVIEWS_LIMIT = 20;
 const PORT = process.argv[2] || 3000;
 const CONFIG = {
     "endpoint" : "http://localhost:8983/solr/hotels/select?",
@@ -65,9 +67,7 @@ async function getResponse(request) {
 }
 
 // Fetch reviews based on search inputs
-async function getReviews(params) {
-
-    console.log(JSON.stringify(params));
+async function getReviews(params, limit = REVIEWS_LIMIT) {
 
     // Filter: location
     const queryLocation = `&fq={!child of=\"*:* -_nest_path_:*\"}location:` + (
@@ -95,11 +95,12 @@ async function getReviews(params) {
         }).filter((review) => review);
     }
 
-    return reviews;
+    // Limitation
+    return reviews.length <= limit ? reviews : reviews.slice(0, limit) ;
 }
 
 // Fetch hotels with a specified limit
-async function getHotels(limit) {
+async function getHotels(limit = HOTELS_LIMIT) {
     const request = `${CONFIG.endpoint}q=name:*&rows=${limit}&sort=average_rate%20desc`;
     return (await getResponse(request)).response.docs;
 }
