@@ -18,7 +18,6 @@ const CONFIG = {
     "parameters" : {
         "indent" : "true",
         "q.op" : "AND",
-        "fq" : "{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort" : "score desc",
         "start" : "0",
         "rows" : "20",
@@ -63,8 +62,13 @@ async function getResponse(request) {
 }
 
 // Fetch reviews based on search input
-async function getReviews(searchInput) {
-    const request = `${CONFIG.endpoint}q=${searchInput}&${new URLSearchParams(CONFIG.parameters)}`;
+async function getReviews(searchInput, location) {
+    console.log(location);
+    const queryLocation = `{!child of=\"*:* -_nest_path_:*\"}location:` + (
+        location ? location.split(' ')[0] : '*'
+    )
+    console.log(queryLocation)
+    const request = `${CONFIG.endpoint}q=${searchInput}&${new URLSearchParams(CONFIG.parameters)}&fq=${queryLocation}`;
     return await getResponse(request);
 }
 
@@ -173,7 +177,6 @@ function createHotelsHTML(hotels) {
 
 // Update the search page with results and search input
 function getUpdatedSearchPage(reviews, input, location) {
-    console.log()
     let updatedHTML = searchPage;
     if (input) updatedHTML = updatedHTML.replace(/id="searchInput"/g, `id="searchInput" value="${input}"`)
     if (location && location !== 'Any') {
