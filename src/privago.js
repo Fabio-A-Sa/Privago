@@ -20,7 +20,7 @@ const CONFIG = {
         "q.op" : "AND",
         "sort" : "score desc",
         "start" : "0",
-        "rows" : "20",
+        "rows" : "200",
         "fl" : "*, [child]",
         "defType" : "edismax",
         "qf" : "text^7 name location^2",
@@ -61,15 +61,17 @@ async function getResponse(request) {
     return await response.json();
 }
 
-// Fetch reviews based on search input
+// Fetch reviews based on search inputs
 async function getReviews(params) {
 
-    // Filter: Location
+    console.log(JSON.stringify(params));
+
+    // Filter: location
     const queryLocation = `&fq={!child of=\"*:* -_nest_path_:*\"}location:` + (
-        params.location ? params.location.split(' ')[0] : '*'
+        (params.location && params.location !== 'Any') ? params.location.split(' ')[0] : '*'
     )
 
-    // Filter: Common parameters
+    // Filter: common parameters
     const request = `${CONFIG.endpoint}q=${params.input}&${new URLSearchParams(CONFIG.parameters)}${queryLocation}`;
     let reviews = (await getResponse(request)).response.docs;
 
@@ -79,9 +81,21 @@ async function getReviews(params) {
     }
 
     // Filter: hotel average rate
-    // TODO
+    if (params.hrmin && params.hrmax && (params.hrmin <= params.hrmax)) {
+        const hotelRates = await Promise.all(reviews.map(async (review) => {
+            const hotelRate = (await getHotelInfo(review.id.split('/')[0])).average_rate[0];
+            console.log(hotelRate);
+            return { review, hotelRate };
+        }));
     
-    console.log(reviews);
+        reviews = hotelRates.map(({ review, hotelRate }) => {
+            if (hotelRate >= params.hrmin && hotelRate <= params.hrmax) return review;
+        }).filter((review) => review);
+
+        
+    }
+    
+    console.log("----------------------");
     return reviews;
 }
 
