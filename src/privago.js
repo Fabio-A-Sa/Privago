@@ -11,6 +11,7 @@ const jsPath = path.join(__dirname, 'js');
 const htmlPath = path.join(__dirname, 'html');
 
 // constants
+let LOCATIONS;
 const PORT = process.argv[2] || 3000;
 const CONFIG = {
     "endpoint" : "http://localhost:8983/solr/hotels/select?",
@@ -28,7 +29,6 @@ const CONFIG = {
         "ps" : 3
     }
 }
-let LOCATIONS;
 
 // pages
 const baseStructure = fs.readFileSync(path.join(htmlPath, 'base-page.html'), 'utf8');
@@ -42,7 +42,7 @@ const hotelPage = baseStructure.replace('<main></main>', fs.readFileSync(path.jo
 
 // dependencies
 app.use(cors());
-app.use((req, res, next) => {
+app.use((_, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -65,9 +65,7 @@ async function getResponse(request) {
 // Fetch reviews based on search input
 async function getReviews(searchInput) {
     const request = `${CONFIG.endpoint}q=${searchInput}&${new URLSearchParams(CONFIG.parameters)}`;
-    const output =  await getResponse(request);
-    console.log(output);
-    return output;
+    return await getResponse(request);
 }
 
 // Fetch hotels with a specified limit
@@ -147,7 +145,7 @@ async function createReviewsHTML(results, isSearchPage, query = null) {
 // Create HTML for selecting hotels location
 function selectLocations() {
     getLocations();
-    let htmlString = '<select name="location" id="location"><option value="any" selected>Any</option>';
+    let htmlString = '<select name="location" id="location"><option value="Any" selected>Any</option>';
     LOCATIONS.forEach(location => {
         htmlString += `<option value="${location}">${location}</option>`;
     });
@@ -174,9 +172,17 @@ function createHotelsHTML(hotels) {
 }
 
 // Update the search page with results and search input
-function getUpdatedSearchPage(reviews, input) {
+function getUpdatedSearchPage(reviews, input, location) {
+    console.log()
     let updatedHTML = searchPage;
     if (input) updatedHTML = updatedHTML.replace(/id="searchInput"/g, `id="searchInput" value="${input}"`)
+    if (location && location !== 'Any') {
+        updatedHTML = updatedHTML.replace(
+            '<option value="Any" selected="">Any</option>', '<option value="Any">Any</option>'
+        ).replace(
+            `<option value="${location}">${location}</option>`, `<option value="${location}" selected="">${location}</option>`
+        )
+    }
     if (reviews) updatedHTML = updatedHTML.replace('<p>No results found</p>', reviews)
     return updatedHTML;
 }
@@ -200,9 +206,10 @@ app.get('/', async (req, res) => {
 // search page
 app.get('/search', async (req, res) => {
     const input = req?.query?.input;
-    const reviews = await getReviews(input);
+    const location = req?.query?.location;
+    const reviews = await getReviews(input, location);
     const reviewsHTML = await createReviewsHTML(reviews, true, input);
-    const updatedHTML = getUpdatedSearchPage(reviewsHTML, input);
+    const updatedHTML = getUpdatedSearchPage(reviewsHTML, input, location);
     res.send(updatedHTML);
 });
 
