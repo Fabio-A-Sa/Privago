@@ -96,6 +96,7 @@ async function getReviews(params, limit = REVIEWS_LIMIT) {
     }
 
     // Limitation
+    return reviews;
     return reviews.length <= limit ? reviews : reviews.slice(0, limit) ;
 }
 
@@ -131,9 +132,9 @@ async function getHotelInfo(hotelId) {
 }
 
 // Fetch reviews of a hotel based on ID
-async function getHotelReviews(hotelId) {
-    const request = `${CONFIG.endpoint}q=id:${hotelId}/*&rows=1000`;
-    return await getResponse(request)
+async function getHotelReviews(hotelId, limit = REVIEWS_LIMIT) {
+    const request = `${CONFIG.endpoint}q=id:${hotelId}/*&rows=${limit}`;
+    return (await getResponse(request)).response.docs;
 }
 
 // Transforms specified query tokens in a given text into bold format.
