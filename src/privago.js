@@ -20,7 +20,7 @@ const CONFIG = {
         "q.op" : "AND",
         "sort" : "score desc",
         "start" : "0",
-        "rows" : "200",
+        "rows" : "100",
         "fl" : "*, [child]",
         "defType" : "edismax",
         "qf" : "text^7 name location^2",
@@ -28,6 +28,9 @@ const CONFIG = {
         "ps" : 3
     }
 }
+const RANGES = [
+    'rrmin', 'rrmax', 'hrmin', 'hrmax'
+]
 
 // pages
 const baseStructure = fs.readFileSync(path.join(htmlPath, 'base-page.html'), 'utf8');
@@ -84,18 +87,14 @@ async function getReviews(params) {
     if (params.hrmin && params.hrmax && (params.hrmin <= params.hrmax)) {
         const hotelRates = await Promise.all(reviews.map(async (review) => {
             const hotelRate = (await getHotelInfo(review.id.split('/')[0])).average_rate[0];
-            console.log(hotelRate);
             return { review, hotelRate };
         }));
     
         reviews = hotelRates.map(({ review, hotelRate }) => {
             if (hotelRate >= params.hrmin && hotelRate <= params.hrmax) return review;
         }).filter((review) => review);
-
-        
     }
-    
-    console.log("----------------------");
+
     return reviews;
 }
 
@@ -201,18 +200,39 @@ function createHotelsHTML(hotels) {
     return hotelsHTML;
 }
 
-// Update the search page with results and search input
-function getUpdatedSearchPage(reviews, input, location) {
+// Update the search page with results and search inputs
+function getUpdatedSearchPage(reviews, params) {
+
     let updatedHTML = searchPage;
-    if (input) updatedHTML = updatedHTML.replace(/id="searchInput"/g, `id="searchInput" value="${input}"`)
-    if (location && location !== 'Any') {
+
+    // Update input
+    if (params.input) updatedHTML = updatedHTML.replace(/id="searchInput"/g, `id="searchInput" value="${params.input}"`)
+
+    // Update location
+    if (params.location && params.location !== 'Any') {
         updatedHTML = updatedHTML.replace(
             '<option value="Any" selected="">Any</option>', '<option value="Any">Any</option>'
         ).replace(
-            `<option value="${location}">${location}</option>`, `<option value="${location}" selected="">${location}</option>`
+            `<option value="${params.location}">${params.location}</option>`, 
+            `<option value="${params.location}" selected="">${params.location}</option>`
         )
     }
+
+    // Update ranges
+    RANGES.forEach((range) => {
+        if (params[range]) {
+
+            // Select the correct value
+            updatedHTML = updatedHTML.replace(
+                `<option class="${range}" value="${params[range]}">${params[range]}</option>`,
+                `<option class="${range}" value="${params[range]}" selected="">${params[range]}</option>`
+            );
+        }
+    });
+
+    // Update reviews
     if (reviews) updatedHTML = updatedHTML.replace('<p>No results found</p>', reviews)
+
     return updatedHTML;
 }
 
@@ -236,16 +256,17 @@ app.get('/', async (req, res) => {
 app.get('/search', async (req, res) => {
     const input = req?.query?.input;
     const location = req?.query?.location;
-    const reviews = await getReviews({
+    const params = {
         input: input,
         location: location,
         rrmin: req?.query?.rrmin,
         rrmax: req?.query?.rrmax,
         hrmin: req?.query?.hrmin,
         hrmax: req?.query?.hrmax,
-    });
+    };
+    const reviews = await getReviews(params);
     const reviewsHTML = await createReviewsHTML(reviews, true, input);
-    const updatedHTML = getUpdatedSearchPage(reviewsHTML, input, location);
+    const updatedHTML = getUpdatedSearchPage(reviewsHTML, params);
     res.send(updatedHTML);
 });
 
