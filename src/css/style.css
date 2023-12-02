@@ -169,6 +169,11 @@ h2 {
   text-decoration: underline;
 }
 
+.left {
+  margin-right: auto;
+  margin-left: 4em;
+}
+
 /* Footer section */
 
 footer {

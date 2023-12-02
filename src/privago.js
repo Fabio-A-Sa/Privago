@@ -96,7 +96,6 @@ async function getReviews(params, limit = REVIEWS_LIMIT) {
     }
 
     // Limitation
-    return reviews;
     return reviews.length <= limit ? reviews : reviews.slice(0, limit) ;
 }
 
@@ -134,7 +133,8 @@ async function getHotelInfo(hotelId) {
 // Fetch reviews of a hotel based on ID
 async function getHotelReviews(hotelId, limit = REVIEWS_LIMIT) {
     const request = `${CONFIG.endpoint}q=id:${hotelId}/*&rows=${limit}`;
-    return (await getResponse(request)).response.docs;
+    const reviews = (await getResponse(request)).response.docs;
+    return reviews.length <= limit ? reviews : reviews.slice(0, limit);
 }
 
 // Transforms specified query tokens in a given text into bold format.
@@ -170,7 +170,7 @@ async function createReviewsHTML(docs, isSearchPage, query = null) {
         `;
     }));
 
-    return docs.length !== 0 ? articlesHTML.join('') : null;
+    return docs.length !== 0 ? `<h3 class="left">${docs.length} results:</h3>` + articlesHTML.join('') : null;
 }
 
 // Create HTML for selecting hotels location
@@ -248,7 +248,7 @@ function getUpdatedHotelPage(hotel, reviews) {
 
 // home page
 app.get('/', async (req, res) => {
-    const hotels = await getHotels(20);
+    const hotels = await getHotels();
     const html = hotels ? homePage.replace('<p>No hotels found</p>', createHotelsHTML(hotels))
                         : homePage
     res.send(html);
