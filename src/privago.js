@@ -28,9 +28,7 @@ const CONFIG = {
         "ps" : 3
     }
 }
-
-// locations
-let locations;
+let LOCATIONS;
 
 // pages
 const baseStructure = fs.readFileSync(path.join(htmlPath, 'base.html'), 'utf8');
@@ -79,18 +77,16 @@ async function getLocations() {
 
     try {
         const locationsContent = fs.readFileSync('locations.json', 'utf8');
-        locations = JSON.parse(locationsContent);
+        LOCATIONS = JSON.parse(locationsContent);
 
     } catch (error) {
 
         const hotels = await getHotels(30000);
         const locationsSet = new Set(hotels.map((h) => h.location));
-        locations = Array.from(locationsSet).sort();
+        LOCATIONS = Array.from(locationsSet).sort();
 
         fs.writeFile('locations.json', JSON.stringify(locations, null, 2), (err) => {
-            if (err) {
-                throw err;
-            }
+            if (err) throw err;
         });
     }
 }
@@ -107,21 +103,37 @@ async function getHotelReviews(hotelId) {
     return await getResponse(request)
 }
 
+// Transforms specified query tokens in a given text into bold format.
+function transformText(text, query) {
+    let text_tokens = text.split(' ');
+    const query_tokens = query.toLowerCase().split(' ');
+
+    for (let i = 0; i < text_tokens.length; i++) {
+        if (query_tokens.includes(text_tokens[i].toLowerCase())) {
+            text_tokens[i] = `<b>${text_tokens[i]}</b>`;
+        }
+    }
+
+    return text_tokens.join(' ');
+}
+
 // Create HTML for reviews
-async function createReviewsHTML(results, isSearchPage) {
+async function createReviewsHTML(results, isSearchPage, query = null) {
     const docs = results.response.docs;
     const articlesHTML = await Promise.all(docs.map(async doc => {
 
         const hotelId = doc.id.split('/')[0]
         const hotel = await getHotelInfo(hotelId);
+        const text = query ? transformText(doc.text, query) : doc.text;
         const hotelInfoHTML = isSearchPage 
                                 ? `<h3><a href="/hotel?id=${hotelId}">${hotel.name}</a> with ${hotel.average_rate} stars in ${hotel.location}</h3>` 
                                 : '' ;
         return `
             <article class="review">
                 ${hotelInfoHTML}
-                <h4>"${doc.text}"</h4>
+                <h4>"${text}"</h4>
                 <h5>${doc.date}. Rate: ${doc.rate} stars</h5>
+                <h6><a href="/more?id=${doc.id}">More...</a></h6>
             </article>
         `;
     }));
@@ -176,7 +188,7 @@ app.get('/', async (req, res) => {
 app.get('/search', async (req, res) => {
     const input = req?.query?.input;
     const reviews = await getReviews(input);
-    const reviewsHTML = await createReviewsHTML(reviews, true);
+    const reviewsHTML = await createReviewsHTML(reviews, true, input);
     const updatedHTML = getUpdatedSearchPage(reviewsHTML, input);
     res.send(updatedHTML);
 });
@@ -194,5 +206,5 @@ app.get('/hotel', async (req, res) => {
 // create server
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
-    await getLocations();
+    getLocations();
 });

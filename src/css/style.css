@@ -85,9 +85,19 @@ button {
   color: #555;
   font-size: 0.9em;
   margin-bottom: 8px;
+  font-weight: normal;
+}
+
+.review h4 b {
+  color: rgb(0, 0, 0);
 }
 
 .review h5 {
+  color: #777;
+  font-size: 0.8em;
+}
+
+.review h6 {
   color: #777;
   font-size: 0.8em;
 }
