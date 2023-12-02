@@ -29,6 +29,9 @@ const CONFIG = {
     }
 }
 
+// locations
+let locations;
+
 // pages
 const baseStructure = fs.readFileSync(path.join(htmlPath, 'base.html'), 'utf8');
 const homePage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'home.html'), 'utf8'))
@@ -69,6 +72,27 @@ async function getReviews(searchInput) {
 async function getHotels(limit) {
     const request = `${CONFIG.endpoint}q=name:*&rows=${limit}&sort=average_rate%20desc`;
     return (await getResponse(request)).response.docs;
+}
+
+// Fetch all unique locations
+async function getLocations() {
+
+    try {
+        const locationsContent = fs.readFileSync('locations.json', 'utf8');
+        locations = JSON.parse(locationsContent);
+
+    } catch (error) {
+
+        const hotels = await getHotels(30000);
+        const locationsSet = new Set(hotels.map((h) => h.location));
+        locations = Array.from(locationsSet).sort();
+
+        fs.writeFile('locations.json', JSON.stringify(locations, null, 2), (err) => {
+            if (err) {
+                throw err;
+            }
+        });
+    }
 }
 
 // Fetch hotel information based on ID
@@ -170,4 +194,5 @@ app.get('/hotel', async (req, res) => {
 // create server
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
+    await getLocations();
 });
