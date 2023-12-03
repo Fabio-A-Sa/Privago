@@ -34,10 +34,26 @@ Given that the main source of information for the system is reviews, which inher
 
 ### C. More Like This
 
-A partir de um document (review, hotel), encontrar outro semelhante.
-Avaliar a qualidade do sistema a encontrar resultados semelhantes.
-Talvez avaliar em python o result principal e os X primeiros. Ver uma biblioteca que faça isso
-Depois disto usar.
+[X1]
+
+A partir de uma review, encontra outras 10 com conteúdo semelhante.
+Resultados ordenados pelo score interno do match Solr.
+
+Parâmetros usados e breve justificação:
+
+- mlt.fl = text, a comparação de semelhança será sempre com base no texto entre reviews
+- mlt.mintf = 2 (o default), mínimo de matches entre termos para o documento ser considerado válido;
+- mlt.mindf = 5 (o default), mínimo de documentos válidos para que a pesquisa seja considerada válida;
+
+Não usamos boost, visto que:
+- Como só colocamos à prova uma variável, então só poderíamos dar boost a essa
+- Há hipótese de colocarmos boost a determinados tokens, mas esses não são fixos e podem variar entre query/match/review. Um sistema global é melhor.
+
+A avaliação foi feita não com formas subjectivas (manualmente) mas sim objectivas, através da biblioteca `spacy` do python.
+
+É importante referir que o score do spacy é diferente do score interno do solr, por isso podemos ver algumas variações nos 10 primeiros. Idealmente a similiriaridade diminuiria do primeiro resultado para o último, mas não é assim para todos os casos.
+
+Após uma amostra aleatória, onde se selecionou 10 reviews e as correspondentes 10 reviews mais semelhantes segundo o Solr, apresentar aqui alguns resultados.
 
 ## 9. User Interface
 
@@ -88,4 +104,5 @@ In the next phase, work will be done on user interfaces by developing a frontend
 
 Todas as anteriores mais:
 
+- [X1] - [More Like This in Solr](https://solr.apache.org/guide/8_8/morelikethis.html)
 - 
