@@ -170,7 +170,8 @@ async function createReviewsHTML(docs, isSearchPage, query = null) {
         `;
     }));
 
-    return docs.length !== 0 ? `<h3 class="left">${docs.length} results:</h3>` + articlesHTML.join('') : null;
+    const header = `<h3 class="left">${docs.length} ${isSearchPage ? 'results' : 'reviews'}:</h3>`;
+    return docs.length !== 0 ? header + articlesHTML.join('') : null;
 }
 
 // Create HTML for selecting hotels location
