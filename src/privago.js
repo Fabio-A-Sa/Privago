@@ -42,7 +42,8 @@ const homePage = baseStructure.replace('<main></main>', fs.readFileSync(path.joi
 const searchPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'search-page.html'), 'utf8')).replace(
     '<locations></locations>', selectLocations(),
 );
-const hotelPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'hotel-page.html'), 'utf8'))
+const hotelPage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'hotel-page.html'), 'utf8'));
+const morePage = baseStructure.replace('<main></main>', fs.readFileSync(path.join(htmlPath, 'more-page.html'), 'utf8'));
 
 // dependencies
 app.use(cors());
@@ -126,7 +127,16 @@ async function getLocations() {
 
 // Fetch hotel information based on ID
 async function getHotelInfo(hotelId) {
-    const request = `${CONFIG.endpoint}q=id:${hotelId}&rows=${CONFIG.parameters.rows}`;
+    const request = `${CONFIG.endpoint}q=id:${hotelId}&rows=1`;
+    return (await getResponse(request)).response.docs[0]
+}
+
+// Fetch review information based on ID
+async function getReview(reviewId) {
+    const request = `${CONFIG.endpoint}${new URLSearchParams({
+        rows: 1,
+        q: `id:${reviewId}`
+    })}`;
     return (await getResponse(request)).response.docs[0]
 }
 
@@ -156,6 +166,7 @@ async function createReviewsHTML(docs, isSearchPage, query = null) {
     const articlesHTML = await Promise.all(docs.map(async doc => {
 
         const hotelId = doc.id.split('/')[0]
+        const reviewId = doc.id.split('#')[1]
         const hotel = await getHotelInfo(hotelId);
         const text = query ? transformText(doc.text, query) : doc.text;
         const hotelInfoHTML = isSearchPage 
@@ -166,7 +177,7 @@ async function createReviewsHTML(docs, isSearchPage, query = null) {
                 ${hotelInfoHTML}
                 <h4>"${text}"</h4>
                 <h5>${doc.date}. Rate: ${doc.rate} stars</h5>
-                <h6><a href="/more?id=${doc.id}">More...</a></h6>
+                <h6><a href="/more?hotelId=${hotelId}&reviewId=${reviewId}">More...</a></h6>
             </article>
         `;
     }));
@@ -248,6 +259,15 @@ function getUpdatedHotelPage(hotel, reviews) {
     return updatedHTML;
 }   
 
+function getUpdatedMorePage(review, moreReviews) {
+    return morePage;
+}
+
+// More like this
+async function moreLikeThis(review) {
+    return [review] * 10; // TODO
+}
+
 // home page
 app.get('/', async (req, res) => {
     const hotels = await getHotels();
@@ -281,6 +301,16 @@ app.get('/hotel', async (req, res) => {
     const hotel = await getHotelInfo(id);
     const reviewsHTML = await createReviewsHTML(results, false);
     const updatedHTML = getUpdatedHotelPage(hotel, reviewsHTML);
+    res.send(updatedHTML);
+});
+
+// more like this page
+app.get('/more', async (req, res) => {
+    const hotelId = req?.query?.hotelId;
+    const reviewId = req?.query?.reviewId;
+    const review = await getReview(`${hotelId}/reviews#${reviewId}`);
+    const moreReviews = await moreLikeThis(review);
+    const updatedHTML = getUpdatedMorePage(review, moreReviews);
     res.send(updatedHTML);
 });
 
