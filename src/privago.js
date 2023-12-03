@@ -162,14 +162,14 @@ function transformText(text, query) {
   }
 
 // Create HTML for reviews
-async function createReviewsHTML(docs, isSearchPage, query = null) {
+async function createReviewsHTML(docs, showHotel, query = null) {
     const articlesHTML = await Promise.all(docs.map(async doc => {
 
         const hotelId = doc.id.split('/')[0]
         const reviewId = doc.id.split('#')[1]
         const hotel = await getHotelInfo(hotelId);
         const text = query ? transformText(doc.text, query) : doc.text;
-        const hotelInfoHTML = isSearchPage 
+        const hotelInfoHTML = showHotel 
                                 ? `<h3><a href="/hotel?id=${hotelId}">${hotel.name}</a> with ${hotel.average_rate} stars in ${hotel.location}</h3>` 
                                 : '' ;
         return `
@@ -182,7 +182,7 @@ async function createReviewsHTML(docs, isSearchPage, query = null) {
         `;
     }));
 
-    const header = `<h3 class="left">${docs.length} ${isSearchPage ? 'results' : 'reviews'}:</h3>`;
+    const header = `<h3 class="left">${docs.length} ${showHotel ? 'results' : 'reviews'}:</h3>`;
     return docs.length !== 0 ? header + articlesHTML.join('') : null;
 }
 
@@ -259,16 +259,24 @@ function getUpdatedHotelPage(hotel, reviews) {
     return updatedHTML;
 }   
 
+// Update the more page with review and more reviews information
 function getUpdatedMorePage(review, moreReviews) {
-    return morePage;
+    let updatedHTML = morePage;
+    if (review) updatedHTML = updatedHTML.replace('<p>No review found</p>', `<h4>"${review.text}"</h4>`);
+    if (moreReviews) updatedHTML = updatedHTML.replace('<p>No related reviews found</p>', moreReviews);
+    return updatedHTML;
 }
 
-// More like this
+// More like this // MOCK -> MOCK
 async function moreLikeThis(review) {
-    return [review] * 10; // TODO
+    let reviews = []
+    for (let i = 0 ; i < 10 ; i++) {
+        reviews.push(review);
+    }
+    return reviews;
 }
 
-// home page
+// Home page
 app.get('/', async (req, res) => {
     const hotels = await getHotels();
     const html = hotels ? homePage.replace('<p>No hotels found</p>', createHotelsHTML(hotels))
@@ -276,7 +284,7 @@ app.get('/', async (req, res) => {
     res.send(html);
 });
 
-// search page
+// Search page
 app.get('/search', async (req, res) => {
     const input = req?.query?.input;
     const location = req?.query?.location;
@@ -294,7 +302,7 @@ app.get('/search', async (req, res) => {
     res.send(updatedHTML);
 });
 
-// hotel page
+// Hotel page
 app.get('/hotel', async (req, res) => {
     const id = req?.query?.id;
     const results = await getHotelReviews(id);
@@ -304,17 +312,18 @@ app.get('/hotel', async (req, res) => {
     res.send(updatedHTML);
 });
 
-// more like this page
+// More like this page
 app.get('/more', async (req, res) => {
     const hotelId = req?.query?.hotelId;
     const reviewId = req?.query?.reviewId;
     const review = await getReview(`${hotelId}/reviews#${reviewId}`);
     const moreReviews = await moreLikeThis(review);
-    const updatedHTML = getUpdatedMorePage(review, moreReviews);
+    const moreReviewsHTML = await createReviewsHTML(moreReviews, true);
+    const updatedHTML = getUpdatedMorePage(review, moreReviewsHTML);
     res.send(updatedHTML);
 });
 
-// create server
+// Create server
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);
 });

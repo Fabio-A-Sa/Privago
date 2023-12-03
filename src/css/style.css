@@ -143,16 +143,16 @@ h2 {
   font-size: 0.9em;
 }
 
-.hotelInfo {
+.hotelInfo, .moreInfo {
   background-color: #333;
   color: white;
   padding: 1em;
   text-align: center;
 }
 
-.hotelInfo h1 {
+.hotelInfo h1, .moreInfo h4 {
   margin: 0;
-  font-size: 1.5em;
+  padding: 2em 3em;
 }
 
 .hotelInfo p {
