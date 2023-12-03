@@ -15,21 +15,37 @@ let LOCATIONS;
 const HOTELS_LIMIT = 20;
 const REVIEWS_LIMIT = 20;
 const PORT = process.argv[2] || 3000;
+
 const CONFIG = {
-    "endpoint" : "http://localhost:8983/solr/hotels/select?",
-    "parameters" : {
-        "indent" : "true",
-        "q.op" : "AND",
-        "sort" : "score desc",
-        "start" : "0",
-        "rows" : "100",
-        "fl" : "*, [child]",
-        "defType" : "edismax",
-        "qf" : "text^7 name location^2",
-        "pf" : "text^10",
-        "ps" : 3
+    query: {
+        endpoint: "http://localhost:8983/solr/hotels/select?",
+        parameters: {
+            "indent" : "true",
+            "q.op" : "AND",
+            "sort" : "score desc",
+            "start" : "0",
+            "rows" : "100",
+            "fl" : "*, [child]",
+            "defType" : "edismax",
+            "qf" : "text^7 name location^2",
+            "pf" : "text^10",
+            "ps" : 3
+        }
+    },
+    mlt : {
+        endpoint: "http://localhost:8983/solr/hotels/mlt?",
+        parameters: {
+            'mlt.fl' : 'text',
+            'mlt.match.include' : 'true',
+            'mlt.mindf' : '0',
+            'mlt.mintf' : '0',
+            "sort" : "score desc",
+            "start" : "0",
+            "rows" : "100",
+        }
     }
-}
+};
+
 const RANGES = [
     'rrmin', 'rrmax', 'hrmin', 'hrmax'
 ]
@@ -76,7 +92,7 @@ async function getReviews(params, limit = REVIEWS_LIMIT) {
     )
 
     // Filter: common parameters
-    const request = `${CONFIG.endpoint}q=${params.input}&${new URLSearchParams(CONFIG.parameters)}${queryLocation}`;
+    const request = `${CONFIG.query.endpoint}q=${params.input}&${new URLSearchParams(CONFIG.query.parameters)}${queryLocation}`;
     let reviews = (await getResponse(request)).response.docs;
 
     // Filter: review rate
@@ -102,7 +118,7 @@ async function getReviews(params, limit = REVIEWS_LIMIT) {
 
 // Fetch hotels with a specified limit
 async function getHotels(limit = HOTELS_LIMIT) {
-    const request = `${CONFIG.endpoint}q=name:*&rows=${limit}&sort=average_rate%20desc`;
+    const request = `${CONFIG.query.endpoint}q=name:*&rows=${limit}&sort=average_rate%20desc`;
     return (await getResponse(request)).response.docs;
 }
 
@@ -127,13 +143,13 @@ async function getLocations() {
 
 // Fetch hotel information based on ID
 async function getHotelInfo(hotelId) {
-    const request = `${CONFIG.endpoint}q=id:${hotelId}&rows=1`;
+    const request = `${CONFIG.query.endpoint}q=id:${hotelId}&rows=1`;
     return (await getResponse(request)).response.docs[0]
 }
 
 // Fetch review information based on ID
 async function getReview(reviewId) {
-    const request = `${CONFIG.endpoint}${new URLSearchParams({
+    const request = `${CONFIG.query.endpoint}${new URLSearchParams({
         rows: 1,
         q: `id:${reviewId}`
     })}`;
@@ -142,7 +158,7 @@ async function getReview(reviewId) {
 
 // Fetch reviews of a hotel based on ID
 async function getHotelReviews(hotelId, limit = REVIEWS_LIMIT) {
-    const request = `${CONFIG.endpoint}q=id:${hotelId}/*&rows=${limit}`;
+    const request = `${CONFIG.query.endpoint}q=id:${hotelId}/*&rows=${limit}`;
     const reviews = (await getResponse(request)).response.docs;
     return reviews.length <= limit ? reviews : reviews.slice(0, limit);
 }
@@ -267,32 +283,15 @@ function getUpdatedMorePage(review, moreReviews) {
     return updatedHTML;
 }
 
-// More like this // MOCK -> MOCK
+// More like this results
 async function moreLikeThis(review) {
 
-    const request = `http://localhost:8983/solr/hotels/mlt?${ new URLSearchParams({
-        'mlt.fl':'text',
-        'mlt.match.include':'true',
-        'mlt.mindf':'0',
-        'mlt.mintf':'0',
-        'q':`id:${review.id}`,
-        "sort" : "score desc",
-        "start" : "0",
-        "rows" : "100",
+    const request = `${CONFIG.mlt.endpoint}${CONFIG.mlt.parameters}&${ new URLSearchParams({
+        'q' : `id:${review.id}`,
     })}`
-
-    const response = await getResponse(request);
-
+    const response = await getResponse(request);    
+    // Struct results
     return response.response.docs;
-
-    /*
-    let reviews = []
-    for (let i = 0 ; i < 10 ; i++) {
-        reviews.push(review);
-    }
-    // https://solr.apache.org/guide/8_8/morelikethis.html
-    return reviews;
-    */
 }
 
 // Home page
