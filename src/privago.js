@@ -273,6 +273,7 @@ async function moreLikeThis(review) {
     for (let i = 0 ; i < 10 ; i++) {
         reviews.push(review);
     }
+    // https://solr.apache.org/guide/8_8/morelikethis.html
     return reviews;
 }
 
