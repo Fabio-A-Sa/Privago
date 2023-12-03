@@ -14,7 +14,7 @@ const htmlPath = path.join(__dirname, 'html');
 let LOCATIONS;
 const HOTELS_LIMIT = 20;
 const REVIEWS_LIMIT = 20;
-const SAVE_MLT_RESULTS = true;
+const SAVE_MLT_RESULTS = false;
 const PORT = process.argv[2] || 3000;
 
 const CONFIG = {
@@ -38,8 +38,8 @@ const CONFIG = {
         results: "../evaluation/mlt/results.json",
         parameters: {
             'mlt.fl' : 'text',
-            'mlt.mintf' : '2',
-            'mlt.mindf' : '5',
+            'mlt.mintf' : '0',
+            'mlt.mindf' : '0',
             "sort" : "score desc",
             "start" : "0",
             "rows" : "10",
@@ -304,7 +304,7 @@ async function moreLikeThis(review) {
 
         results.push({
             review: review.text,
-            semelhantes: docs.map(doc => doc.text),
+            related: docs.map(doc => doc.text),
         });
 
         fs.writeFile(CONFIG.mlt.results, JSON.stringify(results, null, 2), (err) => {
