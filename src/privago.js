@@ -139,16 +139,17 @@ async function getHotelReviews(hotelId, limit = REVIEWS_LIMIT) {
 
 // Transforms specified query tokens in a given text into bold format.
 function transformText(text, query) {
-    let text_tokens = text.split(' ');
-    const query_tokens = query.toLowerCase().split(' ');
 
-    for (let i = 0; i < text_tokens.length; i++) {
-        if (query_tokens.includes(text_tokens[i].toLowerCase())) {
-            text_tokens[i] = `<b>${text_tokens[i]}</b>`;
-        }
-    }
-    return text_tokens.join(' ');
-}
+    const wordsInText = text.split(/\b/);
+    const wordsInQuery = query.toLowerCase().split(/\b/);
+
+    const transformedWords = wordsInText.map(word => {
+      const cleanedWord = word.replace(/[^a-zA-ZÀ-ÿ0-9]/g, '');
+      return wordsInQuery.includes(cleanedWord.toLowerCase()) ? `<b>${word}</b>` : word;
+    });
+  
+    return transformedWords.join('');
+  }
 
 // Create HTML for reviews
 async function createReviewsHTML(docs, isSearchPage, query = null) {
