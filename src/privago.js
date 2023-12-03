@@ -38,8 +38,8 @@ const CONFIG = {
         results: "../evaluation/mlt/results.json",
         parameters: {
             'mlt.fl' : 'text',
-            'mlt.mintf' : '0',
-            'mlt.mindf' : '0',
+            'mlt.mintf' : '2',
+            'mlt.mindf' : '5',
             "sort" : "score desc",
             "start" : "0",
             "rows" : "10",
