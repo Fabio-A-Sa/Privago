@@ -14,6 +14,7 @@ const htmlPath = path.join(__dirname, 'html');
 let LOCATIONS;
 const HOTELS_LIMIT = 20;
 const REVIEWS_LIMIT = 20;
+const SAVE_MLT_RESULTS = true;
 const PORT = process.argv[2] || 3000;
 
 const CONFIG = {
@@ -41,7 +42,7 @@ const CONFIG = {
             'mlt.mindf' : '5',
             "sort" : "score desc",
             "start" : "0",
-            "rows" : "100",
+            "rows" : "10",
         }
     }
 };
@@ -126,7 +127,7 @@ async function getHotels(limit = HOTELS_LIMIT) {
 async function getLocations() {
 
     try {
-        const locationsContent = fs.readFileSync('locations.json', 'utf8');
+        const locationsContent = fs.readFileSync('./assets/locations.json', 'utf8');
         LOCATIONS = JSON.parse(locationsContent);
 
     } catch (error) {
@@ -135,7 +136,7 @@ async function getLocations() {
         const locationsSet = new Set(hotels.map((h) => h.location));
         LOCATIONS = Array.from(locationsSet).sort();
 
-        fs.writeFile('locations.json', JSON.stringify(locations, null, 2), (err) => {
+        fs.writeFile('./assets/locations.json', JSON.stringify(locations, null, 2), (err) => {
             if (err) throw err;
         });
     }
@@ -284,7 +285,7 @@ function getUpdatedMorePage(review, moreReviews) {
 }
 
 // More like this results
-async function moreLikeThis(review, saveResults = false) {
+async function moreLikeThis(review) {
 
     const request = `${CONFIG.mlt.endpoint}${CONFIG.mlt.parameters}&${ new URLSearchParams({
         'q' : `id:${review.id}`,
@@ -292,7 +293,7 @@ async function moreLikeThis(review, saveResults = false) {
     const docs = (await getResponse(request)).response.docs;    
     
     // Save results for evaluation
-    if (saveResults && docs.length === 10) {
+    if (SAVE_MLT_RESULTS && docs.length === 10) {
 
         let results;
 
@@ -355,7 +356,7 @@ app.get('/more', async (req, res) => {
     const hotelId = req?.query?.hotelId;
     const reviewId = req?.query?.reviewId;
     const review = await getReview(`${hotelId}/reviews#${reviewId}`);
-    const moreReviews = await moreLikeThis(review, true);
+    const moreReviews = await moreLikeThis(review);
     const moreReviewsHTML = await createReviewsHTML(moreReviews, true);
     const updatedHTML = getUpdatedMorePage(review, moreReviewsHTML);
     res.send(updatedHTML);

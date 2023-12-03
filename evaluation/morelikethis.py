@@ -38,7 +38,7 @@ def main():
     evaluation = []
     for entry in results:
         review = entry['review']
-        similar_texts = entry['semelhantes']
+        similar_texts = entry['related']
         similarities = calculate_similarity(review, similar_texts)
         evaluation.append([review, similarities])
 
