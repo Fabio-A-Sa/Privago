@@ -269,12 +269,30 @@ function getUpdatedMorePage(review, moreReviews) {
 
 // More like this // MOCK -> MOCK
 async function moreLikeThis(review) {
+
+    const request = `http://localhost:8983/solr/hotels/mlt?${ new URLSearchParams({
+        'mlt.fl':'text',
+        'mlt.match.include':'true',
+        'mlt.mindf':'0',
+        'mlt.mintf':'0',
+        'q':`id:${review.id}`,
+        "sort" : "score desc",
+        "start" : "0",
+        "rows" : "100",
+    })}`
+
+    const response = await getResponse(request);
+
+    return response.response.docs;
+
+    /*
     let reviews = []
     for (let i = 0 ; i < 10 ; i++) {
         reviews.push(review);
     }
     // https://solr.apache.org/guide/8_8/morelikethis.html
     return reviews;
+    */
 }
 
 // Home page
