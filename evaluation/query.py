@@ -4,6 +4,7 @@ import requests
 import os 
 import sys
 import urllib.parse
+from sentence_transformers import SentenceTransformer
 
 CONTAINER_NAME = 'privago'
 PARAMETERS = 'parameters.json'
@@ -23,10 +24,21 @@ CONFIG = {
     'final': [5, 8]
 }
 
+
+def text_to_embedding(text):
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    embedding = model.encode(text, convert_to_tensor=False).tolist()
+    
+    # Convert the embedding to the expected format
+    embedding_str = "[" + ",".join(map(str, embedding)) + "]"
+    return embedding_str
+
 def getParameters(query: int, mode: str) -> json:
     path = f"./q{query}/{PARAMETERS}"
     with open(path, 'r') as file:
         data = json.load(file)
+        if(mode == "semantic"):
+            data["stopwords"]["q"] = text_to_embedding(data["stopwords"]["q"])
         file.close()
 
     return data.get(mode, {})

@@ -1,10 +1,10 @@
 {
     "boosted": {
-        "q": "(center london)",
+        "q": "(good breakfast) OR (good room service)",
         "indent":"true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
-        "sort": "rate desc, score desc",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"new delhi\"",
+        "sort": "score desc",
         "start": 0,
         "rows": 20,
         "fl": "*,[child]",
@@ -14,11 +14,11 @@
         "ps": 3
     },
     "stopwords": {
-        "q": "(center london)",
+        "q": "(good breakfast) OR (good room service)",
         "indent":"true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
-        "sort": "rate desc, score desc",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"new delhi\"",
+        "sort": "score desc",
         "start": 0,
         "rows": 20,
         "fl": "*,[child]",
@@ -28,11 +28,11 @@
         "ps": 3
     },
     "semantic": {
-        "q": "(center london)",
+        "q": "(good breakfast) OR (good room service)",
         "indent":"true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
-        "sort": "rate desc, score desc",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"new delhi\"",
+        "sort": "score desc",
         "start": 0,
         "rows": 20,
         "fl": "*,[child]",
@@ -42,11 +42,11 @@
         "ps": 3
     },
     "final": {
-        "q": "(center london)",
+        "q": "(good breakfast) OR (good room service)",
         "indent":"true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
-        "sort": "rate desc, score desc",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"new delhi\"",
+        "sort": "score desc",
         "start": 0,
         "rows": 20,
         "fl": "*,[child]",

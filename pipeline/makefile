@@ -25,3 +25,7 @@ sample:
 analyze:
 	mkdir -p ../data/analysis
 	python3 data_analyze.py
+
+semantic:
+	pip install sentence-transformers
+	cat ../data/processed/hotels_complete.json | python3 get_embeddings.py > ../data/processed/semantic_hotels.json
