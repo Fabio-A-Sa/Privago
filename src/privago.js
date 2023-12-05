@@ -259,6 +259,15 @@ function getUpdatedSearchPage(reviews, params) {
                 `<option class="${range}" value="${params[range]}">${params[range]}</option>`,
                 `<option class="${range}" value="${params[range]}" selected="">${params[range]}</option>`
             );
+        } else {
+            
+            const defaultValue = range.includes('min') ? 0 : 5;
+       
+            // Select the correct value
+            updatedHTML = updatedHTML.replace(
+                `<option class="${range}" value="${defaultValue}">${defaultValue}</option>`,
+                `<option class="${range}" value="${defaultValue}" selected="">${defaultValue}</option>`
+            );
         }
     });
 
