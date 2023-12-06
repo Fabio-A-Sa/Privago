@@ -97,13 +97,15 @@ def precision_recall(results: list, mode: str, query: int) -> None:
     x = [round(0.05 * x, 2) for x in range(1, 21)]
     y = acc_results(precision_results, recall_results)
 
+    plt.xlim(0, 1.1)
+    plt.ylim(0, 1.1)
+
     plt.plot(x, y, label='Precision-Recall Curve')
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.title(f'Precision-Recall Curve Q{query} ({mode} mode)')
     plt.legend()
     plt.savefig(f'./q{query}/p-r-curve-{mode}.png')
-    plt.show()
     plt.close()
 
 def compute_rcs(results: dict, query: int):
