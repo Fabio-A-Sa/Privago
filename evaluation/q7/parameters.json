@@ -1,9 +1,9 @@
 {
     "boosted": {
-        "q": "good location ((elevator) OR (accessibility))",
+        "q": "What are the best hotels with beach views",
         "indent": "true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort": "score desc",
         "start": "0",
         "rows": "20",
@@ -14,10 +14,10 @@
         "ps": "3"
     },
     "stopwords": {
-        "q": "good location ((elevator) OR (accessibility))",
+        "q": "What are the best hotels with beach views",
         "indent": "true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort": "score desc",
         "start": "0",
         "rows": "20",
@@ -25,13 +25,15 @@
         "defType": "edismax",
         "qf":"text^7 name location^2",
         "pf": "text^10",
-        "ps": "3"
+        "ps": "3",
+        "stopwords": "true",
+        "ignoreCase": "true"
     },
     "semantic": {
-        "q": "good location ((elevator) OR (accessibility))",
+        "q": "What are the best hotels with beach views",
         "indent": "true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort": "score desc",
         "start": "0",
         "rows": "20",
@@ -42,10 +44,10 @@
         "ps": "3"
     },
     "final": {
-        "q": "good location ((elevator) OR (accessibility))",
+        "q": "What are the best hotels with beach views",
         "indent": "true",
         "q.op": "AND",
-        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:\"united kingdom\"",
+        "fq": "{!child of=\"*:* -_nest_path_:*\"}location:*",
         "sort": "score desc",
         "start": "0",
         "rows": "20",

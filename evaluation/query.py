@@ -18,7 +18,7 @@ MODES = {
 CONFIG = {
     'simple': [1, 4],
     'boosted': [1, 8],
-    'stopwords': [5, 7],
+    'stopwords': [5, 8],
     'semantic': [5, 8],
     'final': [5, 8]
 }
