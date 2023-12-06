@@ -85,9 +85,19 @@ button {
   color: #555;
   font-size: 0.9em;
   margin-bottom: 8px;
+  font-weight: normal;
+}
+
+.review h4 b {
+  color: rgb(0, 0, 0);
 }
 
 .review h5 {
+  color: #777;
+  font-size: 0.8em;
+}
+
+.review h6 {
   color: #777;
   font-size: 0.8em;
 }
@@ -133,16 +143,16 @@ h2 {
   font-size: 0.9em;
 }
 
-.hotelInfo {
+.hotelInfo, .moreInfo {
   background-color: #333;
   color: white;
   padding: 1em;
   text-align: center;
 }
 
-.hotelInfo h1 {
+.hotelInfo h1, .moreInfo h4 {
   margin: 0;
-  font-size: 1.5em;
+  padding: 2em 3em;
 }
 
 .hotelInfo p {
@@ -159,6 +169,11 @@ h2 {
   text-decoration: underline;
 }
 
+.left {
+  margin-right: auto;
+  margin-left: 4em;
+}
+
 /* Footer section */
 
 footer {
@@ -170,4 +185,15 @@ footer {
   color: white;
   text-align: center;
   padding: 0.5em;
+}
+
+/* Simple container for horizontal alignment */
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.container > * {
+  margin-right: 10px;
 }

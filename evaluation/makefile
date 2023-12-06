@@ -9,4 +9,6 @@ query:
 	python3 query.py m3
 
 evaluation:
+	python3 -m spacy download en_core_web_sm
+	python3 morelikethis.py
 	python3 evaluation.py m3 > stats.json
