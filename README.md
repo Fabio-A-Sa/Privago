@@ -41,6 +41,7 @@ cd evaluation
 python3 evaluation.py M<2,3>        # for global milestone evaluation
 python3 evaluation.py <1,2,3,4>     # for individual evaluation of milestone 2 queries
 python3 evaluation.py <5,6,7,8>     # for individual evaluation of milestone 3 queries
+python3 morelikethis.py             # for More Like This feature evaluation
 ```
 
 ## Manipulated Data
