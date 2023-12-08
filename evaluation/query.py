@@ -64,7 +64,6 @@ def getRequest(parameters: json) -> str:
 def query(query: int, mode: str) -> None:
     path = f"./q{query}/result-{mode}.json"
     parameters = getParameters(query, mode)
-    print(parameters)
     request = getRequest(parameters)
 
     if(mode == "semantic"):
@@ -75,7 +74,6 @@ def query(query: int, mode: str) -> None:
     else:    
         result = requests.get(request).json()
 
-    print(result)
     docs = result.get("response", {}).get("docs", [])
 
     with open(path, 'w') as file:
