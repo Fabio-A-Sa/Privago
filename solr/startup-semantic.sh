@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # To avoid problems with duplicated containers
 docker stop privago
 docker rm privago

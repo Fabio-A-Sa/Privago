@@ -31,14 +31,14 @@ def text_to_embedding(text):
     
     # Convert the embedding to the expected format
     embedding_str = "[" + ",".join(map(str, embedding)) + "]"
-    return embedding_str
+    return f"{{!knn f=vector topK=20}}{embedding_str}"
 
 def getParameters(query: int, mode: str) -> json:
     path = f"./q{query}/{PARAMETERS}"
     with open(path, 'r') as file:
         data = json.load(file)
         if(mode == "semantic"):
-            data["stopwords"]["q"] = text_to_embedding(data["stopwords"]["q"])
+            data["semantic"]["q"] = text_to_embedding(data["semantic"]["q"])
         file.close()
 
     return data.get(mode, {})
@@ -64,8 +64,18 @@ def getRequest(parameters: json) -> str:
 def query(query: int, mode: str) -> None:
     path = f"./q{query}/result-{mode}.json"
     parameters = getParameters(query, mode)
+    print(parameters)
     request = getRequest(parameters)
-    result = requests.get(request).json()
+
+    if(mode == "semantic"):
+        headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+        }
+        result = requests.post("http://localhost:8983/solr/hotels/select", data=parameters, headers=headers).json()
+    else:    
+        result = requests.get(request).json()
+
+    print(result)
     docs = result.get("response", {}).get("docs", [])
 
     with open(path, 'w') as file:
@@ -88,7 +98,7 @@ if __name__ == '__main__':
     elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
         
         modes = MODES['m2'] if int(sys.argv[1]) < 5 else MODES['m3']
-        for mode in modes:
+        for mode in modes: 
             runContainer(mode)
             query(int(sys.argv[1]), mode)
             stopContainer()
