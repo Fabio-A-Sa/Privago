@@ -7,12 +7,6 @@
 #### Fábio Morais, Porto, up202008052@up.pt
 #### Fábio Sá, Porto, up202007658@up.pt
 
-## TODO
-
-No tables documenting top results retrieved (impossible to validate evaluation metrics)
-Discussion is interesting but fails to link back to some previous choices (e.g., where was the influence of synonyms felt, if at all?)
-Precision-recall curves are not discussed at all and have a wrong pattern
-
 ## 8. Information Retrieval Improvements
 
 > A avaliação desta parte será individual, ou seja, avaliação a cada improvement. Na Milestone 2 tínhamos 4 queries, nesta fase podemos colocar só 3 queries? O espaço é limitado. <br>
@@ -23,9 +17,7 @@ Precision-recall curves are not discussed at all and have a wrong pattern
 
 Stop Words, para que o search system faça skip de palavras comuns tanto em queries como em results.
 
-### B. Contextual Analysis
-
-> Para isto existe o Apache OpenNLP e o Tutorial do Sérgio <br>
+### B. Semantic Analysis
 
 Given that the main source of information for the system is reviews, which inherently carry subjective connotations.
 

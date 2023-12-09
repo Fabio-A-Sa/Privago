@@ -65,8 +65,10 @@
 \acmYear{2023}
 \acmDOI{} %% isto
 
+\usepackage{multirow}
+
 %% These commands are for a PROCEEDINGS abstract or paper.
-\acmConference[G53]{PRI}{November-12, 2023}{Porto, Portugal}
+\acmConference[G53]{PRI}{December-10, 2023}{Porto, Portugal}
 %
 %  Uncomment \acmBooktitle if th title of the proceedings is different
 %  from ``Proceedings of ...''!
@@ -491,6 +493,7 @@ The \textbf{Precision-Recall Curves} are constructed for each query and each sys
 The \textbf{Mean Average Precision (MAP)} is a common metric used in Information Retrieval and represents the average of Average Precision metric across various sets returned over the evaluation period. It helps determine if the system is consistent even when applied to different information needs.
 
 In the upcoming subsections, diverse user scenarios are presented as queries, accompanied by their respective results and statistics based on precision and recall metrics.
+The Table ~\ref{tab:raw_results}, provided in the annexes, documents the relevance of the top 20 results for each evaluated query and for the two systems under analysis.
 
 \renewcommand{\thesubsection}{\Alph{subsection}}
 
@@ -527,6 +530,8 @@ P@20 & 0.6 & 0.9 \\
 
 \textbf{Result Analysis:} Both systems did well, although there is a notable increased precision on the boosted system, demonstrated in the table table \ref{tab:q1}. The utilization of eDismax, in this query, proved to be important for the results since the 2 words "center london", when put together, are correlated with each other.
 
+According to Figure ~\ref{fig:q1_simple} and Figure ~\ref{fig:q1_boosted}, which represent the precision-recall curves of the simple and boosted systems, it can be observed that the boosted system exhibits superior performance. Indeed, it shows a larger area under the curve, and the decay of precision concerning the increase in recall is negligible in this context.
+
 \subsection{Breakfast or Room Service}
 
 
@@ -557,10 +562,9 @@ P@20 & 0.8 & 0.8 \\
 \end{tabular}
 \end{table}
 
-\textbf{Result Analysis:}\label{ra_q2} The two systems have similar average precision, as it can be seen in table \ref{tab:q2}. Since it is a very simple query, it is expected for good results from both systems and it is normal for the improved one to fail in some sentences since it's using the \textbf{ps} parameter (which is equal for every query) that allows for tokens between searched words. This would be resolved with contextual analysis referred in the "Future Work", section \ref{sec:future_work}.
+\textbf{Result Analysis:}\label{ra_q2} The two systems have similar average precision, as it can be seen in table \ref{tab:q2}. Since it is a very simple query, it is expected for good results from both systems and it is normal for the improved one to fail in some sentences since it's using the \textbf{ps} parameter (which is equal for every query) that allows for tokens between searched words. This would be resolved with contextual analysis referred in the "Information Retrieval Improvements", section \ref{sec:improvements}.
 
-
-
+Both precision-recall curves of the systems, represented in figures ~\ref{fig:q2_simple} and ~\ref{fig:q2_boosted}, demonstrate a favorable trade-off between precision and recall. While there is a decline in the boosted system towards the end, it underscores the necessity for an alternative textual analysis.
 
 \subsection{Convenience and Accessibility}
 
@@ -593,11 +597,9 @@ P@20 & 0.5 & 0.65 \\
 
 \textbf{Result Analysis:} The systems differ in average performance, with the simple one overall performing better, as shown by the table \ref{tab:q3}. The reason for the complex system to score lower in the AvP (average performance) parameter but higher in the P@20 (precision) parameter however, is due to the system not taking the context into consideration, therefore, in a query that specifies the need for an elevator, the system gathers reviews that mention the absence of one.
 
-
-
+The curves precision-recall of the systems depicted in figures ~\ref{fig:q3_simple} and ~\ref{fig:q3_boosted} indicate a degradation of the system concerning this query. On one hand, in the simple system, precision does not remain high as recall increases, progressively decreasing with a steep slope. On the other hand, the overall precision of the boosted system is quite low compared to other queries. This result once again emphasizes the need for a different type of textual analysis that considers the entire context of the sentence, to be explored in an upcoming section.
 
 \subsection{Vegetarian/Vegan}
-
 
 \textbf{Information Need:} Hotels with good vegetarian/vegan options
 
@@ -629,6 +631,7 @@ P@20 & 0.35 & 0.5 \\
 
 \textbf{Result Analysis:} Both systems exhibit similar average precision values, which fall below the anticipated values for a simple query. This can be attributed to the same issue discussed in \ref{ra_q2}. In fact, certain review texts were expressed in a negational form or contained nouns such as "lack", thereby altering the entire meaning of the sentence.
 
+Figures ~\ref{fig:q4_simple} and ~\ref{fig:q4_boosted} depict the precision-recall curve of the simple and boosted systems for this query, respectively. It is important to highlight that both curves exhibit a steep decline in precision as recall values increase, indicating a trade-off between these two metrics. The area under the curve is the smallest among the four conducted experiments, which is reasonable considering the complexity demanded by this query.
 
 Taking into account all the results from the multiple information needs across queries, its presented in the following table the Mean Average Precision for both systems:
 
@@ -743,6 +746,40 @@ TODO
   \caption{Q4 Precision-recall curve using boosted system}
   \label{fig:q4_boosted}
 \end{figure}
+
+
+\begin{table}[ht]
+\caption{Relevance results for initial system evaluation}
+\label{tab:raw_results}
+\centering
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccccccccc}
+\multirow{2}{*}{\textbf{Ranking}} & \multicolumn{2}{c}{\textbf{Relevance Q1}} & \multicolumn{2}{c}{\textbf{Relevance Q2}} & \multicolumn{2}{c}{\textbf{Relevance Q3}} & \multicolumn{2}{c}{\textbf{Relevance Q4}} \\
+ & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} \\
+1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 1 \\
+2 & 1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 \\
+3 & 1 & 1 & 0 & 1 & 1 & 0 & 0 & 0 \\
+4 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+5 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0 \\
+6 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 1 \\
+7 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\
+8 & 1 & 1 & 1 & 1 & 0 & 0 & 1 & 0 \\
+9 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 0 \\
+10 & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 0 \\
+11 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\
+12 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 \\
+13 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\
+14 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
+15 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 1 \\
+16 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 \\
+17 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 \\
+18 & 0 & 1 & 1 & 1 & 0 & 1 & 0 & 1 \\
+19 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
+20 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0
+\end{tabular}
+}
+\end{table}
+
 
 \end{document}
 \endinput

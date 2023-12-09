@@ -9,7 +9,7 @@ make
 
 And open [`localhost:3000`](http://localhost:3000).
 
-### Run pipeline
+### Run data pipeline
 
 ```bash
 cd pipeline/
