@@ -1,30 +1,30 @@
 [
   {
-    "date": "2017-04",
-    "rate": [
-      4.6
-    ],
-    "text": "Room and staff were excellent breakfast really good. Access to public transport",
-    "id": "58d3a7e6-3a3b-43c6-9619-ce8a01c5cfa9/reviews#46",
-    "_version_": 1784754478711308288
-  },
-  {
     "date": "2016-04",
     "rate": [
       4.4
     ],
     "text": "Excellent location with good access to public transport. Rooms are not equipped with fridges",
-    "id": "a8e193f2-ec3e-447c-8663-732b17e25e7e/reviews#59",
-    "_version_": 1784754471307313152
+    "id": "54f98499-658f-44c4-9e26-5e55526b8566/reviews#59",
+    "_version_": 1784801178978091008
   },
   {
-    "date": "2017-04",
+    "date": "2016-10",
     "rate": [
-      3.4
+      3.8
     ],
-    "text": "The location is good and near to public transportation. the room is small no restaurant",
-    "id": "30527e1d-8db2-4986-a486-92cca63a6e90/reviews#41",
-    "_version_": 1784754475993399296
+    "text": "The Spa is amazing Quite location but easily access to public transport Close to the beach",
+    "id": "51a01ede-767b-45ef-9739-2c24a971bc23/reviews#64",
+    "_version_": 1784801184550223872
+  },
+  {
+    "date": "2017-02",
+    "rate": [
+      4.8
+    ],
+    "text": "Friendly staff comfortable accommodation Good access to public transport to the city centre the airport",
+    "id": "a68b736d-490b-46da-bc7a-0e31df515dae/reviews#52",
+    "_version_": 1784801186991308800
   },
   {
     "date": "2016-06",
@@ -32,8 +32,8 @@
       5.0
     ],
     "text": "Very relaxing spacious great atmosphere. Just a bit far from the center but good access to public transport",
-    "id": "7196c7ea-7b08-454f-aa01-a4260596028e/reviews#14",
-    "_version_": 1784754470175899648
+    "id": "1b9cfd6e-c1b4-48c4-95da-71d14e3f1a09/reviews#14",
+    "_version_": 1784801177459752960
   },
   {
     "date": "2016-10",
@@ -41,8 +41,17 @@
       4.6
     ],
     "text": "Very luxurious room for the price nice breakfast buffet good access to public transport. The dolls outside our room in the corridor were slightly creepy",
-    "id": "4e76f4e2-0572-4bea-870f-88b22c1ff47c/reviews#6",
-    "_version_": 1784754478190166016
+    "id": "be40529a-23b6-48b4-a55c-e7466a154d71/reviews#6",
+    "_version_": 1784801184695975937
+  },
+  {
+    "date": "2015-12",
+    "rate": [
+      3.4
+    ],
+    "text": "Friendly staff and a good location near public transport. Beds a little to soft No view",
+    "id": "fac09249-0d50-4161-8b85-43564801ede9/reviews#87",
+    "_version_": 1784801188359700480
   },
   {
     "date": "2016-09",
@@ -50,8 +59,8 @@
       5.0
     ],
     "text": "Good location good access to public transport to city Good size rooms Internet OK Very comfortable Adequate car parking in street. MInimul crockery and no good sized mugs or cups",
-    "id": "7a5112bb-8c51-41fd-a79d-54438ddafbe4/reviews#4",
-    "_version_": 1784754473931898880
+    "id": "5ee18e53-a632-4148-aa72-96b98c31608a/reviews#4",
+    "_version_": 1784801181461118976
   },
   {
     "date": "2017-06",
@@ -59,26 +68,17 @@
       4.4
     ],
     "text": "The hotel was in a good neighborhood near public transportation We easily walked to the Louvre It is a good central location",
-    "id": "083b1182-feef-4f57-9599-b32af628c1c6/reviews#12",
-    "_version_": 1784754480144711680
+    "id": "a994f64d-0d70-40b8-b79d-4d396f458354/reviews#12",
+    "_version_": 1784801186621161472
   },
   {
-    "date": "2017-01",
+    "date": "2017-03",
     "rate": [
-      4.2
+      5.0
     ],
-    "text": "Nice view over park quiet Good access via public transport. room heating blowing but not heating first night mentioned it at reception and was better second night but still not really warm thin duvet would have been fine normally",
-    "id": "9925884f-b45e-43d2-819b-bf673e563aa3/reviews#8",
-    "_version_": 1784754481915756544
-  },
-  {
-    "date": "2016-05",
-    "rate": [
-      4.4
-    ],
-    "text": "Well maintained tastefully decorated Good breakfast Friendly helpful staff Good access to public transport the Royal Albert Hall. Breakfast time a little chaotic Had to wait a while for parts of buffet to be replenished a couple of staff were a bit terse",
-    "id": "5163754b-6250-4997-8487-fcd0eb612bdb/reviews#25",
-    "_version_": 1784754481524637696
+    "text": "Excellent hotel great breakfast cozy and spacey rooms good bar Reasonable proximity by foot to the city center good access to public transport Magnificent view from 12 floor. Paying after every beer or snack I had at the bar was pretty annoying",
+    "id": "426eb502-185b-4a50-8691-093fc9c9fe4b/reviews#11",
+    "_version_": 1784801187708534784
   },
   {
     "date": "2017-06",
@@ -86,17 +86,17 @@
       4.4
     ],
     "text": "Excellent Interiors. Location is not good and difficult to approach by public transport But they provide a free shuttle to the nearest station",
-    "id": "42056878-9824-4862-9666-d491984b35bc/reviews#23",
-    "_version_": 1784754478929412096
+    "id": "5ef2a2bb-5388-4cba-9314-eaed31360444/reviews#23",
+    "_version_": 1784801185302052864
   },
   {
-    "date": "2016-10",
+    "date": "2017-05",
     "rate": [
-      4.6
+      4.0
     ],
-    "text": "Very clean room very helpful and friendly staff Good location near public transport Decent hairdryer located by a mirror and not in the bathroom. Nothing",
-    "id": "006dfa35-dc0b-4fa4-ba1b-fffc6559a0da/reviews#14",
-    "_version_": 1784754483226476544
+    "text": "Well located near public transport stops and a 20 minute walk to the historic centre. The hotel is on a busy road and rooms at the front suffer traffic noise",
+    "id": "97bd9e15-d701-4d9a-9cb0-4ad948916409/reviews#5",
+    "_version_": 1784801179732017152
   },
   {
     "date": "2017-03",
@@ -104,26 +104,17 @@
       4.4
     ],
     "text": "good hotel near public transport. hotel restaurant was shut at the weekend as are local places to eat due to hotel being in banking district in London",
-    "id": "9c2dca4e-681a-4f3f-96fa-ab78013fd902/reviews#4",
-    "_version_": 1784754483929022464
+    "id": "54b95671-3708-4258-94d5-08ff5815be9d/reviews#5",
+    "_version_": 1784801189854969856
   },
   {
-    "date": "2017-05",
+    "date": "2017-04",
     "rate": [
-      2.7
+      4.4
     ],
-    "text": "In a good area near public transport into London. Room size really small for what we paid bed also very small for two people bathroom had to squeeze in past a chair small again inside the bathroom",
-    "id": "87f6cac3-4368-49e0-b1aa-70b80308ca19/reviews#9",
-    "_version_": 1784754482144346112
-  },
-  {
-    "date": "2016-12",
-    "rate": [
-      3.6
-    ],
-    "text": "Good location near public transport Nice room with updated bathroom Friendly staff. Bedroom was very hot even though it was freezing outside and the heater was off Much traffic noise when windows open Beds slightly worn but not too bad",
-    "id": "80ef2253-865a-4370-bf22-e87310c8e2c4/reviews#11",
-    "_version_": 1784754481581260800
+    "text": "Good location near public transports and only a short walk 20 min from the city center Very quiet and confortable Staff always happy to help. Nothing really bad",
+    "id": "dea0c72d-2d3d-452e-91e4-2719645f9560/reviews#6",
+    "_version_": 1784801183359041536
   },
   {
     "date": "2023-02",
@@ -131,26 +122,8 @@
       5.0
     ],
     "text": "Hospitality and very near to Public transport and hygiene Food",
-    "id": "d4148f7e-6a0e-4596-b4f7-74d472121029/reviews#0",
-    "_version_": 1784754484390395905
-  },
-  {
-    "date": "2016-05",
-    "rate": [
-      4.2
-    ],
-    "text": "The hotel near to the public transport. The shower room size small",
-    "id": "2f9173de-d010-43e4-bfa6-1cd4367184a2/reviews#81",
-    "_version_": 1784754471072432128
-  },
-  {
-    "date": "2017-06",
-    "rate": [
-      3.2
-    ],
-    "text": "Location was terrible Half a mile from Kings Cross and not near any public transport",
-    "id": "a0510ec1-70f3-45a8-8c4b-560274e5478f/reviews#41",
-    "_version_": 1784754473164341248
+    "id": "0a143f9c-daba-4487-9785-4065dc7ac5ae/reviews#0",
+    "_version_": 1784801190229311489
   },
   {
     "date": "2016-06",
@@ -158,8 +131,8 @@
       4.2
     ],
     "text": "Location is very near to public transport n shops Staff was helpful. Parking is very expensive",
-    "id": "7a5112bb-8c51-41fd-a79d-54438ddafbe4/reviews#35",
-    "_version_": 1784754473931898880
+    "id": "5ee18e53-a632-4148-aa72-96b98c31608a/reviews#35",
+    "_version_": 1784801181461118976
   },
   {
     "date": "2017-05",
@@ -167,8 +140,8 @@
       5.0
     ],
     "text": "Property was centrally located near major public transportation hub Staff were friendly helpful and efficient",
-    "id": "5fb49f88-347c-49a1-bd16-638f89565c95/reviews#46",
-    "_version_": 1784754474669047808
+    "id": "4ff21e12-1de8-468e-a6ec-558032c99f88/reviews#46",
+    "_version_": 1784801182025252864
   },
   {
     "date": "2016-03",
@@ -176,7 +149,34 @@
       4.6
     ],
     "text": "Near to public transport and inner city. Thin walls even chat from next room was audible",
-    "id": "6f8ac25d-8aa3-4c33-a80f-f790d26abdcf/reviews#83",
-    "_version_": 1784754477707821056
+    "id": "3f2d16ab-722f-405b-ba60-c5fa986dd5d5/reviews#83",
+    "_version_": 1784801184402374656
+  },
+  {
+    "date": "2015-10",
+    "rate": [
+      3.6
+    ],
+    "text": "Near the public transport station and halal restaurant. Staff not very cooperative maybe due to language barier",
+    "id": "8c9f7c02-1c94-4f90-b20f-7c4c7651a4b0/reviews#91",
+    "_version_": 1784801181423370240
+  },
+  {
+    "date": "2016-09",
+    "rate": [
+      4.2
+    ],
+    "text": "The buffet breakfast was quite good and access to public transport was most convenient. More vegetarian options on the menu would be nice",
+    "id": "47dd0a4b-db58-4f06-9c65-52f96a127b85/reviews#61",
+    "_version_": 1784801186887499776
+  },
+  {
+    "date": "2017-04",
+    "rate": [
+      4.0
+    ],
+    "text": "the spacious rooms nice bed and the breakfast different concept but quite nice and perfect location near to public transport",
+    "id": "5968af46-c33d-4f8b-85ee-5aedc71a468f/reviews#38",
+    "_version_": 1784801188715167744
   }
 ]
