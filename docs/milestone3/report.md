@@ -9,6 +9,12 @@
 
 ## TODO
 
+Abstract is well written but lacks detail in terms of key results obtained; no references should be used in it
+Figures and tables should all be referenced in the text
+No tables documenting top results retrieved (impossible to validate evaluation metrics)
+Discussion is interesting but fails to link back to some previous choices (e.g., where was the influence of synonyms felt, if at all?)
+Precision-recall curves are not discussed at all and have a wrong pattern
+
 > Colocar em anexo os resultados de cada query para servir de apoio à avaliação. O que colocar? Query, index, relevant/n-relevant, o nome do hotel, a review? <br>
 > Colocar um ficheiro no código com isso? <br>
 
