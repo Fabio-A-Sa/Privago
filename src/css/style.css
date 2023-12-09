@@ -224,6 +224,7 @@ input[type="range"]::-moz-range-thumb {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto 1fr;
+    width: 100%;
 }
 
 .review h3 {

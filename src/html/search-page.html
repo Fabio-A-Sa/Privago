@@ -1,62 +1,89 @@
+<script src="../js/search.js"></script>
+
 <main>
     <section class="search">
-
-        <div class="container">
-            <input type="text" name="searchInput" placeholder="Search..." id="searchInput">
-            <button type="submit" onclick="search()">Search</button>
+        <div class="search-container">
+            <input
+                type="text"
+                name="searchInput"
+                placeholder="Search..."
+                id="searchInput"
+            />
+            <button type="submit" id="searchButton" onclick="search()">
+                Search
+            </button>
         </div>
 
-        <div class="container">
-            <label for="location">Location:</label>
-            <locations></locations>
-        </div>
+        <div class="filters-container">
+            <div class="min-max-slider" id="reviewRate">
+                <div class="price-content">
+                    <p>0</p>
+                    <span>Review rate:</span>
+                    <p>5</p>
+                </div>
+                <div class="slider">
+                    <div class="progress"></div>
+                </div>
+                <div class="range-input">
+                    <input
+                        id="reviewRateMin"
+                        type="range"
+                        class="range-min"
+                        min="0"
+                        max="5"
+                        value="0"
+                        step="1"
+                    />
+                    <input
+                        id="reviewRateMax"
+                        type="range"
+                        class="range-max"
+                        min="0"
+                        max="5"
+                        value="5"
+                        step="1"
+                    />
+                </div>
+            </div>
 
-        <div class="container">
-            <label for="reviewRateMin">Review rate:</label>
-            <select name="reviewRateMin" id="reviewRateMin">
-                <option class="rrmin" value="0">0</option>
-                <option class="rrmin" value="1">1</option>
-                <option class="rrmin" value="2">2</option>
-                <option class="rrmin" value="3">3</option>
-                <option class="rrmin" value="4">4</option>
-                <option class="rrmin" value="5">5</option>
-            </select>
-        
-            <label for="reviewRateMax"> to </label>
-            <select name="reviewRateMax" id="reviewRateMax">
-                <option class="rrmax" value="0">0</option>
-                <option class="rrmax" value="1">1</option>
-                <option class="rrmax" value="2">2</option>
-                <option class="rrmax" value="3">3</option>
-                <option class="rrmax" value="4">4</option>
-                <option class="rrmax" value="5">5</option>
-            </select>
-        </div>
+            <div class="min-max-slider" id="hotelRate">
+                <div class="price-content">
+                    <p>0</p>
+                    <span>Hotel average rate:</span>
+                    <p>5</p>
+                </div>
+                <div class="slider">
+                    <div class="progress"></div>
+                </div>
+                <div class="range-input">
+                    <input
+                        id="hotelRateMin"
+                        type="range"
+                        class="range-min"
+                        min="0"
+                        max="5"
+                        value="0"
+                        step="1"
+                    />
+                    <input
+                        id="hotelRateMax"
+                        type="range"
+                        class="range-max"
+                        min="0"
+                        max="5"
+                        value="5"
+                        step="1"
+                    />
+                </div>
+            </div>
+            <label for="location"
+                >Location:
 
-        <div class="container">
-            <label for="hotelRateMin">Hotel average rate:</label>
-            <select name="hotelRateMin" id="hotelRateMin">
-                <option class="hrmin" value="0">0</option>
-                <option class="hrmin" value="1">1</option>
-                <option class="hrmin" value="2">2</option>
-                <option class="hrmin" value="3">3</option>
-                <option class="hrmin" value="4">4</option>
-                <option class="hrmin" value="5">5</option>
-            </select>
-        
-            <label for="hotelRateMax"> to </label>
-            <select name="hotelRateMax" id="hotelRateMax">
-                <option class="hrmax" value="0">0</option>
-                <option class="hrmax" value="1">1</option>
-                <option class="hrmax" value="2">2</option>
-                <option class="hrmax" value="3">3</option>
-                <option class="hrmax" value="4">4</option>
-                <option class="hrmax" value="5">5</option>
-            </select>
+                <locations></locations>
+            </label>
         </div>
-
     </section>
-    
+
     <section class="reviews">
         <p>No results found</p>
     </section>
