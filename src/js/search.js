@@ -28,10 +28,8 @@ load = () => {
             (100 - (maxVal / reviewInput[1].max) * 100) * 0.95 + "%";
     };
 
-    input.addEventListener("input", updateReviewInput);
-
     reviewInput.forEach((input) => {
-        updateReviewInput();
+        input.addEventListener("input", updateReviewInput);
     });
 
     // Initiate values if they were received from the backend
