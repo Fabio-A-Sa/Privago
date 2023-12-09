@@ -9,17 +9,85 @@
 
 ## 8. Information Retrieval Improvements
 
-> A avaliação desta parte será individual, ou seja, avaliação a cada improvement. Na Milestone 2 tínhamos 4 queries, nesta fase podemos colocar só 3 queries? O espaço é limitado. <br>
+- pegar nesta fase nas fragilidades do sistema encontradas na fase de evaluation anterior
+- implementar as propostas enunciadas
 
-> Avaliação por cada tópico, A, B, C ou avaliação no final? (separada claro) <br>
+- x
+- y
+
+os improvements foram analisaods com:
+- 
+- uma terceira query que provocasse stress ao tópico que queremos explorar
+
+além destas foi adicionado o more like this, por fazer sentido dentro do nosso contexto
+
+- z 
+
+- os resultados estão expressos nos anexos, tabela V
 
 ### A. Stop Words    
 
-Stop Words, para que o search system faça skip de palavras comuns tanto em queries como em results.
+-> Justificar o porquê da decisão de colocar esta feature;
+-> Indicar que o Solr tem suporte para este tipo de feature, adicionar referência a isso [X1];
+
+-> QX1 (seguir a estrutura de M2)
+
+-> Information Need
+-> Relevance Judgement (breve, será semelhante a uma anterior de M2)
+-> Query (breve, será semelhante a uma anterior de M2)
+-> Tabela com AvP e P@20 para System Boosted, System Boosted + Stop Words
+-> Result Analysis, não esquecer de justificar as precision-recall curves
+
+-> QX2 (seguir a estrutura de M2)
+
+-> Information Need
+-> Relevance Judgement (breve, será semelhante a uma anterior de M2)
+-> Query (breve, será semelhante a uma anterior de M2)
+-> Tabela com AvP e P@20 para System Boosted, System Boosted + Stop Words
+-> Result Analysis, não esquecer de justificar as precision-recall curves
+
+-> QX3 (seguir a estrutura de M2)
+
+-> Information Need
+-> Relevance Judgement
+-> Query
+-> Tabela com AvP e P@20 para System Boosted, System Boosted + Stop Words
+-> Result Analysis, não esquecer de justificar as precision-recall curves
+
+-> No final, avaliar os dois sistemas com base no MAP
+-> Justificar se esta feature vai ou não para o sistema final
 
 ### B. Semantic Analysis
 
-Given that the main source of information for the system is reviews, which inherently carry subjective connotations.
+-> Justificar o porquê da decisão de colocar esta feature
+-> Indicar se o Solr suporta, adicionar referências importantes [X2];
+
+-> QX1 (seguir a estrutura de M2)
+
+-> Information Need
+-> Relevance Judgement
+-> Query
+-> Tabela com AvP e P@20 para System Boosted, System Boosted + Semantic Analysis
+-> Result Analysis, não esquecer de justificar as precision-recall curves
+
+-> QX2 (seguir a estrutura de M2)
+
+-> Information Need
+-> Relevance Judgement
+-> Query
+-> Tabela com AvP e P@20 para System Boosted, System Boosted + Semantic Analysis
+-> Result Analysis, não esquecer de justificar as precision-recall curves
+
+-> QX3 (seguir a estrutura de M2)
+
+-> Information Need
+-> Relevance Judgement
+-> Query
+-> Tabela com AvP e P@20 para System Boosted, System Boosted + Semantic Analysis
+-> Result Analysis, não esquecer de justificar as precision-recall curves
+
+-> No final, avaliar os dois sistemas com base no MAP
+-> Justificar se esta feature vai ou não para o sistema final
 
 ### C. More Like This
 
@@ -93,5 +161,6 @@ In the next phase, work will be done on user interfaces by developing a frontend
 
 Todas as anteriores mais:
 
-- [X1] - [More Like This in Solr](https://solr.apache.org/guide/8_8/morelikethis.html)
-- 
+- [X1] - Referências de Stop Words
+- [X2] - Referências de Semantic Analysis, uma delas tem de ser obrigatoriamente o tutorial do regente
+- [X3] - [More Like This in Solr](https://solr.apache.org/guide/8_8/morelikethis.html)
