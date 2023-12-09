@@ -1,4 +1,4 @@
-onload = () => {
+load = () => {
     var input = document.getElementById("searchInput");
 
     input.addEventListener("keypress", function (event) {
@@ -50,3 +50,5 @@ onload = () => {
         });
     });
 };
+
+load();

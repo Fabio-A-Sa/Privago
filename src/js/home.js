@@ -1,4 +1,4 @@
-onload = () => {
+load = () => {
     const hotelCards = document.querySelectorAll(
         "section.hotels article.hotel"
     );
@@ -9,3 +9,5 @@ onload = () => {
         });
     });
 };
+
+load();
