@@ -4,6 +4,7 @@ import requests
 import os 
 import sys
 import urllib.parse
+from sentence_transformers import SentenceTransformer
 
 CONTAINER_NAME = 'privago'
 PARAMETERS = 'parameters.json'
@@ -23,10 +24,21 @@ CONFIG = {
     'final': [5, 8]
 }
 
+
+def text_to_embedding(text):
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    embedding = model.encode(text, convert_to_tensor=False).tolist()
+    
+    # Convert the embedding to the expected format
+    embedding_str = "[" + ",".join(map(str, embedding)) + "]"
+    return f"{{!knn f=vector topK=20}}{embedding_str}"
+
 def getParameters(query: int, mode: str) -> json:
     path = f"./q{query}/{PARAMETERS}"
     with open(path, 'r') as file:
         data = json.load(file)
+        if(mode == "semantic"):
+            data["semantic"]["q"] = text_to_embedding(data["semantic"]["q"])
         file.close()
 
     return data.get(mode, {})
@@ -53,7 +65,15 @@ def query(query: int, mode: str) -> None:
     path = f"./q{query}/result-{mode}.json"
     parameters = getParameters(query, mode)
     request = getRequest(parameters)
-    result = requests.get(request).json()
+
+    if(mode == "semantic"):
+        headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+        }
+        result = requests.post("http://localhost:8983/solr/hotels/select", data=parameters, headers=headers).json()
+    else:    
+        result = requests.get(request).json()
+
     docs = result.get("response", {}).get("docs", [])
 
     with open(path, 'w') as file:
@@ -76,7 +96,7 @@ if __name__ == '__main__':
     elif len(sys.argv) == 2 and 1 <= int(sys.argv[1]) <= QUERIES:
         
         modes = MODES['m2'] if int(sys.argv[1]) < 5 else MODES['m3']
-        for mode in modes:
+        for mode in modes: 
             runContainer(mode)
             query(int(sys.argv[1]), mode)
             stopContainer()
