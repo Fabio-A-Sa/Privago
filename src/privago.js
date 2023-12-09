@@ -250,26 +250,31 @@ function getUpdatedSearchPage(reviews, params) {
         )
     }
 
+    const ranges = {
+        hrmin: 0,
+        hrmax: 5,
+        rrmin: 0,
+        rrmax: 5
+    }
+
     // Update ranges
     RANGES.forEach((range) => {
-        if (params[range]) {
-
-            // Select the correct value
-            updatedHTML = updatedHTML.replace(
-                `<option class="${range}" value="${params[range]}">${params[range]}</option>`,
-                `<option class="${range}" value="${params[range]}" selected="">${params[range]}</option>`
-            );
-        } else {
-            
-            const defaultValue = range.includes('min') ? 0 : 5;
-       
-            // Select the correct value
-            updatedHTML = updatedHTML.replace(
-                `<option class="${range}" value="${defaultValue}">${defaultValue}</option>`,
-                `<option class="${range}" value="${defaultValue}" selected="">${defaultValue}</option>`
-            );
-        }
+        if (params[range]) ranges[range] = params[range]
     });
+
+    Array("hrmin", "rrmin").forEach((range) => {
+        updatedHTML = updatedHTML.replace(
+            `<input id="${range}" type="range" class="range-min" min="0" max="5" value="0" step="1" />`,
+            `<input id="${range}" type="range" class="range-min" min="0" max="5" value="${ranges[range]}" step="1" />`
+        );
+    })
+    Array("hrmax", "rrmax").forEach((range) => {
+        updatedHTML = updatedHTML.replace(
+            `<input id="${range}" type="range" class="range-max" min="0" max="5" value="5" step="1" />`,
+            `<input id="${range}" type="range" class="range-max" min="0" max="5" value="${ranges[range]}" step="1" />`
+        );
+    })
+        
 
     // Update reviews
     if (reviews) updatedHTML = updatedHTML.replace('<p>No results found</p>', reviews)
