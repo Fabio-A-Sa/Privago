@@ -1,32 +1,5 @@
 [
   {
-<<<<<<< HEAD
-    "date": "2023-08",
-    "rate": [
-      3.5
-    ],
-    "text": "Housekeeping was excellent and so was room service. Front desk staff was good and helpful. Location was good. Breakfast was good.",
-    "id": "1c0bc16e-1c5f-4dc1-886a-c25a8cff0729/reviews#2",
-    "_version_": 1784488587461394432
-  },
-  {
-    "date": "2023-07",
-    "rate": [
-      5.0
-    ],
-    "text": "Nice a spacious rooms. The breakfast offers a good selection of local goods and western. The service at the breakfast is also great",
-    "id": "79ee7863-0628-493f-8778-421ce135cccc/reviews#0",
-    "_version_": 1784488571373092865
-  },
-  {
-    "date": "2023-02",
-    "rate": [
-      4.0
-    ],
-    "text": "The room was spacious, well-decorated and neat&clean. Our stay was very comfortable. The breakfast and the service were good as well.",
-    "id": "5a766eb4-1f8e-4d93-8f63-ad6ab515522c/reviews#2",
-    "_version_": 1784488588022382592
-=======
     "date": "2022-05",
     "rate": [
       3.5
@@ -1210,21 +1183,12 @@
     ],
     "id": "856ce163-db79-46c4-b030-311a2cecc79f/reviews#1",
     "_version_": 1784754630889046016
->>>>>>> 698fa31d369d9855a5408b51af0fbc08c952dbd9
   },
   {
     "date": "2023-04",
     "rate": [
       3.0
     ],
-<<<<<<< HEAD
-    "text": "The service was impeccable, and the room was spacious and beautifully decorated. The breakfast was delicious as well.",
-    "id": "036b81c1-9b37-4410-8df6-59df68277e4d/reviews#2",
-    "_version_": 1784488582025576448
-  },
-  {
-    "date": "2023-08",
-=======
     "text": "Good breakfast and dinner, good room , great staff",
     "vector": [
       -0.03247855,
@@ -1617,24 +1581,9 @@
   },
   {
     "date": "2023-03",
->>>>>>> 698fa31d369d9855a5408b51af0fbc08c952dbd9
     "rate": [
       3.5
     ],
-<<<<<<< HEAD
-    "text": "Excellent rooms. Very good staff and very gorgeous rooms and the services is very best. Great location and also too good breakfast.",
-    "id": "99542640-63a9-4d05-ab2b-6d80aef4b93a/reviews#4",
-    "_version_": 1784488572850536449
-  },
-  {
-    "date": "2023-05",
-    "rate": [
-      3.5
-    ],
-    "text": "The room and common areas were clean and maintained. Breakfast was basic but tasty, breakfast service was prompt.",
-    "id": "087f36e6-e536-41e0-be0c-70e472bfa415/reviews#2",
-    "_version_": 1784488577867972608
-=======
     "text": "Nice hotel with good staff .but kindly improve breakfast quality with variety",
     "vector": [
       0.011696673,
@@ -2419,21 +2368,12 @@
     ],
     "id": "c00c8c85-deae-4192-a880-23fc50f726ca/reviews#3",
     "_version_": 1784754571523915776
->>>>>>> 698fa31d369d9855a5408b51af0fbc08c952dbd9
   },
   {
     "date": "2022-08",
     "rate": [
-      3.5
+      5.0
     ],
-<<<<<<< HEAD
-    "text": "Large room, working shower, breakfast, travel-services, friendly staff, close to railway station, nice restaurant a few doors aways (Vagabond)",
-    "id": "7b1bc25f-2e27-4eb4-8c95-6feeba91113c/reviews#1",
-    "_version_": 1784488571195883521
-  },
-  {
-    "date": "2022-06",
-=======
     "text": "Good location breakfast is good",
     "vector": [
       0.03491173,
@@ -2826,27 +2766,9 @@
   },
   {
     "date": "2023-01",
->>>>>>> 698fa31d369d9855a5408b51af0fbc08c952dbd9
     "rate": [
       4.0
     ],
-<<<<<<< HEAD
-    "text": "need some variety of Breakfast, but location & cleanness are awesome. reception staffs are excellent. Room service need to training from Hospitality culture.",
-    "id": "72481325-745d-47d9-b442-290ad722d5a2/reviews#0",
-    "_version_": 1784488565711831040
-  },
-  {
-    "date": "2023-08",
-    "rate": [
-      4.0
-    ],
-    "text": "Our family room was spacious and clean.  The staff were nice and service oriented. Room service was also good",
-    "id": "912c22b3-8575-4c58-9ab5-220e841d8ebb/reviews#7",
-    "_version_": 1784488566231924736
-  },
-  {
-    "date": "2023-08",
-=======
     "text": "A A*A Complimentary breakfast should have more options",
     "vector": [
       -0.07722683,
@@ -3634,27 +3556,9 @@
   },
   {
     "date": "2023-07",
->>>>>>> 698fa31d369d9855a5408b51af0fbc08c952dbd9
     "rate": [
-      4.5
+      5.0
     ],
-<<<<<<< HEAD
-    "text": "Comfortable bed, spacious room, good room service.",
-    "id": "ad76c484-6d9f-4b19-bdb8-22d40ffde84f/reviews#2",
-    "_version_": 1784488573561470976
-  },
-  {
-    "date": "2022-11",
-    "rate": [
-      3.5
-    ],
-    "text": "Room service not good",
-    "id": "6e886c50-3a7c-4b95-a42f-d4aeb14da8ca/reviews#3",
-    "_version_": 1784488588602245121
-  },
-  {
-    "date": "2023-08",
-=======
     "text": "Breakfast is very good and staff is so helpfull",
     "vector": [
       -0.047994997,
@@ -4442,87 +4346,9 @@
   },
   {
     "date": "2023-02",
->>>>>>> 698fa31d369d9855a5408b51af0fbc08c952dbd9
-    "rate": [
-      3.0
-    ],
-<<<<<<< HEAD
-    "text": "Room service was not good",
-    "id": "c89896ae-36e4-4a02-8b6d-08cea5946f5d/reviews#1",
-    "_version_": 1784488575917621248
-  },
-  {
-    "date": "2023-01",
-    "rate": [
-      3.5
-    ],
-    "text": "The room service was good",
-    "id": "d23ccbc1-8f6c-4297-ad50-1013b1e56e93/reviews#6",
-    "_version_": 1784488586649796608
-  },
-  {
-    "date": "2023-07",
-    "rate": [
-      4.0
-    ],
-    "text": "Food is teaty and good ,room service is also good",
-    "id": "5c340000-cad4-4a36-8b3d-e3b8fd55d225/reviews#3",
-    "_version_": 1784488565731753985
-  },
-  {
-    "date": "2021-11",
-    "rate": [
-      3.5
-    ],
-    "text": "Overall good mainly room service and staffs",
-    "id": "91cc5c37-d515-4646-a715-f90a993d5a86/reviews#2",
-    "_version_": 1784488570938982400
-  },
-  {
-    "date": "2022-12",
-    "rate": [
-      4.0
-    ],
-    "text": "Good welcome, goos service and comfortable room",
-    "id": "65c57e86-0dd5-4974-85e9-140c9f68a1fe/reviews#4",
-    "_version_": 1784488573064445953
-  },
-  {
-    "date": "2023-07",
-    "rate": [
-      4.0
-    ],
-    "text": "Room service  is good, the room was cleaned daily arranging the bed neat and clean",
-    "id": "b433d5f6-c7e9-4db2-8843-e917a26edf16/reviews#2",
-    "_version_": 1784488587430985728
-  },
-  {
-    "date": "2023-08",
-    "rate": [
-      4.5
-    ],
-    "text": "The Room bathroom clean and service was good.",
-    "id": "1730be3d-631c-4087-9659-25d516e9213a/reviews#4",
-    "_version_": 1784488584109096961
-  },
-  {
-    "date": "2023-04",
     "rate": [
       5.0
     ],
-    "text": "Clean room, polite staff, good service, and  value for money",
-    "id": "33e7593e-079e-4038-bd25-53994b8d1356/reviews#0",
-    "_version_": 1784488565714976768
-  },
-  {
-    "date": "2023-07",
-    "rate": [
-      4.0
-    ],
-    "text": "Our stay was comfortable and room service is also good.",
-    "id": "e08ff886-5552-4518-a49f-93364c6b25f1/reviews#1",
-    "_version_": 1784488572309471232
-=======
     "text": "complimentary breakfast is provided by the hotel. simple hygienic and great in taste",
     "vector": [
       -0.0025259443,
@@ -8072,6 +7898,5 @@
     ],
     "id": "0b8903b9-a55a-478b-b043-aa6af94ffcb8/reviews#1",
     "_version_": 1784754618741293056
->>>>>>> 698fa31d369d9855a5408b51af0fbc08c952dbd9
   }
 ]
