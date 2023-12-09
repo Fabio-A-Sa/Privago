@@ -6,7 +6,6 @@ import sys
 import urllib.parse
 from sentence_transformers import SentenceTransformer
 
-
 def text_to_embedding(text):
     model = SentenceTransformer('all-MiniLM-L6-v2')
     embedding = model.encode(text, convert_to_tensor=False).tolist()
