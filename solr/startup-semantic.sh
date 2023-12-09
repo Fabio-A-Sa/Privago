@@ -5,7 +5,7 @@ docker stop privago
 docker rm privago
 
 # Copy pipeline output to virtual "data" folder
-cp ../data/processed/hotels_complete.json .
+cp ../data/processed/semantic_hotels.json .
 
 # Running Solr container
 # Creating "privago"
@@ -22,8 +22,8 @@ curl -X POST -H 'Content-type:application/json' --data-binary "@./schema-semanti
 sleep 1
 
 # Populate collection using mapped folder "data" and pipeline output
-docker exec -it privago bin/post -c hotels -format solr /data/hotels_complete.json
+docker exec -it privago bin/post -c hotels -format solr /data/semantic_hotels.json
 sleep 1
 
 # Removing always pipeline output for github/commits reasons
-rm hotels_complete.json
+rm semantic_hotels.json

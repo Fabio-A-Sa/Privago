@@ -12,7 +12,7 @@
         "qf":"text^7 name location^2",
         "pf": "text^10",
         "ps": 3
-    },
+      },
     "stopwords": {
         "q":"(good vegetarian) OR (good vegan)",
         "indent":"true",
@@ -26,7 +26,7 @@
         "qf":"text^7 name location^2",
         "pf": "text^10",
         "ps": 3
-    },
+      },
     "semantic": {
         "q":"(good vegetarian) OR (good vegan)",
         "indent":"true",
@@ -35,12 +35,8 @@
         "sort":"score desc",
         "start":"0",
         "rows":"20",
-        "fl":"*, [child]",
-        "defType":"edismax",
-        "qf":"text^7 name location^2",
-        "pf": "text^10",
-        "ps": 3
-    },
+        "fl":"*, [child]"
+      },
     "final": {
         "q":"(good vegetarian) OR (good vegan)",
         "indent":"true",
@@ -54,5 +50,5 @@
         "qf":"text^7 name location^2",
         "pf": "text^10",
         "ps": 3
-    }
+      }
 }
