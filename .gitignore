@@ -5,3 +5,5 @@ solr/synonyms_*
 solr/stopwords.txt
 node_modules
 package-lock.json
+todo.md
+tabelas_evaluation.xlsx
