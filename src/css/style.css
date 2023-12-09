@@ -34,6 +34,11 @@ section {
 
 /* Search section */
 
+.search-container {
+    display: flex;
+    width: 500px;
+}
+
 .search {
     margin-bottom: 20px;
     display: flex;
@@ -42,7 +47,7 @@ section {
 
 input[type="text"] {
     padding: 10px;
-    width: 300px;
+    width: 100%;
     margin-right: 10px;
 }
 
@@ -55,6 +60,7 @@ button {
 }
 
 .filters-container {
+    width: 500px;
     display: inline-flex;
     justify-content: center;
     align-items: end;
@@ -156,6 +162,39 @@ input[type="range"]::-moz-range-thumb {
     cursor: pointer;
     -moz-appearance: none;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+@media only screen and (max-width: 600px) {
+    .search-container {
+        width: 100%;
+    }
+    .filters-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+    .filters-container > * {
+        justify-self: center;
+    }
+    .filters-container > *:nth-child(3) {
+        grid-column: span 2;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .search-container {
+        width: 100%;
+    }
+    .filters-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+    .filters-container > * {
+        justify-self: center;
+    }
 }
 
 /* Reviews section */
