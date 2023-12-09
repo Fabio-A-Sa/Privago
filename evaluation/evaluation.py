@@ -1,5 +1,4 @@
 import json
-import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
 import sys
@@ -38,9 +37,9 @@ def precision_values(results: list) -> float:
 
 def recall_values(results: list) -> float:
     return [
-        len([
+        (len([
             doc for doc in results[:idx] if doc == 1
-        ]) / sum(results)
+        ]) / sum(results)) if sum(results) else 0
         for idx, _ in enumerate(results, start=1)
     ]
 
@@ -83,7 +82,7 @@ def acc_results(precision, recall):
     maximos = []
 
     for _, r in zip(precision, recall):
-        max_precision = max([p_i for p_i, r_i in zip(precision, recall) if r_i >= r])
+        max_precision = max([p_i for (p_i, r_i) in zip(precision, recall) if r_i >= r])
         maximos.append(max_precision)
 
     return maximos
