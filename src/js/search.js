@@ -1,5 +1,3 @@
-// slider source: https://codepen.io/joosts/pen/rNLdxvK
-
 onload = () => {
     var input = document.getElementById("searchInput");
 
