@@ -78,30 +78,33 @@ def average_precision(results: list) -> float:
 def recall(results: list) -> float:
     return round(sum(recall_values(results)), 2)
 
+# Accumulative curves
+def acc_results(precision, recall):
+    maximos = []
+
+    for _, r in zip(precision, recall):
+        max_precision = max([p_i for p_i, r_i in zip(precision, recall) if r_i >= r])
+        maximos.append(max_precision)
+
+    return maximos
+
 # Precision-Recall Curves
 def precision_recall(results: list, mode: str, query: int) -> None:
 
-    precision_results = precision_values(results)
-    recall_results = recall_values(results)
-    precision_recall_match = {k: v for k,v in zip(recall_results, precision_results)}
+    precision_results = [round(v, 2) for v in precision_values(results)]
+    recall_results = [round(v, 2) for v in recall_values(results)]
 
-    recall_results.extend([step for step in np.arange(0.1, 1.1, 0.1) if step not in recall_results])
-    recall_results = sorted(set(recall_results))
+    x = [round(0.05 * x, 2) for x in range(1, 21)]
+    y = acc_results(precision_results, recall_results)
 
-    for idx, step in enumerate(recall_results):
-        if step not in precision_recall_match:
-            if recall_results[idx-1] in precision_recall_match:
-                precision_recall_match[step] = precision_recall_match[recall_results[idx-1]]
-            else:
-                precision_recall_match[step] = precision_recall_match[recall_results[idx+1]]
+    plt.xlim(0, 1.1)
+    plt.ylim(0, 1.1)
 
-    precision_results_k = [precision_recall_match.get(r) for r in recall_results]
-    disp = PrecisionRecallDisplay(precision=precision_results_k, recall=recall_results)
-
-    disp.plot()
-    plt.xlim([0, 1.1])
-    plt.ylim([0, 1.1])
+    plt.plot(x, y, label='Precision-Recall Curve')
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
     plt.title(f'Precision-Recall Curve Q{query} ({mode} mode)')
+    plt.legend()
     plt.savefig(f'./q{query}/p-r-curve-{mode}.png')
     plt.close()
 
