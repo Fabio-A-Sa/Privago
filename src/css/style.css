@@ -54,6 +54,110 @@ button {
     cursor: pointer;
 }
 
+.filters-container {
+    display: inline-flex;
+    justify-content: center;
+    align-items: end;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.filters-container > label {
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 160px;
+}
+
+.min-max-slider {
+    width: 160px;
+    margin-bottom: 8px;
+}
+
+.min-max-slider span {
+    font-size: small;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.price-content {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.price-content p {
+    font-size: small;
+    margin: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.price-content div:nth-child(2) p {
+    text-align: end;
+}
+
+.slider {
+    height: 5px;
+    position: relative;
+    background: #ddd;
+    border-radius: 5px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.slider .progress {
+    height: 100%;
+    left: 0%;
+    right: 0%;
+    position: absolute;
+    border-radius: 5px;
+    background: #17a2b8;
+}
+
+.range-input {
+    position: relative;
+}
+.range-input input {
+    position: absolute;
+    width: 95%;
+    height: 5px;
+    top: -5px;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.range-input input:nth-child(2) {
+    left: 5%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    height: 17px;
+    width: 17px;
+    border-radius: 50%;
+    background: #17a2b8;
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+input[type="range"]::-moz-range-thumb {
+    height: 17px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    background: #17a2b8;
+    pointer-events: auto;
+    cursor: pointer;
+    -moz-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
 /* Reviews section */
 
 .reviews {
