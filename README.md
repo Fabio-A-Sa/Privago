@@ -1,5 +1,5 @@
-# Hotel? Privago - PRI Project
 
+<h1 align = "center" >Hotel?</h1>
 <p align = "center" >
   <img 
        title = "Privago logo"
@@ -7,6 +7,8 @@
        alt = "Privago Logo" 
        />
 </p>
+
+<h3 align = "center" >PRI Project</h3>
 
 ### Run Web Interface
 
