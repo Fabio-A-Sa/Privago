@@ -1,4 +1,12 @@
-# Privago - PRI Project
+# Hotel? Privago - PRI Project
+
+<p align = "center" >
+  <img 
+       title = "Privago logo"
+       src = "./imgs/logo.png" 
+       alt = "Privago Logo" 
+       />
+</p>
 
 ### Run Web Interface
 
