@@ -133,9 +133,9 @@ It is also possible to apply filters to searches, in addition to specifying the 
 
 Each result is accompanied by all relevant information for assessing its relevance, such as the hotel's name, ratings, review text, and application date. All results are returned in descending order of ranking, ensuring that the first ones are the most relevant given the underlying context of the query and applied filters.
 
----
+--- verf
 
-De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionados utilizadores comuns de plataformas do são convidados no final da sessão de experimentação a responder a um breve questionário. Esse questionário foi baseado na versão standard da System Usability Scale (SUS). Esta escala
+De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionados utilizadores comuns de plataformas do são convidados no final da sessão de experimentação a responder a um breve questionário. Esse questionário foi baseado na versão standard da System Usability Scale (SUS). Esta escala coisa
 
 1. I think that I would like to use this system frequently.
 2. I found the system unnecessarily complex.
