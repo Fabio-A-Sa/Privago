@@ -544,7 +544,7 @@ According to Figure ~\ref{fig:q1_simple} and Figure ~\ref{fig:q1_boosted}, which
 \begin{itemize}
     \item q: (good breakfast) OR (good room service)
     \item q.op: AND
-    \item {!child of="*:* -\_nest\_path\_:*"} location: "new delhi"
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location: "new delhi"
     \item fl: *,[child]
     \item sort: score desc
 \end{itemize}
@@ -577,7 +577,7 @@ Both precision-recall curves of the systems, represented in figures ~\ref{fig:q2
 \begin{itemize}
     \item q: good location ((elevator) OR (accessibility))
     \item q.op: AND
-    \item {!child of="*:* -\_nest\_path\_:*"} location: "united kingdom"
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location: "united kingdom"
     \item fl: *,[child]
     \item sort: score desc
 \end{itemize}
@@ -610,7 +610,7 @@ The curves precision-recall of the systems depicted in figures ~\ref{fig:q3_simp
 \begin{itemize}
     \item q: (good vegetarian) OR (good vegan)
     \item q.op: AND
-    \item {!child of="*:* -\_nest\_path\_:*"} location:*
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location:*
     \item fl: *,[child]
     \item sort: score desc
 \end{itemize}
@@ -653,7 +653,287 @@ Therefore, it is concluded that the system exhibits satisfactory performance, an
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 \section{Information Retrieval Improvements} \label{sec:improvements}
 
-TODO
+The previous stage introduced an initial version of the information retrieval system, evaluating it based on well-defined information needs and metrics grounded in precision and recall. Looking from another perspective, it also helped identify the weaknesses and limitations of the chosen approaches. Therefore, to enhance the search engine, this phase involved the implementation and evaluation of features aimed at addressing the identified gaps:
+
+\begin{itemize}
+    \item Stopwords Filter
+    \item Semantic Analysis
+\end{itemize}
+
+The evaluation of these features followed the same style as the previous ones, using real information needs as a base and adjusting them to the context encountered. There was still two systems in analysis, this time the boosted system and the boosted system with the application of the improvement under study. Evaluating each improvement separately allows for both an isolated analysis of its contribution to the system's success and a discussion on its permanence in the final search engine.
+
+Three information needs were used. The first two were the same as in the previous stage, ensuring a valid comparison of the systems when exposed to the same environment and providing a visualization of the progressive development of the hypothesis. There was a comparison of the systems using a third information need, this time tailored to the improvement's objective, adding extra stress to the system on the topic we want to explore and checking the system's ability to handle the adversities of the natural language characteristic of these searches.
+
+Table [T1] documents the relevance of the top 20 results for each evaluated query and for the two improvements.
+
+In order to explore the project's theme more focusedly, More Like This [X0] has been added to the list of improvements, with consequent analysis. Balancing the benefits of each of the topics addressed brings us even closer to what a contemporary information retrieval system looks like today.
+
+\subsection{Stopwords Filter}
+
+The decision to integrate a Stopwords Filter aimed at enhancing the exploration of larger phrases, allowing clients more flexibility to conduct searches with more complex queries. Solr initially provides a set of predefined stop words, but a custom file was chosen, derived from a word cloud diagram. Similar to the process for Synonyms, this custom stop words file was incorporated into the Solr configuration files.
+
+Two queries from Milestone 2 were reviewed in the following queries, each with a single stop word. When compared to the previous strategy, the new approach added two query parameters: stopwords and ignoreCase, both of which were set to true, indicating that stopwords would be investigated regardless of capitalization.
+
+\renewcommand{\thesubsection}{\Alph{subsection}}
+
+\setcounter{subsection}{0}
+\subsection{Breakfast or Room Service}
+
+\textbf{Information Need:} Hotels with good breakfast or good room service in New Delhi.
+
+\textbf{Relevance Judgement:} In this information need it is intended to search for hotels with a good breakfast or a good room service in New Delhi. Therefore, the words "good breakfast" or "good room service" should appear in the same query/text of review and the location should be a filter query of the parents documents.
+
+\textbf{Query:}
+
+\begin{itemize}
+    \item q: (good breakfast) OR (good room service)
+    \item q.op: AND
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location: "new delhi"
+    \item fl: *,[child]
+    \item sort: score desc
+    \item stopwords: true
+    \item ignoreCase: true
+\end{itemize}
+
+\begin{table}[H]
+\caption{Q5 information need results}
+\label{tab:q5}
+\begin{tabular}{lll}
+\toprule
+Rank & Previous Syst. & Improved Syst.\\
+\midrule
+AvP & 0.87 & 0.85  \\
+P@20 & 0.8 & 0.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result Analysis:} Upon analyzing the results in the table \ref{tab:q5}, it is clear that the results of the query differ, as expected. The use of the stopwords filter during indexing and querying causes a difference in results. Considering that the query only contains one stopword, the results show a noticeable similarity even though they are not identical.
+
+
+\subsection{Vegetarian/Vegan}
+
+\textbf{Information Need:} Hotels with good vegetarian/vegan options
+
+\textbf{Relevance Judgement:} In this task, the objective is to find hotels with good vegetarian or vegan options. So, the words "good vegetarian" or "good vegan" should appear in the review's text. The location isn't specified.
+
+\textbf{Query:}
+
+\begin{itemize}
+    \item q: (good vegetarian) OR (good vegan)
+    \item q.op: AND
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location:*
+    \item fl: *,[child]
+    \item sort: score desc
+    \item stopwords: true
+    \item ignoreCase: true
+\end{itemize}
+
+\begin{table}[H]
+\caption{Q6 information need results}
+\label{tab:q6}
+\begin{tabular}{lll}
+\toprule
+Rank & Previous Syst. & Improved Syst.\\
+\midrule
+AvP & 0.55 & 0.59  \\
+P@20 & 0.5 & 0.55 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result Analysis:} Very alike to previous analysis. Both systems exhibit similar average precision values, taking into account that the query only has one stopword.
+
+
+\subsection{Beach Views}
+
+\textbf{Information Need:} Best hotels with beach views.
+
+\textbf{Relevance Judgement:} In this task, the objective is to find the best hotels with beach views. Since we are using the Stopwords Filter, only the words "best hotels beach views" will be search in each review text.
+
+\textbf{Query:}
+
+\begin{itemize}
+    \item q: What are the best hotels with beach views
+    \item q.op: AND
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location:*
+    \item fl: *,[child]
+    \item sort: score desc
+    \item stopwords: true
+    \item ignoreCase: true
+\end{itemize}
+
+\begin{table}[H]
+\caption{Q7 information need results}
+\label{tab:q7}
+\begin{tabular}{lll}
+\toprule
+Rank & Previous Syst. & Improved Syst.\\
+\midrule
+AvP & 0 & 0.75  \\
+P@20 & 0 & 0.65 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result Analysis:} In contrast, the third query, which has four stopwords, produced no results in the original schema without the stopwords filter. The modified schema, on the other hand, provided the expected 20 outcomes with a precision of 0.75, as shown in the table \ref{tab:q7}.
+
+Observing the following table \ref{tab:map_stopwords}, the behaviour of the improved schema is significantly better when increasing the complexity of the queries.
+
+\begin{table}[H]
+\caption{Overall systems evaluation}
+\label{tab:map_stopwords}
+\begin{tabular}{lll}
+\toprule
+Global & Previous Syst. & Improved Syst.\\
+\midrule
+MAP & 0.473 & 0.73  \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+In conclusion, the integration of a stopwords filter provides the advantage of handling more complex queries, granting clients greater freedom in their search parameters. This enhancement contributes to the complexity and accuracy of the search results, ultimately improving the overall search system.
+
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\subsection{Semantic Search}
+
+The decision to implement Semantic Search emerged as a result of the evaluation of prior queries. Specifically, (reference queries B and D) revealed numerous shortcomings, primarily attributable to the subjective nature of reviews. The challenges stemmed from instances where a single negative word could drastically alter the overall context of the entire review, leading to multiple instances of failure.
+
+To execute this integration, we needed to generate dense vectors that accurately captured the semantics of each word within the review text found in the JSON data populating Solr. This process also entailed adjusting our queries to smoothly align with the knn Query Parser(reference website), ensuring the retrieval of results closely associated with these generated vectors.
+
+\renewcommand{\thesubsection}{\Alph{subsection}}
+
+\setcounter{subsection}{0}
+\subsection{Breakfast or Room Service}
+
+\textbf{Information Need:} Hotels with good breakfast or good room service in New Delhi.
+
+\textbf{Relevance Judgement:} In this information need it is intended to search for hotels with a good breakfast or a good room service in New Delhi. Therefore, the words "good breakfast" or "good room service" should appear in the same query/text of review and the location should be a filter query of the parents documents.
+
+\textbf{Query:}
+
+\begin{itemize}
+    \item q: {!knn f=vector topK=20}((good breakfast) OR (good room service) \textbf{vectorized}
+    \item q.op: AND
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location: "new delhi"
+    \item fl: *,[child]
+    \item sort: score desc
+\end{itemize}
+
+\begin{table}[H]
+\caption{Q8 information need results}
+\label{tab:q8}
+\begin{tabular}{lll}
+\toprule
+Rank & Previous Syst. & Improved Syst.\\
+\midrule
+AvP & 0.87 & 0.81  \\
+P@20 & 0.8 & 0.75 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result Analysis:} 
+
+Upon examining the results from the query in Table \ref{tab:q8}, it becomes evident that despite the similarity between the outcomes, the boosted system holds a slight advantage. 
+Upon analyzing the reviews retrieved by the query, it is evident that contrary to expectations, semantic searches still encounter challenges when dealing with cases where the inclusion of a negative word alters the meaning of the sentence.
+
+\subsection{Vegetarian/Vegan}
+
+\textbf{Information Need:} Hotels with good vegetarian/vegan options
+
+\textbf{Relevance Judgement:} In this task, the objective is to find hotels with good vegetarian or vegan options. So, the words "good vegetarian" or "good vegan" should appear in the review's text. The location isn't specified.
+
+\textbf{Query:}
+
+\begin{itemize}
+    \item q: {!knn f=vector topK=20}((good vegetarian) OR (good vegan) \textbf{vectorized}
+    \item q.op: AND
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location:*
+    \item fl: *,[child]
+    \item sort: score desc
+\end{itemize}
+
+\begin{table}[H]
+\caption{Q9 information need results}
+\label{tab:q9}
+\begin{tabular}{lll}
+\toprule
+Rank & Previous Syst. & Improved Syst.\\
+\midrule
+AvP & 0.55 & 0.21  \\
+P@20 & 0.5 & 0.4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result Analysis:} Table \ref{tab:q9} exhibits a behavior similar to the previous one,, but with more pronounced distinctions. Notably, the semantic search demonstrates an even more significant underperformance compared to the boosted system. 
+Upon closely analyzing the reviews retrieved in this query, it becomes apparent that the positive context of the review amplifies the inclusion of cases where a word with negative connotations, such as "lack," alters the portion specific to our query.
+\subsection{Public transports}
+
+\textbf{Information Need:} Hotels with good access to public transports
+
+\textbf{Relevance Judgement:} In this task, our goal is to identify hotels with convenient access to public transportation. Therefore, reviews should highlight proximity to nearby stations or accessible transportation routes.
+
+\textbf{Query:}
+
+\begin{itemize}
+    \item q: {!knn f=vector topK=20}(good access to public transports) \textbf{vectorized}
+    \item q.op: AND
+    \item fq: {!child of="*:* -\_nest\_path\_:*"} location:*
+    \item fl: *,[child]
+    \item sort: score desc
+\end{itemize}
+
+\begin{table}[H]
+\caption{Q10 information need results}
+\label{tab:q10}
+\begin{tabular}{lll}
+\toprule
+Rank & Previous Syst. & Improved Syst.\\
+\midrule
+AvP & 0.97 & 0.83  \\
+P@20 & 0.95 & 0.75 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Result Analysis:} Finally, Table \ref{tab:q10} exhibits a pattern similar to its predecessors, where the boosted system consistently outperforms the semantic search.
+
+Upon analyzing the retrieved results, it becomes apparent that, in this instance, the challenge does not stem from negations in the phrases. Instead, the semantic search tends to fetch reviews expressing the notion that there is no requirement for public transport as the hotel is conveniently situated in the midst of everything. Although this information may be of interest to users, it doesn't precisely align with the query.
+
+
+\begin{table}[H]
+\caption{Overall systems evaluation}
+\label{tab:map_semantic}
+\begin{tabular}{lll}
+\toprule
+Global & Previous Syst. & Improved Syst.\\
+\midrule
+MAP & 0.80 & 0.62  \\ 
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+In summary, Semantic Search falls short in effectively addressing the challenge posed by negative words altering the meaning of a phrase having for the three queries above a worst result than boosted system. This limitation, coupled with the complexities involved in its implementation, such as the need for query parsing, makes it so its not justified be implemented in the final product.
+
+
+
+
+
+
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\subsection{More Like This}
+
+
+
+
+
+
+
 
 \nocite{*}
 \def\BibTex{BibTeX}
@@ -747,6 +1027,38 @@ TODO
   \label{fig:q4_boosted}
 \end{figure}
 
+\begin{table}[ht]
+\caption{Relevance results for Stopwords Evaluation}
+\label{tab:stopwords_results}
+\centering
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccccccccc}
+\multirow{2}{*}{\textbf{Rank}} & \multicolumn{2}{c}{\textbf{Relevance Q5}} & \multicolumn{2}{c}{\textbf{Relevance Q6}} & \multicolumn{2}{c}{\textbf{Relevance Q7}}\\
+ & \textbf{Boosted} & \textbf{Stopwords} & \textbf{Boosted} & \textbf{Stopwords} & \textbf{Boosted} & \textbf{Stopwords}\\
+1 & 1 & 1 & 1 & 1 & 0 & 1 \\
+2 & 1 & 1 & 1 & 1 & 0 & 1 \\
+3 & 1 & 1 & 0 & 0 & 0 & 1 \\
+4 & 1 & 1 & 1 & 1 & 0 & 1 \\
+5 & 1 & 1 & 0 & 1 & 0 & 0 \\
+6 & 1 & 0 & 1 & 0 & 0 & 0 \\
+7 & 0 & 1 & 0 & 0 & 0 & 1 \\
+8 & 1 & 1 & 0 & 0 & 0 & 0 \\
+9 & 1 & 0 & 0 & 0 & 0 & 1 \\
+10 & 1 & 1 & 0 & 0 & 0 & 1 \\
+11 & 0 & 0 & 0 & 1 & 0 & 1 \\
+12 & 0 & 1 & 1 & 1 & 0 & 0 \\
+13 & 1 & 1 & 0 & 0 & 0 & 0 \\
+14 & 1 & 1 & 0 & 1 & 0 & 1 \\
+15 & 1 & 1 & 1 & 1 & 0 & 1 \\
+16 & 0 & 1 & 1 & 0 & 0 & 1 \\
+17 & 1 & 0 & 1 & 1 & 0 & 1 \\
+18 & 1 & 1 & 1 & 0 & 0 & 1 \\
+19 & 1 & 1 & 1 & 1 & 0 & 0 \\
+20 & 1 & 1 & 0 & 1 & 0 & 0
+\end{tabular}
+}
+\end{table}
+
 
 \begin{table}[ht]
 \caption{Relevance results for initial system evaluation}
@@ -754,7 +1066,7 @@ TODO
 \centering
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{ccccccccc}
-\multirow{2}{*}{\textbf{Ranking}} & \multicolumn{2}{c}{\textbf{Relevance Q1}} & \multicolumn{2}{c}{\textbf{Relevance Q2}} & \multicolumn{2}{c}{\textbf{Relevance Q3}} & \multicolumn{2}{c}{\textbf{Relevance Q4}} \\
+\multirow{2}{*}{\textbf{Rank}} & \multicolumn{2}{c}{\textbf{Relevance Q1}} & \multicolumn{2}{c}{\textbf{Relevance Q2}} & \multicolumn{2}{c}{\textbf{Relevance Q3}} & \multicolumn{2}{c}{\textbf{Relevance Q4}} \\
  & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} \\
 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 1 \\
 2 & 1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 \\

@@ -135,7 +135,7 @@ The overall average similarity between the queries is quite high, never falling 
 
 Contrary to expectations, there was no inverse relationship in the selected sample between the degree of similarity of the original query and the index of the document. This fact can be justified in two ways. On the one hand, since the number of reviews in the dataset is much higher than the output of the MLT system, there was no spacing to notice a noticeable difference in the ranking of the results. On the other hand, the score from SpaCy is different from Solr's internal score, to which we do not have access, leading to some fluctuations.
 
-With highly satisfactory results, this feature will be present in the final system.
+With good results, this feature will be present in the final system.
 
 ## 9. Search User Interface
 
@@ -152,9 +152,7 @@ It is also possible to apply filters to searches, in addition to specifying the 
 
 Each result is accompanied by all relevant information for assessing its relevance, such as the hotel's name, ratings, review text, and application date. All results are returned in descending order of ranking, ensuring that the first ones are the most relevant given the underlying context of the query and applied filters.
 
---- verf
-
-De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionados utilizadores comuns de plataformas do são convidados no final da sessão de experimentação a responder a um breve questionário. Esse questionário foi baseado na versão standard da System Usability Scale (SUS). Esta escala coisa
+De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionados utilizadores comuns de plataformas do são convidados no final da sessão de experimentação a responder a um breve questionário. Esse questionário foi elaborado usando a versão standard da System Usability Scale (SUS). Esta escala contempla questões que avaliam a percepção do utilizador acerca da usabilidade e pertinência geral da aplicação, bem como na clareza de cada funcionalidade implementada:
 
 1. I think that I would like to use this system frequently.
 2. I found the system unnecessarily complex.
@@ -167,7 +165,7 @@ De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionad
 9. I felt very confident using the system.
 10. I needed to learn a lot of things before I could get going with this system.
 
-e contempla questões que avaliam a percepção do utilizador acerca da usabilidade e pertinência geral da aplicação, bem como na clareza de cada funcionalidade implementada.
+
 
 Os resultados 
 
