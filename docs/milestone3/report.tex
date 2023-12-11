@@ -284,7 +284,6 @@ In this section there is a characterization of the documents that are produced b
   \centering
   \includegraphics[width=\linewidth]{imgs/reviews_wordcloud.png}
   \caption{Reviews Word Cloud}
-  \Description{TODO}
   \label{fig:wordcloud}
 \end{figure}
 
@@ -670,7 +669,7 @@ In order to explore the project's theme more focusedly, More Like This [X0] has 
 
 \subsection{Stopwords Filter}
 
-The decision to integrate a Stopwords Filter aimed at enhancing the exploration of larger phrases, allowing clients more flexibility to conduct searches with more complex queries. Solr initially provides a set of predefined stop words, but a custom file was chosen, derived from a word cloud diagram. Similar to the process for Synonyms, this custom stop words file was incorporated into the Solr configuration files.
+The decision to integrate a Stopwords Filter aimed at enhancing the exploration of larger phrases, allowing clients more flexibility to conduct searches with more complex queries. Solr initially provides a set of predefined stop words, but a custom file was chosen, derived from a Python library \ref{nltk}. Similar to the process for Synonyms, this custom stop words file was incorporated into the Solr configuration files.
 
 Two queries from Milestone 2 were reviewed in the following queries, each with a single stop word. When compared to the previous strategy, the new approach added two query parameters: stopwords and ignoreCase, both of which were set to true, indicating that stopwords would be investigated regardless of capitalization.
 
@@ -795,7 +794,8 @@ MAP & 0.473 & 0.73  \\
 
 In conclusion, the integration of a stopwords filter provides the advantage of handling more complex queries, granting clients greater freedom in their search parameters. This enhancement contributes to the complexity and accuracy of the search results, ultimately improving the overall search system.
 
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\renewcommand{\thesubsection}{\arabic{section}.2}
 \subsection{Semantic Search}
 
 The decision to implement Semantic Search emerged as a result of the evaluation of prior queries. Specifically, (reference queries B and D) revealed numerous shortcomings, primarily attributable to the subjective nature of reviews. The challenges stemmed from instances where a single negative word could drastically alter the overall context of the entire review, leading to multiple instances of failure.
@@ -918,16 +918,70 @@ MAP & 0.80 & 0.62  \\
 \end{table}
 
 
-In summary, Semantic Search falls short in effectively addressing the challenge posed by negative words altering the meaning of a phrase having for the three queries above a worst result than boosted system. This limitation, coupled with the complexities involved in its implementation, such as the need for query parsing, makes it so its not justified be implemented in the final product.
+In summary, Semantic Search falls short in effectively addressing the challenge posed by negative words altering the meaning of a phrase. This limitation, coupled with the complexities involved in its implementation, such as the need for query parsing, makes it not worth incorporating into the final product.
 
 
 
-
-
-
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsection}{\arabic{section}.3}
 \subsection{More Like This}
 
+Within Solr, the More Like This (\textbf{MLT}) functionality empowers users to discover documents similar to a specified document. Solr's More Like This is a Lucene \cite{Lucene} built-in functionality that operates by scrutinizing the text within the provided document and subsequently identifying other documents in the index that exhibit textual and contextual similarities. The outcomes of this query comprise documents with the most elevated similarity scores.
+
+An approach to this feature is particularly suitable and crucial in the context of the current project. Given the inherent subjectivity in choosing hotels due to tourism, users are expected to want to find more areas or hotels aligned with their preferences.
+
+Thus, from a hotel review, the system finds another 10 with similar content and corresponding hotels. These results are computed and ordered by Solr's internal match score. The parameters used in the queries were as follows:
+
+\begin{itemize}
+    \item \textbf{mlt.fl = text}, the similarity comparison will always be based on the text between reviews, as this text contains the context of the evaluation;
+    \item \textbf{mlt.mintf = 2}, (Lucene's default number), the minimum number of matches between terms for the document to be considered valid;
+    \item \textbf{mlt.mindf = 5}, (Lucene's default number), the minimum number of valid documents for the search to be considered valid;
+\end{itemize}
+
+Although the More Like This feature allows for boosts in certain parameters, this was not utilized. It would not make sense to create an additional boost for the fields of the document being processed since we only applied the functionalities of MLT to the text field in the review. Applying the boost to specific terms or tokens would distort the concept of a global search system capable of analyzing each query in a balanced manner by favoring the emergence of some words.
+
+The evaluation of this improvement does not follow the approach of previous information needs. The comparison of semantics and similarity between two texts can be even more complex and subjective when done manually. As such, we chose to evaluate the relevance of these queries using the objectivity of the Python SpaCy library \cite{Python_Spacy}. SpaCy specializes in advanced natural language processing (\textbf{NLP}) and allows for the comparison and quantification of similarity between two texts through their context.
+
+After collecting a sample from the system, where 20 reviews were randomly selected, along with the corresponding 10 reviews most similar according to Solr's output, the degree of similarity of their texts was externally computed. The result of the average similarity between the first ten results of each MLT query is described in Figure \ref{fig:avg_simi}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/mean_similiarity.png}
+  \caption{Average similarity percentage for each query}
+  \label{fig:avg_simi}
+\end{figure}
+
+
+The overall average similarity between the queries is quite high, never falling below 60\% in this sample. On the other hand, since it is a document ranking system, it is important to know the level of similarity decay with the index of the outputs. Theoretically, it is expected that the documents at the top have a higher degree of similarity than the others. To assess this behavior, the corresponding degree of similarity was computed for each index of the output. The mean similarity evolution across indexes can be found in Figure \ref{fig:simi_avg_evo}.
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{imgs/similiarity_average_evolution.png}
+  \caption{Evolution of average similarity across result indexes}
+  \label{fig:simi_avg_evo}
+\end{figure}
+
+
+Contrary to expectations, there was no inverse relationship in the selected sample between the degree of similarity of the original query and the index of the document. This fact can be justified in two ways. On the one hand, since the number of reviews in the dataset is much higher than the output of the MLT system, there was no spacing to notice a noticeable difference in the ranking of the results. On the other hand, the score from SpaCy is different from Solr's internal score, to which we do not have access, leading to some fluctuations.
+
+With highly satisfactory results, this feature will be present in the final system.
+
+\section{Search User Interface}
+
+While Solr's interface provides a valid approach to the search system and query customization, it deviates from traditional information retrieval system platforms. In this phase, the focus shifts to user interfaces by developing a frontend in NodeJS \cite{NodeJS} using Solr's API \cite{Solr_api} for the search system. This engine will empower travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
+
+Thus, four pages have been developed to support these needs, featuring a minimalist and responsive design for an enhanced user experience:
+
+\begin{itemize}
+    \item \textbf{Home}, depicted in Figure [F3], where users can initiate searches and preview the best hotels in the system;
+    \item \textbf{Search}, illustrated in Figure [F4], showcasing the results of the searches;
+    \item \textbf{Hotel}, presented in Figure [F5], displaying comprehensive information about the hotel, along with all its reviews;
+    \item \textbf{More Like This}, shown in Figure [F6], presenting results from similar searches;
+\end{itemize}
+
+It is also possible to apply filters to searches, in addition to specifying the query. Users can filter results by location, review rating given, and the hotel's average rate.
+
+Each result is accompanied by all relevant information for assessing its relevance, such as the hotel's name, ratings, review text, and application date. All results are returned in descending order of ranking, ensuring that the first ones are the most relevant given the underlying context of the query and applied filters.
 
 
 
@@ -1046,6 +1100,37 @@ In summary, Semantic Search falls short in effectively addressing the challenge 
 9 & 1 & 0 & 0 & 0 & 0 & 1 \\
 10 & 1 & 1 & 0 & 0 & 0 & 1 \\
 11 & 0 & 0 & 0 & 1 & 0 & 1 \\
+\begin{table}[ht]
+\caption{Relevance results for initial system evaluation}
+\label{tab:raw_results}
+\centering
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccccccccc}
+\multirow{2}{*}{\textbf{Rank}} & \multicolumn{2}{c}{\textbf{Relevance Q1}} & \multicolumn{2}{c}{\textbf{Relevance Q2}} & \multicolumn{2}{c}{\textbf{Relevance Q3}} & \multicolumn{2}{c}{\textbf{Relevance Q4}} \\
+ & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} & \textbf{Simple} & \textbf{Boosted} \\
+1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 1 \\
+2 & 1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 \\
+3 & 1 & 1 & 0 & 1 & 1 & 0 & 0 & 0 \\
+4 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+5 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0 \\
+6 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 1 \\
+7 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\
+8 & 1 & 1 & 1 & 1 & 0 & 0 & 1 & 0 \\
+9 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 0 \\
+10 & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 0 \\
+11 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\
+12 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 \\
+13 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\
+14 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
+15 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 1 \\
+16 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 \\
+17 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 1 \\
+18 & 0 & 1 & 1 & 1 & 0 & 1 & 0 & 1 \\
+19 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
+20 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0
+\end{tabular}
+}
+\end{table}
 12 & 0 & 1 & 1 & 1 & 0 & 0 \\
 13 & 1 & 1 & 0 & 0 & 0 & 0 \\
 14 & 1 & 1 & 0 & 1 & 0 & 1 \\
@@ -1058,6 +1143,7 @@ In summary, Semantic Search falls short in effectively addressing the challenge 
 \end{tabular}
 }
 \end{table}
+
 
 
 \begin{table}[ht]
@@ -1091,7 +1177,6 @@ In summary, Semantic Search falls short in effectively addressing the challenge 
 \end{tabular}
 }
 \end{table}
-
 
 \end{document}
 \endinput

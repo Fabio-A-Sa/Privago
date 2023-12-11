@@ -152,7 +152,7 @@ It is also possible to apply filters to searches, in addition to specifying the 
 
 Each result is accompanied by all relevant information for assessing its relevance, such as the hotel's name, ratings, review text, and application date. All results are returned in descending order of ranking, ensuring that the first ones are the most relevant given the underlying context of the query and applied filters.
 
-De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionados utilizadores comuns de plataformas do são convidados no final da sessão de experimentação a responder a um breve questionário. Esse questionário foi elaborado usando a versão standard da System Usability Scale (SUS). Esta escala contempla questões que avaliam a percepção do utilizador acerca da usabilidade e pertinência geral da aplicação, bem como na clareza de cada funcionalidade implementada:
+In order to assess overall qualitative aspects of the platform, a few students from the course were selected, and they were invited at the end of the experimentation session to respond to a brief questionnaire [X8]. This questionnaire was developed using the standard version of the System Usability Scale - SUS [X7]. This scale includes questions that evaluate the user's perception of the usability and overall relevance of the application, as well as the clarity of the implemented features:
 
 1. I think that I would like to use this system frequently.
 2. I found the system unnecessarily complex.
@@ -165,11 +165,11 @@ De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionad
 9. I felt very confident using the system.
 10. I needed to learn a lot of things before I could get going with this system.
 
+Each response on the SUS scale is assessed on a scale from 0 to 5, resulting from the convergence of the subjective characterization of each topic from "Strongly Disagree" to "Strongly Agree". The results collected from the 11 students who volunteered for the interface evaluation can be found in table [T8].
 
+The collected results demonstrate that the users' evaluation of the interface according to the SUS scale averages 82.5%. Reference data for this type of analysis set 68% as the threshold for interface quality, so it is concluded that the implemented features meet the overall needs of the users. These positive results were driven by two distinct factors: on one hand, the nature of the selected users, who are students from the same course and therefore within the context of the needs of an application of this caliber, and on the other hand, the similarity and familiarity of the interface with other well-known research systems.
 
-Os resultados 
-
-Os resultados... foram bons porque... experts, semelhante a outros search systems conhecidos...
+With good results, this feature will be present in the final system as well.
 
 ## 10. Final System Characterization
 
