@@ -9,21 +9,18 @@
 
 ## 8. Information Retrieval Improvements
 
-- pegar nesta fase nas fragilidades do sistema encontradas na fase de evaluation anterior
-- implementar as propostas enunciadas
+A etapa anterior deu a conhecer uma versão inicial do information retrieval system, avaliando-a segundo bem definidas necessidades de informação e métricas baseadas em precision and recall. Olhando noutra perspectiva, permitiu encontrar também as fragilidades e limitações das abordagens escolhidas. Assim, no sentido de dar improvement ao search engine, nesta fase irá haver a implementação e avaliação de features que preferencialmente preencherão as lacunas encontradas:
 
-- x
-- y
+- Stop Words
+- Semantic Analysis
 
-os improvements foram analisaods com:
-- 
-- uma terceira query que provocasse stress ao tópico que queremos explorar
+A avaliação destas features seguirá o mesmo estilo das anteriores, usando como base necessidades de informação reais e ajustadas ao contexto encontrado. Haverá na mesma dois sistemas em análise, desta vez o boosted e o boosted com a aplicação do improvement em estudo. A avaliação em separado de cada improvement permite ter por um lado uma análise isolada da sua contribuição para o sucesso do sistema e por outro uma discussão sobre a sua permanência na search engine final.
 
-além destas foi adicionado o more like this, por fazer sentido dentro do nosso contexto
+Serão usadas três necessidades de informação. As duas primeiras serão iguais à etapa anterior, garantindo que há uma comparação válida dos sistemas quando expostos ao mesmo ambiente e uma visualização da progressiva elaboração da hipótese de sucesso. Ainda haverá uma comparação dos sistemas usando uma terceira necessidade de informação, desta vez direcionada para o objectivo do improvement, adicionando um stress extra ao sistema sobre o tópico que queremos explorar e para verificar até que ponto o sistema é capaz de lidar com as adversidades da linguagem natural característica destes das pesquisas.
 
-- z 
+The Table [T1] documents the relevance of the top 20 results for each evaluated query and for the two improvements under analysis.
 
-- os resultados estão expressos nos anexos, tabela V
+Com vista a uma exploração mais focada nos propósitos do tema do projecto, foi adicionada à lista de improvements o More Like This, com consequente análise. Com o balanceamento dos benefícios de cada um dos tópicos abordados aproximamo-nos ainda mais do que é um information retrieval system da atualidade.
 
 ### A. Stop Words    
 
@@ -92,6 +89,8 @@ além destas foi adicionado o more like this, por fazer sentido dentro do nosso 
 ### C. More Like This
 
 [X1]
+
+Como seria muito subjectivo, e desta vez temos oportunidade de fazer algo mais objectivo.
 
 A partir de uma review, encontra outras 10 com conteúdo semelhante.
 Resultados ordenados pelo score interno do match Solr.
@@ -170,6 +169,8 @@ I needed to learn a lot of things before I could get going with this system.
 
 (modificar, este é o de M2)
 
+adicionar filtro de location no mlt para future work
+
 In conclusion of this milestone, all the planned tasks within the Information Retrieval phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that aids tourists in making informed choices.
 
 One of the most challenging aspects of the work involved developing effective strategies for dealing with nested documents, as well as their indexing and retrieval. Solr lacks documentation and concrete examples supporting the addressed document format.
@@ -190,3 +191,7 @@ Todas as anteriores mais:
 - [X3] - [More Like This in Solr](https://solr.apache.org/guide/8_8/morelikethis.html)
 - [X4] - SUS https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html
 - Form https://docs.google.com/forms/d/1SXVDPi1CKsRgmEZa9fsZQnka58HgxBNi1FSTMo1OaGw/edit
+
+## Annexes
+
+[T1] - Tabela com 0s e 1s, com 20 linhas e colunas suficientes para suportar os improvements e a comparação entre o boosted e a nova approach;
