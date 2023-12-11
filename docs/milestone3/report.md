@@ -118,48 +118,41 @@ Contrary to expectations, there was no inverse relationship in the selected samp
 
 With highly satisfactory results, this feature will be present in the final system.
 
-## 9. User Interface
+## 9. Search User Interface
 
-Apesar da interface do Solr ser uma abordagem válida na questão de search system e costumização de queries, não está alinhada com as tradicionais plataformas de information retrieval system. In this phase, work will be done on user interfaces by developing a frontend in NodeJS [X5] using Solr's API [X6] for the search system. This engine will enable travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
+While Solr's interface provides a valid approach to the search system and query customization, it deviates from traditional information retrieval system platforms. In this phase, the focus shifts to user interfaces by developing a frontend in NodeJS [X5] using Solr's API [X6] for the search system. This engine will empower travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
 
-Quatro páginas foram desenvolvidas:
+Thus, four pages have been developed to support these needs, featuring a minimalist and responsive design for an enhanced user experience:
 
-- Home, apresentada na Figura [F3], 
-- Search, apresentada na Figura [F4], 
-- Hotel, apresentada na Figura [F5], 
-- More Like This, apresentada na Figura [F6], 
+- `Home`, depicted in Figure [F3], where users can initiate searches and preview the best hotels in the system;
+- `Search`, illustrated in Figure [F4], showcasing the results of the searches;
+- `Hotel`, presented in Figure [F5], displaying comprehensive information about the hotel, along with all its reviews;
+- `More Like This`, shown in Figure [F6], presenting results from similar searches;
 
-É possível aplicar filtros às pesquisas, além da explicitação da query. Há possibilidade de fitrar os resultados por location, rating dado e average rate do hotel. Os termos são em negrito. O design minimalista e responsivo.
+It is also possible to apply filters to searches, in addition to specifying the query. Users can filter results by location, review rating given, and the hotel's average rate.
 
-Cada resultado é companhado de toda a informação, como nome do hotel, ratings, texto e data.
+Each result is accompanied by all relevant information for assessing its relevance, such as the hotel's name, ratings, review text, and application date. All results are returned in descending order of ranking, ensuring that the first ones are the most relevant given the underlying context of the query and applied filters.
 
-Todos os resultados são devolvidos por ordem decrescente de ranking, garantindo que os primeiros são os mais relevantes dado o contexto subjacente à query e os filtros aplicados.
+---
 
---- 
+De forma a avaliar aspectos qualitativos globais da plataforma, foram selecionados utilizadores comuns de plataformas do são convidados no final da sessão de experimentação a responder a um breve questionário. Esse questionário foi baseado na versão standard da System Usability Scale (SUS). Esta escala
 
-De forma a podermos avaliar aspectos qualitativos da plataforma Privago, tanto a nível global como de cada feature, os utilizadores são convidados no final da sessão de experimentação a responder a um breve questionário de satisfação.
+1. I think that I would like to use this system frequently.
+2. I found the system unnecessarily complex.
+3. I thought the system was easy to use.
+4. I think that I would need the support of a technical person to be able to use this system.
+5. I found the various functions in this system were well integrated.
+6. I thought there was too much inconsistency in this system.
+7. I would imagine that most people would learn to use this system very quickly.
+8. I found the system very cumbersome to use.
+9. I felt very confident using the system.
+10. I needed to learn a lot of things before I could get going with this system.
 
-Este questionário é baseado na versão standard da System Usability Scale (SUS) e contempla questões que avaliam a percepção do utilizador acerca da usabilidade e pertinência geral da aplicação, bem como na clareza de cada funcionalidade implementada.
+e contempla questões que avaliam a percepção do utilizador acerca da usabilidade e pertinência geral da aplicação, bem como na clareza de cada funcionalidade implementada.
 
-O formulário demora cerca de 2 minutos a responder e todas as informações obtidas serão anónimas e utilizadas para fins de avaliação da plataforma.
+Os resultados 
 
-In order to assess qualitative aspects of the Privago platform, both globally and for each feature, users are invited to respond to a brief satisfaction questionnaire at the end of the experimentation session.
-
-I think that I would like to use this system frequently.
-I found the system unnecessarily complex.
-I thought the system was easy to use.
-I think that I would need the support of a technical person to be able to use this system.
-I found the various functions in this system were well integrated.
-I thought there was too much inconsistency in this system.
-I would imagine that most people would learn to use this system very quickly.
-I found the system very cumbersome to use.
-I felt very confident using the system.
-I needed to learn a lot of things before I could get going with this system.
-
-
-This questionnaire is based on the standard version of the System Usability Scale (SUS) and includes questions that evaluate the user's perception of the overall usability and relevance of the application, as well as the clarity das funcionalidades implementadas.
-
-Os resultados...
+Os resultados... foram bons porque... experts, semelhante a outros search systems conhecidos...
 
 ## 10. Final System Characterization
 
@@ -173,7 +166,7 @@ aO LONGO DE TRES ITERAÇÕES, LOGO TÁ FIZE PARA AVABAR EM GRANDEII
 
 (modificar, este é o de M2)
 
-adicionar filtro de location no mlt para future work
+-> adicionar filtro de location no mlt para future work
 
 In conclusion of this milestone, all the planned tasks within the Information Retrieval phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that aids tourists in making informed choices.
 
@@ -198,7 +191,7 @@ Todas as anteriores mais:
 - [X5] - [NodeJS](https://nodejs.org/en/about)
 - [X6] - [Solr's API](https://solr.apache.org/guide/8_5/client-apis.html)
 - [X7] - [System Usability Scale](https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html)
-- [X8] - [SUS Evaluation Form]()
+- [X8] - [SUS Evaluation Form](https://docs.google.com/forms/d/e/1FAIpQLSeaWvSApBxHiT_iXDgFF1eJ9HGKVdpSvcWV558pGX2PYa6Iqw/viewform)
 
 ## Annexes
 
