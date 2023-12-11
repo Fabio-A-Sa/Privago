@@ -9,18 +9,18 @@
 
 ## 8. Information Retrieval Improvements
 
-A etapa anterior deu a conhecer uma versão inicial do information retrieval system, avaliando-a segundo bem definidas necessidades de informação e métricas baseadas em precision and recall. Olhando noutra perspectiva, permitiu encontrar também as fragilidades e limitações das abordagens escolhidas. Assim, no sentido de dar improvement ao search engine, nesta fase irá haver a implementação e avaliação de features que preferencialmente preencherão as lacunas encontradas:
+The previous stage introduced an initial version of the information retrieval system, evaluating it based on well-defined information needs and metrics grounded in precision and recall. Looking from another perspective, it also helped identify the weaknesses and limitations of the chosen approaches. Therefore, to enhance the search engine, this phase will involve the implementation and evaluation of features aimed at addressing the identified gaps:
 
-- Stop Words
-- Semantic Analysis
+- Stop Words;
+- Semantic Analysis;
 
-A avaliação destas features seguirá o mesmo estilo das anteriores, usando como base necessidades de informação reais e ajustadas ao contexto encontrado. Haverá na mesma dois sistemas em análise, desta vez o boosted e o boosted com a aplicação do improvement em estudo. A avaliação em separado de cada improvement permite ter por um lado uma análise isolada da sua contribuição para o sucesso do sistema e por outro uma discussão sobre a sua permanência na search engine final.
+The evaluation of these features will follow the same style as the previous ones, using real information needs as a base and adjusting them to the context encountered. There will still be two systems under analysis, this time the boosted system and the boosted system with the application of the improvement under study. Evaluating each improvement separately allows for both an isolated analysis of its contribution to the system's success and a discussion on its permanence in the final search engine.
 
-Serão usadas três necessidades de informação. As duas primeiras serão iguais à etapa anterior, garantindo que há uma comparação válida dos sistemas quando expostos ao mesmo ambiente e uma visualização da progressiva elaboração da hipótese de sucesso. Ainda haverá uma comparação dos sistemas usando uma terceira necessidade de informação, desta vez direcionada para o objectivo do improvement, adicionando um stress extra ao sistema sobre o tópico que queremos explorar e para verificar até que ponto o sistema é capaz de lidar com as adversidades da linguagem natural característica destes das pesquisas.
+Three information needs will be used. The first two will be the same as in the previous stage, ensuring a valid comparison of the systems when exposed to the same environment and providing a visualization of the progressive development of the hypothesis. There will also be a comparison of the systems using a third information need, this time tailored to the improvement's objective, adding extra stress to the system on the topic we want to explore and checking the system's ability to handle the adversities of the natural language characteristic of these searches.
 
-The Table [T1] documents the relevance of the top 20 results for each evaluated query and for the two improvements under analysis.
+Table [T1] documents the relevance of the top 20 results for each evaluated query and for the two improvements under analysis.
 
-Com vista a uma exploração mais focada nos propósitos do tema do projecto, foi adicionada à lista de improvements o More Like This, com consequente análise. Com o balanceamento dos benefícios de cada um dos tópicos abordados aproximamo-nos ainda mais do que é um information retrieval system da atualidade.
+In order to explore the project's theme more focusedly, *More Like This* [X0] has been added to the list of improvements, with consequent analysis. Balancing the benefits of each of the topics addressed brings us even closer to what a contemporary information retrieval system looks like today.
 
 ### A. Stop Words    
 
@@ -88,28 +88,30 @@ Com vista a uma exploração mais focada nos propósitos do tema do projecto, fo
 
 ### C. More Like This
 
-[X1]
+Within Solr, the More Like This (MLT) functionality empowers users to discover documents akin to a specified document. Solr's More Like This is a Lucene [X3] built-in functionality that operates by scrutinizing the text within the provided document and subsequently identifying other documents in the index that exhibit textual and contextual similarities. The outcomes of this query comprise documents with the most elevated similarity scores.
+
+Uma abordagem a esta feature é particularmente adequada e importante no contexto do projecto corrente. De facto, dado a particular importância da subjectividade inerente à escolha de hotéis por força do turismo, é expectável que os utilizadores queiram encontrar mais zonas ou hotéis alinhadas às suas preferências.
+
+Assim, a partir de uma review de hotel, o sistema encontra outras 10 com conteúdo semelhante e correspondentes hotéis. Esses resultados são computados e ordenados pelo score interno do match do Solr. Os parâmetros usados nas queries foram os seguintes:
+
+- `mlt.fl = text`, a comparação de semelhança será sempre com base no texto entre reviews, pois é este texto que contém o contexto da avaliação do mesmo;
+- `mlt.mintf = 2` (número default do Lucene), o mínimo de matches entre termos para o documento ser considerado válido;
+- `mlt.mindf = 5` (número default do Lucene), o mínimo de documentos válidos para que a pesquisa seja considerada válida;
+
+Apesar da feature More Like This permitir ainda boosts em determinados parâmetros, isso não foi utilizado. Não faria sentido criar um boost adicional aos fields do documento a processar, visto que só aplicamos as funcionalidades do MTL ao field text na review. A aplicação do boost a termos ou tokens concretos iria desvirtuar o conceito de um search system global capaz de analisar de forma equilibrada cada query ao beneficiar o surgimento de algumas palavras.
+
+A avaliação deste improvement não segue a abordagem . Há duas razões principais: ao contrário do ranking, 
+
+Como tal, 
 
 Como seria muito subjectivo, e desta vez temos oportunidade de fazer algo mais objectivo.
-
-A partir de uma review, encontra outras 10 com conteúdo semelhante.
-Resultados ordenados pelo score interno do match Solr.
-
-Parâmetros usados e breve justificação:
-
-- mlt.fl = text, a comparação de semelhança será sempre com base no texto entre reviews
-- mlt.mintf = 2 (o default), mínimo de matches entre termos para o documento ser considerado válido;
-- mlt.mindf = 5 (o default), mínimo de documentos válidos para que a pesquisa seja considerada válida;
-
-Não usamos boost, visto que:
-- Como só colocamos à prova uma variável, então só poderíamos dar boost a essa
-- Há hipótese de colocarmos boost a determinados tokens, mas esses não são fixos e podem variar entre query/match/review. Um sistema global é melhor.
-
 A avaliação foi feita não com formas subjectivas (manualmente) mas sim objectivas, através da biblioteca `spacy` do python.
+
+Após uma amostra aleatória, onde se selecionou 10 reviews e as correspondentes 10 reviews mais semelhantes segundo o Solr, apresentar aqui alguns resultados.
 
 É importante referir que o score do spacy é diferente do score interno do solr, por isso podemos ver algumas variações nos 10 primeiros. Idealmente a similiriaridade diminuiria do primeiro resultado para o último, mas não é assim para todos os casos.
 
-Após uma amostra aleatória, onde se selecionou 10 reviews e as correspondentes 10 reviews mais semelhantes segundo o Solr, apresentar aqui alguns resultados.
+Com resultados satisfatórios numa forma global, esta feature estará presente no 
 
 ## 9. User Interface
 
@@ -164,8 +166,11 @@ I found the system very cumbersome to use.
 I felt very confident using the system.
 I needed to learn a lot of things before I could get going with this system.
 
+## 10. Final System Characterization
 
-## 10. Conclusions and Future Work
+Indicar aqui que funcionalidades são aplicadas, por tópicos
+
+## 11. Conclusions and Future Work
 
 (modificar, este é o de M2)
 
@@ -186,9 +191,11 @@ In the next phase, work will be done on user interfaces by developing a frontend
 
 Todas as anteriores mais:
 
+- [X0] - [More Like This in Solr](https://solr.apache.org/guide/8_8/morelikethis.html)
 - [X1] - Referências de Stop Words
-- [X2] - Referências de Semantic Analysis, uma delas tem de ser obrigatoriamente o tutorial do regente
-- [X3] - [More Like This in Solr](https://solr.apache.org/guide/8_8/morelikethis.html)
+- [X2] - Referências de Semantic Analysis. Uma delas tem de ser obrigatoriamente o Tutorial do regente
+- [X3] - [Lucene Solr](https://lucene.apache.org/core/9_9_0/index.html)
+
 - [X4] - SUS https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html
 - Form https://docs.google.com/forms/d/1SXVDPi1CKsRgmEZa9fsZQnka58HgxBNi1FSTMo1OaGw/edit
 
