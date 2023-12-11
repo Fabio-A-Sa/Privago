@@ -9,53 +9,60 @@
 
 ## 8. Information Retrieval Improvements
 
-- pegar nesta fase nas fragilidades do sistema encontradas na fase de evaluation anterior
-- implementar as propostas enunciadas
+Due to certain system fragilities and obstacles, several enhancements were introduced to address these issues and improve the overall search system, thereby enhancing the client experience.
 
-- x
-- y
-
-os improvements foram analisaods com:
-- 
-- uma terceira query que provocasse stress ao tópico que queremos explorar
-
-além destas foi adicionado o more like this, por fazer sentido dentro do nosso contexto
-
-- z 
-
-- os resultados estão expressos nos anexos, tabela V
+In the subsequent sections, two specific improvements were implemented, and their impact was assessed using two queries from the previous approach. The evaluation focused on analyzing the improvements within the query parameters. In order to offer a thorough examination of the enhancements, an additional query was examined to explicate its relevance and provide specific information about its operation.
 
 ### A. Stop Words    
 
--> Justificar o porquê da decisão de colocar esta feature;
--> Indicar que o Solr tem suporte para este tipo de feature, adicionar referência a isso [X1];
+The decision to implement a stopwords filter aimed at enhancing the exploration of complex queries, allowing clients more flexibility to conduct searches with more complex queries. Solr initially provides a set of predefined stopwords, but a custom file was chosen, derived from a word cloud diagram. Similar to the process for Synonyms, this custom stopwords file was incorporated into the Solr configuration files.
 
--> QX1 (seguir a estrutura de M2)
+Two queries from Milestone 2 were reviewed in the following queries, each with a single stopword. When compared to the previous strategy, the new approach added two query parameters: stopwords and ignorecase, both of which were set to true, indicating that stopwords would be investigated regardless of capitalization.
 
--> Information Need
--> Relevance Judgement (breve, será semelhante a uma anterior de M2)
--> Query (breve, será semelhante a uma anterior de M2)
--> Tabela com AvP e P@20 para System Boosted, System Boosted + Stop Words
--> Result Analysis, não esquecer de justificar as precision-recall curves
+#### Breakfast or Room Service
 
--> QX2 (seguir a estrutura de M2)
+__Information Need:__ Hotels with good breakfast or good room service in New Delhi.
+__Relevance Judgement:__ In this information need its intended to search for hotels with a good breakfast or a good room service in New Delhi. Therefore, the words "good breakfast" or "good room service" should appear in the same query/text of review and the location should be a filter query of the parents documents.
+__Query:__
+- q: (good breakfast) OR (good room service)
+- q.op: AND
+- fq: {!child of=\"\*:\* -_nest\_path\_:*\"}location:"new delhi"
+- fl: *,[child]
+- sort: score desc
+- stopwords: true
+- ignoreCase: true
 
--> Information Need
--> Relevance Judgement (breve, será semelhante a uma anterior de M2)
--> Query (breve, será semelhante a uma anterior de M2)
--> Tabela com AvP e P@20 para System Boosted, System Boosted + Stop Words
--> Result Analysis, não esquecer de justificar as precision-recall curves
+### Vegetarian/Vegan
 
--> QX3 (seguir a estrutura de M2)
+__Information Need:__ Hotels with good vegetarian/vegan options
+__Relevance Judgement:__ In this task, the objective is to find hotels with good vegetarian or vegan options. So, the words "good vegetarian" or "good vegan" should appear in the review's text. The location isn't specified.
+__Query:__
+- q: (good vegetarian) OR (good vegan)
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:\*\"}location:*
+- fl: *,[child]
+- sort: score desc
+- stopwords: true
+- ignoreCase: true
 
--> Information Need
--> Relevance Judgement
--> Query
--> Tabela com AvP e P@20 para System Boosted, System Boosted + Stop Words
--> Result Analysis, não esquecer de justificar as precision-recall curves
+### Beach Views
 
--> No final, avaliar os dois sistemas com base no MAP
--> Justificar se esta feature vai ou não para o sistema final
+__Information Need:__ Best hotels with beach views.
+__Relevance Judgement:__ In this task, the objective is to find the best hotels with beach views. Since we are using the StopWords Filter, only the words "best hotels beach views" will be search in each review text. 
+__Query:__
+- q: What are the best hotels with beach views
+- q.op: AND
+- fq: {!child of=\"\*:* -_nest_path_:\*\"}location:*
+- fl: *,[child]
+- sort: score desc
+- stopwords: true
+- ignoreCase: true
+
+Upon analyzing the results in each table, it is clear that the results of the two previous queries differ, as expected. The use of the stopwords filter during indexing and querying causes a difference in results. Considering that the query only contains one stopword, the results show a noticeable similarity even though they are not identical.
+
+In contrast, the third query, which has four stopwords, produced no results in the original schema without the stopwords filter. The modified schema, on the other hand, provided the expected 20 outcomes with a precision of 13 out of 20, as shown in the [table].
+
+In conclusion, the integration of a stopwords filter provides the advantage of handling more complex queries, granting clients greater freedom in their search parameters. This enhancement contributes to the complexity and accuracy of the search results, ultimately improving the overall search system.
 
 ### B. Semantic Analysis
 
