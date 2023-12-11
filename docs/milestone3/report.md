@@ -104,11 +104,15 @@ The evaluation of this improvement does not follow the approach of previous info
 
 After collecting a sample from the system, where 20 reviews were randomly selected, along with the corresponding 10 reviews most similar according to Solr's output, the degree of similarity of their texts was externally computed. The result of the average similarity between the first ten results of each MLT query is described in Figure [F1].
 
-![Figura F1](../../evaluation/mlt/mean_similiarity.png) - Average similiarity percentage for each query
+![Figura F1](../../evaluation/mlt/mean_similiarity.png) 
+
+[F1] - Average similiarity percentage for each query
 
 The overall average similarity between the queries is quite high, never falling below 60% in this sample. On the other hand, since it is a document ranking system, it is important to know the level of similarity decay with the index of the outputs. Theoretically, it is expected that the documents at the top have a higher degree of similarity than the others. To assess this behavior, the corresponding degree of similarity was computed for each index of the output. The mean similarity evolution across indexes can be found in Figure [F2]:
 
-![Figura F2](../../evaluation/mlt/similiarity_average_evolution.png) -  Evolution of average similiarity across result indexes
+![Figura F2](../../evaluation/mlt/similiarity_average_evolution.png) 
+
+[F2] -  Evolution of average similiarity across result indexes
 
 Contrary to expectations, there was no inverse relationship in the selected sample between the degree of similarity of the original query and the index of the document. This fact can be justified in two ways. On the one hand, since the number of reviews in the dataset is much higher than the output of the MLT system, there was no spacing to notice a noticeable difference in the ranking of the results. On the other hand, the score from SpaCy is different from Solr's internal score, to which we do not have access, leading to some fluctuations.
 
@@ -116,33 +120,22 @@ With highly satisfactory results, this feature will be present in the final syst
 
 ## 9. User Interface
 
-> Como avaliar? Meter uma pessoa a fazer queries em solr e depois na web app? Contar cliques, fazer formulário, tempo, a pessoa dizer se os resultados são relevantes ou não. Valor de referência, estudos.
+Apesar da interface do Solr ser uma abordagem válida na questão de search system e costumização de queries, não está alinhada com as tradicionais plataformas de information retrieval system. In this phase, work will be done on user interfaces by developing a frontend in NodeJS [X5] using Solr's API [X6] for the search system. This engine will enable travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
 
-Ver exatamente as features que queremos para a web interface. definir ordenações, limites de busca na API, entre outros. Implementar paginação de results, para uma melhor performance.
+Quatro páginas foram desenvolvidas:
 
-- Filtros (a meter tanto na home como na search):
-    - location (drop down)
-    - rating (1+, 2+, 3+, +4, 5) -> bolinhas do ávila
-    - average_rating (1+, 2+, 3+, +4, 5) -> bolinhas do ávila
+- Home, apresentada na Figura [F3], 
+- Search, apresentada na Figura [F4], 
+- Hotel, apresentada na Figura [F5], 
+- More Like This, apresentada na Figura [F6], 
 
-Homepage:
-    - rating average descendente
-    - limit = 20 hotels melhores
+É possível aplicar filtros às pesquisas, além da explicitação da query. Há possibilidade de fitrar os resultados por location, rating dado e average rate do hotel. Os termos são em negrito. O design minimalista e responsivo.
 
-Search page:
-    - paginação (até 10 * 10)
-    - limite de results = 10 por página
-    - 1,2..limit (=10 na maioria dos casos)
+Cada resultado é companhado de toda a informação, como nome do hotel, ratings, texto e data.
 
-Hotels page:
-    - paginação (até 10 * 10)
-    - limite de results = 10 por página
-    - Igual à search page
+Todos os resultados são devolvidos por ordem decrescente de ranking, garantindo que os primeiros são os mais relevantes dado o contexto subjacente à query e os filtros aplicados.
 
-More like this page:
-    - Botão em todas reviews na search page (não tem na home, nem na hotels, nem nesta)
-    - a mesma cena que a query normal, só que coisa
-    - a avaliação com python (?)
+--- 
 
 De forma a podermos avaliar aspectos qualitativos da plataforma Privago, tanto a nível global como de cada feature, os utilizadores são convidados no final da sessão de experimentação a responder a um breve questionário de satisfação.
 
@@ -151,10 +144,6 @@ Este questionário é baseado na versão standard da System Usability Scale (SUS
 O formulário demora cerca de 2 minutos a responder e todas as informações obtidas serão anónimas e utilizadas para fins de avaliação da plataforma.
 
 In order to assess qualitative aspects of the Privago platform, both globally and for each feature, users are invited to respond to a brief satisfaction questionnaire at the end of the experimentation session.
-
-This questionnaire is based on the standard version of the System Usability Scale (SUS) and includes questions that evaluate the user's perception of the overall usability and relevance of the application, as well as the clarity of each implemented functionality.
-
-The form takes approximately 2 minutes to complete, and all information obtained will be anonymous and used for platform evaluation purposes.
 
 I think that I would like to use this system frequently.
 I found the system unnecessarily complex.
@@ -166,6 +155,11 @@ I would imagine that most people would learn to use this system very quickly.
 I found the system very cumbersome to use.
 I felt very confident using the system.
 I needed to learn a lot of things before I could get going with this system.
+
+
+This questionnaire is based on the standard version of the System Usability Scale (SUS) and includes questions that evaluate the user's perception of the overall usability and relevance of the application, as well as the clarity das funcionalidades implementadas.
+
+Os resultados...
 
 ## 10. Final System Characterization
 
@@ -201,9 +195,15 @@ Todas as anteriores mais:
 - [X2] - Referências de Semantic Analysis. Uma delas tem de ser obrigatoriamente o Tutorial do regente
 - [X3] - [Lucene Solr](https://lucene.apache.org/core/9_9_0/index.html)
 - [X4] - [Python SpaCy](https://spacy.io)
-- [X4] - SUS https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html
-- Form https://docs.google.com/forms/d/1SXVDPi1CKsRgmEZa9fsZQnka58HgxBNi1FSTMo1OaGw/edit
+- [X5] - [NodeJS](https://nodejs.org/en/about)
+- [X6] - [Solr's API](https://solr.apache.org/guide/8_5/client-apis.html)
+- [X7] - [System Usability Scale](https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html)
+- [X8] - [SUS Evaluation Form]()
 
 ## Annexes
 
 [T1] - Tabela com 0s e 1s, com 20 linhas e colunas suficientes para suportar os improvements e a comparação entre o boosted e a nova approach;
+[F3] - Home page print
+[F4] - Search page print
+[F5] - Hotel page print
+[F6] - More Like This page print
