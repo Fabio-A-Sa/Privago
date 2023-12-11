@@ -100,18 +100,19 @@ Assim, a partir de uma review de hotel, o sistema encontra outras 10 com conteú
 
 Apesar da feature More Like This permitir ainda boosts em determinados parâmetros, isso não foi utilizado. Não faria sentido criar um boost adicional aos fields do documento a processar, visto que só aplicamos as funcionalidades do MTL ao field text na review. A aplicação do boost a termos ou tokens concretos iria desvirtuar o conceito de um search system global capaz de analisar de forma equilibrada cada query ao beneficiar o surgimento de algumas palavras.
 
-A avaliação deste improvement não segue a abordagem . Há duas razões principais: ao contrário do ranking, 
+A avaliação deste improvement não segue a abordagem das necessidades de informação anteriores. A comparação de semântica e semelhança entre dois textos pode ser ainda mais complexa e subjectiva quando efetuada de forma manual. Como tal, optamos por avaliar a relevância destas queries recorrendo à objectividade da biblioteca Python SpaCy [X4]. SpaCy é especializada em processamento avançado de linguagem natural (NLP) e permite comparação e quantificação da similiaridade entre dois textos através do seu contexto.
 
-Como tal, 
+Após recolha de uma amostra do sistema, onde se selecionou aleatoriamente 20 reviews e as correspondentes 10 reviews mais semelhantes segundo o output do Solr, computou-se externamente o grau de similiaridade dos seus textos. O resultado da semelhança média entre os dez primeiros resultados de cada query MLT encontra-se descrito na Figura [F1].
 
-Como seria muito subjectivo, e desta vez temos oportunidade de fazer algo mais objectivo.
-A avaliação foi feita não com formas subjectivas (manualmente) mas sim objectivas, através da biblioteca `spacy` do python.
+![Figura F1](../../evaluation/mlt/mean_similiarity.png) - Average similiarity percentage for each query
 
-Após uma amostra aleatória, onde se selecionou 10 reviews e as correspondentes 10 reviews mais semelhantes segundo o Solr, apresentar aqui alguns resultados.
+A média global da similiaridade entre as queries é bastante elevada, nunca sendo inferior a 60% nesta amostra. Por outro lado, tratando-se de um sistema de ranking de documentos, importa saber o nível de decaimento da similiaridade com o índex dos outputs. Espera-se, em modo teórico, que os documentos que se encontram no topo tenham um grau de similiaridade superior aos restantes. Para avaliar esse comportamento, computou-se para cada índex do output o seu correspondente grau de similiaridade. A mean similiarity evolution across indexes pode ser encontrado na figura [F2]: 
 
-É importante referir que o score do spacy é diferente do score interno do solr, por isso podemos ver algumas variações nos 10 primeiros. Idealmente a similiriaridade diminuiria do primeiro resultado para o último, mas não é assim para todos os casos.
+![Figura F2](../../evaluation/mlt/similiarity_average_evolution.png) -  Evolution of average similiarity across result indexes
 
-Com resultados satisfatórios numa forma global, esta feature estará presente no 
+Ao contrário do esperado, não houve na amostra selecionada uma relação inversa entre o grau de similiriaridade da query original e o index do documento. Este facto pode ser justificado em duas vertentes. Por um lado, uma vez que o número de reviews do dataset é muito superior ao output do sistema MLT, não houve espaçamento para se notar uma diferença notória na ordenação dos resultados. Por outro lado o score do SpaCy é diferente do score interno do Solr, ao qual não temos acesso, dando azo a algumas oscilações.
+
+Com resultados bastante satisfatórios, esta feature estará presente no sistema final.
 
 ## 9. User Interface
 
@@ -170,6 +171,10 @@ I needed to learn a lot of things before I could get going with this system.
 
 Indicar aqui que funcionalidades são aplicadas, por tópicos
 
+com MAP X, a estas features adiciona-se ainda o MLT com acuracy Y e uma user interface avaiada em W.
+
+aO LONGO DE TRES ITERAÇÕES, LOGO TÁ FIZE PARA AVABAR EM GRANDEII
+
 ## 11. Conclusions and Future Work
 
 (modificar, este é o de M2)
@@ -195,7 +200,7 @@ Todas as anteriores mais:
 - [X1] - Referências de Stop Words
 - [X2] - Referências de Semantic Analysis. Uma delas tem de ser obrigatoriamente o Tutorial do regente
 - [X3] - [Lucene Solr](https://lucene.apache.org/core/9_9_0/index.html)
-
+- [X4] - [Python SpaCy](https://spacy.io)
 - [X4] - SUS https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html
 - Form https://docs.google.com/forms/d/1SXVDPi1CKsRgmEZa9fsZQnka58HgxBNi1FSTMo1OaGw/edit
 
