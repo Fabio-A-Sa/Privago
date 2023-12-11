@@ -142,6 +142,30 @@ More like this page:
     - a mesma cena que a query normal, só que coisa
     - a avaliação com python (?)
 
+De forma a podermos avaliar aspectos qualitativos da plataforma Privago, tanto a nível global como de cada feature, os utilizadores são convidados no final da sessão de experimentação a responder a um breve questionário de satisfação.
+
+Este questionário é baseado na versão standard da System Usability Scale (SUS) e contempla questões que avaliam a percepção do utilizador acerca da usabilidade e pertinência geral da aplicação, bem como na clareza de cada funcionalidade implementada.
+
+O formulário demora cerca de 2 minutos a responder e todas as informações obtidas serão anónimas e utilizadas para fins de avaliação da plataforma.
+
+In order to assess qualitative aspects of the Privago platform, both globally and for each feature, users are invited to respond to a brief satisfaction questionnaire at the end of the experimentation session.
+
+This questionnaire is based on the standard version of the System Usability Scale (SUS) and includes questions that evaluate the user's perception of the overall usability and relevance of the application, as well as the clarity of each implemented functionality.
+
+The form takes approximately 2 minutes to complete, and all information obtained will be anonymous and used for platform evaluation purposes.
+
+I think that I would like to use this system frequently.
+I found the system unnecessarily complex.
+I thought the system was easy to use.
+I think that I would need the support of a technical person to be able to use this system.
+I found the various functions in this system were well integrated.
+I thought there was too much inconsistency in this system.
+I would imagine that most people would learn to use this system very quickly.
+I found the system very cumbersome to use.
+I felt very confident using the system.
+I needed to learn a lot of things before I could get going with this system.
+
+
 ## 10. Conclusions and Future Work
 
 (modificar, este é o de M2)
@@ -164,3 +188,5 @@ Todas as anteriores mais:
 - [X1] - Referências de Stop Words
 - [X2] - Referências de Semantic Analysis, uma delas tem de ser obrigatoriamente o tutorial do regente
 - [X3] - [More Like This in Solr](https://solr.apache.org/guide/8_8/morelikethis.html)
+- [X4] - SUS https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html
+- Form https://docs.google.com/forms/d/1SXVDPi1CKsRgmEZa9fsZQnka58HgxBNi1FSTMo1OaGw/edit
