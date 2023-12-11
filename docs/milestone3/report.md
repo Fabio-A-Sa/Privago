@@ -88,31 +88,31 @@ In order to explore the project's theme more focusedly, *More Like This* [X0] ha
 
 ### C. More Like This
 
-Within Solr, the More Like This (MLT) functionality empowers users to discover documents akin to a specified document. Solr's More Like This is a Lucene [X3] built-in functionality that operates by scrutinizing the text within the provided document and subsequently identifying other documents in the index that exhibit textual and contextual similarities. The outcomes of this query comprise documents with the most elevated similarity scores.
+Within Solr, the More Like This (MLT) functionality empowers users to discover documents similar to a specified document. Solr's More Like This is a Lucene [X3] built-in functionality that operates by scrutinizing the text within the provided document and subsequently identifying other documents in the index that exhibit textual and contextual similarities. The outcomes of this query comprise documents with the most elevated similarity scores.
 
-Uma abordagem a esta feature é particularmente adequada e importante no contexto do projecto corrente. De facto, dado a particular importância da subjectividade inerente à escolha de hotéis por força do turismo, é expectável que os utilizadores queiram encontrar mais zonas ou hotéis alinhadas às suas preferências.
+An approach to this feature is particularly suitable and crucial in the context of the current project. Given the inherent subjectivity in choosing hotels due to tourism, users are expected to want to find more areas or hotels aligned with their preferences.
 
-Assim, a partir de uma review de hotel, o sistema encontra outras 10 com conteúdo semelhante e correspondentes hotéis. Esses resultados são computados e ordenados pelo score interno do match do Solr. Os parâmetros usados nas queries foram os seguintes:
+Thus, from a hotel review, the system finds another 10 with similar content and corresponding hotels. These results are computed and ordered by Solr's internal match score. The parameters used in the queries were as follows:
 
-- `mlt.fl = text`, a comparação de semelhança será sempre com base no texto entre reviews, pois é este texto que contém o contexto da avaliação do mesmo;
-- `mlt.mintf = 2` (número default do Lucene), o mínimo de matches entre termos para o documento ser considerado válido;
-- `mlt.mindf = 5` (número default do Lucene), o mínimo de documentos válidos para que a pesquisa seja considerada válida;
+- `mlt.fl = text`, the similarity comparison will always be based on the text between reviews, as this text contains the context of the evaluation;
+- `mlt.mintf = 2`, (Lucene's default number), the minimum number of matches between terms for the document to be considered valid;
+- `mlt.mindf = 5`, (Lucene's default number), the minimum number of valid documents for the search to be considered valid;
 
-Apesar da feature More Like This permitir ainda boosts em determinados parâmetros, isso não foi utilizado. Não faria sentido criar um boost adicional aos fields do documento a processar, visto que só aplicamos as funcionalidades do MTL ao field text na review. A aplicação do boost a termos ou tokens concretos iria desvirtuar o conceito de um search system global capaz de analisar de forma equilibrada cada query ao beneficiar o surgimento de algumas palavras.
+Although the More Like This feature allows for boosts in certain parameters, this was not utilized. It would not make sense to create an additional boost for the fields of the document being processed since we only applied the functionalities of MLT to the text field in the review. Applying the boost to specific terms or tokens would distort the concept of a global search system capable of analyzing each query in a balanced manner by favoring the emergence of some words.
 
-A avaliação deste improvement não segue a abordagem das necessidades de informação anteriores. A comparação de semântica e semelhança entre dois textos pode ser ainda mais complexa e subjectiva quando efetuada de forma manual. Como tal, optamos por avaliar a relevância destas queries recorrendo à objectividade da biblioteca Python SpaCy [X4]. SpaCy é especializada em processamento avançado de linguagem natural (NLP) e permite comparação e quantificação da similiaridade entre dois textos através do seu contexto.
+The evaluation of this improvement does not follow the approach of previous information needs. The comparison of semantics and similarity between two texts can be even more complex and subjective when done manually. As such, we chose to evaluate the relevance of these queries using the objectivity of the Python SpaCy library [X4]. SpaCy specializes in advanced natural language processing (NLP) and allows for the comparison and quantification of similarity between two texts through their context.
 
-Após recolha de uma amostra do sistema, onde se selecionou aleatoriamente 20 reviews e as correspondentes 10 reviews mais semelhantes segundo o output do Solr, computou-se externamente o grau de similiaridade dos seus textos. O resultado da semelhança média entre os dez primeiros resultados de cada query MLT encontra-se descrito na Figura [F1].
+After collecting a sample from the system, where 20 reviews were randomly selected, along with the corresponding 10 reviews most similar according to Solr's output, the degree of similarity of their texts was externally computed. The result of the average similarity between the first ten results of each MLT query is described in Figure [F1].
 
 ![Figura F1](../../evaluation/mlt/mean_similiarity.png) - Average similiarity percentage for each query
 
-A média global da similiaridade entre as queries é bastante elevada, nunca sendo inferior a 60% nesta amostra. Por outro lado, tratando-se de um sistema de ranking de documentos, importa saber o nível de decaimento da similiaridade com o índex dos outputs. Espera-se, em modo teórico, que os documentos que se encontram no topo tenham um grau de similiaridade superior aos restantes. Para avaliar esse comportamento, computou-se para cada índex do output o seu correspondente grau de similiaridade. A mean similiarity evolution across indexes pode ser encontrado na figura [F2]: 
+The overall average similarity between the queries is quite high, never falling below 60% in this sample. On the other hand, since it is a document ranking system, it is important to know the level of similarity decay with the index of the outputs. Theoretically, it is expected that the documents at the top have a higher degree of similarity than the others. To assess this behavior, the corresponding degree of similarity was computed for each index of the output. The mean similarity evolution across indexes can be found in Figure [F2]:
 
 ![Figura F2](../../evaluation/mlt/similiarity_average_evolution.png) -  Evolution of average similiarity across result indexes
 
-Ao contrário do esperado, não houve na amostra selecionada uma relação inversa entre o grau de similiriaridade da query original e o index do documento. Este facto pode ser justificado em duas vertentes. Por um lado, uma vez que o número de reviews do dataset é muito superior ao output do sistema MLT, não houve espaçamento para se notar uma diferença notória na ordenação dos resultados. Por outro lado o score do SpaCy é diferente do score interno do Solr, ao qual não temos acesso, dando azo a algumas oscilações.
+Contrary to expectations, there was no inverse relationship in the selected sample between the degree of similarity of the original query and the index of the document. This fact can be justified in two ways. On the one hand, since the number of reviews in the dataset is much higher than the output of the MLT system, there was no spacing to notice a noticeable difference in the ranking of the results. On the other hand, the score from SpaCy is different from Solr's internal score, to which we do not have access, leading to some fluctuations.
 
-Com resultados bastante satisfatórios, esta feature estará presente no sistema final.
+With highly satisfactory results, this feature will be present in the final system.
 
 ## 9. User Interface
 
