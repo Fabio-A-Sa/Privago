@@ -171,23 +171,15 @@ The collected results demonstrate that the users' evaluation of the interface ac
 
 ## 10. Final System Characterization
 
-Após duas iterações e correspondentes avaliações, o information retrieval system possui as seguintes propriedades:
+After two iterations and their corresponding evaluations, the information retrieval system has the following properties:
 
 - ASCII Folding: handles special characters and accents, converting them to their equivalent ASCII form;
 - LowerCase: converts all characters to their lowercase counterparts;
-- Synonym: expands each token to include variations based on its synonyms;
-- Stop Words: allowing clients more flexibility to conduct searches with more complex queries;
-- More Like This: 
+- Synonyms: expands each token to include variations based on its synonyms;
+- Stop Words: allowing more flexibility to conduct searches with more complex queries;
+- More Like This: allowing discover documents similar to a specified document​;
 
-A 
-
-O sistema desenvolvido tem um Mean Average Precision de X, com
-
-Indicar aqui que funcionalidades são aplicadas, por tópicos
-
-com MAP X, a estas features adiciona-se ainda o MLT com acuracy Y e uma user interface avaiada em W.
-
-aO LONGO DE TRES ITERAÇÕES, LOGO TÁ FIZE PARA AVABAR EM GRANDEII
+In total, it ensures a global Mean Average Precision of the system of 73%. Additionally, it has a search user interface evaluated at 81.6% based on received feedback and the System Usability Scale.
 
 ## 11. Conclusions and Future Work
 
