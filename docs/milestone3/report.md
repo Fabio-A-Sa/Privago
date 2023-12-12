@@ -167,11 +167,21 @@ In order to assess overall qualitative aspects of the platform, a few students f
 
 Each response on the SUS scale is assessed on a scale from 0 to 5, resulting from the convergence of the subjective characterization of each topic from "Strongly Disagree" to "Strongly Agree". The results collected from the 11 students who volunteered for the interface evaluation can be found in table [T8].
 
-The collected results demonstrate that the users' evaluation of the interface according to the SUS scale averages 82.5%. Reference data for this type of analysis set 68% as the threshold for interface quality, so it is concluded that the implemented features meet the overall needs of the users. These positive results were driven by two distinct factors: on one hand, the nature of the selected users, who are students from the same course and therefore within the context of the needs of an application of this caliber, and on the other hand, the similarity and familiarity of the interface with other well-known research systems.
-
-With good results, this feature will be present in the final system as well.
+The collected results demonstrate that the users' evaluation of the interface according to the SUS scale averages 81.6%. Reference data for this type of analysis set 68% as the threshold for interface quality, so it is concluded that the implemented features meet the overall needs of the users. These positive results were driven by two distinct factors: on one hand, the nature of the selected users, who are students from the same course and therefore within the context of the needs of an application of this caliber, and on the other hand, the similarity and familiarity of the interface with other well-known research systems.
 
 ## 10. Final System Characterization
+
+Após duas iterações e correspondentes avaliações, o information retrieval system possui as seguintes propriedades:
+
+- ASCII Folding: handles special characters and accents, converting them to their equivalent ASCII form;
+- LowerCase: converts all characters to their lowercase counterparts;
+- Synonym: expands each token to include variations based on its synonyms;
+- Stop Words: allowing clients more flexibility to conduct searches with more complex queries;
+- More Like This: 
+
+A 
+
+O sistema desenvolvido tem um Mean Average Precision de X, com
 
 Indicar aqui que funcionalidades são aplicadas, por tópicos
 
