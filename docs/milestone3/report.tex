@@ -631,7 +631,7 @@ P@20 & 0.35 & 0.5 \\
 
 \textbf{Result Analysis:} Both systems exhibit similar average precision values, which fall below the anticipated values for a simple query. This can be attributed to the same issue discussed in \ref{ra_q2}. In fact, certain review texts were expressed in a negational form or contained nouns such as "lack", thereby altering the entire meaning of the sentence.
 
-Figures ~\ref{fig:q4_simple} and ~\ref{fig:q4_boosted} depict the precision-recall curves of the simple and boosted systems for this query, respectively. It is important to highlight that both curves exhibit a steep decline in precision as recall values increase, indicating a trade-off between these two metrics. The area under the curve is the smallest among the four conducted experiments, which is reasonable considering the complexity demanded by this query.
+figures ~\ref{fig:q4_simple} and ~\ref{fig:q4_boosted} depict the precision-recall curves of the simple and boosted systems for this query, respectively. It is important to highlight that both curves exhibit a steep decline in precision as recall values increase, indicating a trade-off between these two metrics. The area under the curve is the smallest among the four conducted experiments, which is reasonable considering the complexity demanded by this query.
 
 Taking into account all the results from the multiple information needs across queries, its presented in the following table the Mean Average Precision for both systems:
 
@@ -664,13 +664,14 @@ The evaluation of these features followed the same style as the previous ones, u
 
 Three information needs were used. The first two were the same as in the previous stage, ensuring a valid comparison of the systems when exposed to the same environment and providing a visualization of the progressive development of the hypothesis. There was a comparison of the systems using a third information need, this time tailored to the improvement's objective, adding extra stress to the system on the topic we want to explore and checking the system's ability to handle the adversities of the natural language characteristic of these searches.
 
-Table [T1] documents the relevance of the top 20 results for each evaluated query and for the two improvements.
+Table [T1] \ref{tab:raw_results} documents the relevance of the top 20 results for each evaluated query and for the two improvements.
 
 In order to explore the project's theme more focusedly, More Like This [X0] TODO has been added to the list of improvements, with consequent analysis. Balancing the benefits of each of the topics addressed brings us even closer to what a contemporary information retrieval system looks like today.
 
 \subsection{Stopwords Filter}
 
-The decision to integrate a Stopwords Filter aimed at enhancing the exploration of larger phrases, allowing clients more flexibility to conduct searches with more complex queries. Solr initially provides a set of predefined stop words, but a custom file was chosen, derived from a Python library \cite{NLTK}. Similar to the process for Synonyms, this custom stop words file was incorporated into the Solr configuration files.
+The decision to integrate a Stopwords Filter aimed at enhancing the exploration of larger phrases, allowing clients more flexibility to conduct searches with more complex queries. In the schema, the Stopwords Filter was applied both during the indexing process, affecting the internal storage of Solr, and in the query analyzer, where it played a role in eliminating irrelevant words during the search.
+Solr initially provides a set of predefined stop words, but a custom file was chosen, derived from a Python library \cite{NLTK}. Similar to the process for Synonyms, this custom stop words file was incorporated into the Solr configuration files.
 
 Two queries from section \ref{sec:evaluation} were reviewed in the following queries, each with a single stop word. When compared to the previous strategy, the new approach added two query parameters: stopwords and ignoreCase, both of which were set to true, indicating that stopwords would be investigated regardless of capitalization.
 
@@ -708,9 +709,8 @@ P@20 & 0.8 & 0.8 \\
 \end{tabular}
 \end{table}
 
-\textbf{Result Analysis:} Upon analyzing the results in the table \ref{tab:q5}, it is clear that the results of the query differ, as expected. The use of the stopwords filter during indexing and querying causes a difference in stored internal data. Considering that the query only contains one stopword, the results show a noticeable similarity even though they are not identical.
-It is clear from looking at Figure \ref{fig:q2_stopwords} that the area under the curve is lower than it was for the previous system. The latest ten findings, however, show a noticeable increase in stability, indicating a minor decline in performance but more consistency in the results.
-
+\textbf{Result Analysis:} Upon analyzing the results in the table \ref{tab:q5}, it is clear that the results of the query differ, as expected. Considering that the query only contains one stopword, the results show a noticeable similarity even though they are not identical.
+Upon examining the curves in figures \ref{fig:q2_boosted} and \ref{fig:q2_stopwords}, it is apparent that the area under the curve is lower than it was for the previous system. However, the latest ten findings show an increase in stability, indicating a minor decline in performance but more consistency in the results.
 
 \subsection{Vegetarian/Vegan}
 
@@ -744,7 +744,8 @@ P@20 & 0.5 & 0.55 \\
 \end{table}
 
 \textbf{Result Analysis:} Very alike to previous analysis. Both systems exhibit similar average precision values, taking into account that the query only has one stopword.
-Due to the complexity of the query, a more substantial improvement is evident compared to the previous one, as illustrated in Figure \ref{fig:q4_stopwords}. Both performance and stability have notably increased from the previous system to this one, highlighting its significant improvement.
+
+Due to the complexity of the query, a more substantial improvement is evident compared to the previous one, as illustrated in figures \ref{fig:q4_boosted} and \ref{fig:q4_stopwords}. Both performance and stability have increased from the previous system to this one, highlighting its improvement.
 
 \subsection{Beach Views}
 
@@ -779,9 +780,9 @@ P@20 & 0 & 0.65 \\
 
 \textbf{Result Analysis:} In contrast, the third query, which has four stopwords, produced no results in the original schema without the stopwords filter. The modified schema, on the other hand, provided the expected outcomes with a precision of 0.75, as shown in the table \ref{tab:q7}.
 
-The previous model in this query showed 0 performance due to the fact of the number of stopwords presented in the query. In contrast, the improved system showed stability and higher performance.This can be observed in figures
+The preceding model in this query exhibited zero performance, attributed to the number of stopwords present in the query. In contrast, the enhanced system demonstrated both stability and improved performance, as evidenced in figures \ref{fig:q5_boosted} and \ref{fig:q5_stopwords} curves.
 
-Observing the following table \ref{tab:map_stopwords}, the behaviour of the improved schema is significantly better when increasing the complexity of the queries.
+Observing the following table \ref{tab:map_stopwords}, the behaviour of the improved schema is better when increasing the complexity of the queries.
 
 \begin{table}[H]
 \caption{Overall systems evaluation}
@@ -798,13 +799,14 @@ MAP & 0.473 & 0.73  \\
 
 In conclusion, the integration of a stopwords filter provides the advantage of handling more complex queries, granting clients greater freedom in their search parameters. This enhancement contributes to the complexity and accuracy of the search results, ultimately improving the overall search system.
 
-
 \renewcommand{\thesubsection}{\arabic{section}.2}
 \subsection{Semantic Search}
 
-The decision to implement Semantic Search emerged as a result of the evaluation of prior queries. Specifically, queries \ref{subsec:q2} and \ref{subsec:q4} revealed shortcomings, primarily attributable to the subjective nature of reviews. The challenges stemmed from instances where a single negative word could drastically alter the overall context of the entire review, leading to multiple instances of failure.
+The decision to implement Semantic Search emerged as a result of the evaluation of prior queries. Specifically, queries \ref{subsec:q2} and \ref{subsec:q4} revealed shortcomings, primarily attributable to the subjective nature of reviews. The challenges stemmed from instances where a single negative word could alter the overall context of the entire review, leading to multiple instances of failure.
 
 To execute this integration, it was necessary to generate dense vectors that accurately captured the semantics of each word within the review text found in the JSON data populating Solr. This process also entailed adjusting our queries to smoothly align with the knn Query Parser \cite{Dense_Vector_Search}, ensuring the retrieval of results closely associated with these generated vectors.
+
+The evaluation incorporates the previously mentioned queries and introduced a new one focused explicitly on public transportation. Since there may be some reviews that reference specific public transports without relying solely on predefined keywords.
 
 \renewcommand{\thesubsection}{\Alph{subsection}}
 
@@ -838,10 +840,10 @@ P@20 & 0.8 & 0.75 \\
 \end{tabular}
 \end{table}
 
-\textbf{Result Analysis:} 
-
-Upon examining the results from the query in Table \ref{tab:q8}, it becomes evident that despite the similarity between the outcomes, the boosted system holds a slight advantage.
+\textbf{Result Analysis:} Upon examining the results from the query in Table \ref{tab:q8}, it becomes evident that despite the similarity between the outcomes, the boosted system holds a slight advantage.
 Upon analyzing the reviews retrieved by the query, it is evident that contrary to expectations, semantic searches still encounter challenges when dealing with cases where the inclusion of a negative word alters the meaning of the sentence.
+
+Although not immediately apparent, the area under the curve is in fact less than that of the previous system, as it's shown in figures \ref{fig:q2_boosted} and \ref{fig:q2_semantic}. With only a slight drop in performance, the stability of the query is preserved due to its simplicity.
 
 \subsection{Vegetarian/Vegan}
 
@@ -872,8 +874,11 @@ P@20 & 0.5 & 0.4 \\
 \end{tabular}
 \end{table}
 
-\textbf{Result Analysis:} Table \ref{tab:q9} exhibits a behavior similar to the previous one, but with more pronounced distinctions. Notably, the semantic search demonstrates an even more significant under performance compared to the boosted system. 
-Upon closely analyzing the reviews retrieved in this query, it becomes apparent that the positive context of the review amplifies the inclusion of cases where a word with negative connotations, such as "lack," alters the portion specific to our query.
+\textbf{Result Analysis:} Table \ref{tab:q9} exhibits a behavior similar to the previous one, but with more pronounced distinctions. The semantic search demonstrates an even more significant under performance compared to the boosted system. 
+Upon closely analyzing the reviews retrieved in this query, it becomes apparent that the positive context of the review amplifies the inclusion of cases where a word with negative connotations, such as "lack", alters the portion specific to our query.
+
+The curves precision-recall of the systems depicted in figures \ref{fig:q4_boosted} and \ref{fig:q4_semantic} indicate a degradation of the system concerning this query. A constant value of 0.4
+
 \subsection{Public transports}
 
 \textbf{Information Need:} Hotels with good access to public transports
@@ -954,7 +959,6 @@ After collecting a sample from the system, where 20 reviews were randomly select
   \label{fig:avg_simi}
 \end{figure}
 
-
 The overall average similarity between the queries is quite high, never falling below 60\% in this sample. On the other hand, since it is a document ranking system, it is important to know the level of similarity decay with the index of the outputs. Theoretically, it is expected that the documents at the top have a higher degree of similarity than the others. To assess this behavior, the corresponding degree of similarity was computed for each index of the output. The mean similarity evolution across indexes can be found in Figure \ref{fig:simi_avg_evo}.
 
 
@@ -1009,10 +1013,31 @@ Each response on the SUS scale is assessed on a scale from 0 to 5, resulting fro
 
 The collected results demonstrate that the users' evaluation of the interface according to the SUS scale averages 81.6\%. Reference data for this type of analysis set 68\% as the threshold for interface quality, so it is concluded that the implemented features meet the overall needs of the users. These positive results were driven by two distinct factors: on one hand, the nature of the selected users, who are students from the same course and therefore within the context of the needs of an application of this caliber, and on the other hand, the similarity and familiarity of the interface with other well-known research systems.
 
+\subsection{Final System Characterization}
+
+After two iterations and their corresponding evaluations, the final information retrieval system has the following properties:
+
+\begin{itemize}
+    \item \textbf{ASCII Folding} handles special characters and accents, converting them to their equivalent ASCII form
+    \item \textbf{LowerCase} converts all characters to their lowercase counterparts.
+    \item \textbf{Synonyms} expands each token to include variations based on its synonyms.
+    \item \textbf{Stopwords} allowing more flexibility to conduct searches with more complex queries.
+    \item \textbf{More Like This} allowing discover documents similar to a specified document.
+\end{itemize}
 
 
 
+In total, it ensures a global Mean Average Precision of the system of 73\%. Additionally, it has a search user interface evaluated at 81.6\% based on received feedback and the System Usability Scale.
 
+## 11. Conclusions and Future Work
+
+In conclusion of this project, all planned tasks within the Data Preparation, Information Retrieval, and Improvement phases have been successfully completed. This achievement represents a pivotal moment in the process of creating a valuable hotel search engine that assists tourists in making well-informed choices.
+
+One of the most challenging aspects of the work involved devising effective strategies for handling nested documents, along with their indexing and retrieval. Solr lacks documentation and concrete examples supporting the addressed document format.
+
+However, there are always opportunities for improvement. Investing in the development of context-aware searches using broader NLP libraries, in addition to the features already implemented by Solr at this level, would be a winning strategy for a more globally applicable system with reduced bias.
+
+With a final precision of 73\% in terms of the retrieval system, and the capability to address various information needs within the chosen context verified, the developed architecture is the result of the theoretical application of knowledge acquired throughout the academic unit.
 
 \nocite{*}
 \def\BibTex{BibTeX}
@@ -1165,7 +1190,6 @@ The collected results demonstrate that the users' evaluation of the interface ac
 \end{figure}
 
 
-
 \begin{table}[H]
 \caption{Relevance results for initial system evaluation}
 \label{tab:raw_results}
@@ -1181,11 +1205,11 @@ The collected results demonstrate that the users' evaluation of the interface ac
 5 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0 \\
 6 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 1 \\
 7 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\
-8 & 1 & 1 & 1 & 1 & 0 & 0 & 1 & 0 \\
+8 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 \\
 9 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 0 \\
 10 & 0 & 1 & 1 & 1 & 0 & 1 & 1 & 0 \\
 11 & 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 \\
-12 & 0 & 1 & 1 & 0 & 1 & 1 & 0 & 1 \\
+12 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 \\
 13 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\
 14 & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
 15 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 1 \\
