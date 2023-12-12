@@ -664,9 +664,9 @@ The evaluation of these features followed the same style as the previous ones, u
 
 Three information needs were used. The first two were the same as in the previous stage, ensuring a valid comparison of the systems when exposed to the same environment and providing a visualization of the progressive development of the hypothesis. There was a comparison of the systems using a third information need, this time tailored to the improvement's objective, adding extra stress to the system on the topic we want to explore and checking the system's ability to handle the adversities of the natural language characteristic of these searches.
 
-Table [T1] \ref{tab:raw_results} documents the relevance of the top 20 results for each evaluated query and for the two improvements.
+Tables \ref{tab:raw_results} and \ref{tab:stopwords_results} documents the relevance of the top 20 results for each evaluated query and for the two improvements.
 
-In order to explore the project's theme more focusedly, More Like This [X0] TODO has been added to the list of improvements, with consequent analysis. Balancing the benefits of each of the topics addressed brings us even closer to what a contemporary information retrieval system looks like today.
+In order to explore the project's theme more focusedly, More Like This \cite{MoreLikeThis} has been added to the list of improvements, with consequent analysis. Balancing the benefits of each of the topics addressed brings us even closer to what a contemporary information retrieval system looks like today.
 
 \subsection{Stopwords Filter}
 
@@ -697,7 +697,7 @@ Two queries from section \ref{sec:evaluation} were reviewed in the following que
 \end{itemize}
 
 \begin{table}[H]
-\caption{Q5 information need results}
+\caption{Q2 information need results}
 \label{tab:q5}
 \begin{tabular}{lll}
 \toprule
@@ -731,7 +731,7 @@ Upon examining the curves in figures \ref{fig:q2_boosted} and \ref{fig:q2_stopwo
 \end{itemize}
 
 \begin{table}[H]
-\caption{Q6 information need results}
+\caption{Q4 information need results}
 \label{tab:q6}
 \begin{tabular}{lll}
 \toprule
@@ -766,7 +766,7 @@ Due to the complexity of the query, a more substantial improvement is evident co
 \end{itemize}
 
 \begin{table}[H]
-\caption{Q7 information need results}
+\caption{Q5 information need results}
 \label{tab:q7}
 \begin{tabular}{lll}
 \toprule
@@ -828,7 +828,7 @@ The evaluation incorporates the previously mentioned queries and introduced a ne
 \end{itemize}
 
 \begin{table}[H]
-\caption{Q8 information need results}
+\caption{Q2 information need results}
 \label{tab:q8}
 \begin{tabular}{lll}
 \toprule
@@ -862,7 +862,7 @@ Although not immediately apparent, the area under the curve is in fact less than
 \end{itemize}
 
 \begin{table}[H]
-\caption{Q9 information need results}
+\caption{Q4 information need results}
 \label{tab:q9}
 \begin{tabular}{lll}
 \toprule
@@ -877,7 +877,7 @@ P@20 & 0.5 & 0.4 \\
 \textbf{Result Analysis:} Table \ref{tab:q9} exhibits a behavior similar to the previous one, but with more pronounced distinctions. The semantic search demonstrates an even more significant under performance compared to the boosted system. 
 Upon closely analyzing the reviews retrieved in this query, it becomes apparent that the positive context of the review amplifies the inclusion of cases where a word with negative connotations, such as "lack", alters the portion specific to our query.
 
-The curves precision-recall of the systems depicted in figures \ref{fig:q4_boosted} and \ref{fig:q4_semantic} indicate a degradation of the system concerning this query. A constant value of 0.4
+The curves precision-recall of the systems depicted in figures \ref{fig:q4_boosted} and \ref{fig:q4_semantic} indicate a degradation of the system concerning this query. A constant value of 0.4 suggests a moderate level of precision throughout the range of recall values, indicating that a portion of relevant instances is being correctly identified but implying that a substantial number of irrelevant instances are being included in the results.
 
 \subsection{Public transports}
 
@@ -896,7 +896,7 @@ The curves precision-recall of the systems depicted in figures \ref{fig:q4_boost
 \end{itemize}
 
 \begin{table}[H]
-\caption{Q10 information need results}
+\caption{Q6 information need results}
 \label{tab:q10}
 \begin{tabular}{lll}
 \toprule
@@ -911,6 +911,8 @@ P@20 & 0.95 & 0.75 \\
 \textbf{Result Analysis:} Finally, Table \ref{tab:q10} exhibits a pattern similar to its predecessors, where the boosted system consistently outperforms the semantic search.
 
 Upon analyzing the retrieved results, it becomes apparent that, in this instance, the challenge does not stem from negations in the phrases. Instead, the semantic search tends to fetch reviews expressing the notion that there is no requirement for public transport as the hotel is conveniently situated in the midst of everything. Although this information may be of interest to users, it doesn't precisely align with the query.
+
+As illustrated in Figures \ref{fig:q6_boosted} and \ref{fig:q6_semantic}, the precision-recall curve for the semantic model exhibits lower performance compared to the boosted model. Additionally, there is a discernible lack of stability across the first 20 results indicating a less consistent performance.
 
 
 \begin{table}[H]
@@ -1013,7 +1015,7 @@ Each response on the SUS scale is assessed on a scale from 0 to 5, resulting fro
 
 The collected results demonstrate that the users' evaluation of the interface according to the SUS scale averages 81.6\%. Reference data for this type of analysis set 68\% as the threshold for interface quality, so it is concluded that the implemented features meet the overall needs of the users. These positive results were driven by two distinct factors: on one hand, the nature of the selected users, who are students from the same course and therefore within the context of the needs of an application of this caliber, and on the other hand, the similarity and familiarity of the interface with other well-known research systems.
 
-\subsection{Final System Characterization}
+\section{Final System Characterization}
 
 After two iterations and their corresponding evaluations, the final information retrieval system has the following properties:
 
@@ -1029,7 +1031,7 @@ After two iterations and their corresponding evaluations, the final information 
 
 In total, it ensures a global Mean Average Precision of the system of 73\%. Additionally, it has a search user interface evaluated at 81.6\% based on received feedback and the System Usability Scale.
 
-## 11. Conclusions and Future Work
+\section{Conclusions and Future Work}
 
 In conclusion of this project, all planned tasks within the Data Preparation, Information Retrieval, and Improvement phases have been successfully completed. This achievement represents a pivotal moment in the process of creating a valuable hotel search engine that assists tourists in making well-informed choices.
 
