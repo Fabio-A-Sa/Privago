@@ -171,7 +171,7 @@ The collected results demonstrate that the users' evaluation of the interface ac
 
 ## 10. Final System Characterization
 
-After two iterations and their corresponding evaluations, the information retrieval system has the following properties:
+After two iterations and their corresponding evaluations, the final information retrieval system has the following properties:
 
 - ASCII Folding: handles special characters and accents, converting them to their equivalent ASCII form;
 - LowerCase: converts all characters to their lowercase counterparts;
@@ -183,20 +183,13 @@ In total, it ensures a global Mean Average Precision of the system of 73%. Addit
 
 ## 11. Conclusions and Future Work
 
-(modificar, este é o de M2)
+In conclusion of this project, all planned tasks within the Data Preparation, Information Retrieval, and Improvement phases have been successfully completed. This achievement represents a pivotal moment in the process of creating a valuable hotel search engine that assists tourists in making well-informed choices.
 
--> adicionar filtro de location no mlt para future work
+One of the most challenging aspects of the work involved devising effective strategies for handling nested documents, along with their indexing and retrieval. Solr lacks documentation and concrete examples supporting the addressed document format.
 
-In conclusion of this milestone, all the planned tasks within the Information Retrieval phase of the project have been successfully completed. This accomplishment marks a crucial turning point in the process of creating a useful hotel search engine that aids tourists in making informed choices.
+However, there are always opportunities for improvement. Investing in the development of context-aware searches using broader NLP libraries, in addition to the features already implemented by Solr at this level, would be a winning strategy for a more globally applicable system with reduced bias.
 
-One of the most challenging aspects of the work involved developing effective strategies for dealing with nested documents, as well as their indexing and retrieval. Solr lacks documentation and concrete examples supporting the addressed document format.
-
-Through the evaluation of the search engine, the system's stability and capability to handle different information needs within the chosen context have been verified. As the project progresses, opportunities for further enhancements and refinements emerge. Analyzing the results obtained from the first prototype of the hotel's information retrieval system:
-
-- The `Stop Words` [X7] filter can be applied to `boosted_text` to reduce sensitivity to common words;
-- `Sentimental and contextual analysis` is relevant, given that the main source of information for the system is reviews, which inherently carry subjective connotations;
-
-In the next phase, work will be done on user interfaces by developing a frontend for the search system, incorporating specific features like snippet generation and results clustering. This engine will enable travelers to explore and filter accommodations based on preferences, such as location, room quality, staff service, or other factors identified during the analysis phase.
+With a final precision of 73% in terms of the retrieval system, and the capability to address various information needs within the chosen context verified, the developed architecture is the result of the theoretical application of knowledge acquired throughout the academic unit.
 
 ## References
 

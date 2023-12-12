@@ -480,6 +480,7 @@ The eDismax parameter \textbf{bq} (boost query) was also explored in the approac
 Being consistent with this boosted approach to every query has enhanced the system's query handling, leading to improvements in search results, as elaborated in the subsequent section.
 
 \section{ Evaluation }
+\label{sec:evaluation}
 
 Evaluation is also a fundamental aspect of Information Retrieval, contingent on the target document collection and the type of information required. Understanding potential user scenarios is crucial for defining new designs and implementations based on received feedback. In this specific case, the evaluation was conducted from the perspective of effectiveness — the system's ability to find the right information — rather than efficiency, which pertains to the system's speed in retrieving information.
 
@@ -531,7 +532,7 @@ P@20 & 0.6 & 0.9 \\
 
 According to Figure ~\ref{fig:q1_simple} and Figure ~\ref{fig:q1_boosted}, which represent the precision-recall curves of the simple and boosted systems, it can be observed that the boosted system exhibits superior performance. Indeed, it shows a larger area under the curve, and the decay of precision concerning the increase in recall is negligible in this context.
 
-\subsection{Breakfast or Room Service}
+\subsection{Breakfast or Room Service}\label{subsec:q2}
 
 
 \textbf{Information Need:} Hotels with good breakfast or good room service in New Delhi.
@@ -598,7 +599,7 @@ P@20 & 0.5 & 0.65 \\
 
 The curves precision-recall of the systems depicted in figures ~\ref{fig:q3_simple} and ~\ref{fig:q3_boosted} indicate a degradation of the system concerning this query. On one hand, in the simple system, precision does not remain high as recall increases, progressively decreasing with a steep slope. On the other hand, the overall precision of the boosted system is quite low compared to other queries. This result once again emphasizes the need for a different type of textual analysis that considers the entire context of the sentence, to be explored in an upcoming section.
 
-\subsection{Vegetarian/Vegan}
+\subsection{Vegetarian/Vegan}\label{subsec:q4}
 
 \textbf{Information Need:} Hotels with good vegetarian/vegan options
 
@@ -630,7 +631,7 @@ P@20 & 0.35 & 0.5 \\
 
 \textbf{Result Analysis:} Both systems exhibit similar average precision values, which fall below the anticipated values for a simple query. This can be attributed to the same issue discussed in \ref{ra_q2}. In fact, certain review texts were expressed in a negational form or contained nouns such as "lack", thereby altering the entire meaning of the sentence.
 
-Figures ~\ref{fig:q4_simple} and ~\ref{fig:q4_boosted} depict the precision-recall curve of the simple and boosted systems for this query, respectively. It is important to highlight that both curves exhibit a steep decline in precision as recall values increase, indicating a trade-off between these two metrics. The area under the curve is the smallest among the four conducted experiments, which is reasonable considering the complexity demanded by this query.
+Figures ~\ref{fig:q4_simple} and ~\ref{fig:q4_boosted} depict the precision-recall curves of the simple and boosted systems for this query, respectively. It is important to highlight that both curves exhibit a steep decline in precision as recall values increase, indicating a trade-off between these two metrics. The area under the curve is the smallest among the four conducted experiments, which is reasonable considering the complexity demanded by this query.
 
 Taking into account all the results from the multiple information needs across queries, its presented in the following table the Mean Average Precision for both systems:
 
@@ -665,13 +666,13 @@ Three information needs were used. The first two were the same as in the previou
 
 Table [T1] documents the relevance of the top 20 results for each evaluated query and for the two improvements.
 
-In order to explore the project's theme more focusedly, More Like This [X0] has been added to the list of improvements, with consequent analysis. Balancing the benefits of each of the topics addressed brings us even closer to what a contemporary information retrieval system looks like today.
+In order to explore the project's theme more focusedly, More Like This [X0] TODO has been added to the list of improvements, with consequent analysis. Balancing the benefits of each of the topics addressed brings us even closer to what a contemporary information retrieval system looks like today.
 
 \subsection{Stopwords Filter}
 
-The decision to integrate a Stopwords Filter aimed at enhancing the exploration of larger phrases, allowing clients more flexibility to conduct searches with more complex queries. Solr initially provides a set of predefined stop words, but a custom file was chosen, derived from a Python library \ref{nltk}. Similar to the process for Synonyms, this custom stop words file was incorporated into the Solr configuration files.
+The decision to integrate a Stopwords Filter aimed at enhancing the exploration of larger phrases, allowing clients more flexibility to conduct searches with more complex queries. Solr initially provides a set of predefined stop words, but a custom file was chosen, derived from a Python library \cite{NLTK}. Similar to the process for Synonyms, this custom stop words file was incorporated into the Solr configuration files.
 
-Two queries from Milestone 2 were reviewed in the following queries, each with a single stop word. When compared to the previous strategy, the new approach added two query parameters: stopwords and ignoreCase, both of which were set to true, indicating that stopwords would be investigated regardless of capitalization.
+Two queries from section \ref{sec:evaluation} were reviewed in the following queries, each with a single stop word. When compared to the previous strategy, the new approach added two query parameters: stopwords and ignoreCase, both of which were set to true, indicating that stopwords would be investigated regardless of capitalization.
 
 \renewcommand{\thesubsection}{\Alph{subsection}}
 
@@ -707,7 +708,8 @@ P@20 & 0.8 & 0.8 \\
 \end{tabular}
 \end{table}
 
-\textbf{Result Analysis:} Upon analyzing the results in the table \ref{tab:q5}, it is clear that the results of the query differ, as expected. The use of the stopwords filter during indexing and querying causes a difference in results. Considering that the query only contains one stopword, the results show a noticeable similarity even though they are not identical.
+\textbf{Result Analysis:} Upon analyzing the results in the table \ref{tab:q5}, it is clear that the results of the query differ, as expected. The use of the stopwords filter during indexing and querying causes a difference in stored internal data. Considering that the query only contains one stopword, the results show a noticeable similarity even though they are not identical.
+It is clear from looking at Figure \ref{fig:q2_stopwords} that the area under the curve is lower than it was for the previous system. The latest ten findings, however, show a noticeable increase in stability, indicating a minor decline in performance but more consistency in the results.
 
 
 \subsection{Vegetarian/Vegan}
@@ -742,7 +744,7 @@ P@20 & 0.5 & 0.55 \\
 \end{table}
 
 \textbf{Result Analysis:} Very alike to previous analysis. Both systems exhibit similar average precision values, taking into account that the query only has one stopword.
-
+Due to the complexity of the query, a more substantial improvement is evident compared to the previous one, as illustrated in Figure \ref{fig:q4_stopwords}. Both performance and stability have notably increased from the previous system to this one, highlighting its significant improvement.
 
 \subsection{Beach Views}
 
@@ -775,7 +777,9 @@ P@20 & 0 & 0.65 \\
 \end{tabular}
 \end{table}
 
-\textbf{Result Analysis:} In contrast, the third query, which has four stopwords, produced no results in the original schema without the stopwords filter. The modified schema, on the other hand, provided the expected 20 outcomes with a precision of 0.75, as shown in the table \ref{tab:q7}.
+\textbf{Result Analysis:} In contrast, the third query, which has four stopwords, produced no results in the original schema without the stopwords filter. The modified schema, on the other hand, provided the expected outcomes with a precision of 0.75, as shown in the table \ref{tab:q7}.
+
+The previous model in this query showed 0 performance due to the fact of the number of stopwords presented in the query. In contrast, the improved system showed stability and higher performance.This can be observed in figures
 
 Observing the following table \ref{tab:map_stopwords}, the behaviour of the improved schema is significantly better when increasing the complexity of the queries.
 
@@ -798,9 +802,9 @@ In conclusion, the integration of a stopwords filter provides the advantage of h
 \renewcommand{\thesubsection}{\arabic{section}.2}
 \subsection{Semantic Search}
 
-The decision to implement Semantic Search emerged as a result of the evaluation of prior queries. Specifically, (reference queries B and D) revealed shortcomings, primarily attributable to the subjective nature of reviews. The challenges stemmed from instances where a single negative word could drastically alter the overall context of the entire review, leading to multiple instances of failure.
+The decision to implement Semantic Search emerged as a result of the evaluation of prior queries. Specifically, queries \ref{subsec:q2} and \ref{subsec:q4} revealed shortcomings, primarily attributable to the subjective nature of reviews. The challenges stemmed from instances where a single negative word could drastically alter the overall context of the entire review, leading to multiple instances of failure.
 
-To execute this integration, we needed to generate dense vectors that accurately captured the semantics of each word within the review text found in the JSON data populating Solr. This process also entailed adjusting our queries to smoothly align with the knn Query Parser(reference website), ensuring the retrieval of results closely associated with these generated vectors.
+To execute this integration, it was necessary to generate dense vectors that accurately captured the semantics of each word within the review text found in the JSON data populating Solr. This process also entailed adjusting our queries to smoothly align with the knn Query Parser \cite{Dense_Vector_Search}, ensuring the retrieval of results closely associated with these generated vectors.
 
 \renewcommand{\thesubsection}{\Alph{subsection}}
 
@@ -973,16 +977,37 @@ While Solr's interface provides a valid approach to the search system and query 
 Thus, four pages have been developed to support these needs, featuring a minimalist and responsive design for an enhanced user experience:
 
 \begin{itemize}
-    \item \textbf{Home}, depicted in Figure [F3], where users can initiate searches and preview the best hotels in the system;
-    \item \textbf{Search}, illustrated in Figure [F4], showcasing the results of the searches;
-    \item \textbf{Hotel}, presented in Figure [F5], displaying comprehensive information about the hotel, along with all its reviews;
-    \item \textbf{More Like This}, shown in Figure [F6], presenting results from similar searches;
+    \item \textbf{Home}, depicted in Figure \ref{fig:pri_home}, where users can initiate searches and preview the best hotels in the system;
+    \item \textbf{Search}, illustrated in Figure \ref{fig:pri_search}, showcasing the results of the searches;
+    \item \textbf{Hotel}, presented in Figure \ref{fig:pri_hotel}, displaying comprehensive information about the hotel, along with all its reviews;
+    \item \textbf{More Like This}, shown in Figure \ref{fig:pri_mlt}, presenting results from similar searches;
 \end{itemize}
 
 It is also possible to apply filters to searches, in addition to specifying the query. Users can filter results by location, review rating given, and the hotel's average rate.
 
 Each result is accompanied by all relevant information for assessing its relevance, such as the hotel's name, ratings, review text, and application date. All results are returned in descending order of ranking, ensuring that the first ones are the most relevant given the underlying context of the query and applied filters.
 
+In order to assess overall qualitative aspects of the platform, a few students from the course were selected, and they were invited at the end of the experimentation session to respond to a brief questionnaire \cite{Sus_form}. This questionnaire was developed using the standard version of the System Usability Scale - SUS \cite{SUS}. This scale includes questions that evaluate the user's perception of the usability and overall relevance of the application, as well as the clarity of the implemented features:
+
+\begin{enumerate}
+
+    \renewcommand{\labelenumi}{\arabic{enumi}.}
+    \item I think that I would like to use this system frequently.
+    \item I found the system unnecessarily complex.
+    \item I thought the system was easy to use.
+    \item I think that I would need the support of a technical person to be able to use this system.
+    \item I found the various functions in this system were well integrated.
+    \item I thought there was too much inconsistency in this system.
+    \item I would imagine that most people would learn to use this system very quickly.
+    \item I found the system very cumbersome to use.
+    \item I felt very confident using the system.
+    \item I needed to learn a lot of things before I could get going with this system.
+\end{enumerate}
+
+
+Each response on the SUS scale is assessed on a scale from 0 to 5, resulting from the convergence of the subjective characterization of each topic from "Strongly Disagree" to "Strongly Agree". The results collected from the 11 students who volunteered for the interface evaluation can be found in table \ref{tab:sus_results}.
+
+The collected results demonstrate that the users' evaluation of the interface according to the SUS scale averages 81.6\%. Reference data for this type of analysis set 68\% as the threshold for interface quality, so it is concluded that the implemented features meet the overall needs of the users. These positive results were driven by two distinct factors: on one hand, the nature of the selected users, who are students from the same course and therefore within the context of the needs of an application of this caliber, and on the other hand, the similarity and familiarity of the interface with other well-known research systems.
 
 
 
@@ -1055,18 +1080,17 @@ Each result is accompanied by all relevant information for assessing its relevan
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\linewidth]{imgs/q2-p-r-curve-semantic.png}
-  \caption{Q2 Precision-recall curve using semantic search}
-  \label{fig:q2_semantic}
+  \includegraphics[width=0.8\linewidth]{imgs/q2-p-r-curve-stopwords.png}
+  \caption{Q2 Precision-recall curve using stopwords filter}
+  \label{fig:q2_stopwords}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\linewidth]{imgs/q2-p-r-curve-stopwords.png}
-  \caption{Q2 Precision-recall curve using boosted system}
-  \label{fig:q2_stopwords}
+  \includegraphics[width=0.8\linewidth]{imgs/q2-p-r-curve-semantic.png}
+  \caption{Q2 Precision-recall curve using semantic search}
+  \label{fig:q2_semantic}
 \end{figure}
-
 
 
 \begin{figure}[H]
@@ -1097,12 +1121,52 @@ Each result is accompanied by all relevant information for assessing its relevan
   \label{fig:q4_boosted}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/q4-p-r-curve-stopwords.png}
+  \caption{Q4 Precision-recall curve using stopwords filter}
+  \label{fig:q4_stopwords}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/q4-p-r-curve-semantic.png}
+  \caption{Q4 Precision-recall curve using  semantic search}
+  \label{fig:q4_semantic}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/q5-p-r-curve-boosted.png}
+  \caption{Q5 Precision-recall curve using boosted system}
+  \label{fig:q5_boosted}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/q5-p-r-curve-stopwords.png}
+  \caption{Q5 Precision-recall curve using stopwords filter}
+  \label{fig:q5_stopwords}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/q6-p-r-curve-boosted.png}
+  \caption{Q6 Precision-recall curve using boosted system}
+  \label{fig:q6_boosted}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/q6-p-r-curve-semantic.png}
+  \caption{Q6 Precision-recall curve using  semantic search}
+  \label{fig:q6_semantic}
+\end{figure}
 
 
 
-
-
-\begin{table}[ht]
+\begin{table}[H]
 \caption{Relevance results for initial system evaluation}
 \label{tab:raw_results}
 \centering
@@ -1134,13 +1198,13 @@ Each result is accompanied by all relevant information for assessing its relevan
 }
 \end{table}
 
-\begin{table}[ht]
+\begin{table}[H]
 \caption{Relevance results for Stopwords Evaluation}
 \label{tab:stopwords_results}
 \centering
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{ccccccccc}
-\multirow{2}{*}{\textbf{Rank}} & \multicolumn{2}{c}{\textbf{Relevance Q5}} & \multicolumn{2}{c}{\textbf{Relevance Q6}} & \multicolumn{2}{c}{\textbf{Relevance Q7}}\\
+\multirow{2}{*}{\textbf{Rank}} & \multicolumn{2}{c}{\textbf{Relevance Q2}} & \multicolumn{2}{c}{\textbf{Relevance Q4}} & \multicolumn{2}{c}{\textbf{Relevance Q5}}\\
  & \textbf{Boosted} & \textbf{Stopwords} & \textbf{Boosted} & \textbf{Stopwords} & \textbf{Boosted} & \textbf{Stopwords}\\
 1 & 1 & 1 & 1 & 1 & 0 & 1 \\
 2 & 1 & 1 & 1 & 1 & 0 & 1 \\
@@ -1167,9 +1231,87 @@ Each result is accompanied by all relevant information for assessing its relevan
 \end{table}
 
 
+\begin{table}[H]
+\caption{Relevance results for Semantic Search Evaluation}
+\label{tab:semantic_results}
+\centering
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccccccccc}
+\multirow{2}{*}{\textbf{Rank}} & \multicolumn{2}{c}{\textbf{Relevance Q2}} & \multicolumn{2}{c}{\textbf{Relevance Q4}} & \multicolumn{2}{c}{\textbf{Relevance Q6}}\\
+ & \textbf{Boosted} & \textbf{Semantic} & \textbf{Boosted} & \textbf{Semantic} & \textbf{Boosted} & \textbf{Semantic}\\
+1  & 1 & 1 & 1 & 0 & 1 & 1 \\
+2  & 1 & 1 & 1 & 0 & 1 & 1 \\
+3  & 1 & 1 & 0 & 0 & 1 & 1 \\
+4  & 1 & 1 & 1 & 0 & 1 & 1 \\
+5  & 1 & 0 & 0 & 0 & 1 & 1 \\
+6  & 1 & 1 & 1 & 0 & 1 & 0 \\
+7  & 0 & 1 & 0 & 1 & 1 & 1 \\
+8  & 1 & 0 & 0 & 0 & 1 & 1 \\
+9  & 1 & 1 & 0 & 1 & 1 & 0 \\
+10 & 1 & 1 & 0 & 0 & 1 & 1 \\
+11 & 0 & 0 & 0 & 1 & 1 & 1 \\
+12 & 0 & 1 & 1 & 0 & 0 & 0 \\
+13 & 1 & 1 & 0 & 1 & 1 & 1 \\
+14 & 1 & 1 & 0 & 1 & 1 & 0 \\
+15 & 1 & 1 & 1 & 1 & 1 & 1 \\
+16 & 0 & 1 & 1 & 0 & 1 & 1 \\
+17 & 1 & 1 & 1 & 1 & 1 & 1 \\
+18 & 1 & 1 & 1 & 0 & 1 & 0 \\
+19 & 1 & 1 & 1 & 0 & 1 & 1 \\
+20 & 1 & 0 & 0 & 1 & 1 & 1
+\end{tabular}
+}
+\end{table}
 
 
+\begin{table}[htbp]
+  \centering
+  \caption{SUS results}
+  \label{tab:sus_results}
+  \begin{tabular}{cccccccccccc}
+    \textbf{User}& \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{Points} \\
+    1 & 3 & 2 & 5 & 3 & 4 & 1 & 4 & 2 & 4 & 2 & 75 \\
+    2 & 4 & 1 & 5 & 3 & 4 & 2 & 4 & 1 & 4 & 2 & 80 \\
+    3 & 3 & 2 & 5 & 2 & 4 & 2 & 5 & 1 & 4 & 2 & 80 \\
+    4 & 2 & 1 & 5 & 2 & 5 & 2 & 5 & 2 & 4 & 1 & 82.5 \\
+    5 & 5 & 1 & 4 & 2 & 4 & 2 & 5 & 1 & 3 & 1 & 85 \\
+    6 & 5 & 2 & 4 & 2 & 5 & 3 & 3 & 2 & 4 & 2 & 75 \\
+    7 & 3 & 2 & 5 & 1 & 4 & 1 & 4 & 2 & 5 & 3 & 80 \\
+    8 & 5 & 2 & 4 & 1 & 3 & 2 & 4 & 1 & 5 & 1 & 85 \\
+    9 & 4 & 1 & 5 & 2 & 4 & 1 & 5 & 1 & 4 & 2 & 87.5 \\
+    10 & 3 & 2 & 4 & 1 & 5 & 2 & 5 & 2 & 4 & 2 & 80 \\
+    11 & 4 & 1 & 4 & 1 & 5 & 2 & 4 & 1 & 5 & 2 & 87.5 \\
+  \end{tabular}
+\end{table}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/pri_home.png}
+  \caption{Homepage Interface}
+  \label{fig:pri_home}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/pri_search.png}
+  \caption{Search Page Interface}
+  \label{fig:pri_search}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/pri_hotel.png}
+  \caption{Hotel Page Interface}
+  \label{fig:pri_hotel}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{imgs/pri_more_like_this.png}
+  \caption{More Like This Page Interface}
+  \label{fig:pri_mlt}
+\end{figure}
 
 
 \end{document}
